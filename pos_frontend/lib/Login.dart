@@ -14,13 +14,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-          ),
-          backgroundColor: Color(0xFFFFFFFE),
-          body: SafeArea(
-              child: Row(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+        ),
+        backgroundColor: Color(0xFFFFFFFE),
+        body: SafeArea(
+          child: Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -165,7 +165,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ],
-          ))),
+          ),
+        ),
+      ),
     );
   }
 }
