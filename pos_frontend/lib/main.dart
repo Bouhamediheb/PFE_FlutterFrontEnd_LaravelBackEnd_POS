@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Login.dart';
+import 'AjoutFournisseur.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         home: Scaffold(
       backgroundColor: Colors.grey.shade200,
-      body: SafeArea(child: LoginPage()),
+      body: SafeArea(child: AjoutFournisseur()),
     ));
   }
 }

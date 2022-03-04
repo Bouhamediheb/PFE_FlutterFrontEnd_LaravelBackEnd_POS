@@ -164,7 +164,17 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Text(
                                 "Vous n'avez pas de compte ? Créez un compte ",
-                                style: TextStyle(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                    color: Colors.grey.shade600),
+                              ),
+                              InkWell(
+                                onTap: () {},
+                                child: Text("ici",
+                                    style:
+                                        TextStyle(color: Colors.blue.shade600)),
                               ),
                             ],
                           ),
