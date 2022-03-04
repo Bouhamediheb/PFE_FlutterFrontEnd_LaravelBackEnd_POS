@@ -160,6 +160,14 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
                           ),
+                          Row(
+                            children: [
+                              Text(
+                                "Vous n'avez pas de compte ? Créez un compte ",
+                                style: TextStyle(),
+                              ),
+                            ],
+                          ),
                         ],
                       )),
                 ),

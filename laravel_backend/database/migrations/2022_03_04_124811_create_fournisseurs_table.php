@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('nom')->nullable();
             $table->string('prenom')->nullable();
             $table->string('tel')->nullable();
+            $table->string('pays')->nullable();
+            $table->string('ville')->nullable();
             $table->string('adresse')->nullable();
             $table->string('mf')->nullable();
             $table->string('cin')->nullable();

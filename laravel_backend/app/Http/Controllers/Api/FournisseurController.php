@@ -42,6 +42,8 @@ class FournisseurController extends Controller
             'nom',
             'prenom',
             'tel' => 'required|min:8|max:16',
+            'pays',
+            'ville',
             'adresse' => 'required',
             'mf' => 'required',
             'cin',
@@ -56,6 +58,8 @@ class FournisseurController extends Controller
         ]);
         $data=array();
         $data['tel'] = $request->tel;
+        $data['pays'] = $request->pays;
+        $data['ville'] = $request->ville;
         $data['adresse'] = $request->adresse;
         $data['mf'] = $request->mf;
         $data['raisonSociale'] = $request->raisonSociale;
@@ -103,6 +107,8 @@ class FournisseurController extends Controller
     {
         $data = array();
         $data['tel'] = $request->tel;
+        $data['pays'] = $request->pays;
+        $data['ville'] = $request->ville;
         $data['adresse'] = $request->adresse;
         $data['mf'] = $request->mf;
         $data['raisonSociale'] = $request->raisonSociale;
