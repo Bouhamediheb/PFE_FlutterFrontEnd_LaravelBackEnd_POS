@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: ThemeData(fontFamily: 'Montserrat'),
         home: Scaffold(
-      backgroundColor: Colors.grey.shade200,
       body: SafeArea(child: AjoutFournisseur()),
     ));
   }

@@ -76,9 +76,10 @@ class _AjoutFournisseurState extends State<AjoutFournisseur> {
               fontSize: 20,
               fontWeight: FontWeight.normal),
         ),
-        elevation: 10,
+        elevation: 0,
+        centerTitle: true,
       ),
-      backgroundColor: Color.fromARGB(255, 192, 192, 191),
+      backgroundColor: Color(0xFFFFFFFE),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Row(
@@ -95,7 +96,7 @@ class _AjoutFournisseurState extends State<AjoutFournisseur> {
                     elevation: 20,
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -107,7 +108,7 @@ class _AjoutFournisseurState extends State<AjoutFournisseur> {
                             style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 color: Colors.black,
-                                fontSize: 15,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -267,9 +268,14 @@ class _AjoutFournisseurState extends State<AjoutFournisseur> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0),
+                                      vertical: 15.0),
                                   child: MaterialButton(
-                                    color: Colors.blue[700],
+                                    height: 50,
+
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        side: BorderSide(color: Color.fromRGBO(0, 122, 255, 1))),
+                                    color:Color.fromRGBO(0, 122, 255, 1),
                                     onPressed: () {
                                       // Validate returns true if the form is valid, or false otherwise.
                                       if (_formKey.currentState.validate()) {
@@ -294,7 +300,11 @@ class _AjoutFournisseurState extends State<AjoutFournisseur> {
                                         );
                                       }
                                     },
-                                    child: const Text('Ajouter le fournisseur'),
+                                    child:  Text('Ajouter le fournisseur',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                               ],
