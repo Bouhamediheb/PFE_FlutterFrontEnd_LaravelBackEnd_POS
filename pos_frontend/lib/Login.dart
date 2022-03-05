@@ -8,8 +8,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController;
-  TextEditingController passwordController;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,14 +59,14 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 30),
+                            padding: const EdgeInsets.only(top: 25),
                             child: Text(
                               "Authentification",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 color: Colors.grey.shade700,
-                                fontSize: 32,
-                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                                fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                               decoration: InputDecoration(
                                 labelText: 'Email',
                                 labelStyle: TextStyle(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w400,
                                   color: Colors.grey.shade400,
                                 ),
@@ -102,10 +102,11 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 contentPadding:
-                                    EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                EdgeInsets.fromLTRB(15, 0, 15, 0),
                               ),
                               style: TextStyle(
-                                  fontFamily: 'Poppins', color: Colors.black),
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.black),
                             ),
                           ),
                           Padding(
@@ -116,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                               decoration: InputDecoration(
                                 labelText: 'Mot de Passe',
                                 labelStyle: TextStyle(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w400,
                                   color: Colors.grey.shade400,
                                 ),
@@ -135,10 +136,11 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 contentPadding:
-                                    EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                EdgeInsets.fromLTRB(15, 0, 15, 0),
                               ),
                               style: TextStyle(
-                                  fontFamily: 'Poppins', color: Colors.black),
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.black),
                             ),
                           ),
                           Padding(
@@ -152,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Text(
                                   "Se Connecter",
                                   style: TextStyle(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Montserrat',
                                       fontSize: 18,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400),
@@ -160,23 +162,34 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                "Vous n'avez pas de compte ? Créez un compte ",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 14,
-                                    color: Colors.grey.shade600),
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: Text("ici",
-                                    style:
-                                        TextStyle(color: Colors.blue.shade600)),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.only(top: 110),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Vous n'avez pas de compte ? Créez un compte ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 14,
+                                      color: Colors.grey.shade600),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Text("ici",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: 'Montserrat',
+                                            color: Color.fromARGB(
+                                                255, 41, 17, 173))),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       )),

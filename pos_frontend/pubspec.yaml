@@ -16,6 +16,7 @@ dependencies:
   timeago: 3.1.0
   url_launcher: 6.0.15
   http: ^0.13.4
+  flutter_svg: ^1.0.3
 
 
 dev_dependencies:
@@ -31,6 +32,7 @@ flutter:
         - asset: fonts/Montserrat-Regular.ttf
   assets:
     - assets/images/
+    - assets/icons/
     - assets/videos/
     - assets/audios/
     - assets/lottie_animations/
