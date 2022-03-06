@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pos_frontend/screens/accueil.dart';
 import 'package:pos_frontend/screens/ajoutFournisseur.dart';
 import './components/side_menu.dart';
+import 'components/side_menu_mobile.dart';
 import 'components/topBar.dart';
 import 'Responsive.dart';
 
@@ -29,16 +30,39 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
+            //Desktop View
            if(Responsive.isDesktop(context))
-               Expanded(
-                 flex: 1,
-                 child: SideMenu(),
-               ),
+               Column(
+                 children: [
+                   Expanded(
+                     flex: 2,
+                     child: SideMenu(),
+                   ),
 
-            if(Responsive.isDesktop(context)||Responsive.isMobile(context)||Responsive.isTablet(context))
+                 ],
+               ),
+            //Tablet View
+            if(Responsive.isTablet(context))
+              Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: SideMenu(),
+                  ),
+
+                ],
+              ),
+          // Mobile View
+            if(Responsive.isMobile(context))
               Expanded(
-              flex:5,
+                flex: 2,
+                child: side_menu_mobile (),
+              ),
+          ],
+        ),
+
+            /*  Expanded(
+              flex:10,
               child: Column(
                 children:[
               SizedBox(
@@ -54,9 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
               )
   ]
               ),
-            )
-          ],
-        ),
+            )*/
+
       )
     );
   }

@@ -173,19 +173,6 @@ class DrawerListTile extends StatelessWidget {
       ],
     );
 
-     /*ListTile(
-      onTap:press,
-      horizontalTitleGap: 0.0,
-      leading: SvgPicture.asset(
-        svgSrc,
-        color: Colors.black,
-        height:16,
-      ),
-      title:Text(
-        title,
-        style: TextStyle(color: Colors.black),
-      ),
-      trailing: Icon(Icons.arrow_drop_down,size:15),
-    );*/
+
   }
 }
