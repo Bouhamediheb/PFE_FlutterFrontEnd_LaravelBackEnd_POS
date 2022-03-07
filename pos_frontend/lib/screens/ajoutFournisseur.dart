@@ -1,7 +1,6 @@
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/material.dart';
 
 class ajoutFournisseur extends StatefulWidget {
   const ajoutFournisseur({Key key}) : super(key: key);
@@ -9,6 +8,8 @@ class ajoutFournisseur extends StatefulWidget {
   @override
   State<ajoutFournisseur> createState() => _ajoutFournisseurState();
 }
+
+String dropdownvalue = "Bon de Commande";
 
 class _ajoutFournisseurState extends State<ajoutFournisseur> {
   final _formKey = GlobalKey<FormState>();
@@ -55,195 +56,496 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
 
   Future<dynamic> future;
 
+  TextEditingController numeroDocController = TextEditingController();
+  TextEditingController totalDocController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Color(0xFFF5F5F5),
-      elevation: 20,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-            child: Text(
-              'Informations Générales',
-              style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 20, 0, 50),
+        child: Card(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          color: Colors.white,
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
           ),
-          Divider(
-            thickness: 1,
-          ),
-          Form(
+
+        //Début Formulaire
+            child: Form(
             key: _formKey,
             child: Padding(
-              padding: EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(20),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      'Informations Générales',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Raison Sociale",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
                       controller: raisonSocialeFournisseur,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Ce champs est obligatoire';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
+                      obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Raison Sociale',
-                        //prefixIcon: Icon(Icons.email),
-                        icon: Icon(
-                          Icons.analytics,
+                        hintText: 'Raison Sociale',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
                         ),
+                        prefixIcon: Icon(Icons.analytics, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Pays",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
                       controller: paysFournisseur,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Ce champs est obligatoire';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
+                      obscureText: false,
                       decoration: InputDecoration(
-                          labelText: 'Pays',
-                          //prefixIcon: Icon(Icons.email),
-                          icon: Icon(Icons.location_on)),
+                        hintText: 'Pays',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
+                        ),
+                        prefixIcon:
+                        Icon(Icons.location_on, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Ville/Région",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
                       controller: villeFournisseur,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Ce champs est obligatoire';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
+                      obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Ville/Région',
-                        //prefixIcon: Icon(Icons.email),
-                        icon: Icon(
-                          Icons.location_city,
+                        hintText: 'Ville/Région',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
                         ),
+                        prefixIcon:
+                        Icon(Icons.location_city, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Numéro de Téléphone",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
                       controller: numeroFournisseur,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Ce champs est obligatoire';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
+                      obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Numéro de Téléphone',
-                        //prefixIcon: Icon(Icons.email),
-                        icon: Icon(
-                          Icons.phone,
+                        hintText: 'Numéro de Téléphone',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
                         ),
+                        prefixIcon: Icon(Icons.phone, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Matricule Fiscale",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
                       controller: matriculeFiscaleFournisseur,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Ce champs est obligatoire';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
+                      obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Matricule Fiscale',
-                        //prefixIcon: Icon(Icons.email),
-                        icon: Icon(
-                          Icons.phone,
+                        hintText: 'Matricule Fiscale',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
                         ),
+                        prefixIcon: Icon(Icons.analytics, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Adresse",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
                       controller: addressFournisseur,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Ce champs est obligatoire';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
+                      obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Adresse',
-                        //prefixIcon: Icon(Icons.email),
-                        icon: Icon(
-                          Icons.route,
+                        hintText: 'Adresse',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
                         ),
+                        prefixIcon: Icon(Icons.route, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Timbre Fiscale",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
                       controller: timberFiscaleFournisseur,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Ce champs est obligatoire';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
+                      obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Timbre Fiscal',
-                        //prefixIcon: Icon(Icons.email),
-                        icon: Icon(
-                          Icons.money,
+                        hintText: 'Timbre Fiscale',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
                         ),
+                        prefixIcon: Icon(Icons.money, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                       ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15.0),
-                    child: MaterialButton(
-                      height: 50,
-
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Color.fromRGBO(0, 122, 255, 1))),
-                      color:Color.fromRGBO(0, 122, 255, 1),
-                      onPressed: () {
-                        // Validate returns true if the form is valid, or false otherwise.
+                    padding: const EdgeInsets.only(top: 10, bottom: 20),
+                    child: ElevatedButton(
+                      onPressed: (() {
                         if (_formKey.currentState.validate()) {
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
@@ -255,31 +557,35 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                                 raisonSocialeFournisseur.text,
                                 paysFournisseur.text,
                                 villeFournisseur.text,
-                                double.parse(
-                                    timberFiscaleFournisseur
-                                        .text));
+                                double.parse(timberFiscaleFournisseur.text));
                           });
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(
-                            const SnackBar(
-                                content: Text('Ajout en cours')),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Ajout en cours')),
                           );
                         }
-                      },
-                      child:  Text('Ajouter le fournisseur',
+                      }),
+                      child: Text(
+                        "Confirmer",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'Montserrat',
+                          color: Colors.white,
+                        ),
                       ),
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          primary: Color.fromARGB(255, 41, 17, 173),
+                          minimumSize: Size(150, 50),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5))),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
-
   }
 }
