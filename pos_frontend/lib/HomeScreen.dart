@@ -23,64 +23,87 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
-      body:SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body:LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints)
+          {
             //Desktop View
-           if(Responsive.isDesktop(context))
-               Column(
-                 children: [
-                   Expanded(
-                     flex: 2,
-                     child: SideMenu(),
-                   ),
+            if (constraints.maxWidth > 1200) {
+              return new Scaffold(
+                key: _scaffoldKey,
+                endDrawerEnableOpenDragGesture: false,
+                drawer: SideMenu(),
+                appBar: AppBar(
+                  leading:IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () => _scaffoldKey.currentState.openDrawer(),  // And this!
 
-                 ],
-               ),
-            //Tablet View
-            if(Responsive.isTablet(context))
-              Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: SideMenu(),
                   ),
 
-                ],
-              ),
-          // Mobile View
-            if(Responsive.isMobile(context))
-              Expanded(
-                flex: 2,
-                child: side_menu_mobile (),
-              ),
-          ],
-        ),
+                  backgroundColor: Colors.white,
+                  title: Text("MENU",style: TextStyle(color: Colors.black),),
 
-            /*  Expanded(
-              flex:10,
-              child: Column(
-                children:[
-              SizedBox(
-                  height: 50,
-                  width: 1000,
-                  child: searchField()),
-              Expanded(
-                flex: 5,
-                child:Padding(
-                  padding: const EdgeInsets.fromLTRB(10,100,30,30),
+                ),
+
+                body:  Center(
                   child: widget.newScreen,
-                )
-              )
-  ]
-              ),
-            )*/
+                ),
 
-      )
+              );
+
+            }
+            else if  (constraints.maxWidth > 800){
+              return new Scaffold(
+                key: _scaffoldKey,
+                endDrawerEnableOpenDragGesture: false,
+                drawer: SideMenu(),
+                appBar: AppBar(
+                  leading:IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () => _scaffoldKey.currentState.openDrawer(),  // And this!
+
+                  ),
+
+                  backgroundColor: Colors.white,
+                  title: Text("MENU",style: TextStyle(color: Colors.black),),
+
+                ),
+
+                body:  Center(
+                  child: widget.newScreen,
+                ),
+
+              );
+            }
+            else {
+              return new Scaffold(
+                key:_scaffoldKey,
+                endDrawerEnableOpenDragGesture: true,
+                drawer: side_menu_mobile(),
+                appBar: AppBar(
+                  leading:IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () => _scaffoldKey.currentState.openDrawer(),  // And this!
+
+                  ),
+
+                  backgroundColor: Colors.white,
+                  title: Text("MENU",style: TextStyle(color: Colors.black),),
+
+                ),
+
+                body:  Center(
+                  child: widget.newScreen,
+                ),
+
+              );
+            }
+          }
+      ),
     );
   }
 }
