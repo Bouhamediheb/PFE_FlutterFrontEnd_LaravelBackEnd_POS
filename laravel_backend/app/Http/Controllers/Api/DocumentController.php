@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
+use App\Models\Document;
 
 class DocumentController extends Controller
 {
@@ -14,7 +16,8 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        
+        $document = DB::table('documents')->get();
+        return response()->json($document);
     }
 
     /**
@@ -35,7 +38,27 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'type' => 'required|numeric',
+            'numDoc' => 'required|numeric',
+            'dateDoc',
+            'totalDoc',
+            'enLigne',
+            'timbreFiscal',
+            'toucheStock',
+            'operation'
+        ]);
+        $data= array();
+        $data['type'] = $request->type;
+        $data['numDoc'] = $request->numDoc;
+        $data['dateDoc'] = $request->dateDoc;
+        $data['totalDoc'] = $request->totalDoc;
+        $data['enLigne'] = $request->enLigne;
+        $data['timbreFiscal'] = $request->timbreFiscal;
+        $data['toucheStock'] = $request->toucheStock;
+        $data['operation'] = $request->operation;
+        $insert = DB::table('documents')->insert($data);
+        return response('Document Ajouté');
     }
 
     /**
@@ -46,7 +69,8 @@ class DocumentController extends Controller
      */
     public function show($id)
     {
-        //
+        $show = DB::table('documents')->where('id',$id)->first();
+        return response()->json($show);
     }
 
     /**
@@ -69,7 +93,17 @@ class DocumentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data= array();
+        $data['type'] = $request->type;
+        $data['numDoc'] = $request->numDoc;
+        $data['dateDoc'] = $request->dateDoc;
+        $data['totalDoc'] = $request->totalDoc;
+        $data['enLigne'] = $request->enLigne;
+        $data['timbreFiscal'] = $request->timbreFiscal;
+        $data['toucheStock'] = $request->toucheStock;
+        $data['operation'] = $request->operation;
+        $insert = DB::table('documents')->where('id', $id)->update($data);
+        return response('Document Modifié');
     }
 
     /**
@@ -80,6 +114,7 @@ class DocumentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('documents')->where('id',$id)->delete();
+        return response('Document Supprimé');
     }
 }

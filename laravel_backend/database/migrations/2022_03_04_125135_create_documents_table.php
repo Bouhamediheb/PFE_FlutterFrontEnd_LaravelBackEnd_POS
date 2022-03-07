@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->integer('type');
+            $table->string('numDoc')->nullable();
+            $table->dateTime('dateDoc')->nullable();
+            $table->float('totalDoc')->nullable();
+            $table->boolean('enLigne')->nullable();
+            $table->boolean('timbreFiscal')->nullable();
+            $table->boolean('toucheStock')->nullable();
+            $table->boolean('operation')->nullable();
             $table->timestamps();
         });
     }

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiresource('/fournisseur','App\Http\Controllers\Api\FournisseurController');
 
+Route::apiresource('/document','App\Http\Controllers\Api\DocumentController');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
