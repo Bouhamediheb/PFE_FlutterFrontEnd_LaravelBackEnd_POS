@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../HomeScreen.dart';
+import '../constants.dart';
+import '../constants.dart';
 import '../screens/ajoutDocument.dart';
 import '../screens/ajoutFournisseur.dart';
 class side_menu_mobile extends StatefulWidget {
@@ -13,24 +15,22 @@ class side_menu_mobile extends StatefulWidget {
 class _side_menu_mobileState extends State<side_menu_mobile> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-
-      drawer: Drawer(
+    return Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("Bouhamed Iheb"),
-              accountEmail: Text("This is ADMIN ACCOUNT"),
+
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.orange,
+                backgroundColor: primaryColor,
                 child: Text(
-                  "",
+                  "IB",
                   style: TextStyle(fontSize: 40.0),
                 ),
               ),
+              accountName: Text("Bouhamed Iheb"),
+              accountEmail: Text("Test@Test.com"),
             ),
       DrawerListTileMobile(title:"Accueil",svgSrc: "assets/icons/menu_dashbord.svg",subTitle1: 'SubMenu-Accueil 1',subTitle2:'SubMenu-Accueil 1',subTitle3: 'SubMenu-Accueil 1',
         press1:() {
@@ -94,10 +94,17 @@ class _side_menu_mobileState extends State<side_menu_mobile> {
               press3:() {
               },
             ),
+            DrawerListTileMobile(title:"Parametres",svgSrc: "assets/icons/menu_setting.svg",subTitle1: 'xxxxx',subTitle2:'xxxxx',subTitle3: 'xxxxx',
+              press1:() {
+              },
+              press2:() {
+              },
+              press3:() {
+              },
+            ),
 
           ],
         ),
-      ),
     );
   }
 }
@@ -115,7 +122,7 @@ class DrawerListTileMobile extends StatelessWidget {
       leading: SvgPicture.asset(
         svgSrc,
         color: Colors.black,
-        height:10,
+        height:15,
       ),
       title: Text(title),
       children: [

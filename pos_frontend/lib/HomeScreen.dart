@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 drawer: SideMenu(),
                 appBar: AppBar(
                   leading:IconButton(
-                    icon: Icon(Icons.menu),
+                    icon: Icon(Icons.menu,color: Colors.black,),
                     onPressed: () => _scaffoldKey.currentState.openDrawer(),  // And this!
 
                   ),
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 drawer: SideMenu(),
                 appBar: AppBar(
                   leading:IconButton(
-                    icon: Icon(Icons.menu),
+                    icon: Icon(Icons.menu,color: Colors.black,),
                     onPressed: () => _scaffoldKey.currentState.openDrawer(),  // And this!
 
                   ),
@@ -74,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 body:  Center(
-                  child: widget.newScreen,
+                  child: SizedBox(
+                      height: 800,
+                      width: 800,
+                      child: widget.newScreen),
                 ),
 
               );
@@ -86,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 drawer: side_menu_mobile(),
                 appBar: AppBar(
                   leading:IconButton(
-                    icon: Icon(Icons.menu),
+                    icon: Icon(Icons.menu,color: Colors.black,),
                     onPressed: () => _scaffoldKey.currentState.openDrawer(),  // And this!
 
                   ),
