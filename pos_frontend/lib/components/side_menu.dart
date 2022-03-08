@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pos_frontend/HomeScreen.dart';
 import 'package:pos_frontend/screens/ajoutDocument.dart';
 import 'package:pos_frontend/screens/ajoutFournisseur.dart';
+import 'package:pos_frontend/screens/listeFournisseur.dart';
 import '../screens/accueil.dart';
 
 class SideMenu extends StatelessWidget {
@@ -58,7 +59,7 @@ class SideMenu extends StatelessWidget {
               press2:() {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen((ajoutFournisseur()))));
+                    MaterialPageRoute(builder: (context) => HomeScreen((listeFournisseur()))));
               },
               press3:() {
               },

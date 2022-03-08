@@ -88,7 +88,7 @@ class _ajoutDocumentState extends State<ajoutDocument> {
           child: Container(
             margin: EdgeInsets.all(50),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
