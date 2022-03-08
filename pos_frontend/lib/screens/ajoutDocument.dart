@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
+import 'dart:async';
 
 class ajoutDocument extends StatefulWidget {
   const ajoutDocument({Key key}) : super(key: key);
@@ -10,14 +14,14 @@ class ajoutDocument extends StatefulWidget {
 String dropdownvalue = "Bon de Commande";
 
 class _ajoutDocumentState extends State<ajoutDocument> {
-  String DateNow = new DateTime.now().toString().substring(0, 16);
+  String DateNow = new DateTime.now().toString().substring(0, 19);
   DateTime currentDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime pickedDate = await showDatePicker(
       context: context,
       initialDate: currentDate,
       firstDate: DateTime(1950, 1),
-      lastDate: DateTime(2021, 12),
+      lastDate: DateTime(2030, 12),
       helpText: "",
       cancelText: "Annuler",
       confirmText: "Confirmer",
@@ -34,283 +38,325 @@ class _ajoutDocumentState extends State<ajoutDocument> {
       });
   }
 
-  TextEditingController numeroDocController = TextEditingController();
-  TextEditingController totalDocController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  int typeDocument;
+  final numeroDocument = TextEditingController();
+  final dateDocument = TextEditingController();
+  final totalDocument = TextEditingController();
+
+  List document = [];
+
+  Future<http.Response> ajoutDocument(int typeDocument, String numeroDocument,
+      String dateDocument, String totalDocument) async {
+    List documents = [];
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/api/document/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'type': typeDocument,
+        'numDoc': numeroDocument,
+        'dateDoc': dateDocument,
+        'totalDoc': totalDocument,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return documents = jsonDecode(response.body);
+    } else {
+      throw Exception('Erreur base de données!');
+    }
+  }
+
+  Future<dynamic> future;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "Ajouter Un Nouveau Document",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontFamily: 'Montserrat',
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.normal),
-        ),
-        elevation: 0,
-        centerTitle: true,
+    return SingleChildScrollView(
+        child: Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      color: Colors.white,
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
       ),
-      backgroundColor: Color(0xFFFFFFFE),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
-                child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Colors.white,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.40,
-                    height: MediaQuery.of(context).size.height * 0.70,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.fromLTRB(120, 50, 0, 0),
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Type",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 10, 230, 0),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 7, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.grey.shade400),
-                            ),
-                            child: DropdownButton<String>(
-                              onChanged: (newvalue) =>
-                                  setState(() => dropdownvalue = newvalue),
-                              items: <String>[
-                                'DEVIS',
-                                'Bon de Commande',
-                                'Bon de Livraison',
-                                'Ticket',
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'Montserrat',
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.grey.shade600,
-                                      )),
-                                );
-                              }).toList(),
-                              focusColor: Colors.white,
-                              value: dropdownvalue,
-                              alignment: Alignment.center,
-                              underline: SizedBox(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(120, 10, 0, 0),
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Numéro",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(100, 10, 100, 0),
-                          child: TextFormField(
-                            controller: numeroDocController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              hintText: 'Numéro de Document',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey.shade400,
-                              ),
-                              prefixIcon: Icon(Icons.confirmation_num,
-                                  color: Colors.grey.shade400),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 1, color: Colors.grey.shade200),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
-                                  color: Colors.grey.shade400,
-                                  width: 1,
-                                ),
-                              ),
-                              contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            ),
-                            style: TextStyle(
-                                fontFamily: 'Montserrat', color: Colors.black),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(120, 10, 0, 0),
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Date",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding:
-                              const EdgeInsets.only(top: 10, left: 100),
-                              child: SizedBox(
-                                height: 50,
-                                width: 200,
-                                child: TextField(
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    labelText: DateNow,
-                                    labelStyle: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.grey.shade600,
-                                        fontSize: 14),
-                                    disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                        borderSide: BorderSide(
-                                            color: Colors.grey.shade400)),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10, left: 20),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: ElevatedButton(
-                                  onPressed: () => _selectDate(context),
-                                  child: Text(
-                                    "Sélectionner une Date",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                      fontFamily: 'Montserrat',
-                                      color: Colors.grey.shade600,
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      primary: Color(0xFFFFFFFE),
-                                      minimumSize: Size(200, 60),
-                                      side: BorderSide(
-                                          color: Colors.grey.shade400),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(20))),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(100, 70, 0, 0),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Montant Total :",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 20,
-                                  fontFamily: 'Montserrat',
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 68),
-                                child: SizedBox(
-                                  height: 50,
-                                  width: 200,
-                                  child: TextFormField(
-                                    controller: totalDocController,
-                                    decoration: InputDecoration(
-                                      hintText: 'Total',
-                                      hintStyle: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.grey.shade400,
-                                      ),
-                                      prefixIcon: Icon(
-                                          Icons.attach_money_outlined,
-                                          color: Colors.grey.shade400),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1,
-                                            color: Colors.grey.shade200),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                        borderSide: BorderSide(
-                                          color: Colors.grey.shade400,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      contentPadding:
-                                      EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, left: 280),
-                          child: ElevatedButton(
-                            onPressed: (() {}),
-                            child: Text(
-                              "Confirmer",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontFamily: 'Montserrat',
-                                color: Colors.white,
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                primary: Color.fromARGB(255, 41, 17, 173),
-                                minimumSize: Size(150, 50),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5))),
-                          ),
-                        ),
-                      ],
-                    ),
+      child: Form(
+        key: _formKey,
+        child: SizedBox(
+          height: 450,
+          width: 1528,
+          child: Container(
+            margin: EdgeInsets.all(50),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Type",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade600,
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.grey.shade400),
+                  ),
+                  child: DropdownButton<String>(
+                    onChanged: (newvalue) => setState(() {
+                      dropdownvalue = newvalue;
+                      if (newvalue == 'DEVIS') {
+                        typeDocument = 1;
+                      } else if (newvalue == 'Bon de Commande') {
+                        typeDocument = 2;
+                      } else if (newvalue == 'Bon de Livraison') {
+                        typeDocument = 3;
+                      } else if (newvalue == 'Ticket') {
+                        typeDocument = 4;
+                      }
+                    }),
+                    items: <String>[
+                      'DEVIS',
+                      'Bon de Commande',
+                      'Bon de Livraison',
+                      'Ticket',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey.shade600,
+                            )),
+                      );
+                    }).toList(),
+                    focusColor: Colors.white,
+                    value: dropdownvalue,
+                    alignment: Alignment.center,
+                    underline: SizedBox(),
+                  ),
+                ),
+                Text(
+                  "Numéro",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+                SizedBox(
+                  width: 719,
+                  child: TextFormField(
+                    controller: numeroDocument,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.text,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      hintText: 'Numéro de Document',
+                      hintStyle: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey.shade400,
+                      ),
+                      prefixIcon: Icon(Icons.confirmation_num,
+                          color: Colors.grey.shade400),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1, color: Colors.grey.shade200),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: Colors.grey.shade400,
+                          width: 1,
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: Colors.grey.shade400,
+                          width: 1,
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: Colors.grey.shade400,
+                          width: 1,
+                        ),
+                      ),
+                      contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    ),
+                    style: TextStyle(
+                        fontFamily: 'Montserrat', color: Colors.black),
+                  ),
+                ),
+                Text(
+                  "Date",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      height: 50,
+                      width: 200,
+                      child: TextFormField(
+                        controller: dateDocument,
+                        enabled: false,
+                        decoration: InputDecoration(
+                          labelText:
+                              '${currentDate.toString().substring(0, 19)}',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey.shade600,
+                              fontSize: 14),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade400)),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                      child: Text(
+                        "Sélectionner une Date",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'Montserrat',
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          primary: Color(0xFFFFFFFE),
+                          minimumSize: Size(200, 60),
+                          side: BorderSide(color: Colors.grey.shade400),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Montant Total :",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
+                        fontFamily: 'Montserrat',
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 80,
+                      width: 200,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: TextFormField(
+                          controller: totalDocument,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Total',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey.shade400,
+                            ),
+                            prefixIcon: Icon(Icons.attach_money_outlined,
+                                color: Colors.grey.shade400),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1, color: Colors.grey.shade200),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade400,
+                                width: 1,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade400,
+                                width: 1,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade400,
+                                width: 1,
+                              ),
+                            ),
+                            contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: (() {
+                    if (_formKey.currentState.validate()) {
+                      setState(() {
+                        future = ajoutDocument(
+                          typeDocument,
+                          numeroDocument.text,
+                          currentDate.toString().substring(0, 19),
+                          totalDocument.text,
+                        );
+                      });
+                    }
+                  }),
+                  child: Text(
+                    "Confirmer",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      primary: Color.fromARGB(255, 41, 17, 173),
+                      minimumSize: Size(150, 50),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5))),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    );
+    ));
   }
 }

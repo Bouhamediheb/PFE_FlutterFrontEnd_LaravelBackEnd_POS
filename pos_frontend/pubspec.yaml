@@ -33,9 +33,4 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/videos/
-    - assets/audios/
-    - assets/lottie_animations/
-    - assets/rive_animations/
-
   
