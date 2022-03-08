@@ -49,9 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 ),
 
-                body:  Center(
-                  child: widget.newScreen,
-                ),
+                body:  SizedBox(
+                    height: 800,
+                    width: 800,
+                    child: widget.newScreen),
 
               );
 
@@ -73,12 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 ),
 
-                body:  Center(
-                  child: SizedBox(
-                      height: 800,
-                      width: 800,
-                      child: widget.newScreen),
-                ),
+                body:  SizedBox(
+                    height: 800,
+                    width: 800,
+                    child: widget.newScreen),
 
               );
             }
@@ -99,9 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 ),
 
-                body:  Center(
-                  child: widget.newScreen,
-                ),
+                body:  SizedBox(
+                    height: 800,
+                    width: 800,
+                    child: widget.newScreen),
 
               );
             }
