@@ -537,9 +537,6 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
                           villeFournisseur.text,
                           double.parse(timberFiscaleFournisseur.text));
                     });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Modification en cours')),
-                    );
                     Navigator.of(context).pop();
                   }
                 }),

@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import '../screens/modificationDocument.dart';
+import '../screens/suppressionDocument.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:pos_frontend/HomeScreen.dart';
 
 class listeDocument extends StatefulWidget {
@@ -12,24 +14,23 @@ class listeDocument extends StatefulWidget {
 }
 
 class _listeDocumentState extends State<listeDocument> {
-  int documentId = 1;
+  int documentId;
 
   List documents = [];
   @override
   void initState() {
     super.initState();
-    this.fetchUsers();
+    this.fetchDocuments();
   }
 
-  fetchUsers() async {
+  fetchDocuments() async {
     final response =
         await http.get(Uri.parse('http://127.0.0.1:8000/api/document'));
-
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
         documents = items;
-        print(documents[2]['numDoc']);
+        print(documents);
       });
     } else {
       throw Exception('Error!');
@@ -73,16 +74,26 @@ class _listeDocumentState extends State<listeDocument> {
                         icon: Icon(Icons.edit),
                         onPressed: () {
                           documentId = documents[i]['id'];
-                          Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomeScreen(Text('EDITED'))))
-                              .then((value) => setState(
-                                    () {
-                                      listeDocument();
-                                    },
-                                  ));
+                          showAnimatedDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                insetPadding:
+                                    EdgeInsets.symmetric(vertical: 10),
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                content: Container(
+                                    width: 800,
+                                    child: modificationDocument(documentId)),
+                              );
+                            },
+                            animationType: DialogTransitionType.fadeScale,
+                            curve: Curves.fastOutSlowIn,
+                            duration: Duration(seconds: 1),
+                          );
                         },
                       ),
                     ),
@@ -91,13 +102,27 @@ class _listeDocumentState extends State<listeDocument> {
                         icon: Icon(Icons.delete),
                         onPressed: () {
                           documentId = documents[i]['id'];
-                          print(documentId);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      HomeScreen(Text('DELETED'))));
-                          print(documentId);
+                          showAnimatedDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                insetPadding:
+                                    EdgeInsets.symmetric(vertical: 10),
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                content: Container(
+                                    width: 400,
+                                    height: 100,
+                                    child: suppressionDocument(documentId)),
+                              );
+                            },
+                            animationType: DialogTransitionType.fadeScale,
+                            curve: Curves.fastOutSlowIn,
+                            duration: Duration(seconds: 1),
+                          );
                         },
                       ),
                     ),

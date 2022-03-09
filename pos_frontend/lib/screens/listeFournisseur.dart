@@ -6,6 +6,7 @@ import 'dart:convert';
 import '../screens/modificationFournisseur.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:pos_frontend/HomeScreen.dart';
+import '../screens/suppressionFournisseur.dart';
 
 class listeFournisseur extends StatefulWidget {
   @override
@@ -19,10 +20,10 @@ class _listeFournisseurState extends State<listeFournisseur> {
   @override
   void initState() {
     super.initState();
-    this.fetchUsers();
+    this.fetchFournisseurs();
   }
 
-  fetchUsers() async {
+  fetchFournisseurs() async {
     final response =
         await http.get(Uri.parse('http://127.0.0.1:8000/api/fournisseur'));
 
@@ -113,13 +114,28 @@ class _listeFournisseurState extends State<listeFournisseur> {
                           icon: Icon(Icons.delete),
                           onPressed: () {
                             fournisseurId = fournisseurs[i]['id'];
-                            print(fournisseurId);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        HomeScreen(Text('DELETED'))));
-                            print(fournisseurId);
+                            showAnimatedDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  insetPadding:
+                                      EdgeInsets.symmetric(vertical: 10),
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  content: Container(
+                                      width: 400,
+                                      height: 100,
+                                      child: suppressionFournisseur(
+                                          fournisseurId)),
+                                );
+                              },
+                              animationType: DialogTransitionType.fadeScale,
+                              curve: Curves.fastOutSlowIn,
+                              duration: Duration(seconds: 1),
+                            );
                           },
                         ),
                       ),
