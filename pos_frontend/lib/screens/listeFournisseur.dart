@@ -89,7 +89,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            HomeScreen(Text('EDITED'))))
+                                            HomeScreen(Text('Ajouti Dialog'))))
                                 .then((value) => setState(
                                       () {
                                         listeFournisseur();
