@@ -79,7 +79,7 @@ class SideMenu extends StatelessWidget {
               subTitle2: 'Ajouter Un Fournisseur',
               subTitle3: 'Supprimer Un Fournisseur',
               press1: () {
-                //TODO: Widget mte3 fetch all fournisseurs
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -91,7 +91,8 @@ class SideMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            HomeScreen((listeFournisseur()))));
+                            HomeScreen((ajoutFournisseur()))));
+
               },
               press3: () {},
             ),

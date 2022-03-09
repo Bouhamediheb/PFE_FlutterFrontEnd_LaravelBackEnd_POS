@@ -90,7 +90,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                     ),
                   ),
                   Divider(
-                    thickness: 1,
+                    thickness: 3,
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 10),
