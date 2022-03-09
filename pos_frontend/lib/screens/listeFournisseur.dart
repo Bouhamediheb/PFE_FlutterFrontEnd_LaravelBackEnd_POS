@@ -13,7 +13,7 @@ class listeFournisseur extends StatefulWidget {
 }
 
 class _listeFournisseurState extends State<listeFournisseur> {
-  int fournisseurId = 1;
+  int fournisseurId;
 
   List fournisseurs = [];
   @override
@@ -83,6 +83,8 @@ class _listeFournisseurState extends State<listeFournisseur> {
                         child: IconButton(
                             icon: Icon(Icons.edit),
                             onPressed: () {
+                              fournisseurId = fournisseurs[i]['id'];
+                              print(fournisseurId);
                               showAnimatedDialog(
                                 context: context,
                                 barrierDismissible: true,
@@ -96,7 +98,8 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                     ),
                                     content: Container(
                                         width: 800,
-                                        child: modificationFournisseur()),
+                                        child: modificationFournisseur(
+                                            fournisseurId)),
                                   );
                                 },
                                 animationType: DialogTransitionType.fadeScale,

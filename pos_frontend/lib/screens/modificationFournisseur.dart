@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class modificationFournisseur extends StatefulWidget {
+  int fournisseurId;
+  modificationFournisseur(this.fournisseurId);
   @override
   State<modificationFournisseur> createState() =>
       _modificationFournisseurState();
@@ -20,7 +22,8 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
 
   List fournisseur = [];
 
-  Future<http.Response> ajoutFournisseur(
+  Future<http.Response> modificationFournisseur(
+      int id,
       String numeroFournisseur,
       String addressFournisseur,
       String matriculeFiscaleFournisseur,
@@ -29,10 +32,11 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
       String villeFournisseur,
       double timberFiscaleFournisseur) async {
     List fournisseurs = [];
-    final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/api/fournisseur/'),
+    final response = await http.put(
+      Uri.parse('http://127.0.0.1:8000/api/fournisseur/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
         'tel': numeroFournisseur,
@@ -518,11 +522,13 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
               padding: const EdgeInsets.only(top: 10, bottom: 20),
               child: ElevatedButton(
                 onPressed: (() {
+                  print(widget.fournisseurId);
                   if (_formKey.currentState.validate()) {
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
                     setState(() {
-                      future = ajoutFournisseur(
+                      future = modificationFournisseur(
+                          widget.fournisseurId,
                           numeroFournisseur.text,
                           addressFournisseur.text,
                           matriculeFiscaleFournisseur.text,
@@ -532,8 +538,9 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
                           double.parse(timberFiscaleFournisseur.text));
                     });
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Ajout en cours')),
+                      const SnackBar(content: Text('Modification en cours')),
                     );
+                    Navigator.of(context).pop();
                   }
                 }),
                 child: Text(
