@@ -72,24 +72,24 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
           //Début Formulaire
           child: Form(
             key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Text(
-                      'Informations Générales',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Divider(
-                    thickness: 1,
-                  ),
+            child: Column(children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text(
+                  'Informations Générales',
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Divider(
+                thickness: 3,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: [
                   Container(
                     padding: EdgeInsets.only(top: 10),
                     alignment: Alignment.topLeft,
@@ -578,9 +578,9 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                               borderRadius: BorderRadius.circular(5))),
                     ),
                   ),
-                ],
-              ),
-            ),
+                ]),
+              )
+            ]),
           ),
         ),
       ),
