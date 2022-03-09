@@ -81,21 +81,29 @@ class _listeFournisseurState extends State<listeFournisseur> {
                     children: <Widget>[
                       Container(
                         child: IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            fournisseurId = fournisseurs[i]['id'];
-                            Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            HomeScreen(Text('Ajouti Dialog'))))
-                                .then((value) => setState(
-                                      () {
-                                        listeFournisseur();
-                                      },
-                                    ));
-                          },
-                        ),
+                            icon: Icon(Icons.edit),
+                            onPressed: () {
+                              showAnimatedDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    insetPadding:
+                                        EdgeInsets.symmetric(vertical: 10),
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    content: Container(
+                                        width: 800,
+                                        child: modificationFournisseur()),
+                                  );
+                                },
+                                animationType: DialogTransitionType.fadeScale,
+                                curve: Curves.fastOutSlowIn,
+                                duration: Duration(seconds: 1),
+                              );
+                            }),
                       ),
                       Container(
                         child: IconButton(
