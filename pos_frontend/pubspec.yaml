@@ -18,6 +18,7 @@ dependencies:
   http: ^0.13.4
   flutter_svg: ^1.0.3
   grouped_list: ^3.7.1
+  flutter_animated_dialog: ^2.0.1
 
 
 dev_dependencies:

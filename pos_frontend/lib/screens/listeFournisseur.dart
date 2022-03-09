@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import '../screens/modificationFournisseur.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:pos_frontend/HomeScreen.dart';
 
 class listeFournisseur extends StatefulWidget {
@@ -72,17 +73,21 @@ class _listeFournisseurState extends State<listeFournisseur> {
                       child: IconButton(
                         icon: Icon(Icons.edit),
                         onPressed: () {
-                          fournisseurId = fournisseurs[i]['id'];
-                          Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomeScreen(Text('EDITED'))))
-                              .then((value) => setState(
-                                    () {
-                                      listeFournisseur();
-                                    },
-                                  ));
+                          showAnimatedDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (context) {
+                                return AlertDialog(
+                                  insetPadding: EdgeInsets.zero,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  content: Container(
+                                      width: 400,
+                                      child: modificationFournisseur()),
+                                );
+                              });
                         },
                       ),
                     ),

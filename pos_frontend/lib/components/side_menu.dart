@@ -91,7 +91,7 @@ class SideMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            HomeScreen((listeFournisseur()))));
+                            HomeScreen((ajoutFournisseur()))));
               },
               press3: () {},
             ),

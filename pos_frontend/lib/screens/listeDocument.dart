@@ -29,7 +29,7 @@ class _listeDocumentState extends State<listeDocument> {
       var items = jsonDecode(response.body);
       setState(() {
         documents = items;
-        print(documents[8]['numDoc']);
+        print(documents[2]['numDoc']);
       });
     } else {
       throw Exception('Error!');
@@ -64,7 +64,7 @@ class _listeDocumentState extends State<listeDocument> {
           Card(
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               ListTile(
-                title: Text(documents[i]['raisonSociale']),
+                title: Text(documents[i]['numDoc']),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[

@@ -56,8 +56,6 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
 
   Future<dynamic> future;
 
-  TextEditingController numeroDocController = TextEditingController();
-  TextEditingController totalDocController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -71,8 +69,8 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
             borderRadius: BorderRadius.circular(15),
           ),
 
-        //Début Formulaire
-            child: Form(
+          //Début Formulaire
+          child: Form(
             key: _formKey,
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -126,7 +124,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                         prefixIcon: Icon(Icons.analytics, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(width: 1, color: Colors.grey.shade200),
+                              BorderSide(width: 1, color: Colors.grey.shade200),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -188,10 +186,10 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                           color: Colors.grey.shade400,
                         ),
                         prefixIcon:
-                        Icon(Icons.location_on, color: Colors.black),
+                            Icon(Icons.location_on, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(width: 1, color: Colors.grey.shade200),
+                              BorderSide(width: 1, color: Colors.grey.shade200),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -253,10 +251,10 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                           color: Colors.grey.shade400,
                         ),
                         prefixIcon:
-                        Icon(Icons.location_city, color: Colors.black),
+                            Icon(Icons.location_city, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(width: 1, color: Colors.grey.shade200),
+                              BorderSide(width: 1, color: Colors.grey.shade200),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -320,7 +318,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                         prefixIcon: Icon(Icons.phone, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(width: 1, color: Colors.grey.shade200),
+                              BorderSide(width: 1, color: Colors.grey.shade200),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -384,7 +382,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                         prefixIcon: Icon(Icons.analytics, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(width: 1, color: Colors.grey.shade200),
+                              BorderSide(width: 1, color: Colors.grey.shade200),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -448,7 +446,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                         prefixIcon: Icon(Icons.route, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(width: 1, color: Colors.grey.shade200),
+                              BorderSide(width: 1, color: Colors.grey.shade200),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -512,7 +510,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                         prefixIcon: Icon(Icons.money, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(width: 1, color: Colors.grey.shade200),
+                              BorderSide(width: 1, color: Colors.grey.shade200),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
