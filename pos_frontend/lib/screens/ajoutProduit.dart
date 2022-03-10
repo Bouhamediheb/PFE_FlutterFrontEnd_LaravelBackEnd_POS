@@ -2,47 +2,44 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class ajoutFournisseur extends StatefulWidget {
-  const ajoutFournisseur({Key key}) : super(key: key);
+class ajoutProduit extends StatefulWidget {
+  const ajoutProduit({Key key}) : super(key: key);
 
   @override
-  State<ajoutFournisseur> createState() => _ajoutFournisseurState();
+  State<ajoutProduit> createState() => _ajoutProduitState();
 }
 
-class _ajoutFournisseurState extends State<ajoutFournisseur> {
+class _ajoutProduitState extends State<ajoutProduit> {
   final _formKey = GlobalKey<FormState>();
-  final raisonSocialeFournisseur = TextEditingController();
-  final paysFournisseur = TextEditingController();
-  final villeFournisseur = TextEditingController();
-  final numeroFournisseur = TextEditingController();
-  final matriculeFiscaleFournisseur = TextEditingController();
-  final addressFournisseur = TextEditingController();
-  final timberFiscaleFournisseur = TextEditingController();
+  final refProduit = TextEditingController();
+  final nomProduit = TextEditingController();
+  final prixAchatProduit = TextEditingController();
+  final prixVenteProduit = TextEditingController();
+  final descriptionProduit = TextEditingController();
+  //  final ficheTechnique ;
+  // final qrProduit;
 
-  List fournisseur = [];
+  List produit = [];
 
-  Future<http.Response> ajoutFournisseur(
-      String numeroFournisseur,
-      String addressFournisseur,
-      String matriculeFiscaleFournisseur,
-      String raisonSocialeFournisseur,
-      String paysFournisseur,
-      String villeFournisseur,
-      double timberFiscaleFournisseur) async {
+  Future<http.Response> ajoutProduit(
+    String refProduit,
+    String nomProduit,
+    double prixAchatProduit,
+    double prixVenteProduit,
+    String descriptionProduit,
+  ) async {
     List fournisseurs = [];
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/api/fournisseur/'),
+      Uri.parse('http://127.0.0.1:8000/api/produit/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
-        'tel': numeroFournisseur,
-        'adresse': addressFournisseur,
-        'mf': matriculeFiscaleFournisseur,
-        'raisonSociale': raisonSocialeFournisseur,
-        'pays': paysFournisseur,
-        'ville': villeFournisseur,
-        'timberFiscale': timberFiscaleFournisseur,
+        'refProd': refProduit,
+        'nomProd': nomProduit,
+        'prixAchat': prixAchatProduit,
+        'prixVente': prixVenteProduit,
+        'DescriptionProd': descriptionProduit,
       }),
     );
     if (response.statusCode == 200) {
@@ -74,7 +71,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
               Padding(
                 padding: EdgeInsets.only(top: 10),
                 child: Text(
-                  'Informations Générales',
+                  'Informations Du Produit',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       color: Colors.black,
@@ -92,7 +89,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                     padding: EdgeInsets.only(top: 10),
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Raison Sociale",
+                      "Référence Produit",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.grey.shade600,
@@ -102,7 +99,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
-                      controller: raisonSocialeFournisseur,
+                      controller: refProduit,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Ce champs est obligatoire';
@@ -113,13 +110,14 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                       textInputAction: TextInputAction.next,
                       obscureText: false,
                       decoration: InputDecoration(
-                        hintText: 'Raison Sociale',
+                        hintText: 'Référence du Produit',
                         hintStyle: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w400,
                           color: Colors.grey.shade400,
                         ),
-                        prefixIcon: Icon(Icons.analytics, color: Colors.black),
+                        prefixIcon: Icon(Icons.confirmation_number_outlined,
+                            color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(width: 1, color: Colors.grey.shade200),
@@ -156,7 +154,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                     padding: EdgeInsets.only(top: 10),
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Pays",
+                      "Nom du Produit",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.grey.shade600,
@@ -166,7 +164,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
-                      controller: paysFournisseur,
+                      controller: nomProduit,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Ce champs est obligatoire';
@@ -177,14 +175,79 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                       textInputAction: TextInputAction.next,
                       obscureText: false,
                       decoration: InputDecoration(
-                        hintText: 'Pays',
+                        hintText: 'Nom du Produit',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
+                        ),
+                        prefixIcon: Icon(Icons.drive_file_rename_outline,
+                            color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Prix Achat du Produit",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: TextFormField(
+                      controller: prixAchatProduit,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Ce champs est obligatoire';
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        hintText: 'Prix Achat du Produit',
                         hintStyle: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w400,
                           color: Colors.grey.shade400,
                         ),
                         prefixIcon:
-                            Icon(Icons.location_on, color: Colors.black),
+                            Icon(Icons.attach_money, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(width: 1, color: Colors.grey.shade200),
@@ -221,7 +284,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                     padding: EdgeInsets.only(top: 10),
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Ville/Région",
+                      "Prix Vente du Produit",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.grey.shade600,
@@ -231,7 +294,7 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: TextFormField(
-                      controller: villeFournisseur,
+                      controller: prixVenteProduit,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Ce champs est obligatoire';
@@ -242,270 +305,78 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                       textInputAction: TextInputAction.next,
                       obscureText: false,
                       decoration: InputDecoration(
-                        hintText: 'Ville/Région',
+                        hintText: 'Prix Vente du Produit',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
+                        ),
+                        prefixIcon: Icon(Icons.money_off, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 1, color: Colors.grey.shade200),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade400,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      ),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat', color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Description du Produit",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: TextFormField(
+                      controller: descriptionProduit,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Ce champs est obligatoire';
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        hintText: 'Description du Produit',
                         hintStyle: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w400,
                           color: Colors.grey.shade400,
                         ),
                         prefixIcon:
-                            Icon(Icons.location_city, color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.grey.shade200),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      ),
-                      style: TextStyle(
-                          fontFamily: 'Montserrat', color: Colors.black),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 10),
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Numéro de Téléphone",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: TextFormField(
-                      controller: numeroFournisseur,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Ce champs est obligatoire';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'Numéro de Téléphone',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade400,
-                        ),
-                        prefixIcon: Icon(Icons.phone, color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.grey.shade200),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      ),
-                      style: TextStyle(
-                          fontFamily: 'Montserrat', color: Colors.black),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 10),
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Matricule Fiscale",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: TextFormField(
-                      controller: matriculeFiscaleFournisseur,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Ce champs est obligatoire';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'Matricule Fiscale',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade400,
-                        ),
-                        prefixIcon: Icon(Icons.analytics, color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.grey.shade200),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      ),
-                      style: TextStyle(
-                          fontFamily: 'Montserrat', color: Colors.black),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 10),
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Adresse",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: TextFormField(
-                      controller: addressFournisseur,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Ce champs est obligatoire';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'Adresse',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade400,
-                        ),
-                        prefixIcon: Icon(Icons.route, color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.grey.shade200),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade400,
-                            width: 1,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      ),
-                      style: TextStyle(
-                          fontFamily: 'Montserrat', color: Colors.black),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 10),
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Timbre Fiscale",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: TextFormField(
-                      controller: timberFiscaleFournisseur,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Ce champs est obligatoire';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'Timbre Fiscale',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade400,
-                        ),
-                        prefixIcon: Icon(Icons.money, color: Colors.black),
+                            Icon(Icons.text_snippet, color: Colors.black),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(width: 1, color: Colors.grey.shade200),
@@ -546,14 +417,13 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
                           setState(() {
-                            future = ajoutFournisseur(
-                                numeroFournisseur.text,
-                                addressFournisseur.text,
-                                matriculeFiscaleFournisseur.text,
-                                raisonSocialeFournisseur.text,
-                                paysFournisseur.text,
-                                villeFournisseur.text,
-                                double.parse(timberFiscaleFournisseur.text));
+                            future = ajoutProduit(
+                              refProduit.text,
+                              nomProduit.text,
+                              double.parse(prixAchatProduit.text),
+                              double.parse(prixVenteProduit.text),
+                              descriptionProduit.text,
+                            );
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Ajout en cours')),
