@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pos_frontend/screens/modificationProduit.dart';
+import 'package:pos_frontend/screens/suppressionProduit.dart';
 import 'dart:convert';
 import '../screens/modificationDocument.dart';
 import '../screens/suppressionDocument.dart';
@@ -25,7 +27,7 @@ class _listeProduitState extends State<listeProduit> {
 
   fetchProduits() async {
     final response =
-    await http.get(Uri.parse('http://127.0.0.1:8000/api/produit'));
+        await http.get(Uri.parse('http://127.0.0.1:8000/api/produit'));
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
@@ -45,18 +47,18 @@ class _listeProduitState extends State<listeProduit> {
           padding: const EdgeInsets.only(top: 60.0),
           child: Center(
               child: Container(
-                height: 20,
-                child: Center(
-                  child: Text(
-                    'La Liste Des Produits :',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
+            height: 20,
+            child: Center(
+              child: Text(
+                'La Liste Des Produits :',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
-              )),
+              ),
+            ),
+          )),
         ),
         SizedBox(
           height: 30,
@@ -65,7 +67,10 @@ class _listeProduitState extends State<listeProduit> {
           Card(
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               ListTile(
-                title: Text("NOM: "+produits[i]['nomProd']+" REF: "+produits[i]['refProd']),
+                title: Text("NOM: " +
+                    produits[i]['nomProd'] +
+                    " REF: " +
+                    produits[i]['refProd']),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -80,14 +85,14 @@ class _listeProduitState extends State<listeProduit> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 insetPadding:
-                                EdgeInsets.symmetric(vertical: 10),
+                                    EdgeInsets.symmetric(vertical: 10),
                                 backgroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 content: Container(
                                     width: 800,
-                                    child: modificationDocument(produitId)),
+                                    child: modificationProduit(produitId)),
                               );
                             },
                             animationType: DialogTransitionType.fadeScale,
@@ -108,7 +113,7 @@ class _listeProduitState extends State<listeProduit> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 insetPadding:
-                                EdgeInsets.symmetric(vertical: 10),
+                                    EdgeInsets.symmetric(vertical: 10),
                                 backgroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -116,7 +121,7 @@ class _listeProduitState extends State<listeProduit> {
                                 content: Container(
                                     width: 400,
                                     height: 100,
-                                    child: suppressionDocument(produitId)),
+                                    child: suppressionProduit(produitId)),
                               );
                             },
                             animationType: DialogTransitionType.fadeScale,

@@ -18,7 +18,7 @@ Route::apiresource('/fournisseur','App\Http\Controllers\Api\FournisseurControlle
 
 Route::apiresource('/document','App\Http\Controllers\Api\DocumentController');
 
-Route::apiresource('/document','App\Http\Controllers\Api\ProduitController');
+Route::apiresource('/produit','App\Http\Controllers\Api\ProduitController');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

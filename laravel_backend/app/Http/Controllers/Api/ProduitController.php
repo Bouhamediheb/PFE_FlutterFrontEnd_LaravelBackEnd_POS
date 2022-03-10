@@ -44,15 +44,15 @@ class ProduitController extends Controller
             'prixAchat' => 'required',
             'prixVente' => 'required',
             'descriptionProd' => 'required',
-            'TVA'
         ]);
         $data= array();
         $data['refProd'] = $request->refProd;
         $data['nomProd'] = $request->nomProd;
         $data['prixAchat'] = $request->prixAchat;
+        $data['prixVente'] = $request->prixVente;
         $data['descriptionProd']= $request->descriptionProd;
         $data['TVA']= $request->TVA;
-        $insert = DB::table('projects')->insert($data);
+        $insert = DB::table('produits')->insert($data);
         return response('Produit Ajouté');
     }
 

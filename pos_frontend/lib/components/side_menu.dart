@@ -4,7 +4,9 @@ import 'package:pos_frontend/HomeScreen.dart';
 import 'package:pos_frontend/screens/ajoutDocument.dart';
 import 'package:pos_frontend/screens/ajoutFournisseur.dart';
 import 'package:pos_frontend/screens/listeFournisseur.dart';
+import 'package:pos_frontend/screens/listeProduit.dart';
 import '../screens/listeDocument.dart';
+import '../screens/ajoutProduit.dart';
 import '../screens/accueil.dart';
 
 class SideMenu extends StatelessWidget {
@@ -116,8 +118,18 @@ class SideMenu extends StatelessWidget {
               subTitle1: 'Notifications de la Centrale',
               subTitle2: 'Notifications Personelles',
               subTitle3: 'Notifications Application',
-              press1: () {},
-              press2: () {},
+              press1: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomeScreen((ajoutProduit()))));
+              },
+              press2: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomeScreen((listeProduit()))));
+              },
               press3: () {},
             ),
             SizedBox(

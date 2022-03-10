@@ -28,7 +28,7 @@ class _ajoutProduitState extends State<ajoutProduit> {
     double prixVenteProduit,
     String descriptionProduit,
   ) async {
-    List fournisseurs = [];
+    List produits = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/produit/'),
       headers: <String, String>{
@@ -39,11 +39,11 @@ class _ajoutProduitState extends State<ajoutProduit> {
         'nomProd': nomProduit,
         'prixAchat': prixAchatProduit,
         'prixVente': prixVenteProduit,
-        'DescriptionProd': descriptionProduit,
+        'descriptionProd': descriptionProduit,
       }),
     );
     if (response.statusCode == 200) {
-      return fournisseurs = jsonDecode(response.body);
+      return produits = jsonDecode(response.body);
     } else {
       throw Exception('Erreur base de données!');
     }

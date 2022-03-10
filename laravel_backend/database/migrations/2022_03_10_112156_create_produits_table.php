@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('prixAchat');
             $table->float('prixVente');
             $table->string('descriptionProd');
-            $table->float('TVA');
+            $table->float('TVA')->nullable();
             $table->timestamps();
         });
     }
