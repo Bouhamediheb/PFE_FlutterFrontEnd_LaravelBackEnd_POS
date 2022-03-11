@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, dead_code, avoid_unnecessary_containers, unnecessary_new
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pos_frontend/screens/modificationProduit.dart';
 import 'package:pos_frontend/screens/suppressionProduit.dart';
 import 'dart:convert';
-import '../screens/modificationDocument.dart';
-import '../screens/suppressionDocument.dart';
+import '../screens/modificationProduit.dart';
+import '../screens/suppressionProduit.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:pos_frontend/HomeScreen.dart';
 
@@ -54,18 +55,18 @@ class _listeProduitState extends State<listeProduit> {
             padding: const EdgeInsets.all(15),
             child: Center(
                 child: Container(
-                  height: 20,
-                  child: Center(
-                    child: Text(
-                      'La Liste Des Fournisseurs :',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                )),
+              height: 20,
+              child: Center(
+                child: Text(
+                  'La Liste Des Produits :',
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            )),
           ),
           Divider(
             thickness: 3,
@@ -73,78 +74,107 @@ class _listeProduitState extends State<listeProduit> {
           SizedBox(
             height: 30,
           ),
-          for (var i = 0; i < produits.length; i++)
-            Card(
-              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                ListTile(
-                  title: Text(produits[i]['raisonSociale']),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              produits = produits[i]['id'];
-                              print(produits);
-                              showAnimatedDialog(
-                                context: context,
-                                barrierDismissible: true,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    insetPadding:
-                                    EdgeInsets.symmetric(vertical: 10),
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    content: Container(
-                                        width: 800,
-                                        child: modificationProduit(
-                                            produitId)),
+          DataTable(
+            columns: <DataColumn>[
+              DataColumn(
+                  label: Flexible(
+                child: Text(
+                  "Nom du Produit",
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )),
+              DataColumn(
+                  label: Flexible(
+                child: Text(
+                  "Référence du Produit",
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )),
+              DataColumn(
+                  label: Flexible(
+                child: Text(
+                  "Prix d'Achat",
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )),
+              DataColumn(label: Flexible(child: Text("Actions"))),
+            ],
+            rows: <DataRow>[
+              for (var i = 0; i < produits.length; i++)
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text(produits[i]['nomProd'])),
+                    DataCell(Text(produits[i]['refProd'])),
+                    DataCell(Text(produits[i]['prixAchat'].toString() + " DT")),
+                    DataCell(
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {
+                                  produitId = produits[i]['id'];
+                                  print(produits);
+                                  showAnimatedDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        insetPadding:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        backgroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        content: Container(
+                                            width: 800,
+                                            child:
+                                                modificationProduit(produitId)),
+                                      );
+                                    },
+                                    animationType:
+                                        DialogTransitionType.fadeScale,
+                                    curve: Curves.fastOutSlowIn,
+                                    duration: Duration(seconds: 1),
                                   );
-                                },
-                                animationType: DialogTransitionType.fadeScale,
-                                curve: Curves.fastOutSlowIn,
-                                duration: Duration(seconds: 1),
-                              );
-                            }),
-                      ),
-                      Container(
-                        child: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            produitId = produits[i]['id'];
-                            showAnimatedDialog(
-                              context: context,
-                              barrierDismissible: true,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  insetPadding:
-                                  EdgeInsets.symmetric(vertical: 10),
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  content: Container(
-                                      width: 400,
-                                      height: 100,
-                                      child: suppressionProduit(
-                                          produitId)),
+                                }),
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                produitId = produits[i]['id'];
+                                showAnimatedDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      insetPadding:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      content: Container(
+                                          width: 400,
+                                          height: 100,
+                                          child: suppressionProduit(produitId)),
+                                    );
+                                  },
+                                  animationType: DialogTransitionType.fadeScale,
+                                  curve: Curves.fastOutSlowIn,
+                                  duration: Duration(seconds: 1),
                                 );
                               },
-                              animationType: DialogTransitionType.fadeScale,
-                              curve: Curves.fastOutSlowIn,
-                              duration: Duration(seconds: 1),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ]),
-            ),
+                            ),
+                          ]),
+                    ),
+                  ],
+                )
+            ],
+          ),
           Column(children: [
             SizedBox(
               height: 40,
