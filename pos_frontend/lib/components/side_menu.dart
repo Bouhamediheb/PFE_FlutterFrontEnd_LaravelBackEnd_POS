@@ -79,7 +79,7 @@ class SideMenu extends StatelessWidget {
               svgSrc: "assets/icons/menu_supplier.svg",
               subTitle1: 'Liste Des Fournisseurs',
               subTitle2: 'Ajouter Un Fournisseur',
-              subTitle3: 'Supprimer Un Fournisseur',
+              subTitle3: '---------',
               press1: () {
                 Navigator.push(
                     context,
@@ -113,11 +113,11 @@ class SideMenu extends StatelessWidget {
               height: 5,
             ),
             DrawerListTile(
-              title: "Notifications",
+              title: "Produits",
               svgSrc: "assets/icons/menu_notification.svg",
-              subTitle1: 'Notifications de la Centrale',
-              subTitle2: 'Notifications Personelles',
-              subTitle3: 'Notifications Application',
+              subTitle1: 'Liste des produits',
+              subTitle2: 'Ajouter un produit',
+              subTitle3: '-----------',
               press1: () {
                 Navigator.push(
                     context,
@@ -164,7 +164,7 @@ class SideMenu extends StatelessWidget {
             DrawerListTile(
               title: "Parametres",
               svgSrc: "assets/icons/menu_setting.svg",
-              subTitle1: 'xxxxx',
+              subTitle1: 'Authentification',
               subTitle2: 'xxxxx',
               subTitle3: 'xxxxx',
               press1: () {},

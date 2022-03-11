@@ -6,6 +6,9 @@ import '../constants.dart';
 import '../constants.dart';
 import '../screens/ajoutDocument.dart';
 import '../screens/ajoutFournisseur.dart';
+import '../screens/listeFournisseur.dart';
+import '../screens/ajoutProduit.dart';
+import '../screens/listeProduit.dart';
 class side_menu_mobile extends StatefulWidget {
 
   @override
@@ -59,16 +62,21 @@ class _side_menu_mobileState extends State<side_menu_mobile> {
               },
             ),
             DrawerListTileMobile(title:"Fournisseurs",svgSrc: "assets/icons/menu_supplier.svg",subTitle1: 'Liste Des Fournisseurs',subTitle2:'Ajouter Un Fournisseur',subTitle3: 'Supprimer Un Fournisseur',
-              press1:() {
-                //TODO: Widget mte3 fetch all fournisseurs
-              },
-              press2:() {
+              press1: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen((ajoutFournisseur()))));
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomeScreen((listeFournisseur()))));
               },
-              press3:() {
+              press2: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomeScreen((ajoutFournisseur()))));
               },
+              press3: () {},
             ),
             DrawerListTileMobile(title:"Boutiques",svgSrc: "assets/icons/menu_store.svg",subTitle1: 'Liste Des Boutiques(Filiales)',subTitle2:'Ajouter Une Boutique',subTitle3: 'Supprimer Une Boutique',
               press1:() {
@@ -78,14 +86,22 @@ class _side_menu_mobileState extends State<side_menu_mobile> {
               press3:() {
               },
             ),
-            DrawerListTileMobile(title:"Notifications",svgSrc: "assets/icons/menu_notification.svg",subTitle1: 'Notifications de la Centrale',subTitle2:'Notifications Personelles',subTitle3: 'Notifications Application',
-              press1:() {
-              },
-              press2:() {
-              },
-              press3:() {
-              },
-            ),
+            DrawerListTileMobile(title:"Documents",svgSrc: "assets/icons/menu_notification.svg",subTitle1: 'Notifications de la Centrale',subTitle2:'Notifications Personelles',subTitle3: 'Notifications Application',
+    press1: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => HomeScreen((ajoutProduit()))));
+    },
+    press2: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => HomeScreen((listeProduit()))));
+    },
+    press3: () {},
+    ),
+
             DrawerListTileMobile(title:"Taches",svgSrc: "assets/icons/menu_task.svg",subTitle1: 'xxxxx',subTitle2:'xxxxx',subTitle3: 'xxxxx',
               press1:() {
               },
