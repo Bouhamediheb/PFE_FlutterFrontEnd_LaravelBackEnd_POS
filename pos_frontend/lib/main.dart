@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pos_frontend/FirstScreen.dart';
 import 'HomeScreen.dart';
 import 'Login.dart';
 import 'HomeScreen.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(fontFamily: 'Montserrat'),
         home: Scaffold(
-      body: SafeArea(child: HomeScreen(Text("THIS IS THE HOME SCREEN"))),
+      body: SafeArea(child: FirstScreen()),
     ));
   }
 }
