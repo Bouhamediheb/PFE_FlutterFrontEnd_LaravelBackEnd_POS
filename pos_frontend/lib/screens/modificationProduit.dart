@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pos_frontend/screens/listeProduit.dart';
 import 'dart:convert';
 
 class modificationProduit extends StatefulWidget {
@@ -409,9 +410,7 @@ class _modificationProduitState extends State<modificationProduit> {
                         descriptionProduit.text,
                       );
                     });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Ajout en cours')),
-                    );
+                    Navigator.of(context, rootNavigator: true).pop();
                   }
                 }),
                 child: Text(

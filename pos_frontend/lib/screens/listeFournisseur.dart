@@ -24,8 +24,12 @@ class _listeFournisseurState extends State<listeFournisseur> {
   }
 
   fetchFournisseurs() async {
-    final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/api/fournisseur'));
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/fournisseur'),
+      headers: <String, String>{
+        'Cache-Control': 'no-cache',
+      },
+    );
 
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
@@ -72,78 +76,116 @@ class _listeFournisseurState extends State<listeFournisseur> {
           SizedBox(
             height: 30,
           ),
-          for (var i = 0; i < fournisseurs.length; i++)
-            Card(
-              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                ListTile(
-                  title: Text(fournisseurs[i]['raisonSociale']),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              fournisseurId = fournisseurs[i]['id'];
-                              print(fournisseurId);
-                              showAnimatedDialog(
-                                context: context,
-                                barrierDismissible: true,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    insetPadding:
-                                        EdgeInsets.symmetric(vertical: 10),
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    content: Container(
-                                        width: 800,
-                                        child: modificationFournisseur(
-                                            fournisseurId)),
+          DataTable(
+            columns: <DataColumn>[
+              DataColumn(
+                  label: Flexible(
+                child: Text("Raison Sociale",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              )),
+              DataColumn(
+                  label: Flexible(
+                child: Text("Numéro de Téléphone",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              )),
+              DataColumn(
+                  label: Flexible(
+                child: Text("Matricule Fiscale",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              )),
+              DataColumn(
+                  label: Flexible(
+                      child: Text("Actions",
+                          style: TextStyle(fontWeight: FontWeight.bold)))),
+            ],
+            rows: <DataRow>[
+              for (var i = 0; i < fournisseurs.length; i++)
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text(fournisseurs[i]['raisonSociale'])),
+                    DataCell(Text(fournisseurs[i]['tel'])),
+                    DataCell(Text(fournisseurs[i]['mf'])),
+                    DataCell(
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                icon: Icon(Icons.mode_edit_outline_outlined,
+                                    color: Colors.green),
+                                onPressed: () async {
+                                  fournisseurId = fournisseurs[i]['id'];
+                                  print(fournisseurs);
+                                  await showAnimatedDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        insetPadding:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        backgroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        content: Container(
+                                            width: 800,
+                                            child: modificationFournisseur(
+                                                fournisseurId)),
+                                      );
+                                    },
+                                    animationType:
+                                        DialogTransitionType.fadeScale,
+                                    curve: Curves.fastOutSlowIn,
+                                    duration: Duration(seconds: 1),
                                   );
-                                },
-                                animationType: DialogTransitionType.fadeScale,
-                                curve: Curves.fastOutSlowIn,
-                                duration: Duration(seconds: 1),
-                              );
-                            }),
-                      ),
-                      Container(
-                        child: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            fournisseurId = fournisseurs[i]['id'];
-                            showAnimatedDialog(
-                              context: context,
-                              barrierDismissible: true,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  insetPadding:
-                                      EdgeInsets.symmetric(vertical: 10),
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  content: Container(
-                                      width: 400,
-                                      height: 100,
-                                      child: suppressionFournisseur(
-                                          fournisseurId)),
+                                  await setState(() {
+                                    fetchFournisseurs();
+                                  });
+                                }),
+                            IconButton(
+                              icon:
+                                  Icon(Icons.delete_outline, color: Colors.red),
+                              onPressed: () async {
+                                fournisseurId = fournisseurs[i]['id'];
+                                await showAnimatedDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      insetPadding:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      content: Container(
+                                          width: 400,
+                                          height: 100,
+                                          child: suppressionFournisseur(
+                                              fournisseurId)),
+                                    );
+                                  },
+                                  animationType: DialogTransitionType.fadeScale,
+                                  curve: Curves.fastOutSlowIn,
+                                  duration: Duration(seconds: 1),
                                 );
+                                await setState(() {
+                                  fetchFournisseurs();
+                                });
                               },
-                              animationType: DialogTransitionType.fadeScale,
-                              curve: Curves.fastOutSlowIn,
-                              duration: Duration(seconds: 1),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ]),
-            ),
+                            ),
+                          ]),
+                    ),
+                  ],
+                )
+            ],
+          ),
           Column(children: [
             SizedBox(
               height: 40,

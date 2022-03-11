@@ -558,8 +558,9 @@ class _ajoutFournisseurState extends State<ajoutFournisseur> {
                                 double.parse(timberFiscaleFournisseur.text));
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Ajout en cours')),
+                            const SnackBar(content: Text('Fournisseur Ajouté')),
                           );
+                          Navigator.of(context, rootNavigator: true).pop();
                         }
                       }),
                       child: Text(

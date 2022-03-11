@@ -38,7 +38,7 @@ class _suppressionDocumentState extends State<suppressionDocument> {
                   setState(() {
                     future = suppressionDocument(widget.documentId);
                   });
-                  Navigator.of(context).pop();
+                  Navigator.of(context, rootNavigator: true).pop();
                 }),
                 child: Text(
                   "Supprimer",

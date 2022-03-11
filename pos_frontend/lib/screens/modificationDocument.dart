@@ -419,7 +419,7 @@ class _modificationDocumentState extends State<modificationDocument> {
                                   totalDocument.text,
                                 );
                               });
-                              Navigator.of(context).pop();
+                              Navigator.of(context, rootNavigator: true).pop();
                             }
                           }),
                           child: Text(

@@ -428,6 +428,7 @@ class _ajoutProduitState extends State<ajoutProduit> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Ajout en cours')),
                           );
+                          Navigator.of(context, rootNavigator: true).pop();
                         }
                       }),
                       child: Text(

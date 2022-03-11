@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:pos_frontend/HomeScreen.dart';
+import '../screens/listeFournisseur.dart';
 
 class suppressionFournisseur extends StatefulWidget {
   int fournisseurId;
@@ -37,7 +39,7 @@ class _suppressionFournisseurState extends State<suppressionFournisseur> {
                   setState(() {
                     future = suppressionFournisseur(widget.fournisseurId);
                   });
-                  Navigator.of(context).pop();
+                  Navigator.of(context, rootNavigator: true).pop();
                 }),
                 child: Text(
                   "Supprimer",

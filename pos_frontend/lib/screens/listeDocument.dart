@@ -25,8 +25,12 @@ class _listeDocumentState extends State<listeDocument> {
   }
 
   fetchDocuments() async {
-    final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/api/document'));
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/document'),
+      headers: <String, String>{
+        'Cache-Control': 'no-cache',
+      },
+    );
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
@@ -53,18 +57,18 @@ class _listeDocumentState extends State<listeDocument> {
             padding: const EdgeInsets.all(15),
             child: Center(
                 child: Container(
-                  height: 20,
-                  child: Center(
-                    child: Text(
-                      'La Liste Des Documents :',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                )),
+              height: 20,
+              child: Center(
+                child: Text(
+                  'La Liste Des Documents :',
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            )),
           ),
           Divider(
             thickness: 3,
@@ -72,78 +76,116 @@ class _listeDocumentState extends State<listeDocument> {
           SizedBox(
             height: 30,
           ),
-          for (var i = 0; i < documents.length; i++)
-            Card(
-              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                ListTile(
-                  title: Text(documents[i]['raisonSociale']),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              documentId = documents[i]['id'];
-                              print(documentId);
-                              showAnimatedDialog(
-                                context: context,
-                                barrierDismissible: true,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    insetPadding:
-                                    EdgeInsets.symmetric(vertical: 10),
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    content: Container(
-                                        width: 800,
-                                        child: modificationDocument(
-                                            documentId)),
+          DataTable(
+            columns: <DataColumn>[
+              DataColumn(
+                  label: Flexible(
+                child: Text("Numéro de Document",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              )),
+              DataColumn(
+                  label: Flexible(
+                child: Text("Date de Document",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              )),
+              DataColumn(
+                  label: Flexible(
+                child: Text("Total Document",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              )),
+              DataColumn(
+                  label: Flexible(
+                      child: Text("Actions",
+                          style: TextStyle(fontWeight: FontWeight.bold)))),
+            ],
+            rows: <DataRow>[
+              for (var i = 0; i < documents.length; i++)
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text(documents[i]['numDoc'])),
+                    DataCell(Text(documents[i]['dateDoc'])),
+                    DataCell(Text(documents[i]['totalDoc'].toString() + ' DT')),
+                    DataCell(
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                icon: Icon(Icons.mode_edit_outline_outlined,
+                                    color: Colors.green),
+                                onPressed: () async {
+                                  documentId = documents[i]['id'];
+                                  print(documents);
+                                  await showAnimatedDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        insetPadding:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        backgroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        content: Container(
+                                            width: 800,
+                                            child: modificationDocument(
+                                                documentId)),
+                                      );
+                                    },
+                                    animationType:
+                                        DialogTransitionType.fadeScale,
+                                    curve: Curves.fastOutSlowIn,
+                                    duration: Duration(seconds: 1),
                                   );
-                                },
-                                animationType: DialogTransitionType.fadeScale,
-                                curve: Curves.fastOutSlowIn,
-                                duration: Duration(seconds: 1),
-                              );
-                            }),
-                      ),
-                      Container(
-                        child: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            documentId = documents[i]['id'];
-                            showAnimatedDialog(
-                              context: context,
-                              barrierDismissible: true,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  insetPadding:
-                                  EdgeInsets.symmetric(vertical: 10),
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  content: Container(
-                                      width: 400,
-                                      height: 100,
-                                      child: suppressionProduit(
-                                          documentId)),
+                                  await setState(() {
+                                    fetchDocuments();
+                                  });
+                                }),
+                            IconButton(
+                              icon:
+                                  Icon(Icons.delete_outline, color: Colors.red),
+                              onPressed: () async {
+                                documentId = documents[i]['id'];
+                                await showAnimatedDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      insetPadding:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      content: Container(
+                                          width: 400,
+                                          height: 100,
+                                          child:
+                                              suppressionDocument(documentId)),
+                                    );
+                                  },
+                                  animationType: DialogTransitionType.fadeScale,
+                                  curve: Curves.fastOutSlowIn,
+                                  duration: Duration(seconds: 1),
                                 );
+                                await setState(() {
+                                  fetchDocuments();
+                                });
                               },
-                              animationType: DialogTransitionType.fadeScale,
-                              curve: Curves.fastOutSlowIn,
-                              duration: Duration(seconds: 1),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ]),
-            ),
+                            ),
+                          ]),
+                    ),
+                  ],
+                )
+            ],
+          ),
           Column(children: [
             SizedBox(
               height: 40,

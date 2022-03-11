@@ -537,7 +537,7 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
                           villeFournisseur.text,
                           double.parse(timberFiscaleFournisseur.text));
                     });
-                    Navigator.of(context).pop();
+                    Navigator.of(context, rootNavigator: true).pop();
                   }
                 }),
                 child: Text(

@@ -425,6 +425,11 @@ class _ajoutDocumentState extends State<ajoutDocument> {
                                   totalDocument.text,
                                 );
                               });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Document Ajouté')),
+                              );
+                              Navigator.of(context, rootNavigator: true).pop();
                             }
                           }),
                           child: Text(

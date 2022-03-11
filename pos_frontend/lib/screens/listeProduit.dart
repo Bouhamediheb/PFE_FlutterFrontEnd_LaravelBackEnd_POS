@@ -27,13 +27,16 @@ class _listeProduitState extends State<listeProduit> {
   }
 
   fetchProduits() async {
-    final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/api/produit'));
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/produit'),
+      headers: <String, String>{
+        'Cache-Control': 'no-cache',
+      },
+    );
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
         produits = items;
-        print(produits);
       });
     } else {
       throw Exception('Error!');
@@ -78,29 +81,29 @@ class _listeProduitState extends State<listeProduit> {
             columns: <DataColumn>[
               DataColumn(
                   label: Flexible(
-                child: Text(
-                  "Nom du Produit",
-                  maxLines: 5,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                child: Text("Nom du Produit",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               )),
               DataColumn(
                   label: Flexible(
-                child: Text(
-                  "Référence du Produit",
-                  maxLines: 5,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                child: Text("Référence du Produit",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               )),
               DataColumn(
                   label: Flexible(
-                child: Text(
-                  "Prix d'Achat",
-                  maxLines: 5,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                child: Text("Prix d'Achat",
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               )),
-              DataColumn(label: Flexible(child: Text("Actions"))),
+              DataColumn(
+                  label: Flexible(
+                      child: Text("Actions",
+                          style: TextStyle(fontWeight: FontWeight.bold)))),
             ],
             rows: <DataRow>[
               for (var i = 0; i < produits.length; i++)
@@ -114,11 +117,12 @@ class _listeProduitState extends State<listeProduit> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
+                                icon: Icon(Icons.mode_edit_outline_outlined,
+                                    color: Colors.green),
+                                onPressed: () async {
                                   produitId = produits[i]['id'];
                                   print(produits);
-                                  showAnimatedDialog(
+                                  await showAnimatedDialog(
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (BuildContext context) {
@@ -141,12 +145,16 @@ class _listeProduitState extends State<listeProduit> {
                                     curve: Curves.fastOutSlowIn,
                                     duration: Duration(seconds: 1),
                                   );
+                                  await setState(() {
+                                    fetchProduits();
+                                  });
                                 }),
                             IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
+                              icon:
+                                  Icon(Icons.delete_outline, color: Colors.red),
+                              onPressed: () async {
                                 produitId = produits[i]['id'];
-                                showAnimatedDialog(
+                                await showAnimatedDialog(
                                   context: context,
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
@@ -167,6 +175,9 @@ class _listeProduitState extends State<listeProduit> {
                                   curve: Curves.fastOutSlowIn,
                                   duration: Duration(seconds: 1),
                                 );
+                                await setState(() {
+                                  fetchProduits();
+                                });
                               },
                             ),
                           ]),
