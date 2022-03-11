@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pos_frontend/SignUp.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -102,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                    EdgeInsets.fromLTRB(15, 0, 15, 0),
                               ),
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
@@ -136,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                    EdgeInsets.fromLTRB(15, 0, 15, 0),
                               ),
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
@@ -178,7 +179,12 @@ class _LoginPageState extends State<LoginPage> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 2),
                                   child: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SignUp()));
+                                    },
                                     child: Text("ici",
                                         style: TextStyle(
                                             fontSize: 14,
