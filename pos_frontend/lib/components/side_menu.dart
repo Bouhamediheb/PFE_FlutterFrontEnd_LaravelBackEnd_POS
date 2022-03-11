@@ -33,7 +33,7 @@ class SideMenu extends StatelessWidget {
               height: 5,
             ),
             DrawerListTile(
-              title: "Accueil",
+              title: "Dashboard",
               svgSrc: "assets/icons/menu_dashbord.svg",
               subTitle1: 'SubMenu-Accueil 1',
               subTitle2: 'SubMenu-Accueil 1',
@@ -114,7 +114,7 @@ class SideMenu extends StatelessWidget {
             ),
             DrawerListTile(
               title: "Produits",
-              svgSrc: "assets/icons/menu_notification.svg",
+              svgSrc: "assets/icons/menu_doc.svg",
               subTitle1: 'Liste des produits',
               subTitle2: 'Ajouter un produit',
               subTitle3: '-----------',
@@ -164,9 +164,9 @@ class SideMenu extends StatelessWidget {
             DrawerListTile(
               title: "Parametres",
               svgSrc: "assets/icons/menu_setting.svg",
-              subTitle1: 'Authentification',
-              subTitle2: 'xxxxx',
-              subTitle3: 'xxxxx',
+              subTitle1: 'Informations Générales',
+              subTitle2: 'Parametres du compte',
+              subTitle3: 'Se Déconnecter',
               press1: () {},
               press2: () {},
               press3: () {},
