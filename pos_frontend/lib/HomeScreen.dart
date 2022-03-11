@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pos_frontend/screens/accueil.dart';
 import 'package:pos_frontend/screens/ajoutFournisseur.dart';
 import './components/side_menu.dart';
+import 'Animation/FadeAnimation.dart';
 import 'components/side_menu_mobile.dart';
 import 'components/topBar.dart';
 import 'Responsive.dart';
@@ -51,7 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             body: Center(
-              child: SizedBox(height: 800, width: 800, child: widget.newScreen),
+              child: SizedBox(
+                  height: 800,
+                  width: 800,
+                  child: FadeAnimation(2, widget.newScreen)),
             ),
           );
         } else if (constraints.maxWidth > 800) {

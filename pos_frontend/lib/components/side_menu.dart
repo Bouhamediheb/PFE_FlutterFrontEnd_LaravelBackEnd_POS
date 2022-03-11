@@ -122,13 +122,13 @@ class SideMenu extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeScreen((ajoutProduit()))));
+                        builder: (context) => HomeScreen((listeProduit()))));
               },
               press2: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeScreen((listeProduit()))));
+                        builder: (context) => HomeScreen((ajoutProduit()))));
               },
               press3: () {},
             ),

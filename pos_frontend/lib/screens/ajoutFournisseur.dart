@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../Animation/FadeAnimation.dart';
+
 class ajoutFournisseur extends StatefulWidget {
   const ajoutFournisseur({Key key}) : super(key: key);
 

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(fontFamily: 'Montserrat'),
         home: Scaffold(
-      body: SafeArea(child: FirstScreen()),
-    ));
+          body: SafeArea(child: HomeScreen(Text("123"))),
+        ));
   }
 }
