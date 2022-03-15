@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class ajoutProduit extends StatefulWidget {
   const ajoutProduit({Key key}) : super(key: key);
@@ -10,6 +13,9 @@ class ajoutProduit extends StatefulWidget {
 }
 
 class _ajoutProduitState extends State<ajoutProduit> {
+  Dio dio = new Dio();
+  FormData formdata = new FormData();
+  XFile _image;
   final _formKey = GlobalKey<FormState>();
   final refProduit = TextEditingController();
   final nomProduit = TextEditingController();
@@ -47,6 +53,13 @@ class _ajoutProduitState extends State<ajoutProduit> {
     } else {
       throw Exception('Erreur base de données!');
     }
+  }
+
+  Future _getImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
   }
 
   Future<dynamic> future;
@@ -236,7 +249,6 @@ class _ajoutProduitState extends State<ajoutProduit> {
                         }
                         return null;
                       },
-                      keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       obscureText: false,
                       decoration: InputDecoration(
@@ -301,9 +313,8 @@ class _ajoutProduitState extends State<ajoutProduit> {
                         }
                         return null;
                       },
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      obscureText: false,
                       decoration: InputDecoration(
                         hintText: 'Prix Vente du Produit',
                         hintStyle: TextStyle(
@@ -409,6 +420,14 @@ class _ajoutProduitState extends State<ajoutProduit> {
                           fontFamily: 'Montserrat', color: Colors.black),
                     ),
                   ),
+                  FlatButton(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.grey.shade600,
+                    ),
+                    onPressed: this._getImage,
+                    color: Colors.white,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 20),
                     child: ElevatedButton(
@@ -426,7 +445,7 @@ class _ajoutProduitState extends State<ajoutProduit> {
                             );
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Ajout en cours')),
+                            const SnackBar(content: Text('Produit Ajouté')),
                           );
                           Navigator.of(context, rootNavigator: true).pop();
                         }

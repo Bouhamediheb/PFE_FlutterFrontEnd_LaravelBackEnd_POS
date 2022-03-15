@@ -51,12 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(color: Colors.black),
               ),
             ),
-            body: Center(
-              child: SizedBox(
-                  height: 800,
-                  width: 800,
-                  child: FadeAnimation(2, widget.newScreen)),
-            ),
+            body: FadeAnimation(2, widget.newScreen),
           );
         } else if (constraints.maxWidth > 800) {
           return new Scaffold(

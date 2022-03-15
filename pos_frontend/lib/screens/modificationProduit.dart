@@ -225,9 +225,7 @@ class _modificationProduitState extends State<modificationProduit> {
                   }
                   return null;
                 },
-                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
-                obscureText: false,
                 decoration: InputDecoration(
                   hintText: 'Prix Achat du Produit',
                   hintStyle: TextStyle(
@@ -288,9 +286,7 @@ class _modificationProduitState extends State<modificationProduit> {
                   }
                   return null;
                 },
-                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
-                obscureText: false,
                 decoration: InputDecoration(
                   hintText: 'Prix Vente du Produit',
                   hintStyle: TextStyle(

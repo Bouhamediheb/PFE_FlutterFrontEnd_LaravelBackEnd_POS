@@ -44,6 +44,7 @@ class ProduitController extends Controller
             'prixAchat' => 'required',
             'prixVente' => 'required',
             'descriptionProd' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
         $data= array();
         $data['refProd'] = $request->refProd;
@@ -52,6 +53,9 @@ class ProduitController extends Controller
         $data['prixVente'] = $request->prixVente;
         $data['descriptionProd']= $request->descriptionProd;
         $data['TVA']= $request->TVA;
+        $name=$image->getClientOriginalName();
+        $image->move(public_path().'public/images/', $name);  
+        $data['image'] = $name;  
         $insert = DB::table('produits')->insert($data);
         return response('Produit Ajouté');
     }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('prixVente');
             $table->string('descriptionProd');
             $table->float('TVA')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

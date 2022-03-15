@@ -45,7 +45,7 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
         'raisonSociale': raisonSocialeFournisseur,
         'pays': paysFournisseur,
         'ville': villeFournisseur,
-        'timberFiscale': timberFiscaleFournisseur,
+        'timberFiscal': timberFiscaleFournisseur,
       }),
     );
     if (response.statusCode == 200) {
@@ -413,7 +413,7 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
                   }
                   return null;
                 },
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -476,9 +476,7 @@ class _modificationFournisseurState extends State<modificationFournisseur> {
                   }
                   return null;
                 },
-                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
-                obscureText: false,
                 decoration: InputDecoration(
                   hintText: 'Timbre Fiscale',
                   hintStyle: TextStyle(

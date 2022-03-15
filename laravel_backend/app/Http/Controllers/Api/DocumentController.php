@@ -46,7 +46,7 @@ class DocumentController extends Controller
             'enLigne',
             'timbreFiscal',
             'toucheStock',
-            'operation'
+            'operation',
         ]);
         $data= array();
         $data['type'] = $request->type;
