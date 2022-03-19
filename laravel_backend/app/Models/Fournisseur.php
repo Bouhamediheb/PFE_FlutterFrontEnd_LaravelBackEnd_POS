@@ -9,6 +9,6 @@ class Fournisseur extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nom','prenom','tel','pays','ville','adresse','mf','cin','raisonSociale','exoTVA','dateDebutExo','dateFinExo','remise','pointFidelite','solde','timbreFiscal'
+        'nom','prenom','tel','email','pays','ville','adresse','mf','cin','raisonSociale','exoTVA','dateDebutExo','dateFinExo','remise','pointFidelite','solde','timbreFiscal'
     ];
 }

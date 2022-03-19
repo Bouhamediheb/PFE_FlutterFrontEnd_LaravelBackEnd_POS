@@ -20,8 +20,9 @@ return new class extends Migration
             $table->float('prixAchat');
             $table->float('prixVente');
             $table->string('descriptionProd');
+            $table->float('stock');
             $table->float('TVA')->nullable();
-            $table->string('image')->nullable();
+            $table->string('imageProd')->nullable();
             $table->timestamps();
         });
     }

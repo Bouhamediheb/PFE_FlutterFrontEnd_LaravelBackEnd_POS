@@ -44,18 +44,25 @@ class ProduitController extends Controller
             'prixAchat' => 'required',
             'prixVente' => 'required',
             'descriptionProd' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+            'stock' => 'required',
+            'imageProd' => 'mimes:jpg,png,jpeg,gif,svg'
         ]);
         $data= array();
         $data['refProd'] = $request->refProd;
         $data['nomProd'] = $request->nomProd;
         $data['prixAchat'] = $request->prixAchat;
         $data['prixVente'] = $request->prixVente;
+        $data['stock'] = $request->stock;
         $data['descriptionProd']= $request->descriptionProd;
         $data['TVA']= $request->TVA;
-        $name=$image->getClientOriginalName();
-        $image->move(public_path().'public/images/', $name);  
-        $data['image'] = $name;  
+        $imageProd = $request->file('imageProd');
+        $name_gen = hexdec(uniqid());
+        $img_ext = strtolower($imageProd->getClientOriginalExtension());
+        $img_name = $name_gen.'.'.$img_ext;
+        $up_location = 'public/produit';
+        $last_img = $up_location.$img_name;
+        $imageProd->move($up_location,$img_name);
+        $data['imageProd'] = $last_img;
         $insert = DB::table('produits')->insert($data);
         return response('Produit Ajouté');
     }
@@ -94,6 +101,7 @@ class ProduitController extends Controller
     {
         $data= array();
         $data['refProd'] = $request->refProd;
+        $data['stock'] = $request->stock;
         $data['nomProd'] = $request->nomProd;
         $data['prixAchat'] = $request->prixAchat;
         $data['descriptionProd']= $request->descriptionProd;
