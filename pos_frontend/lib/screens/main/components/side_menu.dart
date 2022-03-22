@@ -1,4 +1,5 @@
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
+import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +38,11 @@ class _SideMenuState extends State<SideMenu> {
               subTitle2: 'SubMenu-Accueil 1',
               subTitle3: 'SubMenu-Accueil 1',
               press1: () {
-                // TODO: Submenu1 mte3 accueil chnou bech y7el f espace eli b janb menu
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainScreen(ChoixDocument())),
+                );
               },
               press2: () {
                 // TODO: Submenu2 mte3 accueil chnou bech y7el f espace eli b janb menu
@@ -56,7 +61,7 @@ class _SideMenuState extends State<SideMenu> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainScreen(ajouterUnDocument())),
+                      builder: (context) => MainScreen(ChoixDocument())),
                 );
               },
               press2: () {},

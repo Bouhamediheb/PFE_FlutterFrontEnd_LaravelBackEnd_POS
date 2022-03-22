@@ -8,6 +8,8 @@ import '../Widget/input_doctype.dart';
 import '../Widget/input_field.dart';
 
 class ajouterUnDocument extends StatefulWidget {
+  final int id;
+  ajouterUnDocument(this.id);
   @override
   State<ajouterUnDocument> createState() => _ajouterUnDocumentState();
 }
