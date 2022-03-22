@@ -10,7 +10,8 @@ class InputField extends StatelessWidget {
       this.label2,
       this.content,
       this.content2,
-      this.fieldValidator});
+      this.fieldValidator,
+      this.fieldController});
 
   @override
   Widget build(BuildContext context) {

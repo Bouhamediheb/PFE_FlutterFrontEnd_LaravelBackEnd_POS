@@ -10,7 +10,8 @@ class InputFieldDescription extends StatelessWidget {
       this.content,
       this.label2,
       this.content2,
-      this.fieldValidator});
+      this.fieldValidator,
+      this.fieldController});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +43,8 @@ class InputFieldDescription extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 3.7,
               color: Color.fromARGB(255, 255, 255, 255),
               child: TextFormField(
-                maxLines: 10,
-                minLines: 10,
+                maxLines: 8,
+                minLines: 8,
                 controller: fieldController,
                 validator: fieldValidator,
                 style: TextStyle(

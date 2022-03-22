@@ -96,7 +96,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                           height: 10,
                                         ),
                                         SizedBox(
-                                          height: 650,
+                                          height: 450,
                                           width: 1200,
                                           child: ListView.builder(
                                               itemCount: _cardList.length,
@@ -160,7 +160,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 350,
+                                  width: 300,
                                 ),
                                 Container(
                                   padding: EdgeInsets.only(bottom: 15),

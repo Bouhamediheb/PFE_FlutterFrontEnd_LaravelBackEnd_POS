@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import '../Widgets/input_field.dart';
 import '../Widgets/input_field_description.dart';
 import 'package:admin/constants.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:dio/dio.dart';
 
 import '../Widgets/selectionner_image.dart';
 
@@ -14,6 +19,58 @@ class ajouterUnProduit extends StatefulWidget {
 
 class _ajouterUnProduitState extends State<ajouterUnProduit> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final refProduit = TextEditingController();
+  final nomProduit = TextEditingController();
+  final prixAchatProduit = TextEditingController();
+  final prixVenteProduit = TextEditingController();
+  final descriptionProduit = TextEditingController();
+
+  File uploadimage;
+
+  Future chooseImage() async {
+    var choosedimage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    final File convertedimage = File(choosedimage.path);
+    bool haveImage = true;
+    setState(() {
+      uploadimage = convertedimage;
+    });
+  }
+
+  Future upload(
+    File file,
+    String refProduit,
+    String nomProduit,
+    double prixAchatProduit,
+    double prixVenteProduit,
+    String descriptionProduit,
+  ) async {
+    String fileName = file.path.split('/').last;
+    print(fileName);
+
+    FormData data = FormData.fromMap({
+      "imageProd": await MultipartFile.fromFile(
+        file.path,
+        filename: fileName,
+      ),
+      'refProd': refProduit,
+      'nomProd': nomProduit,
+      'prixAchat': prixAchatProduit,
+      'prixVente': prixVenteProduit,
+      'descriptionProd': descriptionProduit,
+    });
+
+    Dio dio = new Dio();
+
+    dio.post('http://127.0.0.1:8000/api/produit', data: data).then((response) {
+      var jsonResponse = jsonDecode(response.toString());
+    }).catchError((error) => print(error));
+  }
+
+  List produit = [];
+
+  Future<dynamic> future;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +115,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       SizedBox(height: 10),
                                       InputField(
                                         label: "Référence Produit",
-                                        content: "La Référende fu produit",
+                                        content: "La Référende du produit",
+                                        fieldController: refProduit,
                                         fieldValidator: (value) {
                                           if (value == null || value.isEmpty) {
                                             return "Ce Champ est obligatoire";
@@ -70,6 +128,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       InputField(
                                         label: "Nom du produit",
                                         content: "Le Nom du produit",
+                                        fieldController: nomProduit,
                                         fieldValidator: (value) {
                                           if (value == null || value.isEmpty) {
                                             return "Ce Champ est obligatoire";
@@ -81,6 +140,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       InputField(
                                           label: "Prix Achat",
                                           content: "Prix Achat du Produit",
+                                          fieldController: prixAchatProduit,
                                           fieldValidator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
@@ -92,6 +152,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       InputField(
                                         label: "Prix Vente",
                                         content: "Prix Vente du Produit",
+                                        fieldController: prixVenteProduit,
                                         fieldValidator: (value) {
                                           if (value == null || value.isEmpty) {
                                             return "Ce Champ est obligatoire";
@@ -103,6 +164,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       InputFieldDescription(
                                         content: 'La Description du Produit',
                                         label: 'Description du Produit',
+                                        fieldController: descriptionProduit,
                                         fieldValidator: (value) {
                                           if (value == null || value.isEmpty) {
                                             return "Ce Champ est obligatoire";
@@ -122,7 +184,29 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        SelectionnerImage(),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Séléctionnez une Image",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w900,
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                              ),
+                                            ),
+                                            SizedBox(width: 25),
+                                            Container(
+                                              child: OutlinedButton(
+                                                onPressed: () {
+                                                  chooseImage();
+                                                },
+                                                child: Icon(
+                                                  Icons.add,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                         SizedBox(height: 400)
                                       ]),
                                 ),
@@ -150,12 +234,22 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                   color: Color.fromARGB(255, 75, 100, 211),
                                   onPressed: () {
                                     if (_formKey.currentState.validate()) {
+                                      setState(() {
+                                        future = upload(
+                                          uploadimage,
+                                          refProduit.text,
+                                          nomProduit.text,
+                                          double.parse(prixAchatProduit.text),
+                                          double.parse(prixVenteProduit.text),
+                                          descriptionProduit.text,
+                                        );
+                                      });
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
                                             backgroundColor: (secondaryColor),
                                             content: Text(
-                                              'Fournisseur Ajouté',
+                                              'Produit Ajouté',
                                               style: TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 250, 253, 255)),
