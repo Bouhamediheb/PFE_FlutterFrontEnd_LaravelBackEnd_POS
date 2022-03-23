@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,14 @@ Route::apiresource('/fournisseur','App\Http\Controllers\Api\FournisseurControlle
 Route::apiresource('/document','App\Http\Controllers\Api\DocumentController');
 
 Route::apiresource('/produit','App\Http\Controllers\Api\ProduitController');
+
+Route::post('/register',[AuthController::class, 'register']);
+
+Route::post('/login',[AuthController::class, 'login']);
+
+Route::post('/me', [AuthController::class, 'me']);
+
+Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
