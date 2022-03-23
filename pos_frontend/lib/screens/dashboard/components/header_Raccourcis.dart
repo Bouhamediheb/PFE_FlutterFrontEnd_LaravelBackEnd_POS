@@ -4,6 +4,7 @@ import 'package:admin/screens/dashboard/components/RaccourcisRapides.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../fonctionalite/DocumentScreen/Screen/choixDct.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
 import '../../fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
 import '../../main/main_screen.dart';
@@ -45,6 +46,12 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
                       MaterialPageRoute(
                           builder: (context) => MainScreen(ajouterUnProduit())),
                     );
+                  else if (value == 3)
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(ChoixDocument())),
+                    );
                 },
                 color: Color(0xFF2A2D3E),
                 elevation: 0,
@@ -73,8 +80,8 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
                           child: Text("Ajouter un Fournisseur"), value: 1),
                       PopupMenuItem(
                           child: Text("Ajouter un Produit"), value: 2),
-                      PopupMenuItem(child: Text("Raccourci 3"), value: 3),
-                      PopupMenuItem(child: Text("Raccourci 4"), value: 4)
+                      PopupMenuItem(
+                          child: Text("Ajouter un Document"), value: 3),
                     ])
           ],
         ),

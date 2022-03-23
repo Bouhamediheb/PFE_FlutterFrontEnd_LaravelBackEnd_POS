@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
-
 import '../Widgets/selectionner_image.dart';
 
 class ajouterUnProduit extends StatefulWidget {
@@ -24,6 +23,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
   final prixAchatProduit = TextEditingController();
   final prixVenteProduit = TextEditingController();
   final descriptionProduit = TextEditingController();
+  final stockProduit = TextEditingController();
 
   File uploadimage;
 
@@ -31,7 +31,6 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
     var choosedimage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     final File convertedimage = File(choosedimage.path);
-    bool haveImage = true;
     setState(() {
       uploadimage = convertedimage;
     });
@@ -44,6 +43,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
     double prixAchatProduit,
     double prixVenteProduit,
     String descriptionProduit,
+    double stockProduit,
   ) async {
     String fileName = file.path.split('/').last;
     print(fileName);
@@ -53,16 +53,22 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
         file.path,
         filename: fileName,
       ),
-      'refProd': refProduit,
-      'nomProd': nomProduit,
-      'prixAchat': prixAchatProduit,
-      'prixVente': prixVenteProduit,
-      'descriptionProd': descriptionProduit,
+      "data": jsonEncode({
+        'refProd': refProduit,
+        'nomProd': nomProduit,
+        'prixAchat': prixAchatProduit,
+        'prixVente': prixVenteProduit,
+        'descriptionProd': descriptionProduit,
+        'stock': stockProduit,
+      })
     });
 
     Dio dio = new Dio();
 
-    dio.post('http://127.0.0.1:8000/api/produit', data: data).then((response) {
+    await dio
+        .post('http://127.0.0.1:8000/api/produit',
+            data: data, options: Options(contentType: 'multipart/form-data'))
+        .then((response) {
       var jsonResponse = jsonDecode(response.toString());
     }).catchError((error) => print(error));
   }
@@ -194,7 +200,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                                     255, 255, 255, 255),
                                               ),
                                             ),
-                                            SizedBox(width: 25),
+                                            SizedBox(width: 100),
                                             Container(
                                               child: OutlinedButton(
                                                 onPressed: () {
@@ -207,7 +213,20 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 400)
+                                        SizedBox(height: 25),
+                                        InputField(
+                                          content: 'La Quantité de Produit',
+                                          label: 'Quantité',
+                                          fieldController: stockProduit,
+                                          fieldValidator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return "Ce Champ est obligatoire";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        SizedBox(height: 315)
                                       ]),
                                 ),
                               ],
@@ -236,13 +255,13 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                     if (_formKey.currentState.validate()) {
                                       setState(() {
                                         future = upload(
-                                          uploadimage,
-                                          refProduit.text,
-                                          nomProduit.text,
-                                          double.parse(prixAchatProduit.text),
-                                          double.parse(prixVenteProduit.text),
-                                          descriptionProduit.text,
-                                        );
+                                            uploadimage,
+                                            refProduit.text,
+                                            nomProduit.text,
+                                            double.parse(prixAchatProduit.text),
+                                            double.parse(prixVenteProduit.text),
+                                            descriptionProduit.text,
+                                            double.parse(stockProduit.text));
                                       });
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -255,6 +274,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                                       255, 250, 253, 255)),
                                             )),
                                       );
+                                      setState(() {});
                                     }
                                   },
                                   child: Text(

@@ -6,6 +6,9 @@ import '../../FournisseurScreen/Widgets/input_tick_check.dart';
 import '../Widget/input_doc_produit_quantite_prix.dart';
 import '../Widget/input_doctype.dart';
 import '../Widget/input_field.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
 
 class ajouterUnDocument extends StatefulWidget {
   final int id;
@@ -15,6 +18,25 @@ class ajouterUnDocument extends StatefulWidget {
 }
 
 class _ajouterUnDocumentState extends State<ajouterUnDocument> {
+  Future<http.Response> ajoutDocument(int type, String numeroDoc,
+      String dateDoc, double totalDoc, bool toucheStock) async {
+    List documents = [];
+    final response = await http.post(
+      Uri.parse("http://127.0.0.1:8000/api/document"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: jsonEncode(<String, dynamic>{}),
+    );
+    if (response.statusCode == 200) {
+      return documents = jsonDecode(response.body);
+    } else {
+      throw Exception('Erreur base de données!');
+    }
+  }
+
+  Future<dynamic> future;
+
   List<Widget> _cardList = [
     (InputRefNomProduit(
       label: 'Référence',
@@ -123,7 +145,9 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                 MaterialButton(
                                   height: 53,
                                   color: Color.fromARGB(255, 253, 0, 0),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
                                   child: Text(
                                     "Annuler",
                                     style: TextStyle(
