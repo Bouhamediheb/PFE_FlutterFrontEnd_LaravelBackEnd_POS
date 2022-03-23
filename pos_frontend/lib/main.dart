@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/Login/screen/Singup.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -37,7 +39,7 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MenuController(),
           ),
         ],
-        child: MainScreen(DashboardScreen()),
+        child: FirstScreen(),
       ),
     );
   }
