@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     if (body['success']) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('access_token', json.encode(body['access_token']));
+      localStorage.setString('user', json.encode(body['user']));
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MainScreen(DashboardScreen())),

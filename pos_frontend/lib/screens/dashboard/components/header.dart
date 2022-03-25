@@ -3,14 +3,21 @@ import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
+import '../../Login/Screen/Login.dart';
+import '../../Login/Screen/Network.dart';
+import '../../Login/Screen/Singup.dart';
 
-class Header extends StatelessWidget {
-  const Header({
-    Key key,
-  }) : super(key: key);
+class Header extends StatefulWidget {
+  @override
+  State<Header> createState() => _HeaderState();
+}
 
+class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -34,40 +41,101 @@ class Header extends StatelessWidget {
   }
 }
 
-class ProfileCard extends StatelessWidget {
-  const ProfileCard({
-    Key key,
-  }) : super(key: key);
+class ProfileCard extends StatefulWidget {
+  @override
+  State<ProfileCard> createState() => _ProfileCardState();
+}
+
+class _ProfileCardState extends State<ProfileCard> {
+  List users = [];
+  var token;
+
+  @override
+  void initState() {
+    super.initState();
+    this.getUserData();
+  }
+
+  getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    token = jsonDecode(prefs.getString('access_token'));
+    var response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/api/me/'),
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      var js = "[" + response.body + "]";
+      setState(() {
+        users = json.decode(js);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: defaultPadding),
+    return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: defaultPadding,
         vertical: defaultPadding / 2,
       ),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            "assets/images/profile_pic.png",
-            height: 38,
+      child: PopupMenuButton(
+          onSelected: (value) {
+            if (value == 2) logout();
+          },
+          offset: Offset(0, 56.0),
+          color: secondaryColor,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          if (!Responsive.isMobile(context))
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Mr Bouhamed Iheb"),
+          child: Container(
+            height: 56,
+            width: 225,
+            decoration: BoxDecoration(
+                color: secondaryColor,
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset(
+                  "assets/images/profile_pic.png",
+                  height: 38,
+                ),
+                Text(users[0]['name'])
+              ],
             ),
-          Icon(Icons.keyboard_arrow_down),
-        ],
-      ),
+          ),
+          itemBuilder: (context) => [
+                PopupMenuItem(child: Text("Profile"), value: 1),
+                PopupMenuItem(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.logout, color: Colors.red),
+                          Text("Se Déconnecter",
+                              style: TextStyle(color: Colors.red))
+                        ]),
+                    value: 2),
+              ]),
     );
+  }
+
+  void logout() async {
+    var res = await Network().getData('/logout');
+    var body = json.decode(res.body);
+    if (body['success']) {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.remove('user');
+      localStorage.remove('token');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    }
   }
 }
 

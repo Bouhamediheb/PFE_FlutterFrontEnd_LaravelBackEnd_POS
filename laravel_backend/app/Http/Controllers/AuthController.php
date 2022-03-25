@@ -33,8 +33,10 @@ return response()->json([
 
 public function login(Request $request)
 {
+    $user = Auth::user();
 if (!Auth::attempt($request->only('email', 'password'))) {
 return response()->json([
+    'user' => $user,
     'success' => false,
 'message' => 'Informations de connexion invalide'
            ], 401);
@@ -51,10 +53,27 @@ return response()->json([
 ]);
 }
 
+public function logout(Request $res)
+    {
+      if (Auth::user()) {
+        $user = Auth::user()->token();
+        $user->revoke();
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Logout successfully'
+      ]);
+      }else {
+        return response()->json([
+          'success' => false,
+          'message' => 'Unable to Logout'
+        ]);
+      }
+     }
+
 public function me(Request $request)
 {
 return $request->user();
 }
-
 
 }

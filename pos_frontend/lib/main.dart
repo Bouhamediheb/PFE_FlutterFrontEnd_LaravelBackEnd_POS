@@ -1,5 +1,6 @@
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuController.dart';
+import 'package:admin/screens/Login/Screen/Login.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
 import 'package:admin/screens/fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
@@ -22,31 +23,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget body;
-  bool isAuth = false;
-  @override
-  void initState() {
-    _checkIfLoggedIn();
-    super.initState();
-  }
-
-  void _checkIfLoggedIn() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
-    if (token != null) {
-      setState(() {
-        isAuth = true;
-      });
-    }
-    if (isAuth) {
-      body:
-      MainScreen(DashboardScreen());
-    } else {
-      body:
-      FirstScreen();
-    }
-  }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -65,8 +41,43 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MenuController(),
           ),
         ],
-        child: FirstScreen(),
+        child: CheckAuth(),
       ),
     );
+  }
+}
+
+class CheckAuth extends StatefulWidget {
+  @override
+  State<CheckAuth> createState() => _CheckAuthState();
+}
+
+class _CheckAuthState extends State<CheckAuth> {
+  bool isAuth = false;
+  @override
+  void initState() {
+    _checkIfLoggedIn();
+    super.initState();
+  }
+
+  void _checkIfLoggedIn() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('access_token');
+    if (token != null) {
+      setState(() {
+        isAuth = true;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child;
+    if (isAuth) {
+      child = FirstScreen();
+    } else {
+      child = LoginPage();
+    }
+    return Scaffold(body: child);
   }
 }

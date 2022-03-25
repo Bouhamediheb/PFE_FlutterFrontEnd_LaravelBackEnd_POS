@@ -18,6 +18,7 @@ class _FirstScreenState extends State<FirstScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text("GESTIONNAIRE DE PROJET"),
           backgroundColor: secondaryColor,

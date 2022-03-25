@@ -31,7 +31,6 @@ class _EmptySpaceState extends State<EmptySpace> {
       var items = jsonDecode(response.body);
       setState(() {
         produits = items;
-        print(produits);
       });
     } else {
       throw Exception('Error!');
