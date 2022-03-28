@@ -76,7 +76,7 @@ class _CheckAuthState extends State<CheckAuth> {
     if (isAuth) {
       child = FirstScreen();
     } else {
-      child = LoginPage();
+      child = FirstScreen();
     }
     return Scaffold(body: child);
   }
