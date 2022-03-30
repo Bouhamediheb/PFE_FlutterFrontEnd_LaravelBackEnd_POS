@@ -27,6 +27,9 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                 "Choississez le type de document souhaité",
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 35),
               ),
+              Divider(
+                thickness: 2,
+              ),
               SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -84,7 +87,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           )),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 2),
                   Container(
                     width: 240,
                     height: 200,
@@ -239,7 +242,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
               SizedBox(
                 width: 15,
               ),
-              SizedBox(height: 90),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
