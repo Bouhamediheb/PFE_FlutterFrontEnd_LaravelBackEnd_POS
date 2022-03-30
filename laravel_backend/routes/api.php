@@ -21,6 +21,8 @@ Route::apiresource('/document','App\Http\Controllers\Api\DocumentController');
 
 Route::apiresource('/produit','App\Http\Controllers\Api\ProduitController');
 
+Route::apiresource('/lignedocument', 'App\Http\Controllers\LigneDocumentController');
+
 Route::post('/register',[AuthController::class, 'register']);
 
 Route::post('/login',[AuthController::class, 'login']);

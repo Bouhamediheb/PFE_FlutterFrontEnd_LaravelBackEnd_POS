@@ -1,6 +1,9 @@
+import 'dart:html';
+
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuController.dart';
 import 'package:admin/screens/Login/Screen/Login.dart';
+import 'package:admin/screens/Login/Screen/Singup.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
 import 'package:admin/screens/fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
@@ -11,7 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'screens/Login/screen/Singup.dart';
+import 'screens/Login/Screen/Singup.dart';
 
 void main() {
   runApp(MyApp());
@@ -74,9 +77,9 @@ class _CheckAuthState extends State<CheckAuth> {
   Widget build(BuildContext context) {
     Widget child;
     if (isAuth) {
-      child = FirstScreen();
+      child = MainScreen(DashboardScreen());
     } else {
-      child = LoginPage();
+      child = FirstScreen();
     }
     return Scaffold(body: child);
   }

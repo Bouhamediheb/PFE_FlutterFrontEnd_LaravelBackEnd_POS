@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('type');
             $table->string('numDoc')->nullable();
-            $table->dateTime('dateDoc')->nullable();
+            $table->date('dateDoc')->nullable();
             $table->float('totalDoc')->nullable();
             $table->boolean('enLigne')->nullable();
             $table->boolean('timbreFiscal')->nullable();

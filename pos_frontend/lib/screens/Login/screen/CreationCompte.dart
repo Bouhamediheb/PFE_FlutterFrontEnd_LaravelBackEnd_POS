@@ -313,8 +313,7 @@ class _CreationCompteState extends State<CreationCompte> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        MainScreen(DashboardScreen())),
+                                    builder: (context) => LoginPage()),
                               );
                             }
                           },
