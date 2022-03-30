@@ -1,6 +1,7 @@
 import 'package:admin/constants.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/disabled_date.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/input_doc_produit_ref_nom.dart';
+import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.dart';
 import 'package:flutter/material.dart';
 import '../../FournisseurScreen/Widgets/input_tick_check.dart';
 import '../Widget/input_doc_produit_quantite_prix.dart';
@@ -12,7 +13,8 @@ import 'dart:io';
 
 class ajouterUnDocument extends StatefulWidget {
   final int id;
-  ajouterUnDocument(this.id);
+  final String doctype;
+  ajouterUnDocument(this.id, this.doctype);
   @override
   State<ajouterUnDocument> createState() => _ajouterUnDocumentState();
 }
@@ -98,9 +100,17 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            "AJOUTER UN DOCUMENT",
+                            widget.doctype,
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                          Divider(
+                            thickness: 3,
+                          ),
+                          SeqDoc(
+                            label: 'Numero de Séquence',
+                            content: '----------',
+                            label2: 'Date',
                           ),
                           Divider(
                             thickness: 3,

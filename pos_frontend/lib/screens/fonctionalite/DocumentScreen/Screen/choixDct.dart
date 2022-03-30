@@ -49,8 +49,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    MainScreen(ajouterUnDocument(1))));
+                                builder: (context) => MainScreen(
+                                    ajouterUnDocument(1, 'BON DE COMMANDE'))));
                       },
                       child: Container(
                           height: 110,
@@ -100,7 +100,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ajouterUnDocument(2)));
+                                builder: (context) =>
+                                    ajouterUnDocument(2, 'BON DE LIVRAISON')));
                       },
                       child: Container(
                           height: 110,
@@ -150,7 +151,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ajouterUnDocument(3)));
+                                builder: (context) =>
+                                    ajouterUnDocument(3, 'BON DE LIVRAISON')));
                       },
                       child: Container(
                           height: 110,
@@ -200,7 +202,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ajouterUnDocument(4)));
+                                builder: (context) =>
+                                    ajouterUnDocument(4, 'BON DE LIVRAISON')));
                       },
                       child: Container(
                           height: 110,
@@ -261,7 +264,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ajouterUnDocument(5)));
+                                builder: (context) =>
+                                    ajouterUnDocument(5, 'BON DE LIVRAISON')));
                       },
                       child: Container(
                           height: 110,
@@ -311,7 +315,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ajouterUnDocument(6)));
+                                builder: (context) =>
+                                    ajouterUnDocument(6, 'BON DE LIVRAISON')));
                       },
                       child: Container(
                           height: 110,
@@ -361,7 +366,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ajouterUnDocument(7)));
+                                builder: (context) =>
+                                    ajouterUnDocument(7, 'BON DE LIVRAISON')));
                       },
                       child: Container(
                           height: 110,
@@ -411,7 +417,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ajouterUnDocument(8)));
+                                builder: (context) =>
+                                    ajouterUnDocument(8, 'BON DE LIVRAISON')));
                       },
                       child: Container(
                           height: 110,
