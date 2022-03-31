@@ -6,20 +6,25 @@ import 'package:searchfield/searchfield.dart';
 class InputRefNomProduit extends StatefulWidget {
   final String label, label2, label3, label4;
   final String content, content2, content3, content4;
+  var fieldController = TextEditingController();
   var fieldController2 = TextEditingController();
+  var fieldController3 = TextEditingController();
+  var fieldController4 = TextEditingController();
   FormFieldValidator<String> fieldValidator = (_) {};
-  InputRefNomProduit({
-    this.label,
-    this.content,
-    this.label2,
-    this.content2,
-    this.label3,
-    this.content3,
-    this.label4,
-    this.content4,
-    this.fieldController2,
-    this.fieldValidator,
-  });
+  InputRefNomProduit(
+      {this.label,
+      this.content,
+      this.label2,
+      this.content2,
+      this.label3,
+      this.content3,
+      this.label4,
+      this.content4,
+      this.fieldController,
+      this.fieldController2,
+      this.fieldValidator,
+      this.fieldController3,
+      this.fieldController4});
 
   @override
   State<InputRefNomProduit> createState() => _InputRefNomProduitState();

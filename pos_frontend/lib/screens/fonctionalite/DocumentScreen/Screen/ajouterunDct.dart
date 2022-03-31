@@ -14,6 +14,14 @@ import 'dart:io';
 class ajouterUnDocument extends StatefulWidget {
   final int id;
   final String doctype;
+
+  List<TextEditingController> controllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
+
   ajouterUnDocument(this.id, this.doctype);
   @override
   State<ajouterUnDocument> createState() => _ajouterUnDocumentState();
@@ -23,6 +31,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
   Future<http.Response> ajoutDocument(int type, String numeroDoc,
       String dateDoc, double totalDoc, bool toucheStock) async {
     List documents = [];
+
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/document"),
       headers: <String, String>{
@@ -54,6 +63,11 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
 
   void _addCardWidgetExp() {
     setState(() {
+      widget.controllers.add(TextEditingController());
+      widget.controllers.add(TextEditingController());
+      widget.controllers.add(TextEditingController());
+      widget.controllers.add(TextEditingController());
+
       _cardList.add(SizedBox(height: 10));
       Divider(
         thickness: 2,
@@ -68,6 +82,10 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
         content3: 'Taper la quantité',
         label4: 'Prix',
         content4: 'Taper le prix unitaire',
+        fieldController: widget.controllers.first,
+        fieldController2: widget.controllers[1],
+        fieldController3: widget.controllers[2],
+        fieldController4: widget.controllers.last,
       ));
     });
   }
@@ -186,7 +204,12 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                   height: 53,
                                   color: Color.fromARGB(255, 75, 100, 211),
                                   onPressed: () {
-                                    _addCardWidgetExp();
+                                    print("Valeurs:");
+                                    for (int i = 0;
+                                        i < widget.controllers.length;
+                                        i++) {
+                                      print(widget.controllers[i].text);
+                                    }
                                   },
                                   child: Text(
                                     "Confirmer",
@@ -287,7 +310,6 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
     );
   }
 }
-
 
 /*
  SizedBox(
