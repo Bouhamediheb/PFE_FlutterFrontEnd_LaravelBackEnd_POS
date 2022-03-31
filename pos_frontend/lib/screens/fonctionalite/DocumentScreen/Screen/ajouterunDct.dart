@@ -4,7 +4,6 @@ import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/input_doc_prod
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.dart';
 import 'package:flutter/material.dart';
 import '../../FournisseurScreen/Widgets/input_tick_check.dart';
-import '../Widget/input_doc_produit_quantite_prix.dart';
 import '../Widget/input_doctype.dart';
 import '../Widget/input_field.dart';
 import 'package:http/http.dart' as http;
@@ -48,25 +47,18 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
 
   Future<dynamic> future;
 
-  List<Widget> _cardList = [
-    (InputRefNomProduit(
-      label: 'Référence',
-      content: 'Taper la référence',
-      label2: 'Nom du produit',
-      content2: '',
-      label3: 'Quantité',
-      content3: 'Taper la quantité',
-      label4: 'Prix',
-      content4: 'Taper le prix unitaire',
-    )),
-  ];
+  List<Widget> _cardList = [];
 
   void _addCardWidgetExp() {
     setState(() {
-      widget.controllers.add(TextEditingController());
-      widget.controllers.add(TextEditingController());
-      widget.controllers.add(TextEditingController());
-      widget.controllers.add(TextEditingController());
+      TextEditingController refController = new TextEditingController();
+      widget.controllers.add(refController);
+      TextEditingController nomController = new TextEditingController();
+      widget.controllers.add(nomController);
+      TextEditingController qteController = new TextEditingController();
+      widget.controllers.add(qteController);
+      TextEditingController prixController = new TextEditingController();
+      widget.controllers.add(prixController);
 
       _cardList.add(SizedBox(height: 10));
       Divider(
@@ -74,19 +66,18 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
         color: Colors.white,
       );
       _cardList.add(InputRefNomProduit(
-        label: 'Référence',
-        content: 'Taper la référence',
-        label2: 'Nom du produit',
-        content2: '',
-        label3: 'Quantité',
-        content3: 'Taper la quantité',
-        label4: 'Prix',
-        content4: 'Taper le prix unitaire',
-        fieldController: widget.controllers.first,
-        fieldController2: widget.controllers[1],
-        fieldController3: widget.controllers[2],
-        fieldController4: widget.controllers.last,
-      ));
+          label: 'Référence',
+          content: 'Taper la référence',
+          label2: 'Nom du produit',
+          content2: '',
+          label3: 'Quantité',
+          content3: 'Taper la quantité',
+          label4: 'Prix',
+          content4: 'Taper le prix unitaire',
+          fieldController: refController,
+          fieldController2: nomController,
+          fieldController3: qteController,
+          fieldController4: prixController));
     });
   }
 

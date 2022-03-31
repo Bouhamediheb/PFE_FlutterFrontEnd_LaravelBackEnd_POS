@@ -31,7 +31,7 @@ class InputRefNomProduit extends StatefulWidget {
 }
 
 class _InputRefNomProduitState extends State<InputRefNomProduit> {
-  var fieldController = TextEditingController();
+  String nomProduit;
   String selectedProduit;
   int produitId;
   List produits = [];
@@ -96,7 +96,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 child: SearchField(
                   hint: "${widget.content}",
                   searchStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                  controller: fieldController,
+                  controller: widget.fieldController,
                   validator: widget.fieldValidator,
                   searchInputDecoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
@@ -111,6 +111,12 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                   onTap: (value) {
                     setState(() {
                       selectedProduit = value as String;
+                      for (var i = 0; i < produits.length; i++) {
+                        if (selectedProduit == produits[i]['refProd']) {
+                          nomProduit = produits[i]['nomProd'];
+                          widget.fieldController2.text = nomProduit.toString();
+                        }
+                      }
                     });
                   },
                 ),
@@ -143,7 +149,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 color: Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
                   enabled: false,
-                  controller: fieldController,
+                  controller: widget.fieldController2,
                   validator: widget.fieldValidator,
                   style: TextStyle(
                     fontSize: 15.0,
@@ -183,7 +189,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 width: MediaQuery.of(context).size.width / 3.7,
                 color: Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
-                  controller: fieldController,
+                  controller: widget.fieldController3,
                   validator: widget.fieldValidator,
                   style: TextStyle(
                     fontSize: 15.0,
@@ -223,7 +229,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 color: Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
                   enabled: true,
-                  controller: fieldController,
+                  controller: widget.fieldController4,
                   validator: widget.fieldValidator,
                   style: TextStyle(
                     fontSize: 15.0,
