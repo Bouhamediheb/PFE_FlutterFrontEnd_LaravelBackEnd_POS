@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -10,6 +12,7 @@ class InputRefNomProduit extends StatefulWidget {
   var fieldController2 = TextEditingController();
   var fieldController3 = TextEditingController();
   var fieldController4 = TextEditingController();
+  final FunctionStringCallback Prix;
   FormFieldValidator<String> fieldValidator = (_) {};
   InputRefNomProduit(
       {this.label,
@@ -24,7 +27,8 @@ class InputRefNomProduit extends StatefulWidget {
       this.fieldController2,
       this.fieldValidator,
       this.fieldController3,
-      this.fieldController4});
+      this.fieldController4,
+      this.Prix});
 
   @override
   State<InputRefNomProduit> createState() => _InputRefNomProduitState();
@@ -228,6 +232,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 width: MediaQuery.of(context).size.width / 3.7,
                 color: Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
+                  onChanged: widget.Prix,
                   enabled: true,
                   controller: widget.fieldController4,
                   validator: widget.fieldValidator,

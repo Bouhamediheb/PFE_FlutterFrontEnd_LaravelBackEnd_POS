@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:admin/constants.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/disabled_date.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/input_doc_produit_ref_nom.dart';
@@ -14,12 +16,7 @@ class ajouterUnDocument extends StatefulWidget {
   final int id;
   final String doctype;
 
-  List<TextEditingController> controllers = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
-  ];
+  List<TextEditingController> controllers = [];
 
   ajouterUnDocument(this.id, this.doctype);
   @override
@@ -27,6 +24,10 @@ class ajouterUnDocument extends StatefulWidget {
 }
 
 class _ajouterUnDocumentState extends State<ajouterUnDocument> {
+  double total = 0;
+
+  TextEditingController totalDocument;
+
   Future<http.Response> ajoutDocument(int type, String numeroDoc,
       String dateDoc, double totalDoc, bool toucheStock) async {
     List documents = [];
@@ -48,6 +49,17 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
   Future<dynamic> future;
 
   List<Widget> _cardList = [];
+
+  void _CalculTotal(totalDocument) {
+    print("function mchet");
+    total = 0;
+    total = total + double.tryParse(widget.controllers.last.text);
+    print(total);
+    print(totalDocument);
+    setState(() {
+      totalDocument = total.toString();
+    });
+  }
 
   void _addCardWidgetExp() {
     setState(() {
@@ -74,11 +86,13 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
           content3: 'Taper la quantité',
           label4: 'Prix',
           content4: 'Taper le prix unitaire',
+          Prix: _CalculTotal,
           fieldController: refController,
           fieldController2: nomController,
           fieldController3: qteController,
           fieldController4: prixController));
     });
+    print("List feha " + widget.controllers.length.toString());
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -194,14 +208,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                 MaterialButton(
                                   height: 53,
                                   color: Color.fromARGB(255, 75, 100, 211),
-                                  onPressed: () {
-                                    print("Valeurs:");
-                                    for (int i = 0;
-                                        i < widget.controllers.length;
-                                        i++) {
-                                      print(widget.controllers[i].text);
-                                    }
-                                  },
+                                  onPressed: () {},
                                   child: Text(
                                     "Confirmer",
                                     style: TextStyle(color: Colors.white),
@@ -230,16 +237,11 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 15),
                                     child: TextFormField(
-                                      //controller: totalDocument,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter some text';
-                                        }
-                                        return null;
-                                      },
+                                      controller: totalDocument,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
-                                        hintText: 'Total',
+                                        enabled: false,
+                                        //hintText: '$total',
                                         hintStyle: TextStyle(
                                           fontFamily: 'Montserrat',
                                           fontWeight: FontWeight.w400,
@@ -249,6 +251,13 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                             Icons.attach_money_outlined,
                                             color: Colors.grey.shade400),
                                         enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey.shade200),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        disabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               width: 1,
                                               color: Colors.grey.shade200),
