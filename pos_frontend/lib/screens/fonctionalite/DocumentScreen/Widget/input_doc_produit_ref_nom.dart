@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -12,7 +10,7 @@ class InputRefNomProduit extends StatefulWidget {
   var fieldController2 = TextEditingController();
   var fieldController3 = TextEditingController();
   var fieldController4 = TextEditingController();
-  final FunctionStringCallback Prix;
+  final Function Prix;
   FormFieldValidator<String> fieldValidator = (_) {};
   InputRefNomProduit(
       {this.label,
@@ -35,6 +33,7 @@ class InputRefNomProduit extends StatefulWidget {
 }
 
 class _InputRefNomProduitState extends State<InputRefNomProduit> {
+  bool hasFocus = false;
   String nomProduit;
   String selectedProduit;
   int produitId;
@@ -231,22 +230,27 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
                 color: Color.fromARGB(255, 255, 255, 255),
-                child: TextFormField(
-                  onChanged: widget.Prix,
-                  enabled: true,
-                  controller: widget.fieldController4,
-                  validator: widget.fieldValidator,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    hintText: "${widget.content4}",
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                child: Focus(
+                  onFocusChange: (hasFocus) {
+                    if (!hasFocus) widget.Prix;
+                  },
+                  child: TextFormField(
+                    textInputAction: TextInputAction.done,
+                    enabled: true,
+                    controller: widget.fieldController4,
+                    validator: widget.fieldValidator,
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      hintText: "${widget.content4}",
+                      hintStyle: TextStyle(
+                          color: Color.fromARGB(255, 190, 190, 190),
+                          fontSize: 14),
+                      fillColor: Color.fromARGB(255, 0, 0, 0),
+                    ),
                   ),
                 ),
               ),

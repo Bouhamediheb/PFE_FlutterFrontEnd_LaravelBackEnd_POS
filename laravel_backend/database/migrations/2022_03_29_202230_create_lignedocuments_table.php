@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('lignedocuments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_doc');
             $table->unsignedBigInteger('id_prod');
             $table->string('refProd');
             $table->string('nomProd');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->float('prixProd');
             $table->timestamps();
 
+            $table->foreign('id_doc')->references('id')->on('documents');
             $table->foreign('id_prod')->references('id')->on('produits');
         });
     }

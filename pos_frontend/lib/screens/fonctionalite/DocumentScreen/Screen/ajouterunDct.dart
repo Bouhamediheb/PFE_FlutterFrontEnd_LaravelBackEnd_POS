@@ -25,9 +25,12 @@ class ajouterUnDocument extends StatefulWidget {
 
 class _ajouterUnDocumentState extends State<ajouterUnDocument> {
   double total = 0;
+  final DateTime date = new DateTime.now();
+  String numSeqDocument;
+  int idDoc;
+  List documents = [];
 
   TextEditingController totalDocument;
-
   Future<http.Response> ajoutDocument(int type, String numeroDoc,
       String dateDoc, double totalDoc, bool toucheStock) async {
     List documents = [];
@@ -46,19 +49,49 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    this.fetchDocuments();
+  }
+
+  fetchDocuments() async {
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/document'),
+      headers: <String, String>{
+        'Cache-Control': 'no-cache',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var items = jsonDecode(response.body);
+      setState(() {
+        documents = items;
+        idDoc = documents[documents.length - 1]['id'];
+      });
+    } else {
+      throw Exception('Error!');
+    }
+  }
+
   Future<dynamic> future;
 
   List<Widget> _cardList = [];
 
-  void _CalculTotal(totalDocument) {
+  void _CalculTotal() {
     print("function mchet");
-    total = 0;
     total = total + double.tryParse(widget.controllers.last.text);
-    print(total);
-    print(totalDocument);
+    print("hedha total : " + total.toString());
+    print("hedhe totalDoc" + totalDocument.toString());
     setState(() {
-      totalDocument = total.toString();
+      totalDocument.text = total.toString();
     });
+  }
+
+  String seqDocument() {
+    idDoc = idDoc + 1;
+    return numSeqDocument =
+        date.toString().substring(0, 10) + '/DOC' + idDoc.toString();
   }
 
   void _addCardWidgetExp() {
