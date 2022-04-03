@@ -40,7 +40,7 @@ class DocumentController extends Controller
     {
         $validatedData = $request->validate([
             'type' => 'required|numeric',
-            'numDoc' => 'required|numeric',
+            'numDoc',
             'dateDoc',
             'totalDoc',
             'enLigne',

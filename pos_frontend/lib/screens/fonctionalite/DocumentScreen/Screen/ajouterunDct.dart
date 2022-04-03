@@ -29,10 +29,15 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
   String numSeqDocument;
   int idDoc;
   List documents = [];
+  String dateDoc;
+  String numDoc;
 
   TextEditingController totalDocument;
-  Future<http.Response> ajoutDocument(int type, String numeroDoc,
-      String dateDoc, double totalDoc, bool toucheStock) async {
+  Future<http.Response> ajoutDocument(
+    int type,
+    String numeroDoc,
+    String dateDoc,
+  ) async {
     List documents = [];
 
     final response = await http.post(
@@ -40,7 +45,11 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=utf-8',
       },
-      body: jsonEncode(<String, dynamic>{}),
+      body: jsonEncode(<String, dynamic>{
+        'type': type,
+        'numDoc': numeroDoc,
+        'dateDoc': dateDoc,
+      }),
     );
     if (response.statusCode == 200) {
       return documents = jsonDecode(response.body);
@@ -241,7 +250,15 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                 MaterialButton(
                                   height: 53,
                                   color: Color.fromARGB(255, 75, 100, 211),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    numDoc = seqDocument();
+                                    print(numDoc);
+                                    print(widget.id);
+                                    dateDoc = date.toString().substring(0, 10);
+                                    print(dateDoc);
+                                    future = ajoutDocument(
+                                        widget.id, numSeqDocument, dateDoc);
+                                  },
                                   child: Text(
                                     "Confirmer",
                                     style: TextStyle(color: Colors.white),
