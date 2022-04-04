@@ -32,10 +32,18 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
   String dateDoc;
   String numDoc;
 
+<<<<<<< HEAD
   TextEditingController totalDocument = TextEditingController(text: '0');
 
   Future<http.Response> ajoutDocument(
       int type, String numeroDoc, String dateDoc, double totalDoc) async {
+=======
+  TextEditingController totalDocument =
+      TextEditingController(text: 'initial value');
+
+  Future<http.Response> ajoutDocument(int type, String numeroDoc,
+      String dateDoc, double totalDoc, bool toucheStock) async {
+>>>>>>> 376dec58fd8e7aa815ad9fa440c9d38c75ad1423
     List documents = [];
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/document"),

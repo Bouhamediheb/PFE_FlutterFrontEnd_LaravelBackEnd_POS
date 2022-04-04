@@ -10,7 +10,7 @@ class InputRefNomProduit extends StatefulWidget {
   var fieldController2 = TextEditingController();
   var fieldController3 = TextEditingController();
   var fieldController4 = TextEditingController();
-  final Function Prix;
+  final VoidCallback Prix;
   FormFieldValidator<String> fieldValidator = (_) {};
   InputRefNomProduit(
       {this.label,
