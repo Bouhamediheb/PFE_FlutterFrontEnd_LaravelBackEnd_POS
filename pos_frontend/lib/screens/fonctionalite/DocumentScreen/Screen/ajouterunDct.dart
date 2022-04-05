@@ -568,20 +568,58 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
                 color: Color.fromARGB(255, 255, 255, 255),
-                child: TextFormField(
-                  controller: widget.fieldController3,
-                  validator: widget.fieldValidator,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    hintText: "${widget.content3}",
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                child: Focus(
+                  onFocusChange: (hasFocus) {
+                    if (!hasFocus) {
+                      widget.total = 0;
+
+                      print(
+                          "total awel fonction  = " + widget.total.toString());
+
+                      //print((widget.controllers[3].text));
+                      for (var i = 3;
+                          i <= widget.controllers.length;
+                          i = i + 4) {
+                        print("valeur eli f index " +
+                            i.toString() +
+                            " = " +
+                            widget.controllers[i].text);
+                        widget.total = widget.total +
+                            (double.tryParse(widget.controllers[i].text) *
+                                (double.tryParse(
+                                    widget.controllers[i - 1].text)));
+                        print("Total" + widget.total.toString());
+                        print(widget.totalDoc);
+
+                        setState(() {
+                          print("Salem si bezi :" + widget.totalDoc);
+                          widget.totalDoc = widget.total.toString();
+                          print("hedha totalDoc" + widget.totalDoc);
+                          print("----------------");
+                          print("Salem si zebi :" +
+                              widget.totalDocument.toString());
+                          widget.totalDocument.text = widget.total.toString();
+                          print("hedha totalDocument" +
+                              widget.totalDocument.text);
+                        });
+                      }
+                    }
+                  },
+                  child: TextFormField(
+                    controller: widget.fieldController3,
+                    validator: widget.fieldValidator,
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      hintText: "${widget.content3}",
+                      hintStyle: TextStyle(
+                          color: Color.fromARGB(255, 190, 190, 190),
+                          fontSize: 14),
+                      fillColor: Color.fromARGB(255, 0, 0, 0),
+                    ),
                   ),
                 ),
               ),
@@ -624,7 +662,9 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                             " = " +
                             widget.controllers[i].text);
                         widget.total = widget.total +
-                            double.tryParse(widget.controllers[i].text);
+                            (double.tryParse(widget.controllers[i].text) *
+                                (double.tryParse(
+                                    widget.controllers[i - 1].text)));
                         print("Total" + widget.total.toString());
                         print(widget.totalDoc);
 
