@@ -32,18 +32,10 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
   String dateDoc;
   String numDoc;
 
-<<<<<<< HEAD
   TextEditingController totalDocument = TextEditingController(text: '0');
 
   Future<http.Response> ajoutDocument(
       int type, String numeroDoc, String dateDoc, double totalDoc) async {
-=======
-  TextEditingController totalDocument =
-      TextEditingController(text: 'initial value');
-
-  Future<http.Response> ajoutDocument(int type, String numeroDoc,
-      String dateDoc, double totalDoc, bool toucheStock) async {
->>>>>>> 376dec58fd8e7aa815ad9fa440c9d38c75ad1423
     List documents = [];
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/document"),
@@ -82,7 +74,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
       var items = jsonDecode(response.body);
       setState(() {
         documents = items;
-        idDoc = documents[documents.length - 1]['id'];
+        idDoc = documents[documents.length - 1]['id'] + 1;
       });
     } else {
       throw Exception('Error!');
@@ -104,7 +96,6 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
   }
 
   String seqDocument() {
-    idDoc = idDoc + 1;
     print(idDoc);
     return numSeqDocument =
         date.toString().substring(0, 10) + '/DOC' + idDoc.toString();
@@ -266,7 +257,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
                                   height: 53,
                                   color: Color.fromARGB(255, 75, 100, 211),
                                   onPressed: () {
-                                    //numDoc = seqDocument();
+                                    numDoc = seqDocument();
                                     print(numDoc);
                                     print(widget.id);
                                     dateDoc = date.toString().substring(0, 10);
