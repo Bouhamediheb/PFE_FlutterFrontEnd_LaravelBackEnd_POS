@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('lignedocuments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_doc');
-            $table->unsignedBigInteger('id_prod');
+            $table->unsignedBigInteger('id_doc')->nullable();
+            $table->unsignedBigInteger('id_prod')->nullable();
             $table->string('refProd');
             $table->string('nomProd');
             $table->float('qteProd');

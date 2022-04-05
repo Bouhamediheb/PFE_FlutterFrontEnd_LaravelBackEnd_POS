@@ -39,6 +39,7 @@ class LigneDocumentController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            
             'nomProd',
             'refProd',
             'qteProd',
@@ -46,11 +47,12 @@ class LigneDocumentController extends Controller
         ]);
 
         $data=array();
+        
         $data['refProd'] = $request->refProd;
         $data['nomProd'] = $request->nomProd;
         $data['qteProd'] = $request->qteProd;
-        $data['prixProd'] = $request->prixAchat;
-        $insert = DB::table('lignedocuments')->where('id',$id)->update($data);
+        $data['prixProd'] = $request->prixProd;
+        $insert = DB::table('lignedocuments')->insert($data);
         return response('Ligne Document Ajouté');
     }
 
