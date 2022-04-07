@@ -1,4 +1,5 @@
 import 'package:admin/constants.dart';
+import 'package:admin/models/Raccourcis.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/disabled_date.dart';
 //import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/input_doc_produit_ref_nom.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.dart';
@@ -11,6 +12,7 @@ import '../Widget/input_field.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
 class ajouterUnDocument extends StatefulWidget {
   final int id;
@@ -23,7 +25,8 @@ class ajouterUnDocument extends StatefulWidget {
   State<ajouterUnDocument> createState() => _ajouterUnDocumentState();
 }
 
-class _ajouterUnDocumentState extends State<ajouterUnDocument> {
+class _ajouterUnDocumentState extends State<ajouterUnDocument>
+    with SingleTickerProviderStateMixin {
   double total = 0;
   String totalDoc = "0";
   final DateTime date = new DateTime.now();
@@ -152,13 +155,43 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument> {
       autofocus: true,
       focusNode: FocusNode(),
       onKey: (event) {
-        if (event.isKeyPressed(LogicalKeyboardKey.f1) &&
-            event.isKeyPressed(LogicalKeyboardKey.altLeft)) {
+        if (event.isKeyPressed(LogicalKeyboardKey.controlLeft) &&
+            event.isKeyPressed(LogicalKeyboardKey.f1)) {
           _addCardWidgetExp();
         }
       },
       child: Scaffold(
         backgroundColor: Color(0xFF2A2D3E),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              showAnimatedDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        backgroundColor: bgColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        content: Container(
+                            width: 350,
+                            height: 300,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ListTile(
+                                  leading: Image.asset("images/f1.jpg"),
+                                  trailing: Text("Ajoutez une Ligne"),
+                                ),
+                                ListTile(
+                                  leading: Text("CTRL + F2"),
+                                ),
+                              ],
+                            )));
+                  });
+            },
+            backgroundColor: primaryColor,
+            child: Icon(Icons.navigation)),
         body: Padding(
           padding: EdgeInsets.only(
               top: 60.0, bottom: 60.0, left: 120.0, right: 120.0),
@@ -485,32 +518,36 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
                 color: Color.fromARGB(255, 255, 255, 255),
-                child: SearchField(
-                  hint: "${widget.content}",
-                  searchStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                  controller: widget.fieldController,
-                  validator: widget.fieldValidator,
-                  searchInputDecoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                  ),
-                  suggestions: refProduits,
-                  suggestionStyle:
-                      TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                  maxSuggestionsInViewPort: 6,
-                  suggestionsDecoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  onTap: (value) {
-                    setState(() {
-                      selectedProduit = value as String;
-                      for (var i = 0; i < produits.length; i++) {
-                        if (selectedProduit == produits[i]['refProd']) {
-                          nomProduit = produits[i]['nomProd'];
-                          widget.fieldController2.text = nomProduit.toString();
+                child: Focus(
+                  autofocus: true,
+                  child: SearchField(
+                    hint: "${widget.content}",
+                    searchStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    controller: widget.fieldController,
+                    validator: widget.fieldValidator,
+                    searchInputDecoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                    ),
+                    suggestions: refProduits,
+                    suggestionStyle:
+                        TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    maxSuggestionsInViewPort: 6,
+                    suggestionsDecoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    onTap: (value) {
+                      setState(() {
+                        selectedProduit = value as String;
+                        for (var i = 0; i < produits.length; i++) {
+                          if (selectedProduit == produits[i]['refProd']) {
+                            nomProduit = produits[i]['nomProd'];
+                            widget.fieldController2.text =
+                                nomProduit.toString();
+                          }
                         }
-                      }
-                    });
-                  },
+                      });
+                    },
+                  ),
                 ),
               ),
             ),
