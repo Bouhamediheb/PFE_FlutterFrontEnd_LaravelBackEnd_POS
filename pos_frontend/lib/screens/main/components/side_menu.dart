@@ -41,7 +41,7 @@ class _SideMenuState extends State<SideMenu> {
                       builder: (context) => MainScreen(DashboardScreen())),
                 );
               },
-              child: ExpansionTile(
+              child: ListTile(
                   leading: SvgPicture.asset(
                     "assets/icons/menu_dashbord.svg",
                     color: Color.fromARGB(255, 255, 255, 255),
