@@ -37,7 +37,6 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
   }
 
   Future upload(
-    File file,
     String refProduit,
     String nomProduit,
     double prixAchatProduit,
@@ -45,22 +44,22 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
     String descriptionProduit,
     double stockProduit,
   ) async {
-    String fileName = file.path.split('/').last;
-    print(fileName);
+    //String fileName = file.path.split('/').last;
+    //print(fileName);
 
     FormData data = FormData.fromMap({
-      "imageProd": await MultipartFile.fromFile(
-        file.path,
-        filename: fileName,
+      /*"imageProd": await MultipartFile.fromFile(
+       file.path,
+      filename: fileName,
       ),
-      "data": jsonEncode({
-        'refProd': refProduit,
-        'nomProd': nomProduit,
-        'prixAchat': prixAchatProduit,
-        'prixVente': prixVenteProduit,
-        'descriptionProd': descriptionProduit,
-        'stock': stockProduit,
-      })
+      */
+
+      'refProd': refProduit,
+      'nomProd': nomProduit,
+      'prixAchat': prixAchatProduit,
+      'prixVente': prixVenteProduit,
+      'descriptionProd': descriptionProduit,
+      'stock': stockProduit,
     });
 
     Dio dio = new Dio();
@@ -255,7 +254,6 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                     if (_formKey.currentState.validate()) {
                                       setState(() {
                                         future = upload(
-                                            uploadimage,
                                             refProduit.text,
                                             nomProduit.text,
                                             double.parse(prixAchatProduit.text),

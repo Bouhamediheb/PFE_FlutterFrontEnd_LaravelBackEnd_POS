@@ -49,7 +49,7 @@ class _EmptySpaceState extends State<EmptySpace> {
         height: 650,
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
                 child: Text(

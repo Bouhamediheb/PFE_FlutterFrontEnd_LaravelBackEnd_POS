@@ -49,7 +49,7 @@ class ProfileCard extends StatefulWidget {
 class _ProfileCardState extends State<ProfileCard> {
   List users = [];
   var token;
-
+  Map<String, dynamic> user;
   @override
   void initState() {
     super.initState();
@@ -59,21 +59,9 @@ class _ProfileCardState extends State<ProfileCard> {
   getUserData() async {
     final prefs = await SharedPreferences.getInstance();
     token = jsonDecode(prefs.getString('access_token'));
-    var response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/api/me/'),
-      headers: {
-        'Cache-Control': 'no-cache',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $token'
-      },
-    );
-    if (response.statusCode == 200) {
-      var js = "[" + response.body + "]";
-      setState(() {
-        users = json.decode(js);
-      });
-    }
+    setState(() {
+      user = json.decode(prefs.getString('user'));
+    });
   }
 
   @override
@@ -106,7 +94,7 @@ class _ProfileCardState extends State<ProfileCard> {
                   "assets/images/profile_pic.png",
                   height: 38,
                 ),
-                Text(users[0]['name'])
+                Text(user["name"].toString())
               ],
             ),
           ),
