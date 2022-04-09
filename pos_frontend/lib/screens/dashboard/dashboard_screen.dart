@@ -2,6 +2,7 @@ import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import 'components/Raccourcis.dart';
 import 'components/header.dart';
 import 'components/header_Raccourcis.dart';
 import 'components/DernieresActivites.dart';
@@ -47,7 +48,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: EmptySpace(),
+                    child: Column(
+                      children: [
+                        EmptySpace(),
+                        SizedBox(height: 20),
+                        ListeRaccourcis()
+                      ],
+                    ),
                   ),
               ],
             )

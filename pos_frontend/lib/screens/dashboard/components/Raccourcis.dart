@@ -3,38 +3,19 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../../constants.dart';
 
-class EmptySpace extends StatefulWidget {
-  const EmptySpace({
+class ListeRaccourcis extends StatefulWidget {
+  const ListeRaccourcis({
     Key key,
   }) : super(key: key);
 
   @override
-  State<EmptySpace> createState() => _EmptySpaceState();
+  State<ListeRaccourcis> createState() => _ListeRaccourcisState();
 }
 
-class _EmptySpaceState extends State<EmptySpace> {
-  List produits = [];
+class _ListeRaccourcisState extends State<ListeRaccourcis> {
   @override
   void initState() {
     super.initState();
-    this.fetchProduits();
-  }
-
-  fetchProduits() async {
-    final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/api/produit'),
-      headers: <String, String>{
-        'Cache-Control': 'no-cache',
-      },
-    );
-    if (response.statusCode == 200) {
-      var items = jsonDecode(response.body);
-      setState(() {
-        produits = items;
-      });
-    } else {
-      throw Exception('Error!');
-    }
   }
 
   @override
@@ -46,14 +27,14 @@ class _EmptySpaceState extends State<EmptySpace> {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: Container(
-        height: 400,
+        height: 650,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
                 child: Text(
-                  'La Liste Des Produits :',
+                  'La Liste Des Raccourcis :',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -61,7 +42,7 @@ class _EmptySpaceState extends State<EmptySpace> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 7),
+                padding: EdgeInsets.symmetric(horizontal: 7),
                 child: Divider(
                   thickness: 3,
                 ),
@@ -71,7 +52,7 @@ class _EmptySpaceState extends State<EmptySpace> {
                   DataColumn(
                     label: Flexible(
                       child: Text(
-                        "Nom du produit",
+                        "Actions",
                         maxLines: 5,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
@@ -81,7 +62,7 @@ class _EmptySpaceState extends State<EmptySpace> {
                   DataColumn(
                     label: Flexible(
                       child: Text(
-                        "Quantité",
+                        "Raccourcis",
                         maxLines: 5,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
@@ -89,19 +70,7 @@ class _EmptySpaceState extends State<EmptySpace> {
                     ),
                   ),
                 ],
-                rows: <DataRow>[
-                  for (var i = 0; i < produits.length; i++)
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Text(produits[i]['nomProd']),
-                        ),
-                        DataCell(
-                          Text(produits[i]['stock'].toString()),
-                        ),
-                      ],
-                    ),
-                ],
+                rows: <DataRow>[],
               ),
             ],
           ),
