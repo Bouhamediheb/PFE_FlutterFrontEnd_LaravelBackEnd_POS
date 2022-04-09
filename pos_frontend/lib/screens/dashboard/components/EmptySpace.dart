@@ -67,6 +67,7 @@ class _EmptySpaceState extends State<EmptySpace> {
                 ),
               ),
               DataTable(
+                columnSpacing: 180,
                 columns: <DataColumn>[
                   DataColumn(
                     label: Flexible(
