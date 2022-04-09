@@ -4,6 +4,7 @@ import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../dashboard/dashboard_screen.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/listedesFrs.dart';
 import '../../fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
@@ -31,25 +32,28 @@ class _SideMenuState extends State<SideMenu> {
                 color: Colors.white,
               ),
             ),
-            DrawerListTile(
-              title: "Dashboard",
-              svgSrc: "assets/icons/menu_dashbord.svg",
-              subTitle1: 'SubMenu-Accueil 1',
-              subTitle2: 'SubMenu-Accueil 1',
-              subTitle3: 'SubMenu-Accueil 1',
-              press1: () {
+            MaterialButton(
+              padding: EdgeInsets.all(0),
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainScreen(ChoixDocument())),
+                      builder: (context) => MainScreen(DashboardScreen())),
                 );
               },
-              press2: () {
-                // TODO: Submenu2 mte3 accueil chnou bech y7el f espace eli b janb menu
-              },
-              press3: () {
-                // TODO: Submenu3 mte3 accueil chnou bech y7el f espace eli b janb menu
-              },
+              child: ExpansionTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/menu_dashbord.svg",
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    height: 16,
+                  ),
+                  title: Text(
+                    "Dashboard",
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  trailing: Text("")),
             ),
             DrawerListTile(
               title: "Documents",
@@ -153,17 +157,17 @@ class _SideMenuState extends State<SideMenu> {
 }
 
 class DrawerListTile extends StatelessWidget {
-  const DrawerListTile(
+  DrawerListTile(
       {Key key,
       // For selecting those three line once press "Command+D"
-      @required this.title,
-      @required this.svgSrc,
-      @required this.press1,
-      @required this.press2,
-      @required this.press3,
-      @required this.subTitle1,
-      @required this.subTitle2,
-      @required this.subTitle3})
+      this.title,
+      this.svgSrc,
+      this.press1,
+      this.press2,
+      this.press3,
+      this.subTitle1,
+      this.subTitle2,
+      this.subTitle3})
       : super(key: key);
 
   final String title, svgSrc, subTitle1, subTitle2, subTitle3;
