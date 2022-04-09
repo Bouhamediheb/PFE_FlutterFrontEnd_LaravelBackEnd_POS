@@ -183,15 +183,21 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                   leading: Image.asset("images/f1.jpg"),
                                   trailing: Text("Ajoutez une Ligne"),
                                 ),
-                                ListTile(
-                                  leading: Text("CTRL + F2"),
+                                Divider(
+                                  thickness: 2,
                                 ),
+                                ListTile(
+                                    leading: Image.asset("images/f8.jpg"),
+                                    trailing: Text("Confirmer")),
                               ],
                             )));
                   });
             },
             backgroundColor: primaryColor,
-            child: Icon(Icons.navigation)),
+            child: Icon(
+              Icons.navigation,
+              color: Colors.white,
+            )),
         body: Padding(
           padding: EdgeInsets.only(
               top: 60.0, bottom: 60.0, left: 120.0, right: 120.0),

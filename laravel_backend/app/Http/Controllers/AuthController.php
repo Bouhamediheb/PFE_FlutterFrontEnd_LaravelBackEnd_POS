@@ -26,7 +26,8 @@ class AuthController extends Controller
 $token = $user->createToken('auth_token')->plainTextToken;
 
 return response()->json([
-              'access_token' => $token,
+                  'user' => $user,
+                  'access_token' => $token,
                    'token_type' => 'Bearer',
 ]);
 }
@@ -47,7 +48,8 @@ $user = User::where('email', $request['email'])->firstOrFail();
 $token = $user->createToken('auth_token')->plainTextToken;
 
 return response()->json([
-    'success' => true,
+          'user' => $user,
+          'success' => true,
            'access_token' => $token,
            'token_type' => 'Bearer',
 ]);
@@ -74,6 +76,6 @@ public function logout(Request $res)
 public function me(Request $request)
 {
 return $request->user();
-}
+} 
 
 }

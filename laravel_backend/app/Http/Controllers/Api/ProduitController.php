@@ -43,7 +43,7 @@ class ProduitController extends Controller
             'nomProd' => 'required',
             'prixAchat' => 'required',
             'prixVente' => 'required',
-            'descriptionProd' => 'required',
+            'descriptionProd',
             'stock' => 'required',
             'imageProd' => 'mimes:jpg,png,jpeg,gif,svg'
         ]);
@@ -55,14 +55,16 @@ class ProduitController extends Controller
         $data['stock'] = $request->stock;
         $data['descriptionProd']= $request->descriptionProd;
         $data['TVA']= $request->TVA;
-        $imageProd = $request->file('imageProd');
-        $name_gen = hexdec(uniqid());
-        $img_ext = strtolower($imageProd->getClientOriginalExtension());
-        $img_name = $name_gen.'.'.$img_ext;
-        $up_location = 'public/produit';
-        $last_img = $up_location.$img_name;
-        $imageProd->move($up_location,$img_name);
-        $data['imageProd'] = $last_img;
+        /**
+        *  $imageProd = $request->file('imageProd');
+        * $name_gen = hexdec(uniqid());
+        * $img_ext = strtolower($imageProd->getClientOriginalExtension());
+        * $img_name = $name_gen.'.'.$img_ext;
+        * $up_location = 'public/produit';
+        * $last_img = $up_location.$img_name;
+        * $imageProd->move($up_location,$img_name);
+        * $data['imageProd'] = $last_img;
+        **/
         $insert = DB::table('produits')->insert($data);
         return response('Produit Ajouté');
     }
