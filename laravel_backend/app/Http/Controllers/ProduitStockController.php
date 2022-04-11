@@ -12,8 +12,8 @@ class ProduitStockController extends Controller
     {
         $stock = DB::table('produits')->where('refProd', $refProd)->get('stock');
         $plucked = $stock->pluck('stock');
-        $mirzaba = $request->stock;
-        $nouveauStock = $plucked[0] + $mirzaba;
+        $ancienStock = $request->stock;
+        $nouveauStock = $plucked[0] + $ancienStock;
         $data= array();
         $data['stock'] = $nouveauStock;
         $insert=DB::table('produits')->where('refProd',$refProd)->update($data);
