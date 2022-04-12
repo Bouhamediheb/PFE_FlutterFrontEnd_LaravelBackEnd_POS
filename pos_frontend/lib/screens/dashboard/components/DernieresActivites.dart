@@ -1,7 +1,8 @@
 import 'package:admin/models/DernieresActions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../../../constants.dart';
 
 class DernieresActivites extends StatefulWidget {
@@ -14,6 +15,30 @@ class DernieresActivites extends StatefulWidget {
 }
 
 class _DernieresActivitesState extends State<DernieresActivites> {
+  List documents = [];
+  @override
+  void initState() {
+    super.initState();
+    this.fetchDocuments();
+  }
+
+  fetchDocuments() async {
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/document'),
+      headers: <String, String>{
+        'Cache-Control': 'no-cache',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        documents = jsonDecode(response.body);
+      });
+    } else {
+      throw Exception('Error!');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,24 +60,44 @@ class _DernieresActivitesState extends State<DernieresActivites> {
           SizedBox(
             width: double.infinity,
             child: DataTable(
-              horizontalMargin: 0,
-              columnSpacing: defaultPadding,
-              columns: [
-                DataColumn(
-                  label: Text("Nom de l'activité"),
-                ),
-                DataColumn(
-                  label: Text("Date de l'activité"),
-                ),
-                DataColumn(
-                  label: Text("Achêvé par "),
-                ),
-              ],
-              rows: List.generate(
-                DernieresActions.length,
-                (index) => recentFileDataRow(DernieresActions[index]),
-              ),
-            ),
+                horizontalMargin: 0,
+                columnSpacing: defaultPadding,
+                columns: [
+                  DataColumn(
+                    label: Text("Numéro Document"),
+                  ),
+                  DataColumn(
+                    label: Text("Date de l'activité"),
+                  ),
+                  DataColumn(
+                    label: Text("Montant Total"),
+                  ),
+                ],
+                rows: <DataRow>[
+                  for (var i = documents.length - 1;
+                      i > documents.length - 10;
+                      i--)
+                    DataRow(cells: <DataCell>[
+                      DataCell(
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/icons/unknown.svg",
+                              height: 30,
+                              width: 30,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultPadding),
+                              child: Text(documents[i]['numDoc']),
+                            ),
+                          ],
+                        ),
+                      ),
+                      DataCell(Text(documents[i]['dateDoc'].toString())),
+                      DataCell(Text(documents[i]['totalDoc'].toString())),
+                    ])
+                ]),
           ),
         ],
       ),

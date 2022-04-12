@@ -38,15 +38,15 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   padding: EdgeInsets.all(defaultPadding * 0.75),
-                  height: 80,
-                  width: 80,
+                  height: 100,
+                  width: 100,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
@@ -56,11 +56,10 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
                 ),
               ],
             ),
-            Text(
-              widget.info.title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            Text(widget.info.title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 17)),
           ],
         ),
       ),

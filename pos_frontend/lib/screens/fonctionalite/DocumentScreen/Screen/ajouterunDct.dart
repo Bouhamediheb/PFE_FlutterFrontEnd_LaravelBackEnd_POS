@@ -6,6 +6,8 @@ import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.d
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:searchfield/searchfield.dart';
+import '../../../dashboard/dashboard_screen.dart';
+import '../../../main/main_screen.dart';
 import '../../FournisseurScreen/Widgets/input_tick_check.dart';
 import '../Widget/input_doctype.dart';
 import '../Widget/input_field.dart';
@@ -35,6 +37,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   List documents = [];
   String dateDoc;
   String numDoc;
+  bool confirmButton = true;
 
   TextEditingController totalDocument = TextEditingController(text: '0');
 
@@ -343,33 +346,46 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                     height: 53,
                                     color: Color.fromARGB(255, 75, 100, 211),
                                     onPressed: () {
-                                      numDoc = seqDocument();
-                                      print(numDoc);
-                                      print(widget.id);
-                                      dateDoc =
-                                          date.toString().substring(0, 10);
-                                      print(dateDoc);
-                                      future = ajoutDocument(
-                                          widget.id,
-                                          numSeqDocument,
-                                          dateDoc,
-                                          double.parse(totalDocument.text));
-                                      for (var i = 3;
-                                          i < widget.controllers.length;
-                                          i = i + 4) {
-                                        future = ajoutLigneDocument(
-                                            widget.controllers[i - 3].text,
-                                            widget.controllers[i - 2].text,
-                                            double.parse(
-                                                widget.controllers[i - 1].text),
-                                            double.parse(
-                                                widget.controllers[i].text));
-                                        future = modificationStock(
-                                            widget.controllers[i - 3].text,
-                                            double.parse(widget
-                                                    .controllers[i - 1].text) *
-                                                -1);
+                                      if (confirmButton) {
+                                        numDoc = seqDocument();
+                                        print(numDoc);
+                                        print(widget.id);
+                                        dateDoc =
+                                            date.toString().substring(0, 10);
+                                        print(dateDoc);
+                                        future = ajoutDocument(
+                                            widget.id,
+                                            numSeqDocument,
+                                            dateDoc,
+                                            double.parse(totalDocument.text));
+                                        for (var i = 3;
+                                            i < widget.controllers.length;
+                                            i = i + 4) {
+                                          future = ajoutLigneDocument(
+                                              widget.controllers[i - 3].text,
+                                              widget.controllers[i - 2].text,
+                                              double.parse(widget
+                                                  .controllers[i - 1].text),
+                                              double.parse(
+                                                  widget.controllers[i].text));
+                                          future = modificationStock(
+                                              widget.controllers[i - 3].text,
+                                              double.parse(widget
+                                                      .controllers[i - 1]
+                                                      .text) *
+                                                  -1);
+                                        }
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MainScreen(
+                                                  DashboardScreen())),
+                                        );
                                       }
+                                      ;
+                                      setState(() {
+                                        confirmButton = false;
+                                      });
                                     },
                                     child: Text(
                                       "Confirmer",
