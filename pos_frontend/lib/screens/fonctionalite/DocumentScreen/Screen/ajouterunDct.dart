@@ -60,6 +60,45 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
     }
   }
 
+  Future<http.Response> ajoutLigneDocument(
+      String refProd, String nomProd, double qteProd, double prixProd) async {
+    final response = await http.post(
+      Uri.parse("http://127.0.0.1:8000/api/lignedocument"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'refProd': refProd,
+        'nomProd': nomProd,
+        'qteProd': qteProd,
+        'prixProd': prixProd,
+      }),
+    );
+    if (response.statusCode == 200) {
+      print("Ligne Document Ajouté");
+    } else {
+      throw Exception('Erreur base de données!');
+    }
+  }
+
+  Future<http.Response> modificationStock(String refProd, double stock) async {
+    final response = await http.post(
+      Uri.parse("http://127.0.0.1:8000/api/produit/stock/$refProd"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json; charset=utf-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'stock': stock,
+      }),
+    );
+    if (response.statusCode == 200) {
+      print("Quantité du Produit Modifié");
+    } else {
+      throw Exception('Erreur base de données!');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -315,6 +354,22 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                           numSeqDocument,
                                           dateDoc,
                                           double.parse(totalDocument.text));
+                                      for (var i = 3;
+                                          i < widget.controllers.length;
+                                          i = i + 4) {
+                                        future = ajoutLigneDocument(
+                                            widget.controllers[i - 3].text,
+                                            widget.controllers[i - 2].text,
+                                            double.parse(
+                                                widget.controllers[i - 1].text),
+                                            double.parse(
+                                                widget.controllers[i].text));
+                                        future = modificationStock(
+                                            widget.controllers[i - 3].text,
+                                            double.parse(widget
+                                                    .controllers[i - 1].text) *
+                                                -1);
+                                      }
                                     },
                                     child: Text(
                                       "Confirmer",
@@ -627,35 +682,16 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                   onFocusChange: (hasFocus) {
                     if (!hasFocus) {
                       widget.total = 0;
-
-                      print(
-                          "total awel fonction  = " + widget.total.toString());
-
-                      //print((widget.controllers[3].text));
                       for (var i = 3;
                           i <= widget.controllers.length;
                           i = i + 4) {
-                        print("valeur eli f index " +
-                            i.toString() +
-                            " = " +
-                            widget.controllers[i].text);
                         widget.total = widget.total +
                             (double.tryParse(widget.controllers[i].text) *
                                 (double.tryParse(
                                     widget.controllers[i - 1].text)));
-                        print("Total" + widget.total.toString());
-                        print(widget.totalDoc);
-
                         setState(() {
-                          print("Salem si bezi :" + widget.totalDoc);
                           widget.totalDoc = widget.total.toString();
-                          print("hedha totalDoc" + widget.totalDoc);
-                          print("----------------");
-                          print("Salem si zebi :" +
-                              widget.totalDocument.toString());
                           widget.totalDocument.text = widget.total.toString();
-                          print("hedha totalDocument" +
-                              widget.totalDocument.text);
                         });
                       }
                     }
@@ -704,35 +740,16 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                   onFocusChange: (hasFocus) {
                     if (!hasFocus) {
                       widget.total = 0;
-
-                      print(
-                          "total awel fonction  = " + widget.total.toString());
-
-                      //print((widget.controllers[3].text));
                       for (var i = 3;
                           i <= widget.controllers.length;
                           i = i + 4) {
-                        print("valeur eli f index " +
-                            i.toString() +
-                            " = " +
-                            widget.controllers[i].text);
                         widget.total = widget.total +
                             (double.tryParse(widget.controllers[i].text) *
                                 (double.tryParse(
                                     widget.controllers[i - 1].text)));
-                        print("Total" + widget.total.toString());
-                        print(widget.totalDoc);
-
                         setState(() {
-                          print("Salem si bezi :" + widget.totalDoc);
                           widget.totalDoc = widget.total.toString();
-                          print("hedha totalDoc" + widget.totalDoc);
-                          print("----------------");
-                          print("Salem si zebi :" +
-                              widget.totalDocument.toString());
                           widget.totalDocument.text = widget.total.toString();
-                          print("hedha totalDocument" +
-                              widget.totalDocument.text);
                         });
                       }
                     }
