@@ -63,14 +63,15 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
     }
   }
 
-  Future<http.Response> ajoutLigneDocument(
-      String refProd, String nomProd, double qteProd, double prixProd) async {
+  Future<http.Response> ajoutLigneDocument(int idDococ, String refProd,
+      String nomProd, double qteProd, double prixProd) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=utf-8',
       },
       body: jsonEncode(<String, dynamic>{
+        'id_doc': idDoc,
         'refProd': refProd,
         'nomProd': nomProd,
         'qteProd': qteProd,
@@ -345,7 +346,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                   MaterialButton(
                                     height: 53,
                                     color: Color.fromARGB(255, 75, 100, 211),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (confirmButton) {
                                         numDoc = seqDocument();
                                         print(numDoc);
@@ -353,15 +354,20 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                         dateDoc =
                                             date.toString().substring(0, 10);
                                         print(dateDoc);
-                                        future = ajoutDocument(
-                                            widget.id,
-                                            numSeqDocument,
-                                            dateDoc,
-                                            double.parse(totalDocument.text));
+                                        if (true)
+                                          await {
+                                            future = ajoutDocument(
+                                                widget.id,
+                                                numSeqDocument,
+                                                dateDoc,
+                                                double.parse(
+                                                    totalDocument.text))
+                                          };
                                         for (var i = 3;
                                             i < widget.controllers.length;
                                             i = i + 4) {
                                           future = ajoutLigneDocument(
+                                              idDoc,
                                               widget.controllers[i - 3].text,
                                               widget.controllers[i - 2].text,
                                               double.parse(widget

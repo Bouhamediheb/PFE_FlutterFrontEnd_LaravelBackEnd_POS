@@ -39,7 +39,7 @@ class LigneDocumentController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            
+            'id_doc',
             'nomProd',
             'refProd',
             'qteProd',
@@ -47,7 +47,7 @@ class LigneDocumentController extends Controller
         ]);
 
         $data=array();
-        
+        $data['id_doc'] = $request->id_doc;
         $data['refProd'] = $request->refProd;
         $data['nomProd'] = $request->nomProd;
         $data['qteProd'] = $request->qteProd;

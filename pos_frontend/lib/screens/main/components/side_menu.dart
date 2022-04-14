@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../dashboard/dashboard_screen.dart';
+import '../../fonctionalite/DocumentScreen/Screen/listedesDct.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/listedesFrs.dart';
 import '../../fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
@@ -68,7 +69,13 @@ class _SideMenuState extends State<SideMenu> {
                       builder: (context) => MainScreen(ChoixDocument())),
                 );
               },
-              press2: () {},
+              press2: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainScreen(listeDocument())),
+                );
+              },
               press3: () {},
             ),
             DrawerListTile(
