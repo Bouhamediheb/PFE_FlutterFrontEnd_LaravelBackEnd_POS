@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProduitStockController;
+use App\Http\Controllers\DocumentTotalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::apiresource('/produit','App\Http\Controllers\Api\ProduitController');
 Route::apiresource('/lignedocument', 'App\Http\Controllers\Api\LigneDocumentController');
 
 Route::post('/produit/stock/{refProd}', [ProduitStockController::class , 'updateStock']);
+
+Route::post('/document/total/{id}', [DocumentTotalController::class , 'updateTotalDocument']);
 
 Route::post('/register',[AuthController::class, 'register']);
 

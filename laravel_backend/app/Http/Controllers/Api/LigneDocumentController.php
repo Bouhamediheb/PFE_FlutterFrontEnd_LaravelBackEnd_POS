@@ -89,6 +89,7 @@ class LigneDocumentController extends Controller
     public function update(Request $request, $id)
     {
         $data= array();
+        $data['id_doc'] = $request->id_doc;
         $data['refProd'] = $request->refProd;
         $data['nomProd'] = $request->nomProd;
         $data['qteProd'] = $request->qteProd;
