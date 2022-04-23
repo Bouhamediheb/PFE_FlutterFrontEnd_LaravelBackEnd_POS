@@ -1,8 +1,10 @@
 import 'package:admin/constants.dart';
+import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/fonctionalite/FournisseurScreen/Widgets/input_tick_check.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../../main/main_screen.dart';
 import '../Widgets/input_field.dart';
 
 class ajouterUnFournisseur extends StatefulWidget {
@@ -352,6 +354,12 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                                 color: Color.fromARGB(
                                                     255, 250, 253, 255)),
                                           )),
+                                    );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MainScreen(DashboardScreen())),
                                     );
                                   }
                                 },

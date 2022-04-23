@@ -261,6 +261,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                             descriptionProduit.text,
                                             double.parse(stockProduit.text));
                                       });
+                                      Navigator.of(context).pop();
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(

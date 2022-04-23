@@ -144,6 +144,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
 
   String seqDocument() {
     print(idDoc);
+    if (idDoc == null) idDoc = 1;
     return numSeqDocument =
         date.toString().substring(0, 10) + '/DOC' + idDoc.toString();
   }
@@ -381,17 +382,18 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                                       .text) *
                                                   -1);
                                         }
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => MainScreen(
-                                                  DashboardScreen())),
-                                        );
-                                      }
-                                      ;
+                                      };
+                                      Navigator.of(context).pop();
+
                                       setState(() {
                                         confirmButton = false;
                                       });
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MainScreen(DashboardScreen())),
+                                      );
                                     },
                                     child: Text(
                                       "Confirmer",
