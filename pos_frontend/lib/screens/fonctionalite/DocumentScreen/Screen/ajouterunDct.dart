@@ -63,7 +63,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
     }
   }
 
-  Future<http.Response> ajoutLigneDocument(int idDococ, String refProd,
+  Future<http.Response> ajoutLigneDocument(int idDoc, String refProd,
       String nomProd, double qteProd, double prixProd) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument"),

@@ -18,6 +18,7 @@ import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
 class modifierUnDocument extends StatefulWidget {
   List<TextEditingController> controllers = [];
+  List<TextEditingController> controllers2 = [];
   int documentId;
   int ligneDocumentId;
   modifierUnDocument(this.ligneDocumentId, this.documentId);
@@ -33,6 +34,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
   TextEditingController totalDocument = TextEditingController(text: '0');
   List documents = [];
   List ligneDocuments = [];
+  List stockInitial = [];
   @override
   void initState() {
     super.initState();
@@ -67,6 +69,10 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
       var items = jsonDecode(response.body);
       setState(() {
         ligneDocuments = items;
+        for (var i = 0; i < items.length; i++) {
+          stockInitial.add(items[i]['qteProd']);
+          print(stockInitial);
+        }
       });
     } else {
       throw Exception('Error!');
@@ -89,29 +95,32 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
           TextEditingController prixController = new TextEditingController();
           widget.controllers.add(prixController);
           prixController.text = ligneDocuments[i]['prixProd'].toString();
-
-          _cardList.add(SizedBox(height: 10));
-          Divider(
-            thickness: 2,
-            color: Colors.white,
-          );
+          TextEditingController totalProdController =
+              new TextEditingController();
+          totalProdController.text = (double.parse(prixController.text) *
+                  double.parse(qteController.text))
+              .toString();
 
           _cardList.add(InputRefNomProduit(
-              totalDoc: totalDoc,
-              totalDocument: totalDocument,
-              total: total,
-              controllers: widget.controllers,
-              label: 'Référence',
-              label2: 'Nom du produit',
-              label3: 'Quantité',
-              label4: 'Prix',
-              fieldController: refController,
-              fieldController2: nomController,
-              fieldController3: qteController,
-              fieldController4: prixController));
+            totalDoc: totalDoc,
+            totalDocument: totalDocument,
+            total: total,
+            controllers: widget.controllers,
+            label: 'Référence',
+            label2: 'Nom du produit',
+            label3: 'Quantité',
+            label4: 'Prix',
+            label5: 'Total par Produit',
+            fieldController: refController,
+            fieldController2: nomController,
+            fieldController3: qteController,
+            fieldController4: prixController,
+            fieldController5: totalProdController,
+          ));
         });
       }
     }
+
     for (var i = 0; i < documents.length; i++)
       if (documents[i]['id'] == widget.ligneDocumentId) {
         totalDocument.text = documents[i]['totalDoc'].toString();
@@ -127,7 +136,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
       body: jsonEncode(<String, dynamic>{'totalDoc': totalDoc}),
     );
     if (response.statusCode == 200) {
-      return documents = jsonDecode(response.body);
+      print('Total Document Modifié');
     } else {
       throw Exception('Erreur base de données!');
     }
@@ -173,55 +182,65 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
     }
   }
 
+  Future<http.Response> ajoutLigneDocument(int idDoc, String refProd,
+      String nomProd, double qteProd, double prixProd) async {
+    final response = await http.post(
+      Uri.parse("http://127.0.0.1:8000/api/lignedocument"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'id_doc': idDoc,
+        'refProd': refProd,
+        'nomProd': nomProd,
+        'qteProd': qteProd,
+        'prixProd': prixProd,
+      }),
+    );
+    if (response.statusCode == 200) {
+      print("Ligne Document Ajouté");
+    } else {
+      throw Exception('Erreur base de données!');
+    }
+  }
+
   void _addCardWidgetExp() {
     setState(() {
-      TextEditingController refController = new TextEditingController();
-      widget.controllers.add(refController);
-      TextEditingController nomController = new TextEditingController();
-      widget.controllers.add(nomController);
-      TextEditingController qteController = new TextEditingController();
-      widget.controllers.add(qteController);
-      TextEditingController prixController = new TextEditingController();
-      widget.controllers.add(prixController);
-
-      _cardList.add(SizedBox(height: 10));
+      TextEditingController refController2 = new TextEditingController();
+      widget.controllers2.add(refController2);
+      TextEditingController nomController2 = new TextEditingController();
+      widget.controllers2.add(nomController2);
+      TextEditingController qteController2 = new TextEditingController();
+      widget.controllers2.add(qteController2);
+      TextEditingController prixController2 = new TextEditingController();
+      widget.controllers2.add(prixController2);
+      TextEditingController totalProdController2 = new TextEditingController();
       Divider(
         thickness: 2,
         color: Colors.white,
       );
 
       _cardList.add(InputRefNomProduit(
-          totalDoc: totalDoc,
-          totalDocument: totalDocument,
-          total: total,
-          controllers: widget.controllers,
-          label: 'Référence',
-          content: 'Taper la référence',
-          label2: 'Nom du produit',
-          content2: '',
-          label3: 'Quantité',
-          content3: 'Taper la quantité',
-          label4: 'Prix',
-          content4: 'Taper le prix unitaire',
-          fieldController: refController,
-          fieldController2: nomController,
-          fieldController3: qteController,
-          fieldController4: prixController));
-    });
-  }
-
-  void CalculTotal() {
-    print("function mchet");
-    print(total);
-    total = 0;
-    print(total);
-
-    total = total + double.tryParse(widget.controllers.last.text);
-
-    print("hedha total : " + total.toString());
-    print("hedhe totalDoc" + totalDocument.toString());
-    setState(() {
-      totalDocument.text = total.toString();
+        totalDoc: totalDoc,
+        totalDocument: totalDocument,
+        total: total,
+        controllers: widget.controllers2,
+        label: 'Référence',
+        content: 'Taper la référence',
+        label2: 'Nom du produit',
+        content2: '',
+        label3: 'Quantité',
+        content3: 'Taper la quantité',
+        label4: 'Prix',
+        content4: 'Taper le prix unitaire',
+        label5: 'Total Par Produit',
+        content5: 'Total TTC',
+        fieldController: refController2,
+        fieldController2: nomController2,
+        fieldController3: qteController2,
+        fieldController4: prixController2,
+        fieldController5: totalProdController2,
+      ));
     });
   }
 
@@ -245,13 +264,13 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
       child: Form(
         key: _formKey,
         child: Card(
+          elevation: 0,
           shadowColor: Color.fromARGB(255, 255, 255, 255),
           color: Color(0xFF2A2D3E),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-          elevation: 10.0,
           child: Container(
-            width: 1300,
+            width: 2000,
             child: Column(
               children: <Widget>[
                 Center(
@@ -276,10 +295,27 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                         height: 450,
                                         width: 1200,
                                         child: ListView.builder(
-                                            itemCount: _cardList.length,
-                                            itemBuilder: (context, index) {
-                                              return _cardList[index];
-                                            }),
+                                          itemCount: _cardList.length,
+                                          itemBuilder: (context, index) {
+                                            return ListTile(
+                                              trailing: Expanded(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5),
+                                                  child: _cardList[index],
+                                                ),
+                                              ),
+                                              leading: Expanded(
+                                                child: IconButton(
+                                                  onPressed: () {},
+                                                  icon: Icon(Icons.close_sharp,
+                                                      size: 28),
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -316,7 +352,9 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                               MaterialButton(
                                 height: 53,
                                 color: Color.fromARGB(255, 112, 112, 112),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _addCardWidgetExp();
+                                },
                                 child: Text(
                                   "Ajouter une ligne",
                                   style: TextStyle(color: Colors.white),
@@ -330,6 +368,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                 color: Color.fromARGB(255, 75, 100, 211),
                                 onPressed: () async {
                                   if (confirmButton) {
+                                    int j = 0;
                                     for (var i = 4;
                                         i < widget.controllers.length;
                                         i = i + 5) {
@@ -343,13 +382,36 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                               widget.controllers[i - 1].text),
                                           double.parse(
                                               widget.controllers[i].text));
+                                      future = modificationStock(
+                                          widget.controllers[i - 3].text,
+                                          double.parse(widget
+                                                  .controllers[i - 1].text) -
+                                              stockInitial[j]);
+                                      j++;
                                     }
-                                    for (var i = 0; i < documents.length; i++)
+                                    for (var i = 0; i < documents.length; i++) {
                                       if (documents[i]['id'] ==
                                           widget.ligneDocumentId) {
                                         modifierDocument(documents[i]['id'],
                                             double.parse(totalDocument.text));
                                       }
+                                    }
+                                    for (var i = 3;
+                                        i < widget.controllers2.length;
+                                        i = i + 4) {
+                                      future = ajoutLigneDocument(
+                                          widget.documentId,
+                                          widget.controllers2[i - 3].text,
+                                          widget.controllers2[i - 2].text,
+                                          double.parse(
+                                              widget.controllers2[i - 1].text),
+                                          double.parse(
+                                              widget.controllers2[i].text));
+                                      future = modificationStock(
+                                          widget.controllers2[i - 3].text,
+                                          double.parse(
+                                              widget.controllers2[i - 1].text));
+                                    }
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -462,13 +524,14 @@ class InputRefNomProduit extends StatefulWidget {
   double total = 0;
   String totalDoc = "Hello";
   TextEditingController totalDocument;
-
-  final String label, label2, label3, label4;
-  final String content, content2, content3, content4;
+  double totalPrixUnitaire = 0;
+  final String label, label2, label3, label4, label5;
+  final String content, content2, content3, content4, content5;
   var fieldController = TextEditingController();
   var fieldController2 = TextEditingController();
   var fieldController3 = TextEditingController();
   var fieldController4 = TextEditingController();
+  var fieldController5 = TextEditingController();
   List<TextEditingController> controllers = [];
   VoidCallback Prix;
   FormFieldValidator<String> fieldValidator = (_) {};
@@ -483,11 +546,14 @@ class InputRefNomProduit extends StatefulWidget {
     this.content3,
     this.label4,
     this.content4,
+    this.content5,
+    this.label5,
     this.fieldController,
     this.fieldController2,
     this.fieldValidator,
     this.fieldController3,
     this.fieldController4,
+    this.fieldController5,
     this.Prix,
     this.totalDoc,
     @required this.totalDocument,
@@ -656,7 +722,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 3,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
                 color: Color.fromARGB(255, 255, 255, 255),
@@ -674,6 +740,10 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                         setState(() {
                           widget.totalDoc = widget.total.toString();
                           widget.totalDocument.text = widget.total.toString();
+                          widget.fieldController5.text = (double.parse(
+                                      widget.fieldController3.text) *
+                                  double.parse(widget.fieldController4.text))
+                              .toString();
                         });
                       }
                     }
@@ -732,30 +802,88 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                         setState(() {
                           widget.totalDoc = widget.total.toString();
                           widget.totalDocument.text = widget.total.toString();
+                          widget.fieldController5.text = (double.parse(
+                                      widget.controllers[i].text) *
+                                  double.parse(widget.controllers[i - 1].text))
+                              .toString();
                         });
                       }
                     }
                   },
-                  child: TextFormField(
-                    textInputAction: TextInputAction.done,
-                    enabled: true,
-                    controller: widget.fieldController4,
-                    validator: widget.fieldValidator,
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
-                      // hintText: widget.totalDocument.text,
-                      hintStyle: TextStyle(
-                          color: Color.fromARGB(255, 190, 190, 190),
-                          fontSize: 14),
-                      fillColor: Color.fromARGB(255, 0, 0, 0),
+                  child: Focus(
+                    onFocusChange: (hasFocus) {
+                      if (!hasFocus) {
+                        widget.fieldController5.text =
+                            (double.parse(widget.fieldController4.text) *
+                                    double.parse(widget.fieldController3.text))
+                                .toString();
+                      }
+                    },
+                    child: TextFormField(
+                      textInputAction: TextInputAction.done,
+                      enabled: true,
+                      controller: widget.fieldController4,
+                      validator: widget.fieldValidator,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.black,
+                      ),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        // hintText: widget.totalDocument.text,
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 190, 190, 190),
+                            fontSize: 14),
+                        fillColor: Color.fromARGB(255, 0, 0, 0),
+                      ),
                     ),
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Expanded(
+              flex: 4,
+              child: Container(
+                width: 50.0,
+                child: Text(
+                  "${widget.label5}",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Container(
+                width: MediaQuery.of(context).size.width / 3.7,
+                color: Color.fromARGB(255, 255, 255, 255),
+                child: TextFormField(
+                  enabled: false,
+                  controller: widget.fieldController5,
+                  validator: widget.fieldValidator,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    hintText: "${widget.content5}",
+                    hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 190, 190, 190),
+                        fontSize: 14),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 5,
             ),
           ],
         );

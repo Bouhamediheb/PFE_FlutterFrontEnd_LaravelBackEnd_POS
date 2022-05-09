@@ -13,6 +13,6 @@ class DocumentTotalController extends Controller
         $data=array();
         $data['totalDoc'] = $request->totalDoc;
         $insert = DB::table('documents')->where('id',$id)->update($data);
-        return response()->json('Document Modifié');
+        return response()->json('Document Total Modifié');
     }
 }

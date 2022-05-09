@@ -15,11 +15,10 @@ class DernieresActivites extends StatefulWidget {
 }
 
 class _DernieresActivitesState extends State<DernieresActivites> {
-  List documents = [];
   @override
   void initState() {
     super.initState();
-    this.fetchDocuments();
+    fetchDocuments();
   }
 
   fetchDocuments() async {
@@ -33,12 +32,14 @@ class _DernieresActivitesState extends State<DernieresActivites> {
     if (response.statusCode == 200) {
       setState(() {
         documents = jsonDecode(response.body);
+        print(documents.length);
       });
     } else {
       throw Exception('Error!');
     }
   }
 
+  List documents = [];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,7 +76,7 @@ class _DernieresActivitesState extends State<DernieresActivites> {
                 ],
                 rows: <DataRow>[
                   for (var i = documents.length - 1;
-                      i > documents.length - 10;
+                      i >= documents.length - 9;
                       i--)
                     DataRow(cells: <DataCell>[
                       DataCell(

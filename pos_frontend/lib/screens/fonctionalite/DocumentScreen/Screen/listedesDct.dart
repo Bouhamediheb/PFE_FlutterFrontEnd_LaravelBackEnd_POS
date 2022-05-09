@@ -163,7 +163,7 @@ class _listeDocumentState extends State<listeDocument> {
                                                       BorderRadius.circular(10),
                                                 ),
                                                 content: Container(
-                                                    width: 1300,
+                                                    width: 1500,
                                                     child: modifierUnDocument(
                                                         documents[i]['id'],
                                                         documentId)),
