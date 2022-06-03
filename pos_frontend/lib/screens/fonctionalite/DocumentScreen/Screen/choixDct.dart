@@ -6,7 +6,7 @@ import '../../../../constants.dart';
 import '../../../main/main_screen.dart';
 
 class ChoixDocument extends StatefulWidget {
-  const ChoixDocument({Key key}) : super(key: key);
+  const ChoixDocument({Key? key}) : super(key: key);
 
   @override
   State<ChoixDocument> createState() => _ChoixDocumentState();

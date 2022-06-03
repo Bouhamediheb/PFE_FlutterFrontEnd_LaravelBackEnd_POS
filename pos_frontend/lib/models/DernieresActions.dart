@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 class DerniereAction {
-  final String icon, nomActivite, date, nomPersonne;
+  final String? icon, nomActivite, date, nomPersonne;
 
   DerniereAction({this.icon, this.nomActivite, this.date, this.nomPersonne});
 }

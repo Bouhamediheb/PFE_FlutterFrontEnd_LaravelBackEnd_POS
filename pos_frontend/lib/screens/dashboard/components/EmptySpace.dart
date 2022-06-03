@@ -5,7 +5,7 @@ import '../../../constants.dart';
 
 class EmptySpace extends StatefulWidget {
   const EmptySpace({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -13,7 +13,7 @@ class EmptySpace extends StatefulWidget {
 }
 
 class _EmptySpaceState extends State<EmptySpace> {
-  List produits = [];
+  List? produits = [];
   @override
   void initState() {
     super.initState();
@@ -91,14 +91,14 @@ class _EmptySpaceState extends State<EmptySpace> {
                   ),
                 ],
                 rows: <DataRow>[
-                  for (var i = 0; i < produits.length; i++)
+                  for (var i = 0; i < produits!.length; i++)
                     DataRow(
                       cells: <DataCell>[
                         DataCell(
-                          Text(produits[i]['nomProd']),
+                          Text(produits![i]['nomProd']),
                         ),
                         DataCell(
-                          Text(produits[i]['stock'].toString()),
+                          Text(produits![i]['stock'].toString()),
                         ),
                       ],
                     ),

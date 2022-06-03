@@ -18,7 +18,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{70C16CEF-0631-3757-A89A-9EDF42B3D4E0}</ProjectGuid>
+    <ProjectGuid>{5E717018-81A4-348D-86BB-D863A70BB210}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
@@ -51,19 +51,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">posflutterfrontend.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">posflutterfrontend</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\Profile\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\Profile\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">posflutterfrontend.dir\Profile\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">posflutterfrontend</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">posflutterfrontend.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">posflutterfrontend</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
@@ -72,7 +72,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -92,10 +92,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;_HAS_EXCEPTIONS=0;NOMINMAX;UNICODE;_UNICODE;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -103,25 +103,25 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\flutter\Debug\flutter_wrapper_app.lib;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\flutter_windows.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\flutter\Debug\flutter_wrapper_app.lib;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\flutter_windows.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/Debug/posflutterfrontend.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/Debug/posflutterfrontend.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/Debug/posflutterfrontend.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/Debug/posflutterfrontend.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Manifest>
-      <AdditionalManifestFiles>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\runner.exe.manifest;</AdditionalManifestFiles>
+      <AdditionalManifestFiles>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\runner.exe.manifest;</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DisableSpecificWarnings>"4100"</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -141,10 +141,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_HAS_EXCEPTIONS=0;NOMINMAX;UNICODE;_UNICODE;CMAKE_INTDIR=\"Profile\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -152,25 +152,25 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\flutter\Profile\flutter_wrapper_app.lib;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\flutter_windows.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\flutter\Profile\flutter_wrapper_app.lib;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\flutter_windows.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/Profile/posflutterfrontend.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/Profile/posflutterfrontend.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/Profile/posflutterfrontend.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/Profile/posflutterfrontend.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Manifest>
-      <AdditionalManifestFiles>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\runner.exe.manifest;</AdditionalManifestFiles>
+      <AdditionalManifestFiles>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\runner.exe.manifest;</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DisableSpecificWarnings>"4100"</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -190,10 +190,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_HAS_EXCEPTIONS=0;NOMINMAX;UNICODE;_UNICODE;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\cpp_client_wrapper\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -201,28 +201,28 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\flutter\Release\flutter_wrapper_app.lib;C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral\flutter_windows.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\flutter\Release\flutter_wrapper_app.lib;C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral\flutter_windows.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/Release/posflutterfrontend.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/Release/posflutterfrontend.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/Release/posflutterfrontend.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/Release/posflutterfrontend.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Manifest>
-      <AdditionalManifestFiles>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\runner.exe.manifest;</AdditionalManifestFiles>
+      <AdditionalManifestFiles>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\runner.exe.manifest;</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\CMakeLists.txt">
+    <CustomBuild Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -231,11 +231,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -244,11 +244,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -257,11 +257,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -270,11 +270,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -283,11 +283,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -296,11 +296,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -309,11 +309,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -322,11 +322,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -335,33 +335,33 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\flutter_window.cpp" />
-    <ClCompile Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\main.cpp" />
-    <ClCompile Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\utils.cpp" />
-    <ClCompile Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\win32_window.cpp" />
-    <ClCompile Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\generated_plugin_registrant.cc" />
-    <ResourceCompile Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\Runner.rc" />
+    <ClCompile Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\flutter_window.cpp" />
+    <ClCompile Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\main.cpp" />
+    <ClCompile Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\utils.cpp" />
+    <ClCompile Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\win32_window.cpp" />
+    <ClCompile Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\generated_plugin_registrant.cc" />
+    <ResourceCompile Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\Runner.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\ZERO_CHECK.vcxproj">
-      <Project>{AA97EB73-99AB-374F-A849-CD432FF2C0E6}</Project>
+    <ProjectReference Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\ZERO_CHECK.vcxproj">
+      <Project>{C477696B-D00C-350A-A55E-A9CB715F08FE}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\flutter\flutter_assemble.vcxproj">
-      <Project>{0213540E-762D-31D5-B2C2-00A8504F304B}</Project>
+    <ProjectReference Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\flutter\flutter_assemble.vcxproj">
+      <Project>{0421525B-5815-34BA-95A8-6E2A01FE93B4}</Project>
       <Name>flutter_assemble</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\flutter\flutter_wrapper_app.vcxproj">
-      <Project>{D4E216F3-FAD7-3C03-B16A-323779BD42A5}</Project>
+    <ProjectReference Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\flutter\flutter_wrapper_app.vcxproj">
+      <Project>{120D9A28-BA2E-3D84-BF2D-E104F543D7CB}</Project>
       <Name>flutter_wrapper_app</Name>
     </ProjectReference>
   </ItemGroup>

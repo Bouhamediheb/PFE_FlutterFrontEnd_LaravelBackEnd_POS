@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 
 class inputDocType extends StatefulWidget {
-  final String label;
-  final String content;
-  String dropDownValue;
+  final String? label;
+  final String? content;
+  String? dropDownValue;
 
   inputDocType({
     this.label,
@@ -68,7 +68,7 @@ class _inputDocTypeState extends State<inputDocType> {
                     );
                   },
                 ).toList(),
-                onChanged: (val) {
+                onChanged: (dynamic val) {
                   setState(
                     () {
                       widget.dropDownValue = val;

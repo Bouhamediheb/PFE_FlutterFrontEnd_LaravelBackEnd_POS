@@ -10,10 +10,10 @@ class InputFieldCheckTick extends StatefulWidget {
 }
 
 class _InputFieldCheckTickState extends State<InputFieldCheckTick> {
-  bool _exoTVA;
-  double _timbreFiscaleFournisseur;
+  bool? _exoTVA;
+  double? _timbreFiscaleFournisseur;
   bool isSwitched = false;
-  bool isTicked = false;
+  bool? isTicked = false;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -71,7 +71,7 @@ class _InputFieldCheckTickState extends State<InputFieldCheckTick> {
                   activeColor: Color.fromARGB(255, 41, 17, 173),
                   value: isTicked,
                   onChanged: (value) async {
-                    await setState(() {
+                    setState(() {
                       isTicked = value;
                       if (isTicked == false) {
                         widget.exoTVA = false;

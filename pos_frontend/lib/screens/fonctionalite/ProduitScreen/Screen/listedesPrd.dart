@@ -13,8 +13,8 @@ class listeProduit extends StatefulWidget {
 }
 
 class listeProduitState extends State<listeProduit> {
-  int produitId;
-  List produits = [];
+  int? produitId;
+  List? produits = [];
   @override
   void initState() {
     super.initState();
@@ -62,7 +62,7 @@ class listeProduitState extends State<listeProduit> {
                   height: 20,
                   child: Center(
                     child: Text(
-                      'La Liste Des Fournisseurs :',
+                      'La Liste Des Produits :',
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Colors.white,
@@ -127,20 +127,23 @@ class listeProduitState extends State<listeProduit> {
                       )),
                       DataColumn(
                           label: Flexible(
-                              child: Text("Actions",
+                              child: Text("Action",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)))),
                     ],
                     rows: <DataRow>[
-                      for (var i = 0; i < produits.length; i++)
+                      for (var i = 0; i < produits!.length; i++)
                         DataRow(
                           cells: <DataCell>[
-                            DataCell(Text(produits[i]['refProd'].toString())),
-                            DataCell(Text(produits[i]['nomProd'].toString())),
-                            DataCell(Text(produits[i]['stock'].toString())),
-                            DataCell(Text(produits[i]['prixAchat'].toString())),
-                            DataCell(Text(produits[i]['prixVente'].toString())),
-                            DataCell(Text(produits[i]['TVA'].toString())),
+                            DataCell(Text(produits![i]['refProd'].toString())),
+                            DataCell(Text(produits![i]['nomProd'].toString())),
+                            DataCell(Text(produits![i]['stock'].toString())),
+                            DataCell(
+                                Text(produits![i]['prixAchat'].toString())),
+                            DataCell(
+                                Text(produits![i]['prixVente'].toString())),
+                            DataCell(
+                                Text("${produits![i]['TVA'].toString()}%")),
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +153,7 @@ class listeProduitState extends State<listeProduit> {
                                             Icons.mode_edit_outline_outlined,
                                             color: Colors.green),
                                         onPressed: () async {
-                                          produitId = produits[i]['id'];
+                                          produitId = produits![i]['id'];
                                           await showAnimatedDialog(
                                             context: context,
                                             barrierDismissible: true,
@@ -173,46 +176,10 @@ class listeProduitState extends State<listeProduit> {
                                             curve: Curves.fastOutSlowIn,
                                             duration: Duration(seconds: 1),
                                           );
-                                          await setState(() {
+                                          setState(() {
                                             fetchProduits();
                                           });
                                         }),
-                                    IconButton(
-                                      icon: Icon(Icons.delete_outline,
-                                          color: Colors.red),
-                                      onPressed: () async {
-                                        produitId = produits[i]['id'];
-                                        await showAnimatedDialog(
-                                          context: context,
-                                          barrierDismissible: true,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              insetPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                              backgroundColor:
-                                                  Color(0xFF2A2D3E),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              content: Container(
-                                                  width: 400,
-                                                  height: 110,
-                                                  child: supprimerUnProduit(
-                                                      produitId)),
-                                            );
-                                          },
-                                          animationType:
-                                              DialogTransitionType.fadeScale,
-                                          curve: Curves.fastOutSlowIn,
-                                          duration: Duration(seconds: 1),
-                                        );
-                                        await setState(() {
-                                          fetchProduits();
-                                        });
-                                      },
-                                    ),
                                   ]),
                             ),
                           ],

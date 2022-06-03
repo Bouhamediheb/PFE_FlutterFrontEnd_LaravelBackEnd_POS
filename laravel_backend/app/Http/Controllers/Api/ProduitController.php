@@ -39,7 +39,7 @@ class ProduitController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'refProd' => 'required',
+            'refProd' => 'required|unique:produits',
             'nomProd' => 'required',
             'prixAchat' => 'required',
             'prixVente' => 'required',

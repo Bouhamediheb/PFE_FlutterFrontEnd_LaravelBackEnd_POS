@@ -18,7 +18,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{37720456-0609-3470-9C38-3AB108197574}</ProjectGuid>
+    <ProjectGuid>{1A530594-4C9D-3670-9D7B-CEB1EEEDAA09}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
@@ -86,11 +86,11 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\runner\CMakeLists.txt">
+    <CustomBuild Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\runner\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -99,11 +99,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -112,11 +112,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -125,11 +125,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -138,11 +138,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -151,11 +151,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -164,11 +164,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -177,11 +177,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -190,11 +190,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -203,21 +203,21 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\ZERO_CHECK.vcxproj">
-      <Project>{AA97EB73-99AB-374F-A849-CD432FF2C0E6}</Project>
+    <ProjectReference Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\ZERO_CHECK.vcxproj">
+      <Project>{C477696B-D00C-350A-A55E-A9CB715F08FE}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\posflutterfrontend.vcxproj">
-      <Project>{70C16CEF-0631-3757-A89A-9EDF42B3D4E0}</Project>
+    <ProjectReference Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\posflutterfrontend.vcxproj">
+      <Project>{5E717018-81A4-348D-86BB-D863A70BB210}</Project>
       <Name>posflutterfrontend</Name>
     </ProjectReference>
   </ItemGroup>

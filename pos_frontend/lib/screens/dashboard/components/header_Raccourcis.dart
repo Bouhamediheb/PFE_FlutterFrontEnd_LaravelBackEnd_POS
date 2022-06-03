@@ -11,7 +11,7 @@ import '../../main/main_screen.dart';
 
 class HeaderRaccourcis extends StatefulWidget {
   const HeaderRaccourcis({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
               style: Theme.of(context).textTheme.subtitle1,
             ),
             PopupMenuButton(
-                onSelected: (value) {
+                onSelected: (dynamic value) {
                   if (value == 1)
                     Navigator.push(
                       context,
@@ -103,7 +103,7 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
 
 class FileInfoCardGridView extends StatelessWidget {
   const FileInfoCardGridView({
-    Key key,
+    Key? key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1,
   }) : super(key: key);

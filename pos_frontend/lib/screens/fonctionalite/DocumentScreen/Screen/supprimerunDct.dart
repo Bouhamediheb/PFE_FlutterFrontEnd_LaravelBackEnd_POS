@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class supprimerUnDocument extends StatefulWidget {
-  int documentId;
+  int? documentId;
   supprimerUnDocument(this.documentId);
   @override
   State<supprimerUnDocument> createState() => _supprimerUnDocumentState();
@@ -19,7 +19,7 @@ class _supprimerUnDocumentState extends State<supprimerUnDocument> {
     );
   }
 
-  Future<dynamic> future;
+  Future<dynamic>? future;
   @override
   Widget build(BuildContext context) {
     return Card(

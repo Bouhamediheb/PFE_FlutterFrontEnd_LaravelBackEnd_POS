@@ -19,8 +19,8 @@ import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 class modifierUnDocument extends StatefulWidget {
   List<TextEditingController> controllers = [];
   List<TextEditingController> controllers2 = [];
-  int documentId;
-  int ligneDocumentId;
+  int? documentId;
+  int? ligneDocumentId;
   modifierUnDocument(this.ligneDocumentId, this.documentId);
 
   @override
@@ -28,13 +28,16 @@ class modifierUnDocument extends StatefulWidget {
 }
 
 class _modifierUnDocumentState extends State<modifierUnDocument> {
+  VoidCallback? getIndex;
   double total = 0;
   String totalDoc = "0";
+  int j = -1;
   bool confirmButton = true;
   TextEditingController totalDocument = TextEditingController(text: '0');
-  List documents = [];
-  List ligneDocuments = [];
+  List? documents = [];
+  List? ligneDocuments = [];
   List stockInitial = [];
+  int? index;
   @override
   void initState() {
     super.initState();
@@ -77,57 +80,61 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
     } else {
       throw Exception('Error!');
     }
-    for (var i = 0; i < ligneDocuments.length; i++) {
-      if (ligneDocuments[i]['id_doc'] == widget.ligneDocumentId) {
+    for (var i = 0; i < ligneDocuments!.length; i++) {
+      if (ligneDocuments![i]['id_doc'] == widget.ligneDocumentId) {
         setState(() {
           TextEditingController idController = new TextEditingController();
           widget.controllers.add(idController);
-          idController.text = ligneDocuments[i]['id'].toString();
+          idController.text = ligneDocuments![i]['id'].toString();
           TextEditingController refController = new TextEditingController();
           widget.controllers.add(refController);
-          refController.text = ligneDocuments[i]['refProd'].toString();
+          refController.text = ligneDocuments![i]['refProd'].toString();
           TextEditingController nomController = new TextEditingController();
           widget.controllers.add(nomController);
-          nomController.text = ligneDocuments[i]['nomProd'].toString();
+          nomController.text = ligneDocuments![i]['nomProd'].toString();
           TextEditingController qteController = new TextEditingController();
           widget.controllers.add(qteController);
-          qteController.text = ligneDocuments[i]['qteProd'].toString();
+          qteController.text = ligneDocuments![i]['qteProd'].toString();
           TextEditingController prixController = new TextEditingController();
           widget.controllers.add(prixController);
-          prixController.text = ligneDocuments[i]['prixProd'].toString();
+          prixController.text = ligneDocuments![i]['prixProd'].toString();
           TextEditingController totalProdController =
               new TextEditingController();
           totalProdController.text = (double.parse(prixController.text) *
                   double.parse(qteController.text))
               .toString();
-
           _cardList.add(InputRefNomProduit(
-            totalDoc: totalDoc,
-            totalDocument: totalDocument,
-            total: total,
-            controllers: widget.controllers,
-            label: 'Référence',
-            label2: 'Nom du produit',
-            label3: 'Quantité',
-            label4: 'Prix',
-            label5: 'Total par Produit',
-            fieldController: refController,
-            fieldController2: nomController,
-            fieldController3: qteController,
-            fieldController4: prixController,
-            fieldController5: totalProdController,
-          ));
+              totalDoc: totalDoc,
+              totalDocument: totalDocument,
+              total: total,
+              controllers: widget.controllers,
+              label: 'Référence',
+              label2: 'Nom du produit',
+              label3: 'Quantité',
+              label4: 'Prix',
+              label5: 'Total par Produit',
+              fieldController: refController,
+              fieldController2: nomController,
+              fieldController3: qteController,
+              fieldController4: prixController,
+              fieldController5: totalProdController,
+              index: () {
+                return index = i;
+              },
+              delete: () {
+                setState(() {});
+              }));
         });
       }
     }
 
-    for (var i = 0; i < documents.length; i++)
-      if (documents[i]['id'] == widget.ligneDocumentId) {
-        totalDocument.text = documents[i]['totalDoc'].toString();
+    for (var i = 0; i < documents!.length; i++)
+      if (documents![i]['id'] == widget.ligneDocumentId) {
+        totalDocument.text = documents![i]['totalDoc'].toString();
       }
   }
 
-  Future<http.Response> modifierDocument(int id, double totalDoc) async {
+  modifierDocument(int? id, double totalDoc) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/document/total/$id"),
       headers: <String, String>{
@@ -142,8 +149,8 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
     }
   }
 
-  Future<http.Response> modifierLigneDocument(int id, int idDoc, String refProd,
-      String nomProd, double qteProd, double prixProd) async {
+  modifierLigneDocument(int id, int? idDoc, String refProd, String nomProd,
+      double qteProd, double prixProd) async {
     final response = await http.put(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument/$id"),
       headers: <String, String>{
@@ -164,7 +171,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
     }
   }
 
-  Future<http.Response> modificationStock(String refProd, double stock) async {
+  modificationStock(String refProd, double stock) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/produit/stock/$refProd"),
       headers: <String, String>{
@@ -182,8 +189,8 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
     }
   }
 
-  Future<http.Response> ajoutLigneDocument(int idDoc, String refProd,
-      String nomProd, double qteProd, double prixProd) async {
+  ajoutLigneDocument(int? idDoc, String refProd, String nomProd, double qteProd,
+      double prixProd) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument"),
       headers: <String, String>{
@@ -244,7 +251,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
     });
   }
 
-  Future<dynamic> future;
+  Future<dynamic>? future;
 
   List<Widget> _cardList = [];
 
@@ -280,47 +287,17 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                     child: Column(
                       children: <Widget>[
                         SingleChildScrollView(
-                          child: Container(
-                            child: Row(
-                              //mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      SizedBox(
-                                        height: 450,
-                                        width: 1200,
-                                        child: ListView.builder(
-                                          itemCount: _cardList.length,
-                                          itemBuilder: (context, index) {
-                                            return ListTile(
-                                              trailing: Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                                  child: _cardList[index],
-                                                ),
-                                              ),
-                                              leading: Expanded(
-                                                child: IconButton(
-                                                  onPressed: () {},
-                                                  icon: Icon(Icons.close_sharp,
-                                                      size: 28),
-                                                  color: Colors.red,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                          child: SizedBox(
+                            height: 450,
+                            width: 1200,
+                            child: ListView.builder(
+                              itemCount: _cardList.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                  child: _cardList[index],
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -389,10 +366,12 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                               stockInitial[j]);
                                       j++;
                                     }
-                                    for (var i = 0; i < documents.length; i++) {
-                                      if (documents[i]['id'] ==
+                                    for (var i = 0;
+                                        i < documents!.length;
+                                        i++) {
+                                      if (documents![i]['id'] ==
                                           widget.ligneDocumentId) {
-                                        modifierDocument(documents[i]['id'],
+                                        modifierDocument(documents![i]['id'],
                                             double.parse(totalDocument.text));
                                       }
                                     }
@@ -522,22 +501,25 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
 
 class InputRefNomProduit extends StatefulWidget {
   double total = 0;
-  String totalDoc = "Hello";
+  String? totalDoc = "Hello";
+  Function? index;
   TextEditingController totalDocument;
   double totalPrixUnitaire = 0;
-  final String label, label2, label3, label4, label5;
-  final String content, content2, content3, content4, content5;
-  var fieldController = TextEditingController();
-  var fieldController2 = TextEditingController();
-  var fieldController3 = TextEditingController();
-  var fieldController4 = TextEditingController();
-  var fieldController5 = TextEditingController();
+  final String? label, label2, label3, label4, label5;
+  final String? content, content2, content3, content4, content5;
+  TextEditingController? fieldController = TextEditingController();
+  TextEditingController? fieldController2 = TextEditingController();
+  TextEditingController? fieldController3 = TextEditingController();
+  TextEditingController? fieldController4 = TextEditingController();
+  TextEditingController? fieldController5 = TextEditingController();
   List<TextEditingController> controllers = [];
-  VoidCallback Prix;
-  FormFieldValidator<String> fieldValidator = (_) {};
+  VoidCallback? Prix;
+  Function? delete;
+  FormFieldValidator<String>? fieldValidator = (_) {};
   InputRefNomProduit({
-    @required this.total,
-    @required this.controllers,
+    required this.total,
+    required this.controllers,
+    this.index,
     this.label,
     this.content,
     this.label2,
@@ -556,7 +538,8 @@ class InputRefNomProduit extends StatefulWidget {
     this.fieldController5,
     this.Prix,
     this.totalDoc,
-    @required this.totalDocument,
+    this.delete,
+    required this.totalDocument,
   });
 
   @override
@@ -565,11 +548,11 @@ class InputRefNomProduit extends StatefulWidget {
 
 class _InputRefNomProduitState extends State<InputRefNomProduit> {
   bool hasFocus = false;
-  String nomProduit;
-  String selectedProduit;
-  int produitId;
-  List produits = [];
-  List<String> refProduits = [];
+  String? nomProduit;
+  String? selectedProduit;
+  int? produitId;
+  List? produits = [];
+  List<SearchFieldListItem<dynamic>> refProduits = [];
   @override
   void initState() {
     super.initState();
@@ -593,9 +576,9 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
     } else {
       throw Exception('Error!');
     }
-    for (var i = 0; i < produits.length; i++) {
+    for (var i = 0; i < produits!.length; i++) {
       setState(() {
-        refProduits.add(produits[i]['refProd']);
+        refProduits.add(produits![i]['refProd']);
       });
     }
   }
@@ -637,20 +620,19 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                     searchInputDecoration: InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
                     ),
-                    suggestions: refProduits,
-                    suggestionStyle:
-                        TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    suggestions:
+                        refProduits as List<SearchFieldListItem<dynamic>>,
                     maxSuggestionsInViewPort: 6,
                     suggestionsDecoration: BoxDecoration(
                       color: Colors.white,
                     ),
-                    onTap: (value) {
+                    onSubmit: (value) {
                       setState(() {
-                        selectedProduit = value as String;
-                        for (var i = 0; i < produits.length; i++) {
-                          if (selectedProduit == produits[i]['refProd']) {
-                            nomProduit = produits[i]['nomProd'];
-                            widget.fieldController2.text =
+                        selectedProduit = value as String?;
+                        for (var i = 0; i < produits!.length; i++) {
+                          if (selectedProduit == produits![i]['refProd']) {
+                            nomProduit = produits![i]['nomProd'];
+                            widget.fieldController2!.text =
                                 nomProduit.toString();
                           }
                         }
@@ -734,15 +716,15 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                           i <= widget.controllers.length;
                           i = i + 5) {
                         widget.total = widget.total +
-                            (double.tryParse(widget.controllers[i].text) *
-                                (double.tryParse(
-                                    widget.controllers[i - 1].text)));
+                            (double.tryParse(widget.controllers[i].text)! *
+                                double.tryParse(
+                                    widget.controllers[i - 1].text)!);
                         setState(() {
                           widget.totalDoc = widget.total.toString();
                           widget.totalDocument.text = widget.total.toString();
-                          widget.fieldController5.text = (double.parse(
-                                      widget.fieldController3.text) *
-                                  double.parse(widget.fieldController4.text))
+                          widget.fieldController5!.text = (double.parse(
+                                      widget.fieldController3!.text) *
+                                  double.parse(widget.fieldController4!.text))
                               .toString();
                         });
                       }
@@ -796,13 +778,13 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                           i <= widget.controllers.length;
                           i = i + 5) {
                         widget.total = widget.total +
-                            (double.tryParse(widget.controllers[i].text) *
-                                (double.tryParse(
-                                    widget.controllers[i - 1].text)));
+                            (double.tryParse(widget.controllers[i].text)! *
+                                double.tryParse(
+                                    widget.controllers[i - 1].text)!);
                         setState(() {
                           widget.totalDoc = widget.total.toString();
                           widget.totalDocument.text = widget.total.toString();
-                          widget.fieldController5.text = (double.parse(
+                          widget.fieldController5!.text = (double.parse(
                                       widget.controllers[i].text) *
                                   double.parse(widget.controllers[i - 1].text))
                               .toString();
@@ -813,9 +795,9 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                   child: Focus(
                     onFocusChange: (hasFocus) {
                       if (!hasFocus) {
-                        widget.fieldController5.text =
-                            (double.parse(widget.fieldController4.text) *
-                                    double.parse(widget.fieldController3.text))
+                        widget.fieldController5!.text =
+                            (double.parse(widget.fieldController4!.text) *
+                                    double.parse(widget.fieldController3!.text))
                                 .toString();
                       }
                     },
@@ -884,6 +866,11 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
             ),
             SizedBox(
               width: 5,
+            ),
+            IconButton(
+              onPressed: widget.delete as void Function()?,
+              icon: Icon(Icons.close_sharp, size: 28),
+              color: Colors.red,
             ),
           ],
         );

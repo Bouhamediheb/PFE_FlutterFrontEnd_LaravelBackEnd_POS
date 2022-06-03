@@ -2,16 +2,16 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\x64\Debug\ZERO_CHECK</FullPath>
+      <FullPath>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\flutter\x64\Debug\flutter_assemble</FullPath>
+      <FullPath>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\flutter\x64\Debug\flutter_assemble</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\runner\Debug\posflutterfrontend.exe</FullPath>
+      <FullPath>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\runner\Debug\posflutterfrontend.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\x64\Debug\ALL_BUILD</FullPath>
+      <FullPath>C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\x64\Debug\ALL_BUILD</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

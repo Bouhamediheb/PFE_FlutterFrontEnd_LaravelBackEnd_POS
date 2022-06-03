@@ -7,7 +7,7 @@ import '../../../constants.dart';
 
 class DernieresActivites extends StatefulWidget {
   const DernieresActivites({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -32,14 +32,14 @@ class _DernieresActivitesState extends State<DernieresActivites> {
     if (response.statusCode == 200) {
       setState(() {
         documents = jsonDecode(response.body);
-        print(documents.length);
+        print(documents!.length);
       });
     } else {
       throw Exception('Error!');
     }
   }
 
-  List documents = [];
+  List? documents = [];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,8 +75,8 @@ class _DernieresActivitesState extends State<DernieresActivites> {
                   ),
                 ],
                 rows: <DataRow>[
-                  for (var i = documents.length - 1;
-                      i >= documents.length - 9;
+                  for (var i = documents!.length - 1;
+                      i >= documents!.length - 9;
                       i--)
                     DataRow(cells: <DataCell>[
                       DataCell(
@@ -90,13 +90,13 @@ class _DernieresActivitesState extends State<DernieresActivites> {
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: defaultPadding),
-                              child: Text(documents[i]['numDoc']),
+                              child: Text(documents![i]['numDoc']),
                             ),
                           ],
                         ),
                       ),
-                      DataCell(Text(documents[i]['dateDoc'].toString())),
-                      DataCell(Text(documents[i]['totalDoc'].toString())),
+                      DataCell(Text(documents![i]['dateDoc'].toString())),
+                      DataCell(Text(documents![i]['totalDoc'].toString())),
                     ])
                 ]),
           ),
@@ -113,19 +113,19 @@ DataRow recentFileDataRow(DerniereAction fileInfo) {
         Row(
           children: [
             SvgPicture.asset(
-              fileInfo.icon,
+              fileInfo.icon!,
               height: 30,
               width: 30,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(fileInfo.nomActivite),
+              child: Text(fileInfo.nomActivite!),
             ),
           ],
         ),
       ),
-      DataCell(Text(fileInfo.date)),
-      DataCell(Text(fileInfo.nomPersonne)),
+      DataCell(Text(fileInfo.date!)),
+      DataCell(Text(fileInfo.nomPersonne!)),
     ],
   );
 }

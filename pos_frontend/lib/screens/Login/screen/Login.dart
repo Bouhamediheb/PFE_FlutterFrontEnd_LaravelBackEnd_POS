@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../dashboard/dashboard_screen.dart';
 import '../../main/main_screen.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         },
       ),
     );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    _scaffoldKey.currentState!.showSnackBar(snackBar);
   }
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -49,7 +50,39 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => MainScreen(DashboardScreen())),
       );
     } else {
-      _showMsg(body['message']);
+      showAnimatedDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              insetPadding: EdgeInsets.symmetric(vertical: 10),
+              backgroundColor: Color(0xFF2A2D3E),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: Colors.red)),
+              content: Container(
+                width: 400,
+                height: 110,
+                child: Center(
+                    child: Column(
+                  children: [
+                    Text("Erreur d'authentification",
+                        style: TextStyle(fontSize: 20)),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    SizedBox(height: 20),
+                    Center(
+                        child: Text("Veuillez vérifier vos coordonnées",
+                            style: TextStyle(fontSize: 15)))
+                  ],
+                )),
+              ));
+        },
+        animationType: DialogTransitionType.fadeScale,
+        curve: Curves.fastOutSlowIn,
+        duration: Duration(seconds: 1),
+      );
     }
 
     setState(() {
@@ -106,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextFormField(
                         validator: (emailValue) {
                           if (emailValue == null || emailValue.isEmpty) {
-                            return 'Ce champs est obligatoire';
+                            return 'Ce champ est obligatoire';
                           }
                           email = emailValue;
                           return null;
@@ -160,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextFormField(
                         validator: (passwordValue) {
                           if (passwordValue == null || passwordValue.isEmpty) {
-                            return 'Ce champs est obligatoire';
+                            return 'Ce champ est obligatoire';
                           }
                           password = passwordValue;
                           return null;
@@ -219,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: 70,
                           minWidth: 200,
                           onPressed: () {
-                            if (_formKey.currentState.validate()) {
+                            if (_formKey.currentState!.validate()) {
                               _login();
                             }
                           },
@@ -237,29 +270,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 40),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Vous n'avez pas de compte ? Inscrivez-vous ",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 179, 179, 179),
-                          ),
-                        ),
-                        InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CreationCompte()),
-                              );
-                            },
-                            child: Text("ici",
-                                style: TextStyle(color: Colors.blue[800])))
-                      ],
                     ),
                   ]),
                 ),

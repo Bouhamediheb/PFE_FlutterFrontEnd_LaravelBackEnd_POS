@@ -4,13 +4,12 @@ import '../Widgets/input_field_description.dart';
 import 'package:admin/constants.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
-import '../Widgets/selectionner_image.dart';
+import 'dart:io';
 
 class ajouterUnProduit extends StatefulWidget {
-  const ajouterUnProduit({Key key}) : super(key: key);
+  const ajouterUnProduit({Key? key}) : super(key: key);
 
   @override
   State<ajouterUnProduit> createState() => _ajouterUnProduitState();
@@ -25,15 +24,13 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
   final descriptionProduit = TextEditingController();
   final stockProduit = TextEditingController();
 
-  File uploadimage;
+  late File uploadimage;
 
   Future chooseImage() async {
-    var choosedimage =
+    XFile? choosedimage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    final File convertedimage = File(choosedimage.path);
-    setState(() {
-      uploadimage = convertedimage;
-    });
+    uploadimage = File(choosedimage!.path);
+    setState(() {});
   }
 
   Future upload(
@@ -43,17 +40,15 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
     double prixVenteProduit,
     String descriptionProduit,
     double stockProduit,
+    File file,
   ) async {
-    //String fileName = file.path.split('/').last;
-    //print(fileName);
-
+    String fileName = file.path.split('/').last;
+    print(fileName);
     FormData data = FormData.fromMap({
-      /*"imageProd": await MultipartFile.fromFile(
-       file.path,
-      filename: fileName,
+      "imageProd": await MultipartFile.fromFile(
+        file.path,
+        filename: fileName,
       ),
-      */
-
       'refProd': refProduit,
       'nomProd': nomProduit,
       'prixAchat': prixAchatProduit,
@@ -74,7 +69,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
 
   List produit = [];
 
-  Future<dynamic> future;
+  Future<dynamic>? future;
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +246,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                 MaterialButton(
                                   color: Color.fromARGB(255, 75, 100, 211),
                                   onPressed: () {
-                                    if (_formKey.currentState.validate()) {
+                                    if (_formKey.currentState!.validate()) {
                                       setState(() {
                                         future = upload(
                                             refProduit.text,
@@ -259,8 +254,10 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                             double.parse(prixAchatProduit.text),
                                             double.parse(prixVenteProduit.text),
                                             descriptionProduit.text,
-                                            double.parse(stockProduit.text));
+                                            double.parse(stockProduit.text),
+                                            uploadimage);
                                       });
+                                      Navigator.of(context).pop();
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
@@ -276,7 +273,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                     }
                                   },
                                   child: Text(
-                                    "Ajouter",
+                                    "Ajouter Produit",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),

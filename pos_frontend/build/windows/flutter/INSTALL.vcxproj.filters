@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\build\windows\CMakeFiles\f542a5c09ff986ed1d0e952720d363d4\INSTALL_force.rule">
+    <CustomBuild Include="C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\build\windows\CMakeFiles\268251d292396b4673297d52eb07ba09\INSTALL_force.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{AE9EF2D3-7C55-3F80-AB3A-DB4869C98F46}</UniqueIdentifier>
+      <UniqueIdentifier>{0E967324-903B-3E26-B02A-C15CCB30D7A7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -7,10 +7,8 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
-import '../Widgets/selectionner_image.dart';
-
 class modifierUnProduit extends StatefulWidget {
-  int produitId;
+  int? produitId;
   modifierUnProduit(this.produitId);
   @override
   State<modifierUnProduit> createState() => _modifierUnProduitState();
@@ -24,30 +22,31 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
   final prixVenteProduit = TextEditingController();
   final descriptionProduit = TextEditingController();
 
-  File uploadimage;
-  String baseimage;
+  File? uploadimage;
+  String? baseimage;
 
   Future<void> chooseImage() async {
     final ImagePicker picker = ImagePicker();
-    var choosedimage = await picker.pickImage(source: ImageSource.gallery);
+    var choosedimage =
+        await (picker.pickImage(source: ImageSource.gallery) as XFile);
     final File convertimage = File(choosedimage.path);
     setState(() {
       uploadimage = convertimage;
-      List<int> imageBytes = uploadimage.readAsBytesSync();
+      List<int> imageBytes = uploadimage!.readAsBytesSync();
       baseimage = base64Encode(imageBytes);
     });
   }
 
   List produit = [];
 
-  Future<http.Response> ajoutProduit(
+  Future<http.Response?> ajoutProduit(
       String refProduit,
       String nomProduit,
       double prixAchatProduit,
       double prixVenteProduit,
       String descriptionProduit,
-      File imageProduit) async {
-    List produits = [];
+      File? imageProduit) async {
+    List? produits = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/produit/'),
       headers: <String, String>{'Content-Type': 'multipart/form-data'},
@@ -67,7 +66,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     }
   }
 
-  Future<dynamic> future;
+  Future<dynamic>? future;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -223,7 +222,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                             MaterialButton(
                               color: Color.fromARGB(255, 75, 100, 211),
                               onPressed: () {
-                                if (_formKey.currentState.validate()) {
+                                if (_formKey.currentState!.validate()) {
                                   setState(() {
                                     future = ajoutProduit(
                                         refProduit.text,

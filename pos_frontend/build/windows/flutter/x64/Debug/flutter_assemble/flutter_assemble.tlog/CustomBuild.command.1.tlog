@@ -1,6 +1,6 @@
-^C:\USERS\KARIM\DOCUMENTS\PFE_PROJECT\POSFLUTTERFRONTEND\BUILD\WINDOWS\CMAKEFILES\D332FF6FCAB176DD90C1DF6C41464ED7\FLUTTER_WINDOWS.DLL.RULE
+^C:\USERS\KARIM\DOCUMENTS\PFE\PFE_FLUTTERFRONTEND_LARAVELBACKEND_POS\POS_FRONTEND\BUILD\WINDOWS\CMAKEFILES\A741FF36662AFC1C16528D733C705327\FLUTTER_WINDOWS.DLL.RULE
 setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env FLUTTER_ROOT=C:\flutter_windows_2.5.2-stable\flutter PROJECT_DIR=C:\Users\Karim\Documents\PFE_Project\posflutterfrontend FLUTTER_ROOT=C:\flutter_windows_2.5.2-stable\flutter FLUTTER_EPHEMERAL_DIR=C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\windows\flutter\ephemeral PROJECT_DIR=C:\Users\Karim\Documents\PFE_Project\posflutterfrontend FLUTTER_TARGET=C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\lib\main.dart DART_DEFINES=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false PACKAGE_CONFIG=C:\Users\Karim\Documents\PFE_Project\posflutterfrontend\.dart_tool\package_config.json C:/flutter_windows_2.5.2-stable/flutter/packages/flutter_tools/bin/tool_backend.bat windows-x64 Release
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env FLUTTER_ROOT=C:\flutter_windows_2.5.2-stable\flutter PROJECT_DIR=C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend FLUTTER_ROOT=C:\flutter_windows_2.5.2-stable\flutter FLUTTER_EPHEMERAL_DIR=C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\windows\flutter\ephemeral PROJECT_DIR=C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend FLUTTER_TARGET=C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\lib\main.dart DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false PACKAGE_CONFIG=C:\Users\Karim\Documents\PFE\PFE_FlutterFrontEnd_LaravelBackEnd_POS\pos_frontend\.dart_tool\package_config.json C:/flutter_windows_2.5.2-stable/flutter/packages/flutter_tools/bin/tool_backend.bat windows-x64 Debug
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
@@ -8,7 +8,7 @@ endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
-^C:\USERS\KARIM\DOCUMENTS\PFE_PROJECT\POSFLUTTERFRONTEND\BUILD\WINDOWS\CMAKEFILES\F542A5C09FF986ED1D0E952720D363D4\FLUTTER_ASSEMBLE.RULE
+^C:\USERS\KARIM\DOCUMENTS\PFE\PFE_FLUTTERFRONTEND_LARAVELBACKEND_POS\POS_FRONTEND\BUILD\WINDOWS\CMAKEFILES\268251D292396B4673297D52EB07BA09\FLUTTER_ASSEMBLE.RULE
 setlocal
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
@@ -16,9 +16,9 @@ endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
-^C:\USERS\KARIM\DOCUMENTS\PFE_PROJECT\POSFLUTTERFRONTEND\WINDOWS\FLUTTER\CMAKELISTS.TXT
+^C:\USERS\KARIM\DOCUMENTS\PFE\PFE_FLUTTERFRONTEND_LARAVELBACKEND_POS\POS_FRONTEND\WINDOWS\FLUTTER\CMAKELISTS.TXT
 setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows -BC:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/build/windows/flutter/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows -BC:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows --check-stamp-file C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/build/windows/flutter/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

@@ -1,5 +1,6 @@
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
+import 'package:admin/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,7 +13,7 @@ import '../../fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -116,7 +117,13 @@ class _SideMenuState extends State<SideMenu> {
               subTitle1: 'Liste des produits',
               subTitle2: 'Ajouter un produit',
               subTitle3: '-----------',
-              press1: () {},
+              press1: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainScreen(listeProduit())),
+                );
+              },
               press2: () {
                 Navigator.push(
                   context,
@@ -165,7 +172,7 @@ class _SideMenuState extends State<SideMenu> {
 
 class DrawerListTile extends StatelessWidget {
   DrawerListTile(
-      {Key key,
+      {Key? key,
       // For selecting those three line once press "Command+D"
       this.title,
       this.svgSrc,
@@ -177,19 +184,19 @@ class DrawerListTile extends StatelessWidget {
       this.subTitle3})
       : super(key: key);
 
-  final String title, svgSrc, subTitle1, subTitle2, subTitle3;
-  final VoidCallback press1, press2, press3;
+  final String? title, svgSrc, subTitle1, subTitle2, subTitle3;
+  final VoidCallback? press1, press2, press3;
 
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
       leading: SvgPicture.asset(
-        svgSrc,
+        svgSrc!,
         color: Color.fromARGB(255, 255, 255, 255),
         height: 16,
       ),
       title: Text(
-        title,
+        title!,
         style: TextStyle(
           fontSize: 14,
         ),
@@ -202,7 +209,7 @@ class DrawerListTile extends StatelessWidget {
           leading: Icon(Icons.arrow_right_rounded,
               color: Color.fromARGB(255, 255, 255, 255)),
           title: Text(
-            subTitle1,
+            subTitle1!,
             style: TextStyle(
                 color: Color.fromARGB(255, 197, 195, 195), fontSize: 13),
           ),
@@ -214,7 +221,7 @@ class DrawerListTile extends StatelessWidget {
           leading: Icon(Icons.arrow_right_rounded,
               color: Color.fromARGB(255, 255, 255, 255)),
           title: Text(
-            subTitle2,
+            subTitle2!,
             style: TextStyle(
                 color: Color.fromARGB(255, 197, 195, 195), fontSize: 13),
           ),
@@ -226,7 +233,7 @@ class DrawerListTile extends StatelessWidget {
           leading: Icon(Icons.arrow_right_rounded,
               color: Color.fromARGB(255, 255, 255, 255)),
           title: Text(
-            subTitle3,
+            subTitle3!,
             style: TextStyle(
                 color: Color.fromARGB(255, 197, 195, 195), fontSize: 13),
           ),

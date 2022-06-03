@@ -49,7 +49,7 @@ class ProfileCard extends StatefulWidget {
 class _ProfileCardState extends State<ProfileCard> {
   List users = [];
   var token;
-  Map<String, dynamic> user;
+  Map<String, dynamic>? user;
   @override
   void initState() {
     super.initState();
@@ -58,9 +58,9 @@ class _ProfileCardState extends State<ProfileCard> {
 
   getUserData() async {
     final prefs = await SharedPreferences.getInstance();
-    token = jsonDecode(prefs.getString('access_token'));
+    token = jsonDecode(prefs.getString('access_token') as String);
     setState(() {
-      user = json.decode(prefs.getString('user'));
+      user = json.decode(prefs.getString('user') as String);
     });
   }
 
@@ -72,7 +72,7 @@ class _ProfileCardState extends State<ProfileCard> {
         vertical: defaultPadding / 2,
       ),
       child: PopupMenuButton(
-          onSelected: (value) {
+          onSelected: (dynamic value) {
             if (value == 2) logout();
           },
           offset: Offset(0, 56.0),
@@ -94,7 +94,7 @@ class _ProfileCardState extends State<ProfileCard> {
                   "assets/images/profile_pic.png",
                   height: 38,
                 ),
-                Text(user["name"].toString())
+                Text(user!["name"].toString())
               ],
             ),
           ),
@@ -129,7 +129,7 @@ class _ProfileCardState extends State<ProfileCard> {
 
 class SearchField extends StatefulWidget {
   const SearchField({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

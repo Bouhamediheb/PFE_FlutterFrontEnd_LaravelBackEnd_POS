@@ -12,8 +12,8 @@ import '../components/header_Raccourcis.dart';
 class RaccourcisRapides extends StatefulWidget {
   final Raccourcis info;
   const RaccourcisRapides({
-    Key key,
-    @required this.info,
+    Key? key,
+    required this.info,
   }) : super(key: key);
 
   @override
@@ -51,12 +51,12 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Image.asset(
-                    widget.info.imgSrc,
+                    widget.info.imgSrc!,
                   ),
                 ),
               ],
             ),
-            Text(widget.info.title,
+            Text(widget.info.title!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 17)),

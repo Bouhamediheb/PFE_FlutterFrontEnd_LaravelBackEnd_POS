@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class listeLigneDocument extends StatefulWidget {
-  int ligneDocumentId;
+  int? ligneDocumentId;
   listeLigneDocument(this.ligneDocumentId);
 
   @override
@@ -11,7 +11,7 @@ class listeLigneDocument extends StatefulWidget {
 }
 
 class _listeLigneDocumentState extends State<listeLigneDocument> {
-  List ligneDocuments = [];
+  List? ligneDocuments = [];
   @override
   void initState() {
     super.initState();
@@ -68,13 +68,13 @@ class _listeLigneDocumentState extends State<listeLigneDocument> {
             style: TextStyle(fontWeight: FontWeight.bold)),
       )),
     ], rows: <DataRow>[
-      for (var i = 0; i < ligneDocuments.length; i++)
-        if (ligneDocuments[i]['id_doc'] == widget.ligneDocumentId)
+      for (var i = 0; i < ligneDocuments!.length; i++)
+        if (ligneDocuments![i]['id_doc'] == widget.ligneDocumentId)
           DataRow(cells: <DataCell>[
-            DataCell(Text(ligneDocuments[i]['refProd'].toString())),
-            DataCell(Text(ligneDocuments[i]['nomProd'].toString())),
-            DataCell(Text(ligneDocuments[i]['qteProd'].toString())),
-            DataCell(Text(ligneDocuments[i]['prixProd'].toString()))
+            DataCell(Text(ligneDocuments![i]['refProd'].toString())),
+            DataCell(Text(ligneDocuments![i]['nomProd'].toString())),
+            DataCell(Text(ligneDocuments![i]['qteProd'].toString())),
+            DataCell(Text(ligneDocuments![i]['prixProd'].toString()))
           ])
     ]);
   }

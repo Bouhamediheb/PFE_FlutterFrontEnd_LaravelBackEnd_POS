@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 
 class DisabledCurrentDate extends StatefulWidget {
-  final String label;
-  final String content;
-  String dropDownValue;
+  final String? label;
+  final String? content;
+  String? dropDownValue;
 
   DisabledCurrentDate({
     this.label,
@@ -25,7 +25,7 @@ class _DisabledCurrentDateState extends State<DisabledCurrentDate> {
   String DateNow = new DateTime.now().toString().substring(0, 19);
   DateTime currentDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime pickedDate = await showDatePicker(
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: currentDate,
       firstDate: DateTime(1950, 1),
@@ -36,7 +36,7 @@ class _DisabledCurrentDateState extends State<DisabledCurrentDate> {
       builder: (BuildContext context, child) {
         return Theme(
           data: ThemeData.light(),
-          child: child,
+          child: child!,
         );
       },
     );

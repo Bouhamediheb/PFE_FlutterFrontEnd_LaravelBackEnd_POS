@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'disabled_date.dart';
 
 class SeqDoc extends StatelessWidget {
-  final String label, label2;
-  final String content;
+  final String? label, label2;
+  final String? content;
   var fieldController = TextEditingController();
 
   FormFieldValidator<String> fieldValidator = (_) {};

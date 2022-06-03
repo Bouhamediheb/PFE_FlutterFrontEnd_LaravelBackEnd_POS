@@ -1,12 +1,7 @@
-import 'dart:html';
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuController.dart';
-import 'package:admin/screens/Login/Screen/Login.dart';
 import 'package:admin/screens/Login/Screen/Singup.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
-import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
-import 'package:admin/screens/fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
-import 'package:admin/screens/fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

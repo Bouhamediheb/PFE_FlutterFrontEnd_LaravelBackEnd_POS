@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../Widgets/input_field.dart';
 
 class modifierUnFournisseur extends StatefulWidget {
-  int fournisseurId;
+  int? fournisseurId;
   modifierUnFournisseur(this.fournisseurId);
   @override
   State<modifierUnFournisseur> createState() => _modifierUnFournisseurState();
@@ -21,13 +21,55 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
   final matriculeFiscaleFournisseur = TextEditingController();
   final addressFournisseur = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool exoTVA;
-  double timbreFiscaleFournisseur;
-  bool isSwitched = false;
-  bool isTicked = false;
+  bool? exoTVA;
+  double? timbreFiscaleFournisseur;
+  bool isSwitched = true;
+  bool? isTicked = false;
+  Map<String, dynamic>? fournisseurs;
 
-  Future<http.Response> ajoutFournisseur(
-      int id,
+  @override
+  void initState() {
+    super.initState();
+    this.getFournisseur();
+  }
+
+  Future<http.Response?> getFournisseur() async {
+    print(widget.fournisseurId);
+    final response = await http.get(
+        Uri.parse(
+            'http://127.0.0.1:8000/api/fournisseur/${widget.fournisseurId}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    if (response.statusCode == 200) {
+      fournisseurs = json.decode(response.body);
+    } else {
+      throw Exception('Error!');
+    }
+    setState(() {
+      raisonSocialeFournisseur.text = fournisseurs!['raisonSociale'].toString();
+      paysFournisseur.text = fournisseurs!['pays'].toString();
+      villeFournisseur.text = fournisseurs!['ville'].toString();
+      emailFournisseur.text = fournisseurs!['email'].toString();
+      numeroFournisseur.text = fournisseurs!['tel'].toString();
+      matriculeFiscaleFournisseur.text = fournisseurs!['mf'].toString();
+      addressFournisseur.text = fournisseurs!['adresse'].toString();
+      if (fournisseurs!['timbreFiscal'] != 0) {
+        isSwitched = true;
+      } else {
+        isSwitched = false;
+      }
+      if (fournisseurs!['exoTVA'] != 0) {
+        isTicked = true;
+      } else {
+        isTicked = false;
+      }
+    });
+  }
+
+  Future<http.Response?> ajoutFournisseur(
+      int? id,
       String numeroFournisseur,
       String emailFournisseur,
       String addressFournisseur,
@@ -35,9 +77,8 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
       String raisonSocialeFournisseur,
       String paysFournisseur,
       String villeFournisseur,
-      double timbreFiscaleFournisseur,
-      bool exoTVA) async {
-    List fournisseurs = [];
+      double? timbreFiscaleFournisseur,
+      bool? exoTVA) async {
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/fournisseur/$id'),
       headers: <String, String>{
@@ -56,13 +97,13 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
       }),
     );
     if (response.statusCode == 200) {
-      return fournisseurs = jsonDecode(response.body);
+      print("Fournisseur Modifié");
     } else {
       throw Exception('Erreur base de données!');
     }
   }
 
-  Future<dynamic> future;
+  Future<dynamic>? future;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -275,7 +316,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                                 255, 41, 17, 173),
                                             value: isTicked,
                                             onChanged: (value) async {
-                                              await setState(() {
+                                              setState(() {
                                                 isTicked = value;
                                                 if (isTicked == false) {
                                                   exoTVA = false;
@@ -316,7 +357,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                           MaterialButton(
                             color: Color.fromARGB(255, 75, 100, 211),
                             onPressed: () {
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   future = ajoutFournisseur(
                                       widget.fournisseurId,
@@ -344,7 +385,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                               }
                             },
                             child: Text(
-                              "Modifier",
+                              "Appliquer",
                               style: TextStyle(color: Colors.white),
                             ),
                           ),

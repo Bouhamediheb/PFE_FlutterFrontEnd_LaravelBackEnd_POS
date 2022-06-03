@@ -1,8 +1,10 @@
 import 'package:admin/constants.dart';
+import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/fonctionalite/FournisseurScreen/Widgets/input_tick_check.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../../main/main_screen.dart';
 import '../Widgets/input_field.dart';
 
 class ajouterUnFournisseur extends StatefulWidget {
@@ -19,12 +21,12 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
   final matriculeFiscaleFournisseur = TextEditingController();
   final addressFournisseur = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool exoTVA;
-  double timbreFiscaleFournisseur;
+  bool? exoTVA;
+  double? timbreFiscaleFournisseur;
   bool isSwitched = false;
-  bool isTicked = false;
+  bool? isTicked = false;
 
-  Future<http.Response> ajoutFournisseur(
+  Future<http.Response?> ajoutFournisseur(
       String numeroFournisseur,
       String emailFournisseur,
       String addressFournisseur,
@@ -32,9 +34,9 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
       String raisonSocialeFournisseur,
       String paysFournisseur,
       String villeFournisseur,
-      double timbreFiscaleFournisseur,
-      bool exoTVA) async {
-    List fournisseurs = [];
+      double? timbreFiscaleFournisseur,
+      bool? exoTVA) async {
+    List? fournisseurs = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/fournisseur/'),
       headers: <String, String>{
@@ -59,7 +61,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
     }
   }
 
-  Future<dynamic> future;
+  Future<dynamic>? future;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -278,7 +280,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                                     255, 41, 17, 173),
                                                 value: isTicked,
                                                 onChanged: (value) async {
-                                                  await setState(() {
+                                                  setState(() {
                                                     isTicked = value;
                                                     if (isTicked == false) {
                                                       exoTVA = false;
@@ -329,7 +331,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                               MaterialButton(
                                 color: Color.fromARGB(255, 75, 100, 211),
                                 onPressed: () {
-                                  if (_formKey.currentState.validate()) {
+                                  if (_formKey.currentState!.validate()) {
                                     setState(() {
                                       future = ajoutFournisseur(
                                           numeroFournisseur.text,
@@ -352,6 +354,12 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                                 color: Color.fromARGB(
                                                     255, 250, 253, 255)),
                                           )),
+                                    );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MainScreen(DashboardScreen())),
                                     );
                                   }
                                 },

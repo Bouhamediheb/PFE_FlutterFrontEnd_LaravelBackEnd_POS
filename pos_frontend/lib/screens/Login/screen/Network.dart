@@ -8,7 +8,8 @@ class Network {
 
   _getToken() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    token = jsonDecode(localStorage.getString('access_token'))['access_token'];
+    token = jsonDecode(
+        localStorage.getString('access_token') as String)['access_token'];
   }
 
   authData(data, apiUrl) async {

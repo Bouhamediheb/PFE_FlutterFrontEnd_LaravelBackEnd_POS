@@ -13,9 +13,9 @@ class CreationCompte extends StatefulWidget {
 }
 
 class _CreationCompteState extends State<CreationCompte> {
-  Future<http.Response> ajoutCompte(
+  Future<http.Response?> ajoutCompte(
       String nom, String email, String password) async {
-    List comptes = [];
+    List? comptes = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/register/'),
       headers: <String, String>{
@@ -31,7 +31,7 @@ class _CreationCompteState extends State<CreationCompte> {
     }
   }
 
-  Future<dynamic> future;
+  Future<dynamic>? future;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -303,7 +303,7 @@ class _CreationCompteState extends State<CreationCompte> {
                           height: 70,
                           minWidth: 200,
                           onPressed: () {
-                            if (_formKey.currentState.validate()) {
+                            if (_formKey.currentState!.validate()) {
                               setState(() {
                                 future = ajoutCompte(
                                     nameController.text,

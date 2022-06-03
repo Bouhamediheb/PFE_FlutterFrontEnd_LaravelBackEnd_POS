@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('refProd');
             $table->string('nomProd');
             $table->float('prixAchat');
-            $table->float('prixVente');
+            $table->float('prixVente')->nullable();
             $table->string('descriptionProd');
             $table->float('stock');
             $table->float('TVA')->nullable();

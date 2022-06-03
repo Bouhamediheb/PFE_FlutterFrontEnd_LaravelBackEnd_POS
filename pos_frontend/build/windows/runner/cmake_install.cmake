@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Karim/Documents/PFE_Project/posflutterfrontend/windows/runner
+# Install script for directory: C:/Users/Karim/Documents/PFE/PFE_FlutterFrontEnd_LaravelBackEnd_POS/pos_frontend/windows/runner
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

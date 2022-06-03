@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
-import '../../../dashboard/dashboard_screen.dart';
-import '../../../main/main_screen.dart';
 import 'modifierunFrs.dart';
-import 'supprimerunFrs.dart';
 
 class listeFournisseur extends StatefulWidget {
   @override
@@ -13,8 +10,8 @@ class listeFournisseur extends StatefulWidget {
 }
 
 class _listeFournisseurState extends State<listeFournisseur> {
-  int fournisseurId;
-  List fournisseurs = [];
+  int? fournisseurId;
+  List? fournisseurs = [];
   @override
   void initState() {
     super.initState();
@@ -33,7 +30,6 @@ class _listeFournisseurState extends State<listeFournisseur> {
       var items = jsonDecode(response.body);
       setState(() {
         fournisseurs = items;
-        print(fournisseurs[0]['raisonSociale']);
       });
     } else {
       throw Exception('Error!');
@@ -133,16 +129,16 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                       TextStyle(fontWeight: FontWeight.bold)))),
                     ],
                     rows: <DataRow>[
-                      for (var i = 0; i < fournisseurs.length; i++)
+                      for (var i = 0; i < fournisseurs!.length; i++)
                         DataRow(
                           cells: <DataCell>[
-                            DataCell(Text(fournisseurs[i]['raisonSociale'])),
-                            DataCell(Text(fournisseurs[i]['adresse'])),
-                            DataCell(Text(fournisseurs[i]['tel'])),
-                            DataCell(Text(fournisseurs[i]['email'])),
-                            DataCell(Text(fournisseurs[i]['mf'])),
+                            DataCell(Text(fournisseurs![i]['raisonSociale'])),
+                            DataCell(Text(fournisseurs![i]['adresse'])),
+                            DataCell(Text(fournisseurs![i]['tel'])),
+                            DataCell(Text(fournisseurs![i]['email'])),
+                            DataCell(Text(fournisseurs![i]['mf'])),
                             DataCell(Text(
-                                fournisseurs[i]['timbreFiscal'].toString())),
+                                fournisseurs![i]['timbreFiscal'].toString())),
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -152,8 +148,9 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                             Icons.mode_edit_outline_outlined,
                                             color: Colors.green),
                                         onPressed: () async {
-                                          fournisseurId = fournisseurs[i]['id'];
-                                          print(fournisseurs);
+                                          fournisseurId =
+                                              fournisseurs![i]['id'];
+
                                           await showAnimatedDialog(
                                             context: context,
                                             barrierDismissible: true,
@@ -166,7 +163,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                                       BorderRadius.circular(10),
                                                 ),
                                                 content: Container(
-                                                    width: 800,
+                                                    width: 1200,
                                                     child:
                                                         modifierUnFournisseur(
                                                             fournisseurId)),
@@ -177,46 +174,10 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                             curve: Curves.fastOutSlowIn,
                                             duration: Duration(seconds: 1),
                                           );
-                                          await setState(() {
+                                          setState(() {
                                             fetchFournisseurs();
                                           });
                                         }),
-                                    IconButton(
-                                      icon: Icon(Icons.delete_outline,
-                                          color: Colors.red),
-                                      onPressed: () async {
-                                        fournisseurId = fournisseurs[i]['id'];
-                                        await showAnimatedDialog(
-                                          context: context,
-                                          barrierDismissible: true,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              insetPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                              backgroundColor:
-                                                  Color(0xFF2A2D3E),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              content: Container(
-                                                  width: 400,
-                                                  height: 110,
-                                                  child: supprimerUnFournisseur(
-                                                      fournisseurId)),
-                                            );
-                                          },
-                                          animationType:
-                                              DialogTransitionType.fadeScale,
-                                          curve: Curves.fastOutSlowIn,
-                                          duration: Duration(seconds: 1),
-                                        );
-                                        await setState(() {
-                                          fetchFournisseurs();
-                                        });
-                                      },
-                                    ),
                                   ]),
                             ),
                           ],

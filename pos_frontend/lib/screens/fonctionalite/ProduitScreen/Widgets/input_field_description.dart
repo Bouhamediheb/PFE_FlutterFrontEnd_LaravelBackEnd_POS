@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class InputFieldDescription extends StatelessWidget {
-  final String label, label2;
-  final String content, content2;
-  var fieldController = TextEditingController();
-  FormFieldValidator<String> fieldValidator = (_) {};
+  final String? label, label2;
+  final String? content, content2;
+  TextEditingController? fieldController = TextEditingController();
+  FormFieldValidator<String>? fieldValidator = (_) {};
   InputFieldDescription(
       {this.label,
       this.content,

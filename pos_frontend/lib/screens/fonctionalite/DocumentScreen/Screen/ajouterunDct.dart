@@ -1,19 +1,12 @@
 import 'package:admin/constants.dart';
-import 'package:admin/models/Raccourcis.dart';
-import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/disabled_date.dart';
-//import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/input_doc_produit_ref_nom.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:searchfield/searchfield.dart';
 import '../../../dashboard/dashboard_screen.dart';
 import '../../../main/main_screen.dart';
-import '../../FournisseurScreen/Widgets/input_tick_check.dart';
-import '../Widget/input_doctype.dart';
-import '../Widget/input_field.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
 class ajouterUnDocument extends StatefulWidget {
@@ -32,18 +25,18 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   double total = 0;
   String totalDoc = "0";
   final DateTime date = new DateTime.now();
-  String numSeqDocument;
-  int idDoc;
-  List documents = [];
-  String dateDoc;
-  String numDoc;
+  String? numSeqDocument;
+  int? idDoc;
+  List? documents = [];
+  String? dateDoc;
+  String? numDoc;
   bool confirmButton = true;
 
   TextEditingController totalDocument = TextEditingController(text: '0');
 
-  Future<http.Response> ajoutDocument(
-      int type, String numeroDoc, String dateDoc, double totalDoc) async {
-    List documents = [];
+  Future<http.Response?> ajoutDocument(
+      int type, String? numeroDoc, String? dateDoc, double totalDoc) async {
+    List? documents = [];
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/document"),
       headers: <String, String>{
@@ -63,8 +56,8 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
     }
   }
 
-  Future<http.Response> ajoutLigneDocument(int idDoc, String refProd,
-      String nomProd, double qteProd, double prixProd) async {
+  ajoutLigneDocument(int? idDoc, String refProd, String nomProd, double qteProd,
+      double prixProd) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument"),
       headers: <String, String>{
@@ -85,7 +78,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
     }
   }
 
-  Future<http.Response> modificationStock(String refProd, double stock) async {
+  modificationStock(String refProd, double stock) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/produit/stock/$refProd"),
       headers: <String, String>{
@@ -121,20 +114,20 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
       var items = jsonDecode(response.body);
       setState(() {
         documents = items;
-        idDoc = documents[documents.length - 1]['id'] + 1;
+        idDoc = documents![documents!.length - 1]['id'] + 1;
       });
     } else {
       throw Exception('Error!');
     }
   }
 
-  Future<dynamic> future;
+  Future<dynamic>? future;
 
   List<Widget> _cardList = [];
 
   void CalculTotal() {
     print("function mchet");
-    total = total + double.tryParse(widget.controllers.last.text);
+    total = total + double.tryParse(widget.controllers.last.text)!;
     print("hedha total : " + total.toString());
     print("hedhe totalDoc" + totalDocument.toString());
     setState(() {
@@ -144,6 +137,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
 
   String seqDocument() {
     print(idDoc);
+    if (idDoc == null) idDoc = 1;
     return numSeqDocument =
         date.toString().substring(0, 10) + '/DOC' + idDoc.toString();
   }
@@ -182,6 +176,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
           content3: 'Taper la quantité',
           label4: 'Prix',
           content4: 'Taper le prix unitaire',
+          content5: 'Prix Total',
           Prix: TestFonction,
           fieldController: refController,
           fieldController2: nomController,
@@ -253,7 +248,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                   borderRadius: BorderRadius.circular(40.0)),
               elevation: 10.0,
               child: Container(
-                width: 1300,
+                width: 1500,
                 child: Column(
                   children: <Widget>[
                     Center(
@@ -292,7 +287,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                           ),
                                           SizedBox(
                                             height: 450,
-                                            width: 1200,
+                                            width: 1300,
                                             child: ListView.builder(
                                                 itemCount: _cardList.length,
                                                 itemBuilder: (context, index) {
@@ -334,7 +329,9 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                   MaterialButton(
                                     height: 53,
                                     color: Color.fromARGB(255, 112, 112, 112),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      _addCardWidgetExp();
+                                    },
                                     child: Text(
                                       "Ajouter une ligne",
                                       style: TextStyle(color: Colors.white),
@@ -381,17 +378,18 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                                       .text) *
                                                   -1);
                                         }
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => MainScreen(
-                                                  DashboardScreen())),
-                                        );
                                       }
                                       ;
+                                      Navigator.of(context).pop();
                                       setState(() {
                                         confirmButton = false;
                                       });
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MainScreen(DashboardScreen())),
+                                      );
                                     },
                                     child: Text(
                                       "Confirmer",
@@ -500,21 +498,22 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
 
 class InputRefNomProduit extends StatefulWidget {
   double total = 0;
-  String totalDoc = "Hello";
+  String? totalDoc = "Hello";
   TextEditingController totalDocument;
 
-  final String label, label2, label3, label4;
-  final String content, content2, content3, content4;
-  var fieldController = TextEditingController();
-  var fieldController2 = TextEditingController();
-  var fieldController3 = TextEditingController();
-  var fieldController4 = TextEditingController();
+  final String? label, label2, label3, label4;
+  final String? content, content2, content3, content4, content5;
+  TextEditingController? fieldController = TextEditingController();
+  TextEditingController? fieldController2 = TextEditingController();
+  TextEditingController? fieldController3 = TextEditingController();
+  TextEditingController? fieldController4 = TextEditingController();
+  TextEditingController? fieldController5 = TextEditingController();
   List<TextEditingController> controllers = [];
-  VoidCallback Prix;
-  FormFieldValidator<String> fieldValidator = (_) {};
+  VoidCallback? Prix;
+  FormFieldValidator<String>? fieldValidator = (_) {};
   InputRefNomProduit({
-    @required this.total,
-    @required this.controllers,
+    required this.total,
+    required this.controllers,
     this.label,
     this.content,
     this.label2,
@@ -528,9 +527,11 @@ class InputRefNomProduit extends StatefulWidget {
     this.fieldValidator,
     this.fieldController3,
     this.fieldController4,
+    this.fieldController5,
+    this.content5,
     this.Prix,
     this.totalDoc,
-    @required this.totalDocument,
+    required this.totalDocument,
   });
 
   @override
@@ -539,11 +540,11 @@ class InputRefNomProduit extends StatefulWidget {
 
 class _InputRefNomProduitState extends State<InputRefNomProduit> {
   bool hasFocus = false;
-  String nomProduit;
-  String selectedProduit;
-  int produitId;
-  List produits = [];
-  List<String> refProduits = [];
+  String? nomProduit;
+  String? selectedProduit;
+  int? produitId;
+  List? produits = [];
+  List<dynamic> refProduits = [];
   @override
   void initState() {
     super.initState();
@@ -567,9 +568,9 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
     } else {
       throw Exception('Error!');
     }
-    for (var i = 0; i < produits.length; i++) {
+    for (var i = 0; i < produits!.length; i++) {
       setState(() {
-        refProduits.add(produits[i]['refProd']);
+        refProduits.add(produits![i]['refProd']);
       });
     }
   }
@@ -605,26 +606,36 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                   autofocus: true,
                   child: SearchField(
                     hint: "${widget.content}",
-                    searchStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    searchStyle: TextStyle(color: Colors.black),
                     controller: widget.fieldController,
                     validator: widget.fieldValidator,
                     searchInputDecoration: InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
+                      hintStyle: TextStyle(
+                          color: Color.fromARGB(255, 190, 190, 190),
+                          fontSize: 14),
                     ),
-                    suggestions: refProduits,
-                    suggestionStyle:
-                        TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    suggestionItemDecoration: BoxDecoration(
+                        color: Color(0xFF2A2D3E),
+                        border: Border.all(color: Colors.white, width: 1.0)),
+                    suggestions: refProduits
+                        .map((e) => SearchFieldListItem<dynamic>(e, item: e))
+                        .toList(),
                     maxSuggestionsInViewPort: 6,
                     suggestionsDecoration: BoxDecoration(
                       color: Colors.white,
                     ),
-                    onTap: (value) {
+                    suggestionState: Suggestion.expand,
+                    textInputAction: TextInputAction.next,
+                    onSubmit: (value) {
                       setState(() {
-                        selectedProduit = value as String;
-                        for (var i = 0; i < produits.length; i++) {
-                          if (selectedProduit == produits[i]['refProd']) {
-                            nomProduit = produits[i]['nomProd'];
-                            widget.fieldController2.text =
+                        selectedProduit = value;
+                        for (var i = 0; i < produits!.length; i++) {
+                          if (selectedProduit == produits![i]['refProd']) {
+                            nomProduit = produits![i]['nomProd'];
+                            widget.fieldController4!.text =
+                                produits![i]['prixVente'].toString();
+                            widget.fieldController2!.text =
                                 nomProduit.toString();
                           }
                         }
@@ -696,7 +707,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 2,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
                 color: Color.fromARGB(255, 255, 255, 255),
@@ -708,12 +719,16 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                           i <= widget.controllers.length;
                           i = i + 4) {
                         widget.total = widget.total +
-                            (double.tryParse(widget.controllers[i].text) *
-                                (double.tryParse(
-                                    widget.controllers[i - 1].text)));
+                            (double.tryParse(widget.controllers[i].text)! *
+                                double.tryParse(
+                                    widget.controllers[i - 1].text)!);
                         setState(() {
                           widget.totalDoc = widget.total.toString();
                           widget.totalDocument.text = widget.total.toString();
+                          widget.fieldController5!.text =
+                              (double.parse(widget.controllers[i - 1].text) *
+                                      double.parse(widget.controllers[i].text))
+                                  .toString();
                         });
                       }
                     }
@@ -754,24 +769,29 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
                 color: Color.fromARGB(255, 255, 255, 255),
                 child: Focus(
                   onFocusChange: (hasFocus) {
                     if (!hasFocus) {
+                      widget.fieldController5!.text =
+                          (double.parse(widget.fieldController4!.text) *
+                                  double.parse(widget.fieldController3!.text))
+                              .toString();
                       widget.total = 0;
                       for (var i = 3;
                           i <= widget.controllers.length;
                           i = i + 4) {
                         widget.total = widget.total +
-                            (double.tryParse(widget.controllers[i].text) *
-                                (double.tryParse(
-                                    widget.controllers[i - 1].text)));
+                            (double.tryParse(widget.controllers[i].text)! *
+                                double.tryParse(
+                                    widget.controllers[i - 1].text)!);
                         setState(() {
                           widget.totalDoc = widget.total.toString();
                           widget.totalDocument.text = widget.total.toString();
+                          print(widget.fieldController5!.text);
                         });
                       }
                     }
@@ -787,12 +807,39 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                     ),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
-                      // hintText: widget.totalDocument.text,
+                      hintText: "${widget.content4}",
                       hintStyle: TextStyle(
                           color: Color.fromARGB(255, 190, 190, 190),
                           fontSize: 14),
                       fillColor: Color.fromARGB(255, 0, 0, 0),
                     ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 5.0,
+            ),
+            Expanded(
+              flex: 3,
+              child: Container(
+                width: MediaQuery.of(context).size.width / 3.7,
+                color: Color.fromARGB(255, 255, 255, 255),
+                child: TextFormField(
+                  enabled: false,
+                  controller: widget.fieldController5,
+                  validator: widget.fieldValidator,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    hintText: "${widget.content5}",
+                    hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 190, 190, 190),
+                        fontSize: 14),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
               ),

@@ -14,8 +14,8 @@ class listeDocument extends StatefulWidget {
 }
 
 class _listeDocumentState extends State<listeDocument> {
-  int documentId;
-  List documents = [];
+  int? documentId;
+  List? documents = [];
   @override
   void initState() {
     super.initState();
@@ -112,7 +112,7 @@ class _listeDocumentState extends State<listeDocument> {
                                       TextStyle(fontWeight: FontWeight.bold)))),
                     ],
                     rows: <DataRow>[
-                      for (var i = 0; i < documents.length; i++)
+                      for (var i = 0; i < documents!.length; i++)
                         DataRow(
                           cells: <DataCell>[
                             DataCell(InkWell(
@@ -130,7 +130,7 @@ class _listeDocumentState extends State<listeDocument> {
                                           content: Container(
                                               width: 800,
                                               child: listeLigneDocument(
-                                                  documents[i]['id'])));
+                                                  documents![i]['id'])));
                                     },
                                     animationType:
                                         DialogTransitionType.fadeScale,
@@ -138,9 +138,10 @@ class _listeDocumentState extends State<listeDocument> {
                                     duration: Duration(seconds: 1),
                                   );
                                 },
-                                child: Text(documents[i]['numDoc']))),
-                            DataCell(Text(documents[i]['dateDoc'].toString())),
-                            DataCell(Text(documents[i]['totalDoc'].toString())),
+                                child: Text(documents![i]['numDoc']))),
+                            DataCell(Text(documents![i]['dateDoc'].toString())),
+                            DataCell(
+                                Text(documents![i]['totalDoc'].toString())),
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +151,7 @@ class _listeDocumentState extends State<listeDocument> {
                                             Icons.mode_edit_outline_outlined,
                                             color: Colors.green),
                                         onPressed: () async {
-                                          documentId = documents[i]['id'];
+                                          documentId = documents![i]['id'];
                                           await showAnimatedDialog(
                                             context: context,
                                             barrierDismissible: true,
@@ -165,7 +166,7 @@ class _listeDocumentState extends State<listeDocument> {
                                                 content: Container(
                                                     width: 1500,
                                                     child: modifierUnDocument(
-                                                        documents[i]['id'],
+                                                        documents![i]['id'],
                                                         documentId)),
                                               );
                                             },
@@ -174,7 +175,7 @@ class _listeDocumentState extends State<listeDocument> {
                                             curve: Curves.fastOutSlowIn,
                                             duration: Duration(seconds: 1),
                                           );
-                                          await setState(() {
+                                          setState(() {
                                             fetchDocuments();
                                           });
                                         }),
@@ -182,7 +183,7 @@ class _listeDocumentState extends State<listeDocument> {
                                       icon: Icon(Icons.delete_outline,
                                           color: Colors.red),
                                       onPressed: () async {
-                                        documentId = documents[i]['id'];
+                                        documentId = documents![i]['id'];
                                         await showAnimatedDialog(
                                           context: context,
                                           barrierDismissible: true,
@@ -209,7 +210,7 @@ class _listeDocumentState extends State<listeDocument> {
                                           curve: Curves.fastOutSlowIn,
                                           duration: Duration(seconds: 1),
                                         );
-                                        await setState(() {
+                                        setState(() {
                                           fetchDocuments();
                                         });
                                       },
