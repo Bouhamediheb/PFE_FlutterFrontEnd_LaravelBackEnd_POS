@@ -9,18 +9,35 @@ import 'EmptySpace.dart';
 import 'RaccourcisRapides.dart';
 import '../components/header_Raccourcis.dart';
 
-class RaccourcisRapides extends StatefulWidget {
+class RecapMonetiquesRacc extends StatefulWidget {
   final Raccourcis info;
-  const RaccourcisRapides({
+  final Color valColor=Colors.white;
+  const RecapMonetiquesRacc({
     Key? key,
     required this.info,
   }) : super(key: key);
 
   @override
-  State<RaccourcisRapides> createState() => _RaccourcisRapidesState();
+  State<RecapMonetiquesRacc> createState() => _RecapMonetiquesRaccState();
 }
 
-class _RaccourcisRapidesState extends State<RaccourcisRapides> {
+
+
+class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
+@override
+  initState({
+  if(widget.info.value!<=0){
+    setState(() {
+      valColor = Colors.red;
+    });
+    else{
+      setState(() {
+        valColor = Colors.green;
+      });
+    }
+  }
+})
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,13 +63,14 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
                 Container(
                   padding: EdgeInsets.all(defaultPadding * 0.75),
                   height: 100,
-                  width: 100,
+                  
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: Image.asset(
-                    widget.info.imgSrc!,
-                  ),
+                  child: Text(widget.info.value!.toString()+" DT",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 35)),  
                 ),
               ],
             ),
@@ -60,7 +78,7 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 17)),
-                
+              
           ],
         ),
       ),

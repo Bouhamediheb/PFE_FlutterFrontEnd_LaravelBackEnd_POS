@@ -1,4 +1,7 @@
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/dashboard/components/LineChartSample2.dart';
+import 'package:admin/screens/dashboard/components/RaccourcisRapides.dart';
+import 'package:admin/screens/dashboard/components/RecapMonetiques.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -35,7 +38,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     children: [
                       HeaderRaccourcis(),
                       SizedBox(height: defaultPadding),
-                      DernieresActivites(),
+                      Row(
+                        children: [
+                          Text(
+              "Evolution du chiffre d'affaires",
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+                        ],
+                      ),
+                      SizedBox(height: defaultPadding),
+                      LineChartSample2(),
+                      SizedBox(height: defaultPadding),
+                      Row(
+                        children: [
+                          Text(
+              "Récapitulatif du flux monétaire",
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+                        ],
+                      ),
+                      SizedBox(height: defaultPadding),
+                      RecapMonetiques(),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context)) EmptySpace(),

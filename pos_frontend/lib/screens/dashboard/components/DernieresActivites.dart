@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../../constants.dart';
+import 'package:fl_chart/fl_chart.dart';
+
 
 class DernieresActivites extends StatefulWidget {
   const DernieresActivites({

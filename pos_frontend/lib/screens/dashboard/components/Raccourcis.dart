@@ -27,7 +27,7 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         child: Container(
-          height: 650,
+          height: 470,
           child: SingleChildScrollView(
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

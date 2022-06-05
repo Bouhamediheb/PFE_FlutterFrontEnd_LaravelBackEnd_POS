@@ -30,7 +30,6 @@ dependencies:
 
   google_fonts: ^2.3.2
   flutter_svg: ^1.0.3
-  fl_chart: ^0.50.6
   provider: ^6.0.2
   image_picker: ^0.8.4
   flutter_animated_dialog: ^2.0.1
@@ -40,6 +39,7 @@ dependencies:
   searchfield: ^0.6.5
   universal_io: ^2.0.4
   editable: ^2.0.0
+  fl_chart: ^0.51.0
 
 dev_dependencies:
   flutter_test:

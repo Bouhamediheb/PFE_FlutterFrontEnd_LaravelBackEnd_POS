@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 
 class Raccourcis {
   final String? imgSrc, title;
+  final double? value;
   // final Function() onTapAction; // replace Function() with VoidCallback?
 
-  Raccourcis({this.imgSrc, this.title, info});
+  Raccourcis({this.imgSrc, this.title,this.value, info});
 }
 
 List listeRaccourcis = [
@@ -23,8 +24,24 @@ List listeRaccourcis = [
     title: "Bon de livraison",
     imgSrc: "assets/images/livraison.png",
   ),
+ 
+];
+
+List listeRaccourcisMonetiques = [
   Raccourcis(
-    title: "Bon de livraison",
-    imgSrc: "assets/images/livraison.png",
+    title: "Solde",
+    imgSrc: "assets/images/commande.png",
+    value: 12000
   ),
+  Raccourcis(
+    title: "Chéques Payés",
+    imgSrc: "assets/images/livraison.png",
+    value: 5000
+  ),
+  Raccourcis(
+    title: "Chéques Impayés",
+    imgSrc: "assets/images/livraison.png",
+    value: 1200
+  ),
+  
 ];

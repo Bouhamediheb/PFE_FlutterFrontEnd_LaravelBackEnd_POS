@@ -29,7 +29,7 @@ class _HeaderState extends State<Header> {
           ),
         if (!Responsive.isMobile(context))
           Text(
-            "Dashboard",
+            "Tableau de bord",
             style: Theme.of(context).textTheme.headline6,
           ),
         if (!Responsive.isMobile(context))
