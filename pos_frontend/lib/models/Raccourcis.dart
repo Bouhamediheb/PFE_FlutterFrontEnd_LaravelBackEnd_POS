@@ -11,6 +11,7 @@ class Raccourcis {
   Raccourcis({this.imgSrc, this.title,this.value, info});
 }
 
+
 List listeRaccourcis = [
   Raccourcis(
     title: "Bon de commande",
@@ -21,8 +22,12 @@ List listeRaccourcis = [
     imgSrc: "assets/images/livraison.png",
   ),
   Raccourcis(
-    title: "Bon de livraison",
+    title: "Bon de retour",
     imgSrc: "assets/images/livraison.png",
+  ),
+  Raccourcis(
+    title: "Liste des documents",
+    imgSrc: "assets/images/ticket.png",
   ),
  
 ];
@@ -31,7 +36,7 @@ List listeRaccourcisMonetiques = [
   Raccourcis(
     title: "Solde",
     imgSrc: "assets/images/commande.png",
-    value: 12000
+    value: 3500
   ),
   Raccourcis(
     title: "Chéques Payés",

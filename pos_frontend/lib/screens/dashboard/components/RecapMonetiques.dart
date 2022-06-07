@@ -33,7 +33,7 @@ class _RecapMonetiquesState extends State<RecapMonetiques> {
           ),
           tablet: FileInfoCardGridView(),
           desktop: FileInfoCardGridView(
-            childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
+            childAspectRatio: _size.width < 1400 ? 1.1 : 2,
           ),
         ),
         

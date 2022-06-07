@@ -3,16 +3,16 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../../constants.dart';
 
-class EmptySpace extends StatefulWidget {
-  const EmptySpace({
+class EtatStock extends StatefulWidget {
+  const EtatStock({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<EmptySpace> createState() => _EmptySpaceState();
+  State<EtatStock> createState() => _EtatStockState();
 }
 
-class _EmptySpaceState extends State<EmptySpace> {
+class _EtatStockState extends State<EtatStock> {
   List? produits = [];
   @override
   void initState() {
@@ -67,12 +67,13 @@ class _EmptySpaceState extends State<EmptySpace> {
                 ),
               ),
               DataTable(
-                columnSpacing: 180,
+                columnSpacing: 100,
                 columns: <DataColumn>[
                   DataColumn(
                     label: Flexible(
+                      flex: 2,
                       child: Text(
-                        "Nom du produit",
+                        "Produit",
                         maxLines: 5,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
@@ -81,9 +82,21 @@ class _EmptySpaceState extends State<EmptySpace> {
                   ),
                   DataColumn(
                     label: Flexible(
+                      flex: 2,
                       child: Text(
                         "Quantité",
                         maxLines: 5,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Flexible(
+                      flex:1,
+                      child: Text(
+                        "Etat",
+                       
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
                       ),
@@ -100,6 +113,20 @@ class _EmptySpaceState extends State<EmptySpace> {
                         DataCell(
                           Text(produits![i]['stock'].toString()),
                         ),
+                        // if produit stock is less than 5 then show red icon
+                        produits![i]['stock'] <= 5
+                            ? DataCell(
+                                Icon(
+                                  Icons.error,
+                                  color: Colors.red,
+                                ),
+                              )
+                            : DataCell(
+                                Icon(
+                                  Icons.check,
+                                  color: Colors.green,
+                                ),
+                              ),
                       ],
                     ),
                 ],

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants.dart';
 import '../../main/TestScreen.dart';
 import 'DernieresActivites.dart';
-import 'EmptySpace.dart';
+import 'EtatStock.dart';
 import 'RaccourcisRapides.dart';
 import '../components/header_Raccourcis.dart';
 
@@ -34,19 +34,20 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Test()),
+            
           );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.all(defaultPadding * 0.75),
-                  height: 100,
-                  width: 100,
+                  padding: EdgeInsets.all(3),
+                  height: 80,
+                  width: 80,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
@@ -57,9 +58,9 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
               ],
             ),
             Text(widget.info.title!,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 17)),
+                style: TextStyle(fontSize: 14)),
                 
           ],
         ),

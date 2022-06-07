@@ -10,6 +10,7 @@ import 'package:fl_chart/fl_chart.dart';
 class DernieresActivites extends StatefulWidget {
   const DernieresActivites({
     Key? key,
+    
   }) : super(key: key);
 
   @override

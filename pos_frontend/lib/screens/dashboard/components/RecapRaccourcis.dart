@@ -5,13 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants.dart';
 import '../../main/TestScreen.dart';
 import 'DernieresActivites.dart';
-import 'EmptySpace.dart';
+import 'EtatStock.dart';
 import 'RaccourcisRapides.dart';
 import '../components/header_Raccourcis.dart';
 
 class RecapMonetiquesRacc extends StatefulWidget {
   final Raccourcis info;
-  final Color valColor=Colors.white;
   const RecapMonetiquesRacc({
     Key? key,
     required this.info,
@@ -24,23 +23,28 @@ class RecapMonetiquesRacc extends StatefulWidget {
 
 
 class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
-@override
-  initState({
-  if(widget.info.value!<=0){
+  late Color valColor;
+  
+  
+  @override
+  void initState() {
+    super.initState();
+    if(widget.info.value!<=0){
     setState(() {
       valColor = Colors.red;
     });
+  }
     else{
       setState(() {
         valColor = Colors.green;
       });
     }
   }
-})
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
         color: secondaryColor,
@@ -55,7 +59,7 @@ class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +74,7 @@ class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
                   child: Text(widget.info.value!.toString()+" DT",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 35)),  
+                style: TextStyle(fontSize: 35, color: valColor,)),  
                 ),
               ],
             ),

@@ -58,6 +58,7 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 child: Container(
+
                   decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(40.0)),
@@ -93,7 +94,8 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
           ),
           tablet: FileInfoCardGridView(),
           desktop: FileInfoCardGridView(
-            childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
+            childAspectRatio: _size.width < 1400 ? 1.1 : 1.5,
+            
           ),
         ),
       ],
@@ -104,7 +106,7 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
 class FileInfoCardGridView extends StatelessWidget {
   const FileInfoCardGridView({
     Key? key,
-    this.crossAxisCount = 4,
+    this.crossAxisCount = 5,
     this.childAspectRatio = 1,
   }) : super(key: key);
 

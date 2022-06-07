@@ -27,7 +27,7 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         child: Container(
-          height: 470,
+          
           child: SingleChildScrollView(
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,14 +47,14 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                       thickness: 3,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   DataTable(
-                    columnSpacing: 180,
+                    columnSpacing: 70,
                     columns: <DataColumn>[
                       DataColumn(
                         label: Flexible(
                           child: Text(
-                            "Actions",
+                            "Raccourcis",
                             maxLines: 5,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -64,8 +64,9 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                       ),
                       DataColumn(
                         label: Flexible(
+                          flex: 4,
                           child: Text(
-                            "Raccourcis",
+                            "Actions",
                             maxLines: 5,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -91,7 +92,7 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                             ),
                           ),
                           DataCell(
-                            Text("xxxxxxxx", style: TextStyle(fontSize: 20)),
+                            Text("Bon de commande", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                           ),
                         ],
                       ),
@@ -111,7 +112,7 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                             ),
                           ),
                           DataCell(
-                            Text("xxxxxxxx", style: TextStyle(fontSize: 20)),
+                            Text("Bon de livraison", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                           ),
                         ],
                       ),
@@ -131,7 +132,7 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                             ),
                           ),
                           DataCell(
-                            Text("xxxxxxxx", style: TextStyle(fontSize: 20)),
+                            Text("Liste des produits", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                           ),
                         ],
                       ),
@@ -151,7 +152,7 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                             ),
                           ),
                           DataCell(
-                            Text("xxxxxxxx", style: TextStyle(fontSize: 20)),
+                            Text("Liste des fournisseurs", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                           ),
                         ],
                       ),
