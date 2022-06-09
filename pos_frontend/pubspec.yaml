@@ -40,7 +40,7 @@ dependencies:
   universal_io: ^2.0.4
   editable: ^2.0.0
   fl_chart: ^0.51.0
-  in_app_notification: ^1.1.1
+  data_table_2: ^2.2.3
 
 dev_dependencies:
   flutter_test:

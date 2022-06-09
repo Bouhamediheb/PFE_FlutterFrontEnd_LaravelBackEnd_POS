@@ -8,6 +8,7 @@ import '../../../main/main_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:data_table_2/data_table_2.dart';
 
 class ajouterUnDocument extends StatefulWidget {
   final int id;
@@ -22,6 +23,36 @@ class ajouterUnDocument extends StatefulWidget {
 
 class _ajouterUnDocumentState extends State<ajouterUnDocument>
     with SingleTickerProviderStateMixin {
+  List<dynamic> refProduits = [];
+  List? produits = [];
+  String? selectedProduit;
+  String? nomProduit;
+
+  fetchProduits() async {
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/produit'),
+      headers: <String, String>{
+        'Cache-Control': 'no-cache',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var items = jsonDecode(response.body);
+      setState(() {
+        produits = items;
+        print(produits);
+      });
+    } else {
+      throw Exception('Error!');
+    }
+    for (var i = 0; i < produits!.length; i++) {
+      setState(() {
+        refProduits.add(produits![i]['refProd']);
+      });
+      print(refProduits);
+    }
+  }
+
   double total = 0;
   String totalDoc = "0";
   final DateTime date = new DateTime.now();
@@ -31,6 +62,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   String? dateDoc;
   String? numDoc;
   bool confirmButton = true;
+  int idligne = -1;
 
   TextEditingController totalDocument = TextEditingController(text: '0');
 
@@ -100,6 +132,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   void initState() {
     super.initState();
     this.fetchDocuments();
+    this.fetchProduits();
   }
 
   fetchDocuments() async {
@@ -185,6 +218,164 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
     });
   }
 
+  List<DataRow> ligneDoc = [];
+  LocalKey? key;
+
+  void ajouterLigne() {
+    idligne++;
+    var id = idligne;
+
+    TextEditingController referenceController = TextEditingController();
+    widget.controllers.add(referenceController);
+    TextEditingController nomController = TextEditingController();
+    widget.controllers.add(nomController);
+    TextEditingController quantiteController = TextEditingController();
+    widget.controllers.add(quantiteController);
+    TextEditingController prixController = TextEditingController();
+    widget.controllers.add(prixController);
+    ligneDoc.add(
+      DataRow(
+        key: key,
+        cells: <DataCell>[
+          DataCell(
+            SearchField(
+              hasOverlay: true,
+              hint: "Taper la référence du produit",
+              searchStyle: TextStyle(color: Colors.white),
+              controller: referenceController,
+              searchInputDecoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.all(10.0),
+                hintStyle: TextStyle(
+                    color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+              ),
+              suggestionItemDecoration: BoxDecoration(
+                  color: Color(0xFF2A2D3E),
+                  border: Border.all(color: Colors.white, width: 1.0)),
+              suggestions: refProduits
+                  .map((e) => SearchFieldListItem<dynamic>(e, item: e))
+                  .toList(),
+              maxSuggestionsInViewPort: 6,
+              suggestionsDecoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              suggestionState: Suggestion.expand,
+              textInputAction: TextInputAction.next,
+              onSubmit: (value) {
+                print(value);
+                setState(() {
+                  selectedProduit = value;
+                  for (var i = 0; i < produits!.length; i++) {
+                    if (selectedProduit == produits![i]['refProd']) {
+                      nomProduit = produits![i]['nomProd'];
+                      nomController.text = nomProduit.toString();
+                    }
+                  }
+                });
+              },
+            ),
+          ),
+          DataCell(
+            TextFormField(
+              enabled: false,
+              controller: nomController,
+              style: TextStyle(
+                fontSize: 15.0,
+                color: Colors.white,
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.all(10.0),
+                hintText: "Nom du Produit",
+                hintStyle: TextStyle(
+                    color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                fillColor: Color.fromARGB(255, 0, 0, 0),
+              ),
+            ),
+          ),
+          DataCell(
+            Container(
+              width: 145,
+              child: Focus(
+                onFocusChange: (hasFocus) {
+                  if (!hasFocus) {
+                    double total = 0;
+                    for (var i = 3; i <= widget.controllers.length; i = i + 4) {
+                      total = total +
+                          (double.parse(widget.controllers[i].text) *
+                              double.parse(widget.controllers[i - 1].text));
+                      totalDocument.text = total.toString();
+                    }
+                  }
+                },
+                child: TextFormField(
+                  controller: quantiteController,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                  ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(10.0),
+                    hintText: "Taper la quantité",
+                    hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 190, 190, 190),
+                        fontSize: 14),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          DataCell(
+            Container(
+              width: 145,
+              child: Focus(
+                onFocusChange: (hasFocus) {
+                  if (!hasFocus) {
+                    double total = 0;
+                    for (var i = 3; i <= widget.controllers.length; i = i + 4) {
+                      total = total +
+                          (double.parse(widget.controllers[i].text) *
+                              double.parse(widget.controllers[i - 1].text));
+                      totalDocument.text = total.toString();
+                    }
+                  }
+                },
+                child: TextFormField(
+                  textInputAction: TextInputAction.done,
+                  enabled: true,
+                  controller: prixController,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                  ),
+                  decoration: InputDecoration(
+                    suffixText: "DT",
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(10.0),
+                    hintText: "Taper le Prix",
+                    hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 190, 190, 190),
+                        fontSize: 14),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          DataCell(
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.close_sharp, size: 28),
+              color: Colors.red,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -195,7 +386,9 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
       onKey: (event) {
         if (event.isKeyPressed(LogicalKeyboardKey.controlLeft) &&
             event.isKeyPressed(LogicalKeyboardKey.f1)) {
-          _addCardWidgetExp();
+          setState(() {
+            ajouterLigne();
+          });
         }
       },
       child: Scaffold(
@@ -273,32 +466,57 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                             Divider(
                               thickness: 3,
                             ),
-                            SingleChildScrollView(
-                              child: Container(
-                                child: Row(
-                                  //mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          SizedBox(
-                                            height: 450,
-                                            width: 1300,
-                                            child: ListView.builder(
-                                                itemCount: _cardList.length,
-                                                itemBuilder: (context, index) {
-                                                  return _cardList[index];
-                                                }),
-                                          ),
-                                        ],
-                                      ),
+                            SizedBox(
+                              height: 500,
+                              child: DataTable2(
+                                showCheckboxColumn: true,
+                                dataRowHeight: 50,
+                                columnSpacing: 30,
+                                columns: [
+                                  DataColumn2(
+                                    label: Text(
+                                      "Référence Produit",
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  DataColumn2(
+                                    label: Text(
+                                      "Nom Produit",
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    label: Text(
+                                      "Quantité",
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    label: Text(
+                                      "Prix",
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    label: Text(""),
+                                  )
+                                ],
+                                rows: ligneDoc,
                               ),
                             ),
 
@@ -330,7 +548,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                     height: 53,
                                     color: Color.fromARGB(255, 112, 112, 112),
                                     onPressed: () {
-                                      _addCardWidgetExp();
+                                      ajouterLigne();
                                     },
                                     child: Text(
                                       "Ajouter une ligne",
@@ -544,7 +762,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
   String? selectedProduit;
   int? produitId;
   List? produits = [];
-  List<dynamic> refProduits = [];
+  List<SearchFieldListItem<dynamic>> refProduits = [];
   @override
   void initState() {
     super.initState();
@@ -618,9 +836,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                     suggestionItemDecoration: BoxDecoration(
                         color: Color(0xFF2A2D3E),
                         border: Border.all(color: Colors.white, width: 1.0)),
-                    suggestions: refProduits
-                        .map((e) => SearchFieldListItem<dynamic>(e, item: e))
-                        .toList(),
+                    suggestions: refProduits.toList(),
                     maxSuggestionsInViewPort: 6,
                     suggestionsDecoration: BoxDecoration(
                       color: Colors.white,
