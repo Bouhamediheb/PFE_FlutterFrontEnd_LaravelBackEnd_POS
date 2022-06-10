@@ -364,13 +364,6 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
               ),
             ),
           ),
-          DataCell(
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.close_sharp, size: 28),
-              color: Colors.red,
-            ),
-          ),
         ],
       ),
     );
@@ -511,10 +504,6 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  DataColumn2(
-                                    size: ColumnSize.S,
-                                    label: Text(""),
-                                  )
                                 ],
                                 rows: ligneDoc,
                               ),

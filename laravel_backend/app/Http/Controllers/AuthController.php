@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use DB;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required',
+            'role' => 'required|digits_between: 1,3',
 ]);
 
         $user = User::create([
@@ -79,6 +80,11 @@ public function logout(Request $res)
 public function me(Request $request)
 {
 return $request->user();
-} 
+}
+
+public function getUsers() {
+  $users = DB::table('users')->get();
+  return response()->json($users);
+}
 
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProduitStockController;
 use App\Http\Controllers\DocumentTotalController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,8 @@ use App\Http\Controllers\DocumentTotalController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/role/{id}', [RoleController::class, 'attribuerRole']);
 
 Route::apiresource('/fournisseur','App\Http\Controllers\Api\FournisseurController');
 
@@ -34,6 +37,8 @@ Route::post('/register',[AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']);
 
 Route::post('/me', [AuthController::class, 'me']);
+
+Route::get('/users',[AuthController::class, 'getUsers']);
 
 Route::post('/logout',[AuthController::class, 'logout'])->middleware('auth:sanctum');
 
