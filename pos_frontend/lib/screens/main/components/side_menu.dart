@@ -1,6 +1,7 @@
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
 import 'package:admin/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
+import 'package:admin/screens/fonctionalite/UserRightsScreen/listedesUtilisateurs.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -156,12 +157,21 @@ class _SideMenuState extends State<SideMenu> {
             DrawerListTile(
               title: "Parametres",
               svgSrc: "assets/icons/menu_setting.svg",
-              subTitle1: 'Informations Générales',
+              subTitle1: 'Gestion des droits des utilisateurs',
               subTitle2: 'Parametres du compte',
               subTitle3: 'Se Déconnecter',
-              press1: () {},
+              press1: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainScreen(listeUtlisateurs())),
+                );
+              },
               press2: () {},
-              press3: () {},
+              press3: () {
+                
+
+              },
             ),
           ],
         ),
