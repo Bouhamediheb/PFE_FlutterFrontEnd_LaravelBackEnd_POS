@@ -235,6 +235,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
     widget.controllers.add(prixController);
     ligneDoc.add(
       DataRow(
+        
         key: key,
         cells: <DataCell>[
           DataCell(
@@ -364,6 +365,10 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
               ),
             ),
           ),
+<<<<<<< HEAD
+=======
+          
+>>>>>>> c82090952103d9ef15938d127163d092be9d7a40
         ],
       ),
     );
