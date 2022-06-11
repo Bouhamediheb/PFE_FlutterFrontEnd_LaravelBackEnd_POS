@@ -15,21 +15,20 @@ class listeUtlisateurs extends StatefulWidget {
 }
 
 class _listeUtlisateursState extends State<listeUtlisateurs> {
-  String? _chosenValue ;
-static const snackBar = SnackBar(
-  content: Text('Tâche effectuée avec succès'),
-);
-  int? fournisseurId;
-  List? fournisseurs = [];
+  String? _chosenValue;
+  static const snackBar = SnackBar(
+    content: Text('Tâche effectuée avec succès'),
+  );
+  List? users = [];
   @override
   void initState() {
     super.initState();
-    this.fetchFournisseurs();
+    this.fetchUsers();
   }
 
-  fetchFournisseurs() async {
+  fetchUsers() async {
     final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/api/fournisseur'),
+      Uri.parse('http://127.0.0.1:8000/api/users'),
       headers: <String, String>{
         'Cache-Control': 'no-cache',
       },
@@ -38,10 +37,38 @@ static const snackBar = SnackBar(
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
-        fournisseurs = items;
+        users = items;
+        print(users);
       });
     } else {
       throw Exception('Error!');
+    }
+  }
+
+  attribuerRole(int id, int role) async {
+    final reponse = await http.post(
+      Uri.parse('http://127.0.0.1:8000/api/role/$id'),
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: jsonEncode(<String, dynamic>{
+        'role': role,
+      }),
+    );
+    if (reponse.statusCode == 200) {
+      print('success');
+    } else {
+      print('error');
+    }
+  }
+
+  Text typeAcc(int y) {
+    if (users![y]['role'] == 1) {
+      return Text('Administrateur');
+    } else if (users![y]['role'] == 2)
+      return Text("Agent de Bureau");
+    else if (users![y]['role'] == 3)
+      return Text("Caissier");
+    else {
+      return Text("");
     }
   }
 
@@ -78,7 +105,6 @@ static const snackBar = SnackBar(
                   ),
                 )),
               ),
-              
               Divider(
                 thickness: 3,
               ),
@@ -88,90 +114,118 @@ static const snackBar = SnackBar(
               SizedBox(
                 height: 600,
                 child: SingleChildScrollView(
-                  child: DataTable(
-                    columns: <DataColumn>[
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Identifiant",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Nom et prénom",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                     
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Numéro de Téléphone",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("E-mail",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                              child: Text("Droit d'accès",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)))),
-                    ],
-                    rows: <DataRow>[
-                      for (var i = 0; i < fournisseurs!.length; i++)
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text("TEST VALUE")),
-                           DataCell(Text("TEST VALUE")),
-                           DataCell(Text("TEST VALUE")),
-                           DataCell(Text("TEST VALUE")),
-                            DataCell(
-                              DropdownButton<String>(
-            value: _chosenValue,
-            //elevation: 5,
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-
-            items: <String>[
-              'Administrateur',
-              'Agent de bureau',
-              'Caissier',
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            hint: Text(
-              "Liste des rôles ..",
-              style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-               
-                  ),
-            ),
-            onChanged: (String? value) {
-              setState(() {
-                _chosenValue = value!;
-                print(_chosenValue);
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-              });
-            },
-          ),)
-                            
-                           
-                          ],
-                        )
-                    ],
-                  ),
-                ),
+                    child: DataTable(
+                  columns: <DataColumn>[
+                    DataColumn(
+                        label: Flexible(
+                      child: Text("Identifiant",
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    )),
+                    DataColumn(
+                        label: Flexible(
+                      child: Text("Nom et prénom",
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    )),
+                    DataColumn(
+                        label: Flexible(
+                      child: Text("E-mail",
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    )),
+                    DataColumn(
+                        label: Flexible(
+                            child: Text("Droit d'accès",
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)))),
+                  ],
+                  rows: <DataRow>[
+                    for (var i = 0; i < users!.length; i++)
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(Text(users![i]['id'].toString())),
+                          DataCell(Text(users![i]['name'])),
+                          DataCell(Text(users![i]['email'])),
+                          DataCell(
+                            PopupMenuButton<int>(
+                              onSelected: (dynamic value) {
+                                if (value == 1) {
+                                  attribuerRole(users![i]['id'], 1);
+                                  setState(() {
+                                    fetchUsers();
+                                  });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                                if (value == 2) {
+                                  attribuerRole(users![i]['id'], 2);
+                                  setState(() {
+                                    fetchUsers();
+                                  });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                                if (value == 3) {
+                                  attribuerRole(users![i]['id'], 3);
+                                  setState(() {
+                                    fetchUsers();
+                                  });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                              },
+                              color: Color(0xFF247b9c),
+                              offset: Offset(0, 30),
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                width: 150,
+                                child: Row(
+                                  children: [
+                                    typeAcc(i),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Icon(Icons.arrow_drop_down,
+                                        color: Colors.white),
+                                  ],
+                                ),
+                              ),
+                              itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  value: 1,
+                                  child: Text('Administrateur'),
+                                ),
+                                PopupMenuDivider(
+                                  height: 5,
+                                ),
+                                PopupMenuItem(
+                                  value: 2,
+                                  child: Text('Agent de Bureau'),
+                                ),
+                                PopupMenuDivider(
+                                  height: 5,
+                                ),
+                                PopupMenuItem(
+                                  value: 3,
+                                  child: Text('Caissier'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                )),
               ),
             ]),
           ),

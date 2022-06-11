@@ -166,7 +166,7 @@ class listeProduitState extends State<listeProduit> {
                                                       BorderRadius.circular(10),
                                                 ),
                                                 content: Container(
-                                                    width: 800,
+                                                    width: 1000,
                                                     child: modifierUnProduit(
                                                         produitId)),
                                               );

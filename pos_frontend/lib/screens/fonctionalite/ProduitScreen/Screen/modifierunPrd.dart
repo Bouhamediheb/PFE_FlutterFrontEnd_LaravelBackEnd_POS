@@ -25,6 +25,12 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
   File? uploadimage;
   String? baseimage;
 
+  @override
+  void initState() {
+    super.initState();
+    this.getProduit();
+  }
+
   Future<void> chooseImage() async {
     final ImagePicker picker = ImagePicker();
     var choosedimage =
@@ -37,7 +43,29 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     });
   }
 
-  List produit = [];
+  Future<http.Response?> getProduit() async {
+    print(widget.produitId);
+    final response = await http.get(
+        Uri.parse('http://127.0.0.1:8000/api/produit/${widget.produitId}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    if (response.statusCode == 200) {
+      produits = json.decode(response.body);
+    } else {
+      throw Exception('Error!');
+    }
+    setState(() {
+      nomProduit.text = produits!['nomProd'].toString();
+      prixAchatProduit.text = produits!['prixAchat'].toString();
+      prixVenteProduit.text = produits!['prixVente'].toString();
+      descriptionProduit.text = produits!['descriptionProd'];
+      refProduit.text = produits!['refProd'];
+    });
+  }
+
+  Map<String, dynamic>? produits;
 
   Future<http.Response?> ajoutProduit(
       String refProduit,
@@ -60,7 +88,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       }),
     );
     if (response.statusCode == 200) {
-      return produits = jsonDecode(response.body);
+      print('Produit Modifié');
     } else {
       throw Exception('Erreur base de données!');
     }
@@ -88,7 +116,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                     child: Column(
                       children: [
                         Text(
-                          "AJOUTER UN PRODUIT",
+                          "MODIFIER UN PRODUIT",
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
@@ -101,7 +129,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              flex: 3,
+                              flex: 5,
                               child: Column(
                                 children: [
                                   SizedBox(height: 10),

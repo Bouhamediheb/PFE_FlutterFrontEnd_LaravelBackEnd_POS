@@ -20,6 +20,8 @@ use App\Http\Controllers\RoleController;
 
 Route::post('/role/{id}', [RoleController::class, 'attribuerRole']);
 
+Route::get('user/{id}', [AuthController::class, 'getUser']);
+
 Route::apiresource('/fournisseur','App\Http\Controllers\Api\FournisseurController');
 
 Route::apiresource('/document','App\Http\Controllers\Api\DocumentController');

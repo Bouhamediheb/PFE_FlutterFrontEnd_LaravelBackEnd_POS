@@ -87,4 +87,9 @@ public function getUsers() {
   return response()->json($users);
 }
 
+public function getUser($id){
+  $user = DB::table('users')->where('id', $id)->first();
+  return response()->json($user);
+}
+
 }
