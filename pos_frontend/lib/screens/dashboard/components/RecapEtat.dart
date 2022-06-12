@@ -1,6 +1,7 @@
 import 'package:admin/models/Raccourcis.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/RaccourcisRapides.dart';
+import 'package:admin/screens/dashboard/components/RecapEtatWidg.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -10,16 +11,16 @@ import '../../fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
 import '../../main/main_screen.dart';
 import 'RecapRaccourcis.dart';
 
-class RecapMonetiques extends StatefulWidget {
-  const RecapMonetiques({
+class RecapEtat extends StatefulWidget {
+  const RecapEtat({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<RecapMonetiques> createState() => _RecapMonetiquesState();
+  State<RecapEtat> createState() => _RecapEtatState();
 }
 
-class _RecapMonetiquesState extends State<RecapMonetiques> {
+class _RecapEtatState extends State<RecapEtat> {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
@@ -65,7 +66,7 @@ class FileInfoCardGridView extends StatelessWidget {
         childAspectRatio: childAspectRatio,
       ),
       itemBuilder: (context, index) =>
-          RecapMonetiquesRacc(info: listeRaccourcisMonetiques[index]),
+          RecapEtatRacc(info: listeRaccourcisEtat[index]),
     );
   }
 }

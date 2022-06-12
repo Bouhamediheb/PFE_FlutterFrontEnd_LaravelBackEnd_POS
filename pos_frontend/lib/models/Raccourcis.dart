@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class Raccourcis {
   final String? imgSrc, title;
+  final IconData? ico;
   final double? value;
-  // final Function() onTapAction; // replace Function() with VoidCallback?
 
-  Raccourcis({this.imgSrc, this.title,this.value, info});
+  Raccourcis({this.imgSrc, this.title,this.ico,this.value, info});
 }
 
 
@@ -21,10 +21,7 @@ List listeRaccourcis = [
     title: "Bon de livraison",
     imgSrc: "assets/images/livraison.png",
   ),
-  Raccourcis(
-    title: "Bon de retour",
-    imgSrc: "assets/images/livraison.png",
-  ),
+  
   Raccourcis(
     title: "Liste des documents",
     imgSrc: "assets/images/ticket.png",
@@ -34,19 +31,48 @@ List listeRaccourcis = [
 
 List listeRaccourcisMonetiques = [
   Raccourcis(
+    ico:Icons.attach_money,
     title: "Solde",
     imgSrc: "assets/images/commande.png",
     value: 3500
   ),
   Raccourcis(
-    title: "Chéques Payés",
+    ico: Icons.receipt,
+    title: "Montant des chéques payés",
     imgSrc: "assets/images/livraison.png",
     value: 5000
   ),
   Raccourcis(
-    title: "Chéques Impayés",
+    ico: Icons.insert_page_break,
+    title: "Montant des chéques impayés",
     imgSrc: "assets/images/livraison.png",
     value: 1200
   ),
+  
+
+  
+];
+
+List listeRaccourcisEtat = [
+  Raccourcis(
+    ico:Icons.factory,
+    title: "Nombre de fournisseurs",
+    imgSrc: "assets/images/commande.png",
+    value: 5
+  ),
+  Raccourcis(
+    ico:Icons.production_quantity_limits,
+    title: "Nombre de produits",
+    imgSrc: "assets/images/livraison.png",
+    value: 12
+  ),
+  Raccourcis(
+    ico:Icons.document_scanner,
+    title: "Nombre de documents",
+    imgSrc: "assets/images/livraison.png",
+    value: 120
+  ),
+  
+
   
 ];

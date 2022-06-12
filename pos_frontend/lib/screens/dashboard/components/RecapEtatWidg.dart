@@ -9,20 +9,20 @@ import 'EtatStock.dart';
 import 'RaccourcisRapides.dart';
 import '../components/header_Raccourcis.dart';
 
-class RecapMonetiquesRacc extends StatefulWidget {
+class RecapEtatRacc extends StatefulWidget {
   final Raccourcis info;
-  const RecapMonetiquesRacc({
+  const RecapEtatRacc({
     Key? key,
     required this.info,
   }) : super(key: key);
 
   @override
-  State<RecapMonetiquesRacc> createState() => _RecapMonetiquesRaccState();
+  State<RecapEtatRacc> createState() => _RecapEtatRaccState();
 }
 
 
 
-class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
+class _RecapEtatRaccState extends State<RecapEtatRacc> {
   late Color valColor;
   
   
@@ -83,12 +83,12 @@ class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(widget.info.title!,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 17)),
                 SizedBox(height: defaultPadding / 2),
-                Text(widget.info.value!.toString() +" TND",
-                maxLines: 1,
+                Text(widget.info.value!.toString(),
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 25, color: Colors.white,)),
               ],
@@ -101,9 +101,3 @@ class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
     );
   }
 }
-
-
-
-/*
-
-*/

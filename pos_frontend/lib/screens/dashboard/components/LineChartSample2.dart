@@ -52,22 +52,22 @@ class _LineChartSample2State extends State<LineChartSample2> {
     Widget text;
     switch (value.toInt()) {
       case 0:
-        text = const Text('MARS', style: style);
+        text = const Text('02/2022', style: style);
         break;
       case 2:
-        text = const Text('AVRIL', style: style);
+        text = const Text('03/2022', style: style);
         break;
       case 4:
-        text = const Text('MAI', style: style);
+        text = const Text('04/2022', style: style);
         break;
          case 6:
-        text = const Text('JUIN', style: style);
+        text = const Text('05/2022', style: style);
         break;
          case 8:
-        text = const Text('JUILLET', style: style);
+        text = const Text('06/2022', style: style);
         break;
          case 10:
-        text = const Text('AOUT', style: style);
+        text = const Text('07/2022', style: style);
         break;
       default:
         text = const Text('', style: style);
@@ -90,13 +90,13 @@ class _LineChartSample2State extends State<LineChartSample2> {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = '10m DT';
+        text = '10M TND';
         break;
       case 3:
-        text = '30m DT';
+        text = '30M TND';
         break;
       case 5:
-        text = '50m DT';
+        text = '50M TND';
         break;
       default:
         return Container();
@@ -146,7 +146,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
             showTitles: true,
             interval: 1,
             getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
+            reservedSize: 60,
           ),
         ),
       ),
@@ -196,7 +196,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   LineChartData avgData() {
     return LineChartData(
-      lineTouchData: LineTouchData(enabled: false),
+      lineTouchData: LineTouchData(enabled: true),
       gridData: FlGridData(
         show: true,
         drawHorizontalLine: true,
@@ -256,7 +256,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
             FlSpot(6.8, 3.44),
             FlSpot(8, 3.44),
             FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
+            
           ],
           isCurved: true,
           gradient: LinearGradient(
