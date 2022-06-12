@@ -1,6 +1,7 @@
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuController.dart';
 import 'package:admin/screens/Login/Screen/Singup.dart';
+import 'package:admin/screens/caisse/CaisseScreen.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,9 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Admin Panel',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: bgColor,
-       textTheme: GoogleFonts.latoTextTheme(
-      Theme.of(context).textTheme,
-    )
-            .apply(bodyColor: Colors.white),
+        textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme,
+        ).apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
       home: MultiProvider(
@@ -72,7 +72,7 @@ class _CheckAuthState extends State<CheckAuth> {
   Widget build(BuildContext context) {
     Widget child;
     if (isAuth) {
-      child = MainScreen(DashboardScreen());
+      child = Caisse();
     } else {
       child = FirstScreen();
     }
