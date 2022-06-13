@@ -41,6 +41,7 @@ dependencies:
   editable: ^2.0.0
   fl_chart: ^0.51.0
   data_table_2: ^2.2.3
+  flip_card: ^0.6.0
 
 dev_dependencies:
   flutter_test:
