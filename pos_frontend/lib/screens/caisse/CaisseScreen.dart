@@ -5,6 +5,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flip_card/flip_card.dart';
 
+import 'Produit.dart';
+
 class Caisse extends StatefulWidget {
   Caisse({Key? key}) : super(key: key);
 
@@ -13,7 +15,84 @@ class Caisse extends StatefulWidget {
 }
 
 class _CaisseState extends State<Caisse> {
-  int? quantite;
+  List<Produit> listeProduits = [
+    Produit(
+      nom: 'Coca Cola',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Fanta',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Sprite',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Pepsi',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Coca Cola',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Fanta',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Sprite',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Pepsi',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Coca Cola',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Fanta',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Sprite',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Pepsi',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Coca Cola',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Fanta',
+      prix: 2.5,
+      quantite: 10,
+    ),
+    Produit(
+      nom: 'Sprite',
+      prix: 2.5,
+      quantite: 10,
+    ),
+  ];
+  int quantite = 0;
   int selectedTable = 1;
   @override
   Widget build(BuildContext context) {
@@ -157,23 +236,23 @@ class _CaisseState extends State<Caisse> {
           Padding(
             padding: const EdgeInsets.only(left: 25, bottom: 20),
             child: Container(
-                width: MediaQuery.of(context).size.width / 2,
-                decoration: BoxDecoration(
-                  color: Color(0xFF462c86),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: GridView.count(
-                  crossAxisCount: 4,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  primary: false,
-                  padding: EdgeInsets.all(20),
-                  children: <Widget>[
+              width: MediaQuery.of(context).size.width / 1.75,
+              decoration: BoxDecoration(
+                color: Color(0xFF462c86),
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: GridView.count(
+                crossAxisCount: 4,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                primary: false,
+                padding: EdgeInsets.all(20),
+                children: <Widget>[
+                  for (var i = 0; i < listeProduits.length; i++)
                     FlipCard(
                       direction: FlipDirection.HORIZONTAL,
                       front: Container(
-                        height: MediaQuery.of(context).size.width * 2,
-                        width: MediaQuery.of(context).size.height * 2,
+                        margin: EdgeInsets.only(bottom: 25),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -203,10 +282,10 @@ class _CaisseState extends State<Caisse> {
                               child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  "Jus d'orange",
+                                  "${listeProduits[i].nom}",
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -216,7 +295,7 @@ class _CaisseState extends State<Caisse> {
                               child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  "2 DT",
+                                  "${listeProduits[i].prix}DT",
                                   style: TextStyle(
                                     color: Colors.grey[300],
                                     fontSize: 16,
@@ -228,53 +307,205 @@ class _CaisseState extends State<Caisse> {
                         ),
                       ),
                       back: Container(
-                          height: 75,
-                          width: 75,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black,
-                                offset: Offset(0.0, 1.0), //(x,y)
-                                blurRadius: 1,
-                              ),
-                            ],
-                            color: Colors.grey[800],
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Quantite(),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.grey[800],
-                                    fixedSize: Size(200, 40),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    side: BorderSide(
-                                      color: Colors.white,
-                                    )),
-                                onPressed: () {},
-                                child: Text("Ajouter au Panier",
-                                    style: TextStyle(fontSize: 16)),
-                              ),
-                            ],
-                          )),
+                        margin: EdgeInsets.only(bottom: 25),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 1,
+                            ),
+                          ],
+                          color: Colors.grey[800],
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Quantite(),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.grey[800],
+                                  fixedSize: Size(200, 40),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  side: BorderSide(
+                                    color: Colors.white,
+                                  )),
+                              onPressed: () {},
+                              child: Text("Ajouter au Panier",
+                                  style: TextStyle(fontSize: 16)),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ],
-                )),
+                ],
+              ),
+            ),
           ),
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
               padding: const EdgeInsets.only(left: 25, bottom: 20),
               child: Container(
+                padding: EdgeInsets.all(20.0),
                 width: MediaQuery.of(context).size.width / 5,
-                height: MediaQuery.of(context).size.height / 1,
+                height: MediaQuery.of(context).size.height / 1.5,
                 decoration: BoxDecoration(
                   color: Color(0xFF462c86),
                   borderRadius: BorderRadius.circular(25),
+                ),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Ticket",
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 20,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Table",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        "#$selectedTable",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 25,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 3.75,
+                      child: DataTable(
+                        columns: [
+                          DataColumn(
+                            label: Text(
+                              "Nom",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              "Quantité",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              "Prix",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                        rows: [
+                          DataRow(
+                            cells: [
+                              DataCell(
+                                Text(
+                                  "Jus d'orange",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[300],
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Text(
+                                  "2",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[300],
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Text(
+                                  "2 DT",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[300],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 100,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text("2 DT",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 20,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 10,
+                          primary: Color(0xFF09c569),
+                          fixedSize: Size(200, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child:
+                            Text("Confirmer", style: TextStyle(fontSize: 20)),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -285,7 +516,6 @@ class _CaisseState extends State<Caisse> {
   }
 
   Row Quantite() {
-    quantite = 0;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -298,9 +528,9 @@ class _CaisseState extends State<Caisse> {
                 color: Colors.white,
               )),
           onPressed: () {
-            if (quantite! > 0) {
+            if (quantite > 0) {
               setState(() {
-                quantite = quantite! - 1;
+                quantite = quantite - 1;
               });
             }
           },
@@ -317,7 +547,8 @@ class _CaisseState extends State<Caisse> {
               )),
           onPressed: () {
             setState(() {
-              quantite = quantite! + 1;
+              quantite = quantite + 1;
+              print(quantite);
             });
           },
           child: Icon(Icons.add),
