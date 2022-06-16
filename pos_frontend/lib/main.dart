@@ -72,7 +72,7 @@ class _CheckAuthState extends State<CheckAuth> {
   Widget build(BuildContext context) {
     Widget child;
     if (isAuth) {
-      child = Caisse();
+      child = MainScreen(DashboardScreen());
     } else {
       child = FirstScreen();
     }

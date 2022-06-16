@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flip_card/flip_card.dart';
-
+import 'package:data_table_2/data_table_2.dart';
 import 'Produit.dart';
 
 class Caisse extends StatefulWidget {
@@ -15,6 +15,22 @@ class Caisse extends StatefulWidget {
 }
 
 class _CaisseState extends State<Caisse> {
+  @override
+  initState() {
+    super.initState();
+    fillListePanier();
+  }
+
+  void fillListePanier() {
+    setState(() {
+      for (var i = 1; i <= nbTotalesTables; i++) {
+        listePanier[i] = [];
+      }
+    });
+  }
+
+  List<Produit> Test = [];
+  Map<int, List<Produit>> listePanier = {};
   List<Produit> listeProduits = [
     Produit(
       nom: 'Coca Cola',
@@ -94,6 +110,7 @@ class _CaisseState extends State<Caisse> {
   ];
   int quantite = 0;
   int selectedTable = 1;
+  int nbTotalesTables = 20;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +120,7 @@ class _CaisseState extends State<Caisse> {
           centerTitle: false,
           actions: [
             Text(
-              "Table : $selectedTable / 20",
+              "Table : $selectedTable / $nbTotalesTables",
               style: TextStyle(fontSize: 16),
             ),
           ]),
@@ -120,7 +137,7 @@ class _CaisseState extends State<Caisse> {
                     behavior: ScrollConfiguration.of(context)
                         .copyWith(scrollbars: false),
                     child: ListView.builder(
-                        itemCount: 20,
+                        itemCount: nbTotalesTables,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.all(3.0),
@@ -332,7 +349,14 @@ class _CaisseState extends State<Caisse> {
                                   side: BorderSide(
                                     color: Colors.white,
                                   )),
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    listePanier.appendToList(
+                                        selectedTable, listeProduits[i]);
+                                  },
+                                );
+                              },
                               child: Text("Ajouter au Panier",
                                   style: TextStyle(fontSize: 16)),
                             ),
@@ -400,9 +424,10 @@ class _CaisseState extends State<Caisse> {
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 3.75,
-                      child: DataTable(
+                      child: DataTable2(
+                        columnSpacing: 10,
                         columns: [
-                          DataColumn(
+                          DataColumn2(
                             label: Text(
                               "Nom",
                               style: TextStyle(
@@ -411,7 +436,7 @@ class _CaisseState extends State<Caisse> {
                               ),
                             ),
                           ),
-                          DataColumn(
+                          DataColumn2(
                             label: Text(
                               "Quantité",
                               style: TextStyle(
@@ -420,7 +445,8 @@ class _CaisseState extends State<Caisse> {
                               ),
                             ),
                           ),
-                          DataColumn(
+                          DataColumn2(
+                            size: ColumnSize.S,
                             label: Text(
                               "Prix",
                               style: TextStyle(
@@ -431,37 +457,40 @@ class _CaisseState extends State<Caisse> {
                           ),
                         ],
                         rows: [
-                          DataRow(
-                            cells: [
-                              DataCell(
-                                Text(
-                                  "Jus d'orange",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[300],
+                          for (var i = 0;
+                              i < listePanier[selectedTable]!.length;
+                              i++)
+                            DataRow2(
+                              cells: [
+                                DataCell(
+                                  Text(
+                                    "${listePanier[selectedTable]!.elementAt(i).nom}",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[300],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              DataCell(
-                                Text(
-                                  "2",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[300],
+                                DataCell(
+                                  Text(
+                                    "${listePanier[selectedTable]!.elementAt(i).quantite}",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[300],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              DataCell(
-                                Text(
-                                  "2 DT",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[300],
+                                DataCell(
+                                  Text(
+                                    "${listePanier[selectedTable]!.elementAt(i).prix} DT",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[300],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
                         ],
                       ),
                     ),
@@ -500,7 +529,10 @@ class _CaisseState extends State<Caisse> {
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          //print(listePanier.values);
+                          print(listePanier.length);
+                        },
                         child:
                             Text("Confirmer", style: TextStyle(fontSize: 20)),
                       ),
@@ -556,4 +588,9 @@ class _CaisseState extends State<Caisse> {
       ],
     );
   }
+}
+
+extension AppendToListOnMapWithListsExtension<K, V> on Map<K, List<V>> {
+  void appendToList(K key, V value) =>
+      update(key, (list) => list..add(value), ifAbsent: () => [value]);
 }
