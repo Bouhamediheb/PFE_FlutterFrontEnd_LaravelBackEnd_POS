@@ -3,7 +3,6 @@ import 'package:admin/screens/Login/Screen/CreationCompte.dart';
 import 'package:admin/screens/Login/Screen/Login.dart';
 import 'package:flutter/material.dart';
 
-import '../../../main.dart';
 import '../../dashboard/dashboard_screen.dart';
 import '../../main/main_screen.dart';
 
@@ -20,7 +19,7 @@ class _FirstScreenState extends State<FirstScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: Text("GESTIONNAIRE DE PROJET"),
+          title: const Text("GESTIONNAIRE DE PROJET"),
           backgroundColor: secondaryColor,
         ),
         body: SingleChildScrollView(
@@ -29,13 +28,13 @@ class _FirstScreenState extends State<FirstScreen> {
               color: secondaryColor,
               width: double.infinity,
               height: MediaQuery.of(context).size.height,
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Column(
-                    children: <Widget>[
+                    children: const <Widget>[
                       Text(
                         "BIENVENUE !",
                         style: TextStyle(
@@ -47,7 +46,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                      Container(
+                      SizedBox(
                         width: 820,
                         child: Text(
                           " Commencez par créer un compte ou se connecter à votre compte déja existant. Cet outil vous propose des fonctionnalités de suivis pour votre projet.",
@@ -64,7 +63,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height / 3,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage('../assets/images/login.jpg'))),
                   ),
@@ -84,7 +83,7 @@ class _FirstScreenState extends State<FirstScreen> {
                           color: Colors.blue[800],
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
-                          child: Text(
+                          child: const Text(
                             "Authentification",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
@@ -94,7 +93,7 @@ class _FirstScreenState extends State<FirstScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
@@ -116,7 +115,7 @@ class _FirstScreenState extends State<FirstScreen> {
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(60)),
-                            child: Text(
+                            child: const Text(
                               "Créer un compte",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -127,7 +126,7 @@ class _FirstScreenState extends State<FirstScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
@@ -149,7 +148,7 @@ class _FirstScreenState extends State<FirstScreen> {
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(60)),
-                            child: Text(
+                            child: const Text(
                               "Accés Direct",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,

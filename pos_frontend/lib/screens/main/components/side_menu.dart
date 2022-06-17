@@ -1,4 +1,3 @@
-import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
 import 'package:admin/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
 import 'package:admin/screens/fonctionalite/UserRightsScreen/listedesUtilisateurs.dart';
@@ -36,7 +35,7 @@ class _SideMenuState extends State<SideMenu> {
               ),
             ),
             MaterialButton(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -47,28 +46,27 @@ class _SideMenuState extends State<SideMenu> {
               child: ListTile(
                   leading: SvgPicture.asset(
                     "assets/icons/menu_dashbord.svg",
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     height: 16,
                   ),
-                  title: Text(
+                  title: const Text(
                     "Dashboard",
                     style: TextStyle(
                       fontSize: 14,
                     ),
                   ),
-                  trailing: Text("")),
+                  trailing: const Text("")),
             ),
             DrawerListTile(
               title: "Documents",
               svgSrc: "assets/icons/menu_doc.svg",
               subTitle1: 'Ajouter Un Document',
               subTitle2: 'Liste Des Documents',
-              subTitle3: 'Supprimer Un Document',
               press1: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainScreen(ChoixDocument())),
+                      builder: (context) => MainScreen(const ChoixDocument())),
                 );
               },
               press2: () {
@@ -78,7 +76,7 @@ class _SideMenuState extends State<SideMenu> {
                       builder: (context) => MainScreen(listeDocument())),
                 );
               },
-              press3: () {},
+              
             ),
             DrawerListTile(
               title: "Fournisseurs",
@@ -129,7 +127,7 @@ class _SideMenuState extends State<SideMenu> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainScreen(ajouterUnProduit())),
+                      builder: (context) => MainScreen(const ajouterUnProduit())),
                 );
               },
               press3: () {},
@@ -181,7 +179,7 @@ class _SideMenuState extends State<SideMenu> {
 }
 
 class DrawerListTile extends StatelessWidget {
-  DrawerListTile(
+  const DrawerListTile(
       {Key? key,
       // For selecting those three line once press "Command+D"
       this.title,
@@ -202,52 +200,41 @@ class DrawerListTile extends StatelessWidget {
     return ExpansionTile(
       leading: SvgPicture.asset(
         svgSrc!,
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 255, 255, 255),
         height: 16,
       ),
       title: Text(
         title!,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 14,
         ),
       ),
       children: [
         ListTile(
-          contentPadding: EdgeInsets.only(left: 30),
+          contentPadding: const EdgeInsets.only(left: 30),
           onTap: press1,
           horizontalTitleGap: 0.0,
-          leading: Icon(Icons.arrow_right_rounded,
+          leading: const Icon(Icons.arrow_right_rounded,
               color: Color.fromARGB(255, 255, 255, 255)),
           title: Text(
             subTitle1!,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Color.fromARGB(255, 197, 195, 195), fontSize: 13),
           ),
         ),
         ListTile(
-          contentPadding: EdgeInsets.only(left: 30),
+          contentPadding: const EdgeInsets.only(left: 30),
           onTap: press2,
           horizontalTitleGap: 0.0,
-          leading: Icon(Icons.arrow_right_rounded,
+          leading: const Icon(Icons.arrow_right_rounded,
               color: Color.fromARGB(255, 255, 255, 255)),
           title: Text(
             subTitle2!,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Color.fromARGB(255, 197, 195, 195), fontSize: 13),
           ),
         ),
-        ListTile(
-          contentPadding: EdgeInsets.only(left: 30),
-          onTap: press3,
-          horizontalTitleGap: 0.0,
-          leading: Icon(Icons.arrow_right_rounded,
-              color: Color.fromARGB(255, 255, 255, 255)),
-          title: Text(
-            subTitle3!,
-            style: TextStyle(
-                color: Color.fromARGB(255, 197, 195, 195), fontSize: 13),
-          ),
-        ),
+        
       ],
     );
   }

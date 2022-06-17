@@ -1,13 +1,7 @@
-import 'package:admin/models/Raccourcis.dart';
+import 'package:admin/models/raccourcis.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
-import '../../main/TestScreen.dart';
-import 'DernieresActivites.dart';
-import 'EtatStock.dart';
-import 'RaccourcisRapides.dart';
-import '../components/header_Raccourcis.dart';
 
 class RecapMonetiquesRacc extends StatefulWidget {
   final Raccourcis info;
@@ -40,10 +34,10 @@ class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: const BoxDecoration(
         color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.space,
@@ -75,12 +69,12 @@ class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
                 Text(widget.info.title!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 17)),
-                SizedBox(height: defaultPadding / 2),
-                Text(widget.info.value!.toString() + " TND",
+                    style: const TextStyle(fontSize: 17)),
+                const SizedBox(height: defaultPadding / 2),
+                Text("${widget.info.value!} TND",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 25,
                       color: Colors.white,
                     )),

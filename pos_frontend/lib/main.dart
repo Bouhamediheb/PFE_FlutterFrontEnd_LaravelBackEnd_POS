@@ -1,7 +1,7 @@
+
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuController.dart';
 import 'package:admin/screens/Login/Screen/Singup.dart';
-import 'package:admin/screens/caisse/CaisseScreen.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +10,13 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/Login/Screen/Singup.dart';
 
-void main() {
-  runApp(MyApp());
+void main() {  
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -39,13 +41,15 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MenuController(),
           ),
         ],
-        child: CheckAuth(),
+        child: const CheckAuth(),
       ),
     );
   }
 }
 
 class CheckAuth extends StatefulWidget {
+  const CheckAuth({Key? key}) : super(key: key);
+
   @override
   State<CheckAuth> createState() => _CheckAuthState();
 }

@@ -1,6 +1,5 @@
-import 'package:admin/constants.dart';
-import 'package:admin/screens/main/TestScreen.dart';
-import 'package:admin/screens/main/main_screen.dart';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class Raccourcis {

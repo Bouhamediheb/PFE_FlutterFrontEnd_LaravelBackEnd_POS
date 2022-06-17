@@ -1,5 +1,4 @@
 import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
-import 'package:admin/screens/main/TestScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
@@ -23,26 +22,26 @@ class _ChoixDocumentState extends State<ChoixDocument> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text(
+              const Text(
                 "Choississez le type de document souhaité",
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 35),
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Divider(
+                  const Divider(
                     thickness: 2,
                   ),
                   Container(
                     width: 240,
                     height: 200,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: MaterialButton(
                       onPressed: () {
@@ -52,17 +51,17 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                 builder: (context) => MainScreen(
                                     ajouterUnDocument(1, 'BON DE COMMANDE'))));
                       },
-                      child: Container(
+                      child: SizedBox(
                           height: 110,
                           child: Column(
                             children: [
                               Container(
                                   padding:
-                                      EdgeInsets.all(defaultPadding * 0.75),
+                                      const EdgeInsets.all(defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(
                                         Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -72,10 +71,10 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                     //color: Colors.grey[300],
                                     // borderRadius: BorderRadius.circular(20.0),
                                   )),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Text("Bon de commande ",
+                              const Text("Bon de commande ",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -87,33 +86,33 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           )),
                     ),
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   Container(
                     width: 240,
                     height: 200,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: MaterialButton(
                       onPressed: () {
-                        Navigator.push(
+                       Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ajouterUnDocument(2, 'BON DE LIVRAISON')));
+                                builder: (context) => MainScreen(
+                                    ajouterUnDocument(3, 'BON DE RETOUR'))));
                       },
-                      child: Container(
+                      child: SizedBox(
                           height: 110,
                           child: Column(
                             children: [
                               Container(
                                   padding:
-                                      EdgeInsets.all(defaultPadding * 0.75),
+                                      const EdgeInsets.all(defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(
                                         Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -123,10 +122,10 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                     //color: Colors.grey[300],
                                     // borderRadius: BorderRadius.circular(20.0),
                                   )),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Text("Bon de livraison ",
+                              const Text("Bon de livraison ",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -138,33 +137,33 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           )),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Container(
                     height: 200,
                     width: 240,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: MaterialButton(
                       onPressed: () {
-                        Navigator.push(
+                       Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ajouterUnDocument(3, 'BON DE LIVRAISON')));
+                                builder: (context) => MainScreen(
+                                    ajouterUnDocument(4, 'BON DE RETOUR'))));
                       },
-                      child: Container(
+                      child: SizedBox(
                           height: 110,
                           child: Column(
                             children: [
                               Container(
                                   padding:
-                                      EdgeInsets.all(defaultPadding * 0.75),
+                                      const EdgeInsets.all(defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(
                                         Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -174,10 +173,10 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                     //color: Colors.grey[300],
                                     // borderRadius: BorderRadius.circular(20.0),
                                   )),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Text("Bon de retour ",
+                              const Text("Bon de retour ",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -189,13 +188,13 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           )),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Container(
                     height: 200,
                     width: 240,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: MaterialButton(
                       onPressed: () {
@@ -205,17 +204,17 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                 builder: (context) =>
                                     ajouterUnDocument(4, 'BON DE LIVRAISON')));
                       },
-                      child: Container(
+                      child: SizedBox(
                           height: 110,
                           child: Column(
                             children: [
                               Container(
                                   padding:
-                                      EdgeInsets.all(defaultPadding * 0.75),
+                                      const EdgeInsets.all(defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(
                                         Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -225,10 +224,10 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                     //color: Colors.grey[300],
                                     // borderRadius: BorderRadius.circular(20.0),
                                   )),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Text("Devis commercial ",
+                              const Text("Devis commercial ",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -242,221 +241,11 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Divider(
-                    thickness: 2,
-                  ),
-                  Container(
-                    width: 240,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ajouterUnDocument(5, 'BON DE LIVRAISON')));
-                      },
-                      child: Container(
-                          height: 110,
-                          child: Column(
-                            children: [
-                              Container(
-                                  padding:
-                                      EdgeInsets.all(defaultPadding * 0.75),
-                                  height: 60,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "../../../../../assets/images/commande.png"),
-                                    ),
-
-                                    //color: Colors.grey[300],
-                                    // borderRadius: BorderRadius.circular(20.0),
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text("Bon de commande ",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 15,
-                                  )),
-                            ],
-                          )),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Container(
-                    height: 200,
-                    width: 240,
-                    decoration: BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ajouterUnDocument(6, 'BON DE LIVRAISON')));
-                      },
-                      child: Container(
-                          height: 110,
-                          child: Column(
-                            children: [
-                              Container(
-                                  padding:
-                                      EdgeInsets.all(defaultPadding * 0.75),
-                                  height: 60,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "../../../../../assets/images/livraison.png"),
-                                    ),
-
-                                    //color: Colors.grey[300],
-                                    // borderRadius: BorderRadius.circular(20.0),
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text("Bon de livraison ",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 15,
-                                  )),
-                            ],
-                          )),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Container(
-                    height: 200,
-                    width: 240,
-                    decoration: BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ajouterUnDocument(7, 'BON DE LIVRAISON')));
-                      },
-                      child: Container(
-                          height: 110,
-                          child: Column(
-                            children: [
-                              Container(
-                                  padding:
-                                      EdgeInsets.all(defaultPadding * 0.75),
-                                  height: 60,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "../../../../../assets/images/commande.png"),
-                                    ),
-
-                                    //color: Colors.grey[300],
-                                    // borderRadius: BorderRadius.circular(20.0),
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text("Bon de retour ",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 15,
-                                  )),
-                            ],
-                          )),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Container(
-                    height: 200,
-                    width: 240,
-                    decoration: BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ajouterUnDocument(8, 'BON DE LIVRAISON')));
-                      },
-                      child: Container(
-                          height: 110,
-                          child: Column(
-                            children: [
-                              Container(
-                                  padding:
-                                      EdgeInsets.all(defaultPadding * 0.75),
-                                  height: 60,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "../../../../../assets/images/commande.png"),
-                                    ),
-
-                                    //color: Colors.grey[300],
-                                    // borderRadius: BorderRadius.circular(20.0),
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text("Devis commercial ",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 15,
-                                  )),
-                            ],
-                          )),
-                    ),
-                  ),
-                ],
-              ),
+              const SizedBox(height: 20),
+              
             ],
           ),
         ),

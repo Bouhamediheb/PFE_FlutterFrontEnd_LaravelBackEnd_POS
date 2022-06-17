@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, unused_local_variable
+
 import 'package:flutter/material.dart';
 import '../Widgets/input_field.dart';
 import '../Widgets/input_field_description.dart';
@@ -15,7 +17,7 @@ class modifierUnProduit extends StatefulWidget {
 }
 
 class _modifierUnProduitState extends State<modifierUnProduit> {
-  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final refProduit = TextEditingController();
   final nomProduit = TextEditingController();
   final prixAchatProduit = TextEditingController();
@@ -28,13 +30,13 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
   @override
   void initState() {
     super.initState();
-    this.getProduit();
+    getProduit();
   }
 
   Future<void> chooseImage() async {
     final ImagePicker picker = ImagePicker();
     var choosedimage =
-        await (picker.pickImage(source: ImageSource.gallery) as XFile);
+        (picker.pickImage(source: ImageSource.gallery) as XFile);
     final File convertimage = File(choosedimage.path);
     setState(() {
       uploadimage = convertimage;
@@ -63,6 +65,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       descriptionProduit.text = produits!['descriptionProd'];
       refProduit.text = produits!['refProd'];
     });
+    return null;
   }
 
   Map<String, dynamic>? produits;
@@ -74,7 +77,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       double prixVenteProduit,
       String descriptionProduit,
       File? imageProduit) async {
-    List? produits = [];
+      late List? produits = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/produit/'),
       headers: <String, String>{'Content-Type': 'multipart/form-data'},
@@ -92,6 +95,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     } else {
       throw Exception('Erreur base de données!');
     }
+    return null;
   }
 
   Future<dynamic>? future;
@@ -101,28 +105,28 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       key: _formKey,
       child: SingleChildScrollView(
         child: Card(
-          shadowColor: Color.fromARGB(255, 122, 120, 120),
-          color: Color(0xFF2A2D3E),
+          shadowColor: const Color.fromARGB(255, 122, 120, 120),
+          color: const Color(0xFF2A2D3E),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
           elevation: 0.0,
-          child: Container(
+          child: SizedBox(
             width: 1800,
             child: Column(
               children: [
                 Center(
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           "MODIFIER UN PRODUIT",
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Divider(
+                        const Divider(
                           thickness: 3,
                         ),
                         Row(
@@ -132,7 +136,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                               flex: 5,
                               child: Column(
                                 children: [
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   InputField(
                                     label: "Référence Produit",
                                     content: "La Référende du produit",
@@ -144,7 +148,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                       return null;
                                     },
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   InputField(
                                     label: "Nom du produit",
                                     content: "Le Nom du produit",
@@ -156,7 +160,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                       return null;
                                     },
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   InputField(
                                       label: "Prix Achat",
                                       content: "Prix Achat du Produit",
@@ -167,7 +171,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                         }
                                         return null;
                                       }),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   InputField(
                                     label: "Prix Vente",
                                     content: "Prix Vente du Produit",
@@ -179,7 +183,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                       return null;
                                     },
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   InputFieldDescription(
                                     content: 'La Description du Produit',
                                     label: 'Description du Produit',
@@ -194,7 +198,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 25),
+                            const SizedBox(width: 25),
                             Expanded(
                               flex: 3,
                               child: Column(
@@ -203,7 +207,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Séléctionnez une Image",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w900,
@@ -211,25 +215,25 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                                 255, 255, 255, 255),
                                           ),
                                         ),
-                                        SizedBox(width: 25),
+                                        const SizedBox(width: 25),
                                         Container(
                                           child: OutlinedButton(
                                             onPressed: () {
                                               chooseImage();
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.add,
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 400)
+                                    const SizedBox(height: 400)
                                   ]),
                             ),
                           ],
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -239,16 +243,16 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text(
+                              child: const Text(
                                 "Annuler",
                                 style: TextStyle(color: Colors.black),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20.0,
                             ),
                             MaterialButton(
-                              color: Color.fromARGB(255, 75, 100, 211),
+                              color: const Color.fromARGB(255, 75, 100, 211),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() {
@@ -272,7 +276,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   );
                                 }
                               },
-                              child: Text(
+                              child: const Text(
                                 "Ajouter",
                                 style: TextStyle(color: Colors.white),
                               ),

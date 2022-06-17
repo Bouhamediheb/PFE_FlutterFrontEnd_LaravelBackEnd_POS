@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import 'disabled_date.dart';
@@ -7,7 +9,9 @@ class SeqDoc extends StatelessWidget {
   final String? content;
   var fieldController = TextEditingController();
 
-  FormFieldValidator<String> fieldValidator = (_) {};
+  FormFieldValidator<String> fieldValidator = (_) {
+    return null;
+  };
   SeqDoc({
     this.label,
     this.label2,
@@ -24,43 +28,43 @@ class SeqDoc extends StatelessWidget {
             child: Text(
               "$label",
               textAlign: TextAlign.left,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w900,
                 color: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 5.0,
         ),
         Expanded(
           flex: 5,
           child: Container(
             width: MediaQuery.of(context).size.width / 3.7,
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: const Color.fromARGB(255, 255, 255, 255),
             child: TextFormField(
               enabled: false,
               controller: fieldController,
               validator: fieldValidator,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15.0,
                 color: Colors.black,
               ),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(10.0),
+                contentPadding: const EdgeInsets.all(10.0),
                 hintText: "$content",
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                     color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
-                fillColor: Color.fromARGB(255, 0, 0, 0),
+                fillColor: const Color.fromARGB(255, 0, 0, 0),
               ),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
-        SizedBox(
+        const SizedBox(
           width: 5.0,
         ),
         Expanded(flex: 5, child: DisabledCurrentDate(label: 'Date')),

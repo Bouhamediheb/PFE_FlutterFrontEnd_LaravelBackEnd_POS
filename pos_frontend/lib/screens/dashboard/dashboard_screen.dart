@@ -1,20 +1,13 @@
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/LineChartSample2.dart';
-import 'package:admin/screens/dashboard/components/RaccourcisRapides.dart';
 import 'package:admin/screens/dashboard/components/RecapEtat.dart';
 import 'package:admin/screens/dashboard/components/RecapMonetiques.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:admin/screens/dashboard/components/LineChartSample1.dart';
 import '../../constants.dart';
 import 'components/Raccourcis.dart';
 import 'components/header.dart';
-import 'components/header_Raccourcis.dart';
-import 'components/DernieresActivites.dart';
 import 'components/EtatStock.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -26,12 +19,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(defaultPadding),
+        padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
             Header(),
             
-            SizedBox(height: defaultPadding),
+            const SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -39,10 +32,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   flex: 5,
                   child: Column(
                     children: [
-                      RecapMonetiques(),
-                      SizedBox(height: defaultPadding),
+                      const RecapMonetiques(),
+                      const SizedBox(height: defaultPadding),
                       //HeaderRaccourcis(),
-                      RecapEtat(),
+                      const RecapEtat(),
                       
                       Row(
                         children: [
@@ -52,9 +45,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: defaultPadding),
-                      LineChartSample2(),
-                      SizedBox(height: defaultPadding),
+                      const SizedBox(height: defaultPadding),
+                      const LineChartSample2(),
+                      const SizedBox(height: defaultPadding),
                       
                       Row(
                         children: [
@@ -65,22 +58,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                            
                         ],
                       ),
-                      SizedBox(height: defaultPadding),
-                      LineChartSample1(), 
+                      const SizedBox(height: defaultPadding),
+                      const LineChartSample1(), 
                       if (Responsive.isMobile(context))
-                        SizedBox(height: defaultPadding),
-                      if (Responsive.isMobile(context)) EtatStock(),
+                        const SizedBox(height: defaultPadding),
+                      if (Responsive.isMobile(context)) const EtatStock(),
                     ],
                   ),
                 ),
                 if (!Responsive.isMobile(context))
-                  SizedBox(width: defaultPadding),
+                  const SizedBox(width: defaultPadding),
                 // On Mobile means if the screen is less than 850 we dont want to show it
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
                     child: Column(
-                      children: [
+                      children: const [
                         EtatStock(),
                         SizedBox(height: 20),
                         ListeRaccourcis()

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -17,7 +19,7 @@ class _EtatStockState extends State<EtatStock> {
   @override
   void initState() {
     super.initState();
-    this.fetchProduits();
+    fetchProduits();
   }
 
   fetchProduits() async {
@@ -40,18 +42,18 @@ class _EtatStockState extends State<EtatStock> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: const BoxDecoration(
         color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
-      child: Container(
+      child: SizedBox(
         height: 400,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
+              const Center(
                 child: Text(
                   'La Liste Des Produits :',
                   style: TextStyle(
@@ -60,15 +62,15 @@ class _EtatStockState extends State<EtatStock> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 7),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 7),
                 child: Divider(
                   thickness: 3,
                 ),
               ),
               DataTable(
                 columnSpacing: 100,
-                columns: <DataColumn>[
+                columns: const <DataColumn>[
                   DataColumn(
                     label: Flexible(
                       flex: 2,
@@ -115,13 +117,13 @@ class _EtatStockState extends State<EtatStock> {
                         ),
                         // if produit stock is less than 5 then show red icon
                         produits![i]['stock'] <= 5
-                            ? DataCell(
+                            ? const DataCell(
                                 Icon(
                                   Icons.error,
                                   color: Colors.red,
                                 ),
                               )
-                            : DataCell(
+                            : const DataCell(
                                 Icon(
                                   Icons.check,
                                   color: Colors.green,

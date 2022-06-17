@@ -1,4 +1,6 @@
-import 'package:admin/models/Raccourcis.dart';
+// ignore_for_file: file_names
+
+import 'package:admin/models/raccourcis.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/RaccourcisRapides.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,7 @@ class HeaderRaccourcis extends StatefulWidget {
 class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -33,27 +35,28 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
             ),
             PopupMenuButton(
                 onSelected: (dynamic value) {
-                  if (value == 1)
+                  if (value == 1) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
                               MainScreen(ajouterUnFournisseur())),
                     );
-                  else if (value == 2)
+                  } else if (value == 2) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainScreen(ajouterUnProduit())),
+                          builder: (context) => MainScreen(const ajouterUnProduit())),
                     );
-                  else if (value == 3)
+                  } else if (value == 3) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainScreen(ChoixDocument())),
+                          builder: (context) => MainScreen(const ChoixDocument())),
                     );
+                  }
                 },
-                color: Color(0xFF2A2D3E),
+                color: const Color(0xFF2A2D3E),
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
@@ -70,31 +73,34 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       Icon(Icons.arrow_downward),
                       Text("Plus de Raccourcis"),
                     ],
                   ),
                 ),
                 itemBuilder: (context) => [
-                      PopupMenuItem(
-                          child: Text("Ajouter un Fournisseur"), value: 1),
-                      PopupMenuItem(
-                          child: Text("Ajouter un Produit"), value: 2),
-                      PopupMenuItem(
-                          child: Text("Ajouter un Document"), value: 3),
+                      const PopupMenuItem(
+                          value: 1,
+                          child: Text("Ajouter un Fournisseur")),
+                      const PopupMenuItem(
+                          value: 2,
+                          child: Text("Ajouter un Produit")),
+                      const PopupMenuItem(
+                          value: 3,
+                          child: Text("Ajouter un Document")),
                     ])
           ],
         ),
-        SizedBox(height: defaultPadding),
+        const SizedBox(height: defaultPadding),
         Responsive(
           mobile: FileInfoCardGridView(
-            crossAxisCount: _size.width < 650 ? 2 : 4,
-            childAspectRatio: _size.width < 650 ? 1.3 : 1,
+            crossAxisCount: size.width < 650 ? 2 : 4,
+            childAspectRatio: size.width < 650 ? 1.3 : 1,
           ),
-          tablet: FileInfoCardGridView(),
+          tablet: const FileInfoCardGridView(),
           desktop: FileInfoCardGridView(
-            childAspectRatio: _size.width < 1400 ? 1.1 : 1.5,
+            childAspectRatio: size.width < 1400 ? 1.1 : 1.5,
             
           ),
         ),
@@ -116,7 +122,7 @@ class FileInfoCardGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: listeRaccourcis.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

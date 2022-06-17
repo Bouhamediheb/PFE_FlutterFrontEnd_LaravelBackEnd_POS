@@ -1,8 +1,7 @@
-import 'package:admin/controllers/MenuController.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'components/side_menu.dart';
 
@@ -18,14 +17,14 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       //key: context.read<MenuController>().scaffoldKey,
-      drawer: SideMenu(),
+      drawer: const SideMenu(),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // We want this side menu only for large screen
             if (Responsive.isDesktop(context))
-              Expanded(
+              const Expanded(
                 // default flex = 1
                 // and it takes 1/6 part of the screen
                 child: SideMenu(),

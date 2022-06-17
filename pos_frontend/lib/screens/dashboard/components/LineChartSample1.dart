@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names, must_be_immutable
+
 import 'package:admin/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -177,21 +179,21 @@ class _LineChart extends StatelessWidget {
 
   FlGridData get gridData => FlGridData(show: true);
 
-List<FlSpot> F1 = [FlSpot(1, 1),
-          FlSpot(3, 1.5),
-          FlSpot(5, 1.4),
-          FlSpot(7, 3.4),
-          FlSpot(9, 2),
-          FlSpot(11, 2.2),
-          FlSpot(13, 1),];
+List<FlSpot> F1 = [const FlSpot(1, 1),
+          const FlSpot(3, 1.5),
+          const FlSpot(5, 1.4),
+          const FlSpot(7, 3.4),
+          const FlSpot(9, 2),
+          const FlSpot(11, 2.2),
+          const FlSpot(13, 1),];
 
-List<FlSpot> F2 = [FlSpot(1, 2),
-          FlSpot(3, 1),
-          FlSpot(5, 2),
-          FlSpot(7, 4),
-          FlSpot(9, 1.5),
-          FlSpot(11, 2.3),
-          FlSpot(13, 2),];
+List<FlSpot> F2 = [const FlSpot(1, 2),
+          const FlSpot(3, 1),
+          const FlSpot(5, 2),
+          const FlSpot(7, 4),
+          const FlSpot(9, 1.5),
+          const FlSpot(11, 2.3),
+          const FlSpot(13, 2),];
 
 
   FlBorderData get borderData => FlBorderData(
@@ -250,21 +252,21 @@ List<FlSpot> F2 = [FlSpot(1, 2),
       );
 
  
-List<FlSpot> F3 = [FlSpot(1, 4),
-          FlSpot(3, 1.5),
-          FlSpot(5, 2),
-          FlSpot(7, 1),
-          FlSpot(9, 4),
-          FlSpot(11, 1.2),
-          FlSpot(13, 1.9),];
+List<FlSpot> F3 = [const FlSpot(1, 4),
+          const FlSpot(3, 1.5),
+          const FlSpot(5, 2),
+          const FlSpot(7, 1),
+          const FlSpot(9, 4),
+          const FlSpot(11, 1.2),
+          const FlSpot(13, 1.9),];
 
-List<FlSpot> F4 = [FlSpot(1, 2),
-          FlSpot(3, 1),
-          FlSpot(5, 2.5),
-          FlSpot(7, 1),
-          FlSpot(9, 3.5),
-          FlSpot(11, 2),
-          FlSpot(13, 3),];
+List<FlSpot> F4 = [const FlSpot(1, 2),
+          const FlSpot(3, 1),
+          const FlSpot(5, 2.5),
+          const FlSpot(7, 1),
+          const FlSpot(9, 3.5),
+          const FlSpot(11, 2),
+          const FlSpot(13, 3),];
  
 
   LineChartBarData get lineChartBarData2_2 => LineChartBarData(
@@ -349,21 +351,21 @@ class LineChartSample1State extends State<LineChartSample1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                 Icons.square,
                 color: Color(0xff4af699),
                 size: 35.0,
                 
               ),
-            Text("Recettes"),
-                               Icon(
+            const Text("Recettes"),
+                               const Icon(
                 Icons.square,
                 color: Color(0xffaa4cfc),
                 size: 35.0,
                 
               ),
-              SizedBox(width: 10),
-            Text("Dépenses"),
+              const SizedBox(width: 10),
+            const Text("Dépenses"),
             
 Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -373,13 +375,13 @@ Row(
     
                       value: isShowingMainData ? '2022' : '2021',
     
-                      icon: Icon(Icons.arrow_drop_down),
+                      icon: const Icon(Icons.arrow_drop_down),
     
                       iconSize: 24,
     
                       elevation: 16,
     
-                      style: TextStyle(color: Colors.deepPurple),
+                      style: const TextStyle(color: Colors.deepPurple),
     
                       underline: Container(
     

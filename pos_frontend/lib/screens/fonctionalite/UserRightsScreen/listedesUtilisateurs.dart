@@ -1,13 +1,9 @@
+// ignore_for_file: unused_field
+
 import 'package:admin/constants.dart';
-import 'package:admin/responsive.dart';
-import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
-import 'package:admin/screens/fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
-import 'package:admin/screens/fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
-import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
 class listeUtlisateurs extends StatefulWidget {
   @override
@@ -23,7 +19,7 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
   @override
   void initState() {
     super.initState();
-    this.fetchUsers();
+    fetchUsers();
   }
 
   fetchUsers() async {
@@ -62,13 +58,13 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
 
   Text typeAcc(int y) {
     if (users![y]['role'] == 1) {
-      return Text('Administrateur');
-    } else if (users![y]['role'] == 2)
-      return Text("Agent de Bureau");
-    else if (users![y]['role'] == 3)
-      return Text("Caissier");
-    else {
-      return Text("");
+      return const Text('Administrateur');
+    } else if (users![y]['role'] == 2) {
+      return const Text("Agent de Bureau");
+    } else if (users![y]['role'] == 3) {
+      return const Text("Caissier");
+    } else {
+      return const Text("");
     }
   }
 
@@ -76,22 +72,22 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         child: Material(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: Color(0xFF2A2D3E),
+          color: const Color(0xFF2A2D3E),
           elevation: 10,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: Column(children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20),
+              const Padding(
+                padding: EdgeInsets.all(20),
                 child: Center(
-                    child: Container(
+                    child: SizedBox(
                   height: 25,
                   child: Center(
                     child: Text(
@@ -105,17 +101,17 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                   ),
                 )),
               ),
-              Divider(
+              const Divider(
                 thickness: 3,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               SizedBox(
                 height: 600,
                 child: SingleChildScrollView(
                     child: DataTable(
-                  columns: <DataColumn>[
+                  columns: const <DataColumn>[
                     DataColumn(
                         label: Flexible(
                       child: Text("Identifiant",
@@ -178,8 +174,8 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                                       .showSnackBar(snackBar);
                                 }
                               },
-                              color: Color(0xFF247b9c),
-                              offset: Offset(0, 30),
+                              color: const Color(0xFF247b9c),
+                              offset: const Offset(0, 30),
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -192,30 +188,30 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                                 child: Row(
                                   children: [
                                     typeAcc(i),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 20,
                                     ),
-                                    Icon(Icons.arrow_drop_down,
+                                    const Icon(Icons.arrow_drop_down,
                                         color: Colors.white),
                                   ],
                                 ),
                               ),
                               itemBuilder: (context) => [
-                                PopupMenuItem(
+                                const PopupMenuItem(
                                   value: 1,
                                   child: Text('Administrateur'),
                                 ),
-                                PopupMenuDivider(
+                                const PopupMenuDivider(
                                   height: 5,
                                 ),
-                                PopupMenuItem(
+                                const PopupMenuItem(
                                   value: 2,
                                   child: Text('Agent de Bureau'),
                                 ),
-                                PopupMenuDivider(
+                                const PopupMenuDivider(
                                   height: 5,
                                 ),
-                                PopupMenuItem(
+                                const PopupMenuItem(
                                   value: 3,
                                   child: Text('Caissier'),
                                 ),

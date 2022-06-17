@@ -1,5 +1,5 @@
-// ignore_for_file: non_constant_identifier_names
-
+// ignore_for_file: non_constant_identifier_names, file_names
+// ignore_for_file: camel_case_types
 class DerniereAction {
   final String? icon, nomActivite, date, nomPersonne;
 

@@ -1,6 +1,7 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:admin/constants.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
-import 'package:admin/screens/fonctionalite/FournisseurScreen/Widgets/input_tick_check.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -36,7 +37,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
       String villeFournisseur,
       double? timbreFiscaleFournisseur,
       bool? exoTVA) async {
-    List? fournisseurs = [];
+   late List? fournisseurs = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/fournisseur/'),
       headers: <String, String>{
@@ -65,33 +66,33 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF2A2D3E),
+      backgroundColor: const Color(0xFF2A2D3E),
       body: Padding(
         padding:
-            EdgeInsets.only(top: 60.0, bottom: 60.0, left: 120.0, right: 120.0),
+            const EdgeInsets.only(top: 60.0, bottom: 60.0, left: 120.0, right: 120.0),
         child: Form(
           key: _formKey,
           child: Card(
-            shadowColor: Color.fromARGB(255, 122, 120, 120),
-            color: Color(0xFF2A2D3E),
+            shadowColor: const Color.fromARGB(255, 122, 120, 120),
+            color: const Color(0xFF2A2D3E),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0)),
             elevation: 5.0,
-            child: Container(
+            child: SizedBox(
               width: 1800,
               child: Column(
                 children: <Widget>[
                   Center(
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: Column(
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "AJOUTER UN FOURNISSEUR",
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold),
                           ),
-                          Divider(
+                          const Divider(
                             thickness: 3,
                           ),
                           Row(
@@ -101,7 +102,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                 flex: 3,
                                 child: Column(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     //InputField Widget from the widgets folder
@@ -117,7 +118,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                       },
                                     ),
 
-                                    SizedBox(height: 20.0),
+                                    const SizedBox(height: 20.0),
 
                                     //Gender Widget from the widgets folder
 
@@ -136,7 +137,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
 
                                     //InputField Widget from the widgets folder
 
-                                    SizedBox(height: 20.0),
+                                    const SizedBox(height: 20.0),
 
                                     //InputField Widget from the widgets folder
                                     InputField(
@@ -151,7 +152,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 20.0),
+                                    const SizedBox(height: 20.0),
 
                                     InputField(
                                       fieldController: villeFournisseur,
@@ -167,12 +168,12 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 25),
+                              const SizedBox(width: 25),
                               Expanded(
                                 flex: 3,
                                 child: Column(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     InputField(
@@ -188,7 +189,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                       },
                                     ),
 
-                                    SizedBox(height: 20.0),
+                                    const SizedBox(height: 20.0),
 
                                     //InputField Widget from the widgets folder
                                     InputField(
@@ -203,7 +204,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                       },
                                     ),
 
-                                    SizedBox(height: 20.0),
+                                    const SizedBox(height: 20.0),
 
                                     InputField(
                                       fieldController: numeroFournisseur,
@@ -217,15 +218,15 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                       },
                                     ),
 
-                                    SizedBox(height: 20.0),
+                                    const SizedBox(height: 20.0),
 
                                     //InputField Widget from the widgets folder
                                     Row(
                                       children: [
                                         Expanded(
                                           child: ListTile(
-                                            contentPadding: EdgeInsets.all(0),
-                                            title: Container(
+                                            contentPadding: const EdgeInsets.all(0),
+                                            title: const SizedBox(
                                               width: 50.0,
                                               child: Text(
                                                 "Timbre Fiscale",
@@ -239,7 +240,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                               ),
                                             ),
                                             trailing: Switch(
-                                                activeColor: Color.fromARGB(
+                                                activeColor: const Color.fromARGB(
                                                     255, 41, 17, 173),
                                                 value: isSwitched,
                                                 onChanged: (value) {
@@ -258,10 +259,10 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                         ),
                                         Expanded(
                                           child: ListTile(
-                                            title: Padding(
-                                              padding: const EdgeInsets.only(
+                                            title: const Padding(
+                                              padding: EdgeInsets.only(
                                                   left: 1),
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: 40.0,
                                                 child: Text(
                                                   "Exonération TVA",
@@ -276,7 +277,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                               ),
                                             ),
                                             trailing: Checkbox(
-                                                activeColor: Color.fromARGB(
+                                                activeColor: const Color.fromARGB(
                                                     255, 41, 17, 173),
                                                 value: isTicked,
                                                 onChanged: (value) async {
@@ -299,20 +300,20 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                             ],
                           ),
 
-                          SizedBox(
+                          const SizedBox(
                             height: 40.0,
                           ),
 
                           //Membership Widget from the widgets folder
 
-                          SizedBox(
+                          const SizedBox(
                             height: 40.0,
                           ),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(
+                              const SizedBox(
                                 width: 370.0,
                               ),
                               MaterialButton(
@@ -320,16 +321,16 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Annuler",
                                   style: TextStyle(color: Colors.black),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20.0,
                               ),
                               MaterialButton(
-                                color: Color.fromARGB(255, 75, 100, 211),
+                                color: const Color.fromARGB(255, 75, 100, 211),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     setState(() {
@@ -363,7 +364,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                     );
                                   }
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Ajouter",
                                   style: TextStyle(color: Colors.white),
                                 ),

@@ -1,13 +1,10 @@
-import 'package:admin/models/Raccourcis.dart';
+// ignore_for_file: file_names
+
+import 'package:admin/models/raccourcis.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
 import '../../main/TestScreen.dart';
-import 'DernieresActivites.dart';
-import 'EtatStock.dart';
-import 'RaccourcisRapides.dart';
-import '../components/header_Raccourcis.dart';
 
 class RaccourcisRapides extends StatefulWidget {
   final Raccourcis info;
@@ -24,10 +21,10 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: const BoxDecoration(
         color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: MaterialButton(
         onPressed: () {
@@ -45,11 +42,11 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.all(3),
+                  padding: const EdgeInsets.all(3),
                   height: 80,
                   width: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Image.asset(
                     widget.info.imgSrc!,
@@ -60,7 +57,7 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
             Text(widget.info.title!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14)),
+                style: const TextStyle(fontSize: 14)),
                 
           ],
         ),

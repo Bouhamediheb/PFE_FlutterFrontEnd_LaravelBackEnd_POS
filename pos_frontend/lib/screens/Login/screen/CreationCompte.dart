@@ -1,11 +1,11 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:admin/screens/Login/Screen/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:admin/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../../dashboard/dashboard_screen.dart';
-import '../../main/main_screen.dart';
 
 class CreationCompte extends StatefulWidget {
   @override
@@ -40,7 +40,7 @@ class _CreationCompteState extends State<CreationCompte> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF2A2D3E),
+      backgroundColor: const Color(0xFF2A2D3E),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: secondaryColor,
@@ -52,31 +52,31 @@ class _CreationCompteState extends State<CreationCompte> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Card(
-                shadowColor: Color.fromARGB(255, 122, 120, 120),
-                color: Color(0xFF2A2D3E),
+                shadowColor: const Color.fromARGB(255, 122, 120, 120),
+                color: const Color(0xFF2A2D3E),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 elevation: 5.0,
-                child: Container(
+                child: SizedBox(
                   width: 500,
                   height: 600,
                   child: Column(children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 5),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 15, bottom: 5),
                       child: Text(
                         "Créer un Compte",
                         style: TextStyle(
                             fontSize: 24.0, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Veuillez remplir l'entrée ci-dessous",
                       style: TextStyle(
                         color: Color.fromARGB(255, 179, 179, 179),
                       ),
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     SizedBox(
                       width: 350,
                       child: TextFormField(
@@ -92,45 +92,45 @@ class _CreationCompteState extends State<CreationCompte> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           hintText: 'Nom & Prénom',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.person,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SizedBox(
                       width: 350,
                       child: TextFormField(
@@ -146,45 +146,45 @@ class _CreationCompteState extends State<CreationCompte> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           hintText: 'Email',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.email,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SizedBox(
                       width: 350,
                       child: TextFormField(
@@ -201,45 +201,45 @@ class _CreationCompteState extends State<CreationCompte> {
                         cursorColor: Colors.white,
                         decoration: InputDecoration(
                           hintText: 'Mot de Passe',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.lock,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SizedBox(
                       width: 350,
                       child: TextFormField(
@@ -255,45 +255,45 @@ class _CreationCompteState extends State<CreationCompte> {
                         cursorColor: Colors.white,
                         decoration: InputDecoration(
                           hintText: 'Confirmez votre Mot de Passe',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.lock,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
-                    SizedBox(height: 35),
+                    const SizedBox(height: 35),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
@@ -321,7 +321,7 @@ class _CreationCompteState extends State<CreationCompte> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(60)),
-                          child: Text(
+                          child: const Text(
                             "Inscrivez-Vous",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
@@ -332,12 +332,12 @@ class _CreationCompteState extends State<CreationCompte> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Vous avez déja un compte ? Connectez-vous ",
                           style: TextStyle(
                             color: Color.fromARGB(255, 179, 179, 179),

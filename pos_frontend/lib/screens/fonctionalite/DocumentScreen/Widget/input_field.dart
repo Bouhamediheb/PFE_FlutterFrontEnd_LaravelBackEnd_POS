@@ -1,10 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
   final String? label, label2;
   final String? content, content2;
   var fieldController = TextEditingController();
-  FormFieldValidator<String>? fieldValidator = (_) {};
+  FormFieldValidator<String>? fieldValidator = (_) {
+    return null;
+  };
   InputField({
     this.label,
     this.content,
@@ -21,40 +25,40 @@ class InputField extends StatelessWidget {
           children: <Widget>[
             Expanded(
               flex: 1,
-              child: Container(
+              child: SizedBox(
                 width: 50.0,
                 child: Text(
                   "$label",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 3,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
                   controller: fieldController,
                   validator: fieldValidator,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15.0,
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     hintText: "$content",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                         color: Color.fromARGB(255, 190, 190, 190),
                         fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    fillColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
               ),

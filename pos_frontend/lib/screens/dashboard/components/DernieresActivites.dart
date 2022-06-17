@@ -1,10 +1,11 @@
+// ignore_for_file: depend_on_referenced_packages, file_names
+
 import 'package:admin/models/DernieresActions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http/http.dart' as http;
+import "package:http/http.dart" as http;
 import 'dart:convert';
 import '../../../constants.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 
 class DernieresActivites extends StatefulWidget {
@@ -35,7 +36,6 @@ class _DernieresActivitesState extends State<DernieresActivites> {
     if (response.statusCode == 200) {
       setState(() {
         documents = jsonDecode(response.body);
-        print(documents!.length);
       });
     } else {
       throw Exception('Error!');
@@ -46,10 +46,10 @@ class _DernieresActivitesState extends State<DernieresActivites> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: const BoxDecoration(
         color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +58,7 @@ class _DernieresActivitesState extends State<DernieresActivites> {
             "Les dernières activités",
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          Divider(
+          const Divider(
             thickness: 2,
           ),
           SizedBox(
@@ -66,7 +66,7 @@ class _DernieresActivitesState extends State<DernieresActivites> {
             child: DataTable(
                 horizontalMargin: 0,
                 columnSpacing: defaultPadding,
-                columns: [
+                columns: const [
                   DataColumn(
                     label: Text("Numéro Document"),
                   ),

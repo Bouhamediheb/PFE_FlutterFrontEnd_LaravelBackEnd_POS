@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
-import '../../../dashboard/dashboard_screen.dart';
-import '../../../main/main_screen.dart';
 import 'modifierunPrd.dart';
-import 'supprimerunPrd.dart';
 
 class listeProduit extends StatefulWidget {
   @override
@@ -18,7 +15,7 @@ class listeProduitState extends State<listeProduit> {
   @override
   void initState() {
     super.initState();
-    this.fetchProduits();
+    fetchProduits();
   }
 
   fetchProduits() async {
@@ -43,22 +40,22 @@ class listeProduitState extends State<listeProduit> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         child: Material(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: Color(0xFF2A2D3E),
+          color: const Color(0xFF2A2D3E),
           elevation: 10,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: Column(children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(15),
+              const Padding(
+                padding: EdgeInsets.all(15),
                 child: Center(
-                    child: Container(
+                    child: SizedBox(
                   height: 20,
                   child: Center(
                     child: Text(
@@ -72,17 +69,17 @@ class listeProduitState extends State<listeProduit> {
                   ),
                 )),
               ),
-              Divider(
+              const Divider(
                 thickness: 3,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               SizedBox(
                 height: 600,
                 child: SingleChildScrollView(
                   child: DataTable(
-                    columns: <DataColumn>[
+                    columns: const <DataColumn>[
                       DataColumn(
                           label: Flexible(
                         child: Text("Référence Produit",
@@ -149,7 +146,7 @@ class listeProduitState extends State<listeProduit> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     IconButton(
-                                        icon: Icon(
+                                        icon: const Icon(
                                             Icons.mode_edit_outline_outlined,
                                             color: Colors.green),
                                         onPressed: () async {
@@ -160,12 +157,12 @@ class listeProduitState extends State<listeProduit> {
                                             builder: (BuildContext context) {
                                               return AlertDialog(
                                                 backgroundColor:
-                                                    Color(0xFF2A2D3E),
+                                                    const Color(0xFF2A2D3E),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                content: Container(
+                                                content: SizedBox(
                                                     width: 1000,
                                                     child: modifierUnProduit(
                                                         produitId)),
@@ -174,7 +171,7 @@ class listeProduitState extends State<listeProduit> {
                                             animationType:
                                                 DialogTransitionType.fadeScale,
                                             curve: Curves.fastOutSlowIn,
-                                            duration: Duration(seconds: 1),
+                                            duration: const Duration(seconds: 1),
                                           );
                                           setState(() {
                                             fetchProduits();

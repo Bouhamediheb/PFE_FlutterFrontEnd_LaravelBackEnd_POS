@@ -1,20 +1,13 @@
-import 'package:admin/constants.dart';
-import 'package:admin/models/Raccourcis.dart';
-import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/disabled_date.dart';
 //import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/input_doc_produit_ref_nom.dart';
-import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:searchfield/searchfield.dart';
 import '../../../dashboard/dashboard_screen.dart';
 import '../../../main/main_screen.dart';
-import '../../FournisseurScreen/Widgets/input_tick_check.dart';
-import '../Widget/input_doctype.dart';
-import '../Widget/input_field.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:io';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
 class modifierUnDocument extends StatefulWidget {
   List<TextEditingController> controllers = [];
@@ -41,8 +34,8 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
   @override
   void initState() {
     super.initState();
-    this.fetchDocuments();
-    this.fetchLigneDocuments();
+    fetchDocuments();
+    fetchLigneDocuments();
   }
 
   fetchDocuments() async {
@@ -83,23 +76,23 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
     for (var i = 0; i < ligneDocuments!.length; i++) {
       if (ligneDocuments![i]['id_doc'] == widget.ligneDocumentId) {
         setState(() {
-          TextEditingController idController = new TextEditingController();
+          TextEditingController idController = TextEditingController();
           widget.controllers.add(idController);
           idController.text = ligneDocuments![i]['id'].toString();
-          TextEditingController refController = new TextEditingController();
+          TextEditingController refController = TextEditingController();
           widget.controllers.add(refController);
           refController.text = ligneDocuments![i]['refProd'].toString();
-          TextEditingController nomController = new TextEditingController();
+          TextEditingController nomController = TextEditingController();
           widget.controllers.add(nomController);
           nomController.text = ligneDocuments![i]['nomProd'].toString();
-          TextEditingController qteController = new TextEditingController();
+          TextEditingController qteController = TextEditingController();
           widget.controllers.add(qteController);
           qteController.text = ligneDocuments![i]['qteProd'].toString();
-          TextEditingController prixController = new TextEditingController();
+          TextEditingController prixController = TextEditingController();
           widget.controllers.add(prixController);
           prixController.text = ligneDocuments![i]['prixProd'].toString();
           TextEditingController totalProdController =
-              new TextEditingController();
+              TextEditingController();
           totalProdController.text = (double.parse(prixController.text) *
                   double.parse(qteController.text))
               .toString();
@@ -128,10 +121,11 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
       }
     }
 
-    for (var i = 0; i < documents!.length; i++)
+    for (var i = 0; i < documents!.length; i++) {
       if (documents![i]['id'] == widget.ligneDocumentId) {
         totalDocument.text = documents![i]['totalDoc'].toString();
       }
+    }
   }
 
   modifierDocument(int? id, double totalDoc) async {
@@ -213,16 +207,16 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
 
   void _addCardWidgetExp() {
     setState(() {
-      TextEditingController refController2 = new TextEditingController();
+      TextEditingController refController2 = TextEditingController();
       widget.controllers2.add(refController2);
-      TextEditingController nomController2 = new TextEditingController();
+      TextEditingController nomController2 = TextEditingController();
       widget.controllers2.add(nomController2);
-      TextEditingController qteController2 = new TextEditingController();
+      TextEditingController qteController2 = TextEditingController();
       widget.controllers2.add(qteController2);
-      TextEditingController prixController2 = new TextEditingController();
+      TextEditingController prixController2 = TextEditingController();
       widget.controllers2.add(prixController2);
-      TextEditingController totalProdController2 = new TextEditingController();
-      Divider(
+      TextEditingController totalProdController2 = TextEditingController();
+      const Divider(
         thickness: 2,
         color: Colors.white,
       );
@@ -253,7 +247,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
 
   Future<dynamic>? future;
 
-  List<Widget> _cardList = [];
+  final List<Widget> _cardList = [];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -272,17 +266,17 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
         key: _formKey,
         child: Card(
           elevation: 0,
-          shadowColor: Color.fromARGB(255, 255, 255, 255),
-          color: Color(0xFF2A2D3E),
+          shadowColor: const Color.fromARGB(255, 255, 255, 255),
+          color: const Color(0xFF2A2D3E),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-          child: Container(
+          child: SizedBox(
             width: 2000,
             child: Column(
               children: <Widget>[
                 Center(
                   child: Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         top: 20.0, bottom: 0.0, left: 20.0, right: 20.0),
                     child: Column(
                       children: <Widget>[
@@ -294,7 +288,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                               itemCount: _cardList.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                  padding: const EdgeInsets.symmetric(vertical: 5),
                                   child: _cardList[index],
                                 );
                               },
@@ -312,37 +306,37 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                             children: <Widget>[
                               MaterialButton(
                                 height: 53,
-                                color: Color.fromARGB(255, 253, 0, 0),
+                                color: const Color.fromARGB(255, 253, 0, 0),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Annuler",
                                   style: TextStyle(
                                       color:
                                           Color.fromARGB(255, 255, 255, 255)),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20.0,
                               ),
                               MaterialButton(
                                 height: 53,
-                                color: Color.fromARGB(255, 112, 112, 112),
+                                color: const Color.fromARGB(255, 112, 112, 112),
                                 onPressed: () {
                                   _addCardWidgetExp();
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Ajouter une ligne",
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20.0,
                               ),
                               MaterialButton(
                                 height: 53,
-                                color: Color.fromARGB(255, 75, 100, 211),
+                                color: const Color.fromARGB(255, 75, 100, 211),
                                 onPressed: () async {
                                   if (confirmButton) {
                                     int j = 0;
@@ -398,22 +392,21 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                               MainScreen(DashboardScreen())),
                                     );
                                   }
-                                  ;
                                   setState(() {
                                     confirmButton = false;
                                   });
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Confirmer",
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 300,
                               ),
                               Container(
-                                padding: EdgeInsets.only(bottom: 15),
-                                child: Text(
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: const Text(
                                   "Montant Total :",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w800,
@@ -423,7 +416,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               SizedBox(
@@ -435,7 +428,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                     keyboardType: TextInputType.text,
                                     decoration: InputDecoration(
                                       enabled: false,
-                                      hintText: '$totalDoc',
+                                      hintText: totalDoc,
                                       hintStyle: TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontWeight: FontWeight.w400,
@@ -478,7 +471,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                         ),
                                       ),
                                       contentPadding:
-                                          EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                          const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                     ),
                                   ),
                                 ),
@@ -515,7 +508,9 @@ class InputRefNomProduit extends StatefulWidget {
   List<TextEditingController> controllers = [];
   VoidCallback? Prix;
   Function? delete;
-  FormFieldValidator<String>? fieldValidator = (_) {};
+  FormFieldValidator<String>? fieldValidator = (_) {
+    return null;
+  };
   InputRefNomProduit({
     required this.total,
     required this.controllers,
@@ -556,7 +551,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
   @override
   void initState() {
     super.initState();
-    this.fetchProduits();
+    fetchProduits();
   }
 
   fetchProduits() async {
@@ -595,40 +590,40 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 child: Text(
                   "${widget.label}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 5,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: Focus(
                   autofocus: true,
                   child: SearchField(
                     hint: "${widget.content}",
-                    searchStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    searchStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                     controller: widget.fieldController,
                     validator: widget.fieldValidator,
-                    searchInputDecoration: InputDecoration(
+                    searchInputDecoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
                     ),
                     suggestions:
-                        refProduits as List<SearchFieldListItem<dynamic>>,
+                        refProduits,
                     maxSuggestionsInViewPort: 6,
-                    suggestionsDecoration: BoxDecoration(
+                    suggestionsDecoration: const BoxDecoration(
                       color: Colors.white,
                     ),
                     onSubmit: (value) {
                       setState(() {
-                        selectedProduit = value as String?;
+                        selectedProduit = value;
                         for (var i = 0; i < produits!.length; i++) {
                           if (selectedProduit == produits![i]['refProd']) {
                             nomProduit = produits![i]['nomProd'];
@@ -642,61 +637,61 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 3,
-              child: Container(
+              child: SizedBox(
                 width: 50.0,
                 child: Text(
                   "${widget.label2}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 5,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
                   enabled: false,
                   controller: widget.fieldController2,
                   validator: widget.fieldValidator,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15.0,
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     hintText: "${widget.content2}",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                         color: Color.fromARGB(255, 190, 190, 190),
                         fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    fillColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 2,
-              child: Container(
+              child: SizedBox(
                 width: 50.0,
                 child: Text(
                   "${widget.label3}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
@@ -707,7 +702,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               flex: 3,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: Focus(
                   onFocusChange: (hasFocus) {
                     if (!hasFocus) {
@@ -733,23 +728,23 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                   child: TextFormField(
                     controller: widget.fieldController3,
                     validator: widget.fieldValidator,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15.0,
                       color: Colors.black,
                     ),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
+                      contentPadding: const EdgeInsets.all(10.0),
                       hintText: "${widget.content3}",
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color.fromARGB(255, 190, 190, 190),
                           fontSize: 14),
-                      fillColor: Color.fromARGB(255, 0, 0, 0),
+                      fillColor: const Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
@@ -758,7 +753,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 child: Text(
                   "${widget.label4}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
@@ -769,7 +764,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               flex: 3,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: Focus(
                   onFocusChange: (hasFocus) {
                     if (!hasFocus) {
@@ -806,11 +801,11 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                       enabled: true,
                       controller: widget.fieldController4,
                       validator: widget.fieldValidator,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 15.0,
                         color: Colors.black,
                       ),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         // hintText: widget.totalDocument.text,
                         hintStyle: TextStyle(
@@ -823,17 +818,17 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Expanded(
               flex: 4,
-              child: Container(
+              child: SizedBox(
                 width: 50.0,
                 child: Text(
                   "${widget.label5}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
@@ -844,32 +839,32 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               flex: 3,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
                   enabled: false,
                   controller: widget.fieldController5,
                   validator: widget.fieldValidator,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15.0,
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     hintText: "${widget.content5}",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                         color: Color.fromARGB(255, 190, 190, 190),
                         fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    fillColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             IconButton(
               onPressed: widget.delete as void Function()?,
-              icon: Icon(Icons.close_sharp, size: 28),
+              icon: const Icon(Icons.close_sharp, size: 28),
               color: Colors.red,
             ),
           ],

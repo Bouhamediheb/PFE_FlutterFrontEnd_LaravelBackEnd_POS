@@ -1,10 +1,8 @@
-import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/supprimerunDct.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
-import '../../../dashboard/dashboard_screen.dart';
-import '../../../main/main_screen.dart';
 import 'listeligneDct.dart';
 import 'modifierunDct.dart';
 
@@ -19,7 +17,21 @@ class _listeDocumentState extends State<listeDocument> {
   @override
   void initState() {
     super.initState();
-    this.fetchDocuments();
+    fetchDocuments();
+  }
+
+  String getDocType (int number){
+    print("Hedha type doc");
+    if( number == 1) {
+      return "Bon de commande";
+    } else if( number == 2) {
+      return "Bon de livraison";
+    } else if( number == 3) {
+      return "Bon de retour";
+    } else if( number == 4) {}
+    return "Devis";
+    
+    
   }
 
   fetchDocuments() async {
@@ -44,22 +56,22 @@ class _listeDocumentState extends State<listeDocument> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         child: Material(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: Color(0xFF2A2D3E),
+          color: const Color(0xFF2A2D3E),
           elevation: 10,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: Column(children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(15),
+              const Padding(
+                padding: EdgeInsets.all(15),
                 child: Center(
-                    child: Container(
+                    child: SizedBox(
                   height: 20,
                   child: Center(
                     child: Text(
@@ -73,34 +85,41 @@ class _listeDocumentState extends State<listeDocument> {
                   ),
                 )),
               ),
-              Divider(
+              const Divider(
                 thickness: 3,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               SizedBox(
                 height: 840,
                 child: SingleChildScrollView(
                   child: DataTable(
-                    columns: <DataColumn>[
+                    columns: const <DataColumn>[
                       DataColumn(
                           label: Flexible(
-                        child: Text("Numéro Document",
+                        child: Text("Type du document",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Date Document",
+                        child: Text("Numéro du document",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Total Document",
+                        child: Text("Date du document",
+                            maxLines: 5,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      )),
+                      DataColumn(
+                          label: Flexible(
+                        child: Text("Montant total du document",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -115,6 +134,12 @@ class _listeDocumentState extends State<listeDocument> {
                       for (var i = 0; i < documents!.length; i++)
                         DataRow(
                           cells: <DataCell>[
+                             DataCell(
+                              Center(child: Text(
+                                getDocType(documents![i]['type'])
+                                )
+                                ),            
+                              ),
                             DataCell(InkWell(
                                 onTap: () {
                                   showAnimatedDialog(
@@ -122,12 +147,12 @@ class _listeDocumentState extends State<listeDocument> {
                                     barrierDismissible: true,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                          backgroundColor: Color(0xFF2A2D3E),
+                                          backgroundColor: const Color(0xFF2A2D3E),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                           ),
-                                          content: Container(
+                                          content: SizedBox(
                                               width: 800,
                                               child: listeLigneDocument(
                                                   documents![i]['id'])));
@@ -135,7 +160,7 @@ class _listeDocumentState extends State<listeDocument> {
                                     animationType:
                                         DialogTransitionType.fadeScale,
                                     curve: Curves.fastOutSlowIn,
-                                    duration: Duration(seconds: 1),
+                                    duration: const Duration(seconds: 1),
                                   );
                                 },
                                 child: Text(documents![i]['numDoc']))),
@@ -147,7 +172,7 @@ class _listeDocumentState extends State<listeDocument> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     IconButton(
-                                        icon: Icon(
+                                        icon: const Icon(
                                             Icons.mode_edit_outline_outlined,
                                             color: Colors.green),
                                         onPressed: () async {
@@ -158,12 +183,12 @@ class _listeDocumentState extends State<listeDocument> {
                                             builder: (BuildContext context) {
                                               return AlertDialog(
                                                 backgroundColor:
-                                                    Color(0xFF2A2D3E),
+                                                    const Color(0xFF2A2D3E),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                content: Container(
+                                                content: SizedBox(
                                                     width: 1500,
                                                     child: modifierUnDocument(
                                                         documents![i]['id'],
@@ -173,48 +198,13 @@ class _listeDocumentState extends State<listeDocument> {
                                             animationType:
                                                 DialogTransitionType.fadeScale,
                                             curve: Curves.fastOutSlowIn,
-                                            duration: Duration(seconds: 1),
+                                            duration: const Duration(seconds: 1),
                                           );
                                           setState(() {
                                             fetchDocuments();
                                           });
                                         }),
-                                    IconButton(
-                                      icon: Icon(Icons.delete_outline,
-                                          color: Colors.red),
-                                      onPressed: () async {
-                                        documentId = documents![i]['id'];
-                                        await showAnimatedDialog(
-                                          context: context,
-                                          barrierDismissible: true,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              insetPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                              backgroundColor:
-                                                  Color(0xFF2A2D3E),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              content: Container(
-                                                  width: 400,
-                                                  height: 110,
-                                                  child: supprimerUnDocument(
-                                                      documentId)),
-                                            );
-                                          },
-                                          animationType:
-                                              DialogTransitionType.fadeScale,
-                                          curve: Curves.fastOutSlowIn,
-                                          duration: Duration(seconds: 1),
-                                        );
-                                        setState(() {
-                                          fetchDocuments();
-                                        });
-                                      },
-                                    ),
+                                    
                                   ]),
                             ),
                           ],

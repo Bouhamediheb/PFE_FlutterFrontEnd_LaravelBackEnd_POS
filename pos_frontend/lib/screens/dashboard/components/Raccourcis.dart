@@ -1,6 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../../../constants.dart';
 
 class ListeRaccourcis extends StatefulWidget {
@@ -21,10 +21,10 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(defaultPadding),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(defaultPadding),
+        decoration: const BoxDecoration(
           color: secondaryColor,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Container(
           
@@ -32,7 +32,7 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Center(
+                  const Center(
                     child: Text(
                       'La Liste Des Raccourcis :',
                       style: TextStyle(
@@ -41,16 +41,16 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 7),
                     child: Divider(
                       thickness: 3,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   DataTable(
                     columnSpacing: 70,
-                    columns: <DataColumn>[
+                    columns: const <DataColumn>[
                       DataColumn(
                         label: Flexible(
                           child: Text(
@@ -83,15 +83,15 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                               children: [
                                 Image.asset("assets/images/f1png.png",
                                     width: 35, height: 35, color: Colors.white),
-                                SizedBox(width: 5),
-                                Text("+", style: TextStyle(fontSize: 20)),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
+                                const Text("+", style: TextStyle(fontSize: 20)),
+                                const SizedBox(width: 5),
                                 Image.asset("assets/images/f1png.png",
                                     width: 35, height: 35, color: Colors.white),
                               ],
                             ),
                           ),
-                          DataCell(
+                          const DataCell(
                             Text("Bon de commande", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                           ),
                         ],
@@ -103,15 +103,15 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                               children: [
                                 Image.asset("assets/images/f1png.png",
                                     width: 35, height: 35, color: Colors.white),
-                                SizedBox(width: 5),
-                                Text("+", style: TextStyle(fontSize: 20)),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
+                                const Text("+", style: TextStyle(fontSize: 20)),
+                                const SizedBox(width: 5),
                                 Image.asset("assets/images/f1png.png",
                                     width: 35, height: 35, color: Colors.white),
                               ],
                             ),
                           ),
-                          DataCell(
+                          const DataCell(
                             Text("Bon de livraison", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                           ),
                         ],
@@ -123,15 +123,15 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                               children: [
                                 Image.asset("assets/images/f1png.png",
                                     width: 35, height: 35, color: Colors.white),
-                                SizedBox(width: 5),
-                                Text("+", style: TextStyle(fontSize: 20)),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
+                                const Text("+", style: TextStyle(fontSize: 20)),
+                                const SizedBox(width: 5),
                                 Image.asset("assets/images/f1png.png",
                                     width: 35, height: 35, color: Colors.white),
                               ],
                             ),
                           ),
-                          DataCell(
+                          const DataCell(
                             Text("Liste des produits", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                           ),
                         ],
@@ -143,15 +143,15 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                               children: [
                                 Image.asset("assets/images/f1png.png",
                                     width: 35, height: 35, color: Colors.white),
-                                SizedBox(width: 5),
-                                Text("+", style: TextStyle(fontSize: 20)),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
+                                const Text("+", style: TextStyle(fontSize: 20)),
+                                const SizedBox(width: 5),
                                 Image.asset("assets/images/f1png.png",
                                     width: 35, height: 35, color: Colors.white),
                               ],
                             ),
                           ),
-                          DataCell(
+                          const DataCell(
                             Text("Liste des fournisseurs", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                           ),
                         ],

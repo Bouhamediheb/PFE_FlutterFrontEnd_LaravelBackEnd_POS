@@ -1,5 +1,6 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:admin/constants.dart';
-import 'package:admin/screens/fonctionalite/FournisseurScreen/Widgets/input_tick_check.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -30,7 +31,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
   @override
   void initState() {
     super.initState();
-    this.getFournisseur();
+    getFournisseur();
   }
 
   Future<http.Response?> getFournisseur() async {
@@ -66,6 +67,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
         isTicked = false;
       }
     });
+    return null;
   }
 
   Future<http.Response?> ajoutFournisseur(
@@ -101,6 +103,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
     } else {
       throw Exception('Erreur base de données!');
     }
+    return null;
   }
 
   Future<dynamic>? future;
@@ -109,26 +112,26 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
     return Form(
       key: _formKey,
       child: Card(
-        shadowColor: Color.fromARGB(255, 122, 120, 120),
-        color: Color(0xFF2A2D3E),
+        shadowColor: const Color.fromARGB(255, 122, 120, 120),
+        color: const Color(0xFF2A2D3E),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
         elevation: 0,
-        child: Container(
+        child: SizedBox(
           width: 1800,
           child: Column(
             children: <Widget>[
               Center(
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: <Widget>[
-                      Text(
+                      const Text(
                         "MODIFIER UN FOURNISSEUR",
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 3,
                       ),
                       Row(
@@ -138,7 +141,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                             flex: 3,
                             child: Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 //InputField Widget from the widgets folder
@@ -154,7 +157,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                   },
                                 ),
 
-                                SizedBox(height: 20.0),
+                                const SizedBox(height: 20.0),
 
                                 //Gender Widget from the widgets folder
 
@@ -173,7 +176,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
 
                                 //InputField Widget from the widgets folder
 
-                                SizedBox(height: 20.0),
+                                const SizedBox(height: 20.0),
 
                                 //InputField Widget from the widgets folder
                                 InputField(
@@ -188,7 +191,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                     return null;
                                   },
                                 ),
-                                SizedBox(height: 20.0),
+                                const SizedBox(height: 20.0),
 
                                 InputField(
                                   fieldController: villeFournisseur,
@@ -204,12 +207,12 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                               ],
                             ),
                           ),
-                          SizedBox(width: 25),
+                          const SizedBox(width: 25),
                           Expanded(
                             flex: 3,
                             child: Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 InputField(
@@ -224,7 +227,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                   },
                                 ),
 
-                                SizedBox(height: 20.0),
+                                const SizedBox(height: 20.0),
 
                                 //InputField Widget from the widgets folder
                                 InputField(
@@ -239,7 +242,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                   },
                                 ),
 
-                                SizedBox(height: 20.0),
+                                const SizedBox(height: 20.0),
 
                                 InputField(
                                   fieldController: numeroFournisseur,
@@ -253,15 +256,15 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                   },
                                 ),
 
-                                SizedBox(height: 20.0),
+                                const SizedBox(height: 20.0),
 
                                 //InputField Widget from the widgets folder
                                 Row(
                                   children: [
                                     Expanded(
                                       child: ListTile(
-                                        contentPadding: EdgeInsets.all(0),
-                                        title: Container(
+                                        contentPadding: const EdgeInsets.all(0),
+                                        title: const SizedBox(
                                           width: 50.0,
                                           child: Text(
                                             "Timbre Fiscale",
@@ -275,7 +278,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                           ),
                                         ),
                                         trailing: Switch(
-                                            activeColor: Color.fromARGB(
+                                            activeColor: const Color.fromARGB(
                                                 255, 41, 17, 173),
                                             value: isSwitched,
                                             onChanged: (value) {
@@ -294,10 +297,10 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                     ),
                                     Expanded(
                                       child: ListTile(
-                                        title: Padding(
+                                        title: const Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 1),
-                                          child: Container(
+                                              EdgeInsets.only(left: 1),
+                                          child: SizedBox(
                                             width: 40.0,
                                             child: Text(
                                               "Exonération TVA",
@@ -312,7 +315,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                           ),
                                         ),
                                         trailing: Checkbox(
-                                            activeColor: Color.fromARGB(
+                                            activeColor: const Color.fromARGB(
                                                 255, 41, 17, 173),
                                             value: isTicked,
                                             onChanged: (value) async {
@@ -335,27 +338,27 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                         ],
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 40.0,
                       ),
 
                       //Membership Widget from the widgets folder
 
-                      SizedBox(
+                      const SizedBox(
                         height: 40.0,
                       ),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(
+                          const SizedBox(
                             width: 370.0,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20.0,
                           ),
                           MaterialButton(
-                            color: Color.fromARGB(255, 75, 100, 211),
+                            color: const Color.fromARGB(255, 75, 100, 211),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
@@ -384,7 +387,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                 );
                               }
                             },
-                            child: Text(
+                            child: const Text(
                               "Appliquer",
                               style: TextStyle(color: Colors.white),
                             ),

@@ -1,14 +1,10 @@
-import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/header.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'Produit.dart';
 
 class Caisse extends StatefulWidget {
-  Caisse({Key? key}) : super(key: key);
+  const Caisse({Key? key}) : super(key: key);
 
   @override
   State<Caisse> createState() => _CaisseState();
@@ -29,7 +25,6 @@ class _CaisseState extends State<Caisse> {
     });
   }
 
-  List<Produit> Test = [];
   Map<int, List<Produit>> listePanier = {};
   List<Produit> listeProduits = [
     Produit(
@@ -115,23 +110,23 @@ class _CaisseState extends State<Caisse> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color(0xFF331f61),
+          backgroundColor: const Color(0xFF331f61),
           elevation: 0,
           centerTitle: false,
           actions: [
             Text(
               "Table : $selectedTable / $nbTotalesTables",
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
           ]),
-      backgroundColor: Color(0xFF331f61),
+      backgroundColor: const Color(0xFF331f61),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Column(
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                   width: 100,
                   child: ScrollConfiguration(
                     behavior: ScrollConfiguration.of(context)
@@ -143,9 +138,9 @@ class _CaisseState extends State<Caisse> {
                             padding: const EdgeInsets.all(3.0),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF462c86),
-                                  fixedSize: Size(50, 50),
-                                  shape: CircleBorder(),
+                                  primary: const Color(0xFF462c86),
+                                  fixedSize: const Size(50, 50),
+                                  shape: const CircleBorder(),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -170,13 +165,13 @@ class _CaisseState extends State<Caisse> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Color(0xFF462c86),
+                      color: const Color(0xFF462c86),
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FittedBox(
+                        const FittedBox(
                           fit: BoxFit.contain,
                           child: Text(
                             "Produits",
@@ -187,7 +182,7 @@ class _CaisseState extends State<Caisse> {
                                 letterSpacing: 1),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 50,
                         ),
                         TextButton(
@@ -195,13 +190,13 @@ class _CaisseState extends State<Caisse> {
                             primary: Colors.white,
                           ),
                           onPressed: () {},
-                          child: Text("Boissons",
+                          child: const Text("Boissons",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Color(0xFFe9d8ff),
                                   fontWeight: FontWeight.bold)),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 25,
                         ),
                         TextButton(
@@ -209,13 +204,13 @@ class _CaisseState extends State<Caisse> {
                             primary: Colors.white,
                           ),
                           onPressed: () {},
-                          child: Text("Aliments",
+                          child: const Text("Aliments",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Color(0xFFe9d8ff),
                                   fontWeight: FontWeight.bold)),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 25,
                         ),
                         TextButton(
@@ -223,7 +218,7 @@ class _CaisseState extends State<Caisse> {
                             primary: Colors.white,
                           ),
                           onPressed: () {},
-                          child: Text("Viennoiserie",
+                          child: const Text("Viennoiserie",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Color(0xFFe9d8ff),
@@ -242,7 +237,7 @@ class _CaisseState extends State<Caisse> {
                     width: MediaQuery.of(context).size.width / 7,
                     height: MediaQuery.of(context).size.height / 2.5,
                     decoration: BoxDecoration(
-                      color: Color(0xFF462c86),
+                      color: const Color(0xFF462c86),
                       borderRadius: BorderRadius.circular(25),
                     ),
                   ),
@@ -255,7 +250,7 @@ class _CaisseState extends State<Caisse> {
             child: Container(
               width: MediaQuery.of(context).size.width / 1.75,
               decoration: BoxDecoration(
-                color: Color(0xFF462c86),
+                color: const Color(0xFF462c86),
                 borderRadius: BorderRadius.circular(25),
               ),
               child: GridView.count(
@@ -263,29 +258,29 @@ class _CaisseState extends State<Caisse> {
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
                 primary: false,
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 children: <Widget>[
                   for (var i = 0; i < listeProduits.length; i++)
                     FlipCard(
                       direction: FlipDirection.HORIZONTAL,
                       front: Container(
-                        margin: EdgeInsets.only(bottom: 25),
+                        margin: const EdgeInsets.only(bottom: 25),
                         decoration: BoxDecoration(
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               color: Colors.black,
                               offset: Offset(0.0, 1.0), //(x,y)
                               blurRadius: 1,
                             ),
                           ],
-                          color: Color(0xFF553b93),
+                          color: const Color(0xFF553b93),
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(25),
                                   topRight: Radius.circular(25)),
                               child: Image.asset(
@@ -300,7 +295,7 @@ class _CaisseState extends State<Caisse> {
                                 alignment: Alignment.topLeft,
                                 child: Text(
                                   "${listeProduits[i].nom}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
@@ -324,9 +319,9 @@ class _CaisseState extends State<Caisse> {
                         ),
                       ),
                       back: Container(
-                        margin: EdgeInsets.only(bottom: 25),
+                        margin: const EdgeInsets.only(bottom: 25),
                         decoration: BoxDecoration(
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               color: Colors.black,
                               offset: Offset(0.0, 1.0), //(x,y)
@@ -339,14 +334,14 @@ class _CaisseState extends State<Caisse> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Quantite(),
+                            quantiteWidget(),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.grey[800],
-                                  fixedSize: Size(200, 40),
+                                  fixedSize: const Size(200, 40),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25)),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                     color: Colors.white,
                                   )),
                               onPressed: () {
@@ -357,7 +352,7 @@ class _CaisseState extends State<Caisse> {
                                   },
                                 );
                               },
-                              child: Text("Ajouter au Panier",
+                              child: const Text("Ajouter au Panier",
                                   style: TextStyle(fontSize: 16)),
                             ),
                           ],
@@ -373,16 +368,16 @@ class _CaisseState extends State<Caisse> {
             child: Padding(
               padding: const EdgeInsets.only(left: 25, bottom: 20),
               child: Container(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 width: MediaQuery.of(context).size.width / 5,
                 height: MediaQuery.of(context).size.height / 1.5,
                 decoration: BoxDecoration(
-                  color: Color(0xFF462c86),
+                  color: const Color(0xFF462c86),
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Column(
                   children: [
-                    Align(
+                    const Align(
                       alignment: Alignment.topLeft,
                       child: Text(
                         "Ticket",
@@ -396,7 +391,7 @@ class _CaisseState extends State<Caisse> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 20,
                     ),
-                    Align(
+                    const Align(
                       alignment: Alignment.topLeft,
                       child: Text(
                         "Table",
@@ -406,14 +401,14 @@ class _CaisseState extends State<Caisse> {
                         ),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 2,
                     ),
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
                         "#$selectedTable",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                         ),
@@ -426,7 +421,7 @@ class _CaisseState extends State<Caisse> {
                       height: MediaQuery.of(context).size.height / 3.75,
                       child: DataTable2(
                         columnSpacing: 10,
-                        columns: [
+                        columns: const [
                           DataColumn2(
                             label: Text(
                               "Nom",
@@ -494,7 +489,7 @@ class _CaisseState extends State<Caisse> {
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 2,
                     ),
                     SizedBox(
@@ -502,7 +497,7 @@ class _CaisseState extends State<Caisse> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Text(
                           "Total",
                           style: TextStyle(
@@ -523,18 +518,16 @@ class _CaisseState extends State<Caisse> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           elevation: 10,
-                          primary: Color(0xFF09c569),
-                          fixedSize: Size(200, 40),
+                          primary: const Color(0xFF09c569),
+                          fixedSize: const Size(200, 40),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
                         onPressed: () {
-                          //print(listePanier.values);
-                          print(listePanier.length);
                         },
                         child:
-                            Text("Confirmer", style: TextStyle(fontSize: 20)),
+                            const Text("Confirmer", style: TextStyle(fontSize: 20)),
                       ),
                     ),
                   ],
@@ -547,16 +540,16 @@ class _CaisseState extends State<Caisse> {
     );
   }
 
-  Row Quantite() {
+  Row quantiteWidget() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               primary: Colors.grey[800],
-              fixedSize: Size(40, 40),
-              shape: CircleBorder(),
-              side: BorderSide(
+              fixedSize: const Size(40, 40),
+              shape: const CircleBorder(),
+              side: const BorderSide(
                 color: Colors.white,
               )),
           onPressed: () {
@@ -566,24 +559,23 @@ class _CaisseState extends State<Caisse> {
               });
             }
           },
-          child: Icon(Icons.remove),
+          child: const Icon(Icons.remove),
         ),
-        Text('$quantite', style: TextStyle(fontSize: 36)),
+        Text('$quantite', style: const TextStyle(fontSize: 36)),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               primary: Colors.grey[800],
-              fixedSize: Size(40, 40),
-              shape: CircleBorder(),
-              side: BorderSide(
+              fixedSize: const Size(40, 40),
+              shape: const CircleBorder(),
+              side: const BorderSide(
                 color: Colors.white,
               )),
           onPressed: () {
             setState(() {
               quantite = quantite + 1;
-              print(quantite);
             });
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ],
     );

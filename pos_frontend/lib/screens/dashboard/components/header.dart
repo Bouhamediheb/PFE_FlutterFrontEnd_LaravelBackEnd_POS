@@ -1,18 +1,20 @@
+// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
+
 import 'package:admin/controllers/MenuController.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 import '../../Login/Screen/Login.dart';
 import '../../Login/Screen/Network.dart';
-import '../../Login/Screen/Singup.dart';
 
 class Header extends StatefulWidget {
+  const Header({Key? key}) : super(key: key);
+
   @override
   State<Header> createState() => _HeaderState();
 }
@@ -24,7 +26,7 @@ class _HeaderState extends State<Header> {
       children: [
         if (!Responsive.isDesktop(context))
           IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: context.read<MenuController>().controlMenu,
           ),
         if (!Responsive.isMobile(context))
@@ -34,26 +36,28 @@ class _HeaderState extends State<Header> {
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-        Expanded(child: SearchField()),
-        ProfileCard()
+        const Expanded(child: SearchField()),
+        const ProfileCard()
       ],
     );
   }
 }
 
 class ProfileCard extends StatefulWidget {
+  const ProfileCard({Key? key}) : super(key: key);
+
   @override
   State<ProfileCard> createState() => _ProfileCardState();
 }
 
 class _ProfileCardState extends State<ProfileCard> {
-  List users = [];
-  var token;
+  late List users = [];
+  late var token;
   Map<String, dynamic>? user;
   @override
   void initState() {
     super.initState();
-    this.getUserData();
+    getUserData();
   }
 
   getUserData() async {
@@ -67,7 +71,7 @@ class _ProfileCardState extends State<ProfileCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: defaultPadding,
         vertical: defaultPadding / 2,
       ),
@@ -75,7 +79,7 @@ class _ProfileCardState extends State<ProfileCard> {
           onSelected: (dynamic value) {
             if (value == 2) logout();
           },
-          offset: Offset(0, 56.0),
+          offset: const Offset(0, 56.0),
           color: secondaryColor,
           elevation: 0,
           shape: RoundedRectangleBorder(
@@ -99,17 +103,17 @@ class _ProfileCardState extends State<ProfileCard> {
             ),
           ),
           itemBuilder: (context) => [
-                PopupMenuItem(child: Text("Profile"), value: 1),
+                const PopupMenuItem(value: 1, child: Text("Profile")),
                 PopupMenuItem(
+                    value: 2,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
-                        children: [
+                        children: const [
                           Icon(Icons.logout, color: Colors.red),
                           Text("Se Déconnecter",
                               style: TextStyle(color: Colors.red))
-                        ]),
-                    value: 2),
+                        ])),
               ]),
     );
   }
@@ -144,18 +148,18 @@ class _SearchFieldState extends State<SearchField> {
         hintText: "Recherche..",
         fillColor: secondaryColor,
         filled: true,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         suffixIcon: InkWell(
           onTap: () {},
           child: Container(
-            padding: EdgeInsets.all(defaultPadding * 0.75),
-            margin: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.all(defaultPadding * 0.75),
+            margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+            decoration: const BoxDecoration(
               color: primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: SvgPicture.asset("assets/icons/Search.svg"),
           ),

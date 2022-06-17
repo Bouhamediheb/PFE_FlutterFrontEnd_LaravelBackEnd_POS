@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, must_be_immutable, depend_on_referenced_packages
+
 import 'package:admin/constants.dart';
 import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class ajouterUnDocument extends StatefulWidget {
 
   List<TextEditingController> controllers = [];
 
-  ajouterUnDocument(this.id, this.doctype);
+  ajouterUnDocument(this.id, this.doctype, {Key? key}) : super(key: key);
   @override
   State<ajouterUnDocument> createState() => _ajouterUnDocumentState();
 }
@@ -49,26 +51,33 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
       setState(() {
         refProduits.add(produits![i]['refProd']);
       });
-      print(refProduits);
+      print("hello");
     }
   }
 
   double total = 0;
   String totalDoc = "0";
-  final DateTime date = new DateTime.now();
+  final DateTime date = DateTime.now();
   String? numSeqDocument;
   int? idDoc;
   List? documents = [];
   String? dateDoc;
   String? numDoc;
-  bool confirmButton = true;
+  bool confirmButton = false;
   int idligne = -1;
+  /*
+static const snackBarSucces = SnackBar(
+    content: Text('Tâche effectuée avec succès'),
+  );
 
+static const snackBarStockError = SnackBar(
+    content: Text('Certains articles ont un stock insuffisant'),
+  );
+*/
   TextEditingController totalDocument = TextEditingController(text: '0');
 
   Future<http.Response?> ajoutDocument(
       int type, String? numeroDoc, String? dateDoc, double totalDoc) async {
-    List? documents = [];
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/document"),
       headers: <String, String>{
@@ -131,8 +140,8 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   @override
   void initState() {
     super.initState();
-    this.fetchDocuments();
-    this.fetchProduits();
+    fetchDocuments();
+    fetchProduits();
   }
 
   fetchDocuments() async {
@@ -156,75 +165,29 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
 
   Future<dynamic>? future;
 
-  List<Widget> _cardList = [];
-
-  void CalculTotal() {
-    print("function mchet");
-    total = total + double.tryParse(widget.controllers.last.text)!;
-    print("hedha total : " + total.toString());
-    print("hedhe totalDoc" + totalDocument.toString());
-    setState(() {
-      totalDocument.text = total.toString();
-    });
-  }
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String seqDocument() {
     print(idDoc);
-    if (idDoc == null) idDoc = 1;
+    idDoc ??= 1;
     return numSeqDocument =
-        date.toString().substring(0, 10) + '/DOC' + idDoc.toString();
+        '${date.toString().substring(0, 10)}/DOC$idDoc';
   }
 
   void TestFonction() {
     print("Hello");
   }
 
-  void _addCardWidgetExp() {
-    setState(() {
-      TextEditingController refController = new TextEditingController();
-      widget.controllers.add(refController);
-      TextEditingController nomController = new TextEditingController();
-      widget.controllers.add(nomController);
-      TextEditingController qteController = new TextEditingController();
-      widget.controllers.add(qteController);
-      TextEditingController prixController = new TextEditingController();
-      widget.controllers.add(prixController);
-
-      _cardList.add(SizedBox(height: 10));
-      Divider(
-        thickness: 2,
-        color: Colors.white,
-      );
-
-      _cardList.add(InputRefNomProduit(
-          totalDoc: totalDoc,
-          totalDocument: totalDocument,
-          total: total,
-          controllers: widget.controllers,
-          label: 'Référence',
-          content: 'Taper la référence',
-          label2: 'Nom du produit',
-          content2: '',
-          label3: 'Quantité',
-          content3: 'Taper la quantité',
-          label4: 'Prix',
-          content4: 'Taper le prix unitaire',
-          content5: 'Prix Total',
-          Prix: TestFonction,
-          fieldController: refController,
-          fieldController2: nomController,
-          fieldController3: qteController,
-          fieldController4: prixController));
-    });
-  }
 
   List<DataRow> ligneDoc = [];
   LocalKey? key;
 
   void ajouterLigne() {
     idligne++;
-    var id = idligne;
-
+    setState(() {
+      confirmButton = true;
+    });
+  
     TextEditingController referenceController = TextEditingController();
     widget.controllers.add(referenceController);
     TextEditingController nomController = TextEditingController();
@@ -241,22 +204,31 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
             SearchField(
               hasOverlay: true,
               hint: "Taper la référence du produit",
-              searchStyle: TextStyle(color: Colors.white),
+              searchStyle: const TextStyle(color: Colors.white),
               controller: referenceController,
-              searchInputDecoration: InputDecoration(
+              validator: (value) {
+                if (value!.isEmpty || value == "") {
+                  return 'Référence obligatoire';
+                }
+                else {
+                  return "A7ala";
+                }
+                
+              },
+              searchInputDecoration: const InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(10.0),
                 hintStyle: TextStyle(
                     color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
               ),
               suggestionItemDecoration: BoxDecoration(
-                  color: Color(0xFF2A2D3E),
+                  color: const Color(0xFF2A2D3E),
                   border: Border.all(color: Colors.white, width: 1.0)),
               suggestions: refProduits
                   .map((e) => SearchFieldListItem<dynamic>(e, item: e))
                   .toList(),
               maxSuggestionsInViewPort: 6,
-              suggestionsDecoration: BoxDecoration(
+              suggestionsDecoration: const BoxDecoration(
                 color: Colors.white,
               ),
               suggestionState: Suggestion.expand,
@@ -275,18 +247,19 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
               },
             ),
           ),
+          
           DataCell(
             TextFormField(
               enabled: false,
               controller: nomController,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15.0,
                 color: Colors.white,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(10.0),
-                hintText: "Nom du Produit",
+                hintText: "Commencez par taper la référence à gauche",
                 hintStyle: TextStyle(
                     color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
                 fillColor: Color.fromARGB(255, 0, 0, 0),
@@ -294,7 +267,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
             ),
           ),
           DataCell(
-            Container(
+            SizedBox(
               width: 145,
               child: Focus(
                 onFocusChange: (hasFocus) {
@@ -305,16 +278,29 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                           (double.parse(widget.controllers[i].text) *
                               double.parse(widget.controllers[i - 1].text));
                       totalDocument.text = total.toString();
+
                     }
                   }
                 },
                 child: TextFormField(
+                  
                   controller: quantiteController,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15.0,
                     color: Colors.white,
                   ),
-                  decoration: InputDecoration(
+                  validator: (value){
+                    if(value!.isEmpty){
+                      print("Quantité y weldi");
+                      return 'Quantité obligatoire';
+                    }
+                    else {
+                      return "jawek behi";
+                    }
+                    
+                  
+                  },
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.all(10.0),
                     hintText: "Taper la quantité",
@@ -328,7 +314,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
             ),
           ),
           DataCell(
-            Container(
+            SizedBox(
               width: 145,
               child: Focus(
                 onFocusChange: (hasFocus) {
@@ -346,11 +332,11 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                   textInputAction: TextInputAction.done,
                   enabled: true,
                   controller: prixController,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15.0,
                     color: Colors.white,
                   ),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     suffixText: "DT",
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.all(10.0),
@@ -364,12 +350,13 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
               ),
             ),
           ),
+          
         ],
       ),
+      
     );
   }
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -385,7 +372,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
         }
       },
       child: Scaffold(
-        backgroundColor: Color(0xFF2A2D3E),
+        backgroundColor: const Color(0xFF2A2D3E),
         floatingActionButton: FloatingActionButton(
             onPressed: () async {
               showAnimatedDialog(
@@ -397,7 +384,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        content: Container(
+                        content: SizedBox(
                             width: 350,
                             height: 300,
                             child: Column(
@@ -405,50 +392,50 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                               children: [
                                 ListTile(
                                   leading: Image.asset("images/f1.jpg"),
-                                  trailing: Text("Ajoutez une Ligne"),
+                                  trailing: const Text("Ajoutez une Ligne"),
                                 ),
-                                Divider(
+                                const Divider(
                                   thickness: 2,
                                 ),
                                 ListTile(
                                     leading: Image.asset("images/f8.jpg"),
-                                    trailing: Text("Confirmer")),
+                                    trailing: const Text("Confirmer")),
                               ],
                             )));
                   });
             },
             backgroundColor: primaryColor,
-            child: Icon(
+            child: const Icon(
               Icons.navigation,
               color: Colors.white,
             )),
         body: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
               top: 60.0, bottom: 60.0, left: 120.0, right: 120.0),
           child: Form(
             key: _formKey,
             child: Card(
-              shadowColor: Color.fromARGB(255, 255, 255, 255),
-              color: Color(0xFF2A2D3E),
+              shadowColor: const Color.fromARGB(255, 255, 255, 255),
+              color: const Color(0xFF2A2D3E),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0)),
               elevation: 10.0,
-              child: Container(
+              child: SizedBox(
                 width: 1500,
                 child: Column(
                   children: <Widget>[
                     Center(
                       child: Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             top: 20.0, bottom: 0.0, left: 20.0, right: 20.0),
                         child: Column(
                           children: <Widget>[
                             Text(
                               widget.doctype,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
-                            Divider(
+                            const Divider(
                               thickness: 3,
                             ),
                             SeqDoc(
@@ -456,7 +443,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                               content: numDoc = seqDocument(),
                               label2: 'Date',
                             ),
-                            Divider(
+                            const Divider(
                               thickness: 3,
                             ),
                             SizedBox(
@@ -465,7 +452,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                 showCheckboxColumn: true,
                                 dataRowHeight: 50,
                                 columnSpacing: 30,
-                                columns: [
+                                columns: const [
                                   DataColumn2(
                                     label: Text(
                                       "Référence Produit",
@@ -519,54 +506,77 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                 children: <Widget>[
                                   MaterialButton(
                                     height: 53,
-                                    color: Color.fromARGB(255, 253, 0, 0),
+                                    color: const Color.fromARGB(255, 253, 0, 0),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "Annuler",
                                       style: TextStyle(
                                           color: Color.fromARGB(
                                               255, 255, 255, 255)),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20.0,
                                   ),
                                   MaterialButton(
                                     height: 53,
-                                    color: Color.fromARGB(255, 112, 112, 112),
+                                    color: const Color.fromARGB(255, 112, 112, 112),
                                     onPressed: () {
                                       ajouterLigne();
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "Ajouter une ligne",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20.0,
                                   ),
                                   MaterialButton(
                                     height: 53,
-                                    color: Color.fromARGB(255, 75, 100, 211),
+                                    color: const Color.fromARGB(255, 75, 100, 211),
                                     onPressed: () async {
+                                      
+                                      
+                                      if(confirmButton==false)
+                                      {
+                                        ScaffoldMessenger.of(context).showSnackBar(snackBarButtonError);
+                                      }
+                                      
+                                        for (var j=2;j < widget.controllers.length;
+                                            j = j + 4)
+                                            {
+                                              
+                                                if(double.parse(widget.controllers[j].text) > produits![j]['stock'] )
+                                                {
+                                                     ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBarStockError);
+                                                }
+                                                  else{
+                                      
                                       if (confirmButton) {
+
+                                        if (_formKey.currentState!.validate()) {
+                                          print("hello from key");
+                                      
                                         numDoc = seqDocument();
                                         print(numDoc);
                                         print(widget.id);
                                         dateDoc =
                                             date.toString().substring(0, 10);
                                         print(dateDoc);
-                                        if (true)
-                                          await {
+                                        if (true) {
+                                          {
                                             future = ajoutDocument(
                                                 widget.id,
                                                 numSeqDocument,
                                                 dateDoc,
                                                 double.parse(
-                                                    totalDocument.text))
-                                          };
+                                                    totalDocument.text));
+                                          }
+                                        }
                                         for (var i = 3;
                                             i < widget.controllers.length;
                                             i = i + 4) {
@@ -586,29 +596,37 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                                   -1);
                                         }
                                       }
-                                      ;
                                       Navigator.of(context).pop();
                                       setState(() {
                                         confirmButton = false;
                                       });
+                                       ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBarSucces);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 MainScreen(DashboardScreen())),
                                       );
+                                                  }
+                                                }
+                                            
+
+
+                                            }
+
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "Confirmer",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 300,
                                   ),
                                   Container(
-                                    padding: EdgeInsets.only(bottom: 15),
-                                    child: Text(
+                                    padding: const EdgeInsets.only(bottom: 15),
+                                    child: const Text(
                                       "Montant Total :",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w800,
@@ -619,7 +637,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   SizedBox(
@@ -631,7 +649,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           enabled: false,
-                                          hintText: '$totalDoc',
+                                          hintText: totalDoc,
                                           hintStyle: TextStyle(
                                             fontFamily: 'Montserrat',
                                             fontWeight: FontWeight.w400,
@@ -680,7 +698,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
                                             ),
                                           ),
                                           contentPadding:
-                                              EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                              const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                         ),
                                       ),
                                     ),
@@ -717,7 +735,9 @@ class InputRefNomProduit extends StatefulWidget {
   TextEditingController? fieldController5 = TextEditingController();
   List<TextEditingController> controllers = [];
   VoidCallback? Prix;
-  FormFieldValidator<String>? fieldValidator = (_) {};
+  FormFieldValidator<String>? fieldValidator = (_) {
+    return null;
+  };
   InputRefNomProduit({
     required this.total,
     required this.controllers,
@@ -755,7 +775,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
   @override
   void initState() {
     super.initState();
-    this.fetchProduits();
+    fetchProduits();
   }
 
   fetchProduits() async {
@@ -794,40 +814,40 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 child: Text(
                   "${widget.label}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 5,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: Focus(
                   autofocus: true,
                   child: SearchField(
                     hint: "${widget.content}",
-                    searchStyle: TextStyle(color: Colors.black),
+                    searchStyle: const TextStyle(color: Colors.black),
                     controller: widget.fieldController,
                     validator: widget.fieldValidator,
-                    searchInputDecoration: InputDecoration(
+                    searchInputDecoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
                       hintStyle: TextStyle(
                           color: Color.fromARGB(255, 190, 190, 190),
                           fontSize: 14),
                     ),
                     suggestionItemDecoration: BoxDecoration(
-                        color: Color(0xFF2A2D3E),
+                        color: const Color(0xFF2A2D3E),
                         border: Border.all(color: Colors.white, width: 1.0)),
                     suggestions: refProduits.toList(),
                     maxSuggestionsInViewPort: 6,
-                    suggestionsDecoration: BoxDecoration(
+                    suggestionsDecoration: const BoxDecoration(
                       color: Colors.white,
                     ),
                     suggestionState: Suggestion.expand,
@@ -850,61 +870,61 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 3,
-              child: Container(
+              child: SizedBox(
                 width: 50.0,
                 child: Text(
                   "${widget.label2}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 5,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
                   enabled: false,
                   controller: widget.fieldController2,
                   validator: widget.fieldValidator,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15.0,
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     hintText: "${widget.content2}",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                         color: Color.fromARGB(255, 190, 190, 190),
                         fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    fillColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 2,
-              child: Container(
+              child: SizedBox(
                 width: 50.0,
                 child: Text(
                   "${widget.label3}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
@@ -915,7 +935,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               flex: 2,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: Focus(
                   onFocusChange: (hasFocus) {
                     if (!hasFocus) {
@@ -941,23 +961,23 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                   child: TextFormField(
                     controller: widget.fieldController3,
                     validator: widget.fieldValidator,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15.0,
                       color: Colors.black,
                     ),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
+                      contentPadding: const EdgeInsets.all(10.0),
                       hintText: "${widget.content3}",
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color.fromARGB(255, 190, 190, 190),
                           fontSize: 14),
-                      fillColor: Color.fromARGB(255, 0, 0, 0),
+                      fillColor: const Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
@@ -966,7 +986,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                 child: Text(
                   "${widget.label4}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
@@ -977,7 +997,7 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
               flex: 2,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: Focus(
                   onFocusChange: (hasFocus) {
                     if (!hasFocus) {
@@ -1006,45 +1026,45 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                     enabled: true,
                     controller: widget.fieldController4,
                     validator: widget.fieldValidator,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15.0,
                       color: Colors.black,
                     ),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
+                      contentPadding: const EdgeInsets.all(10.0),
                       hintText: "${widget.content4}",
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color.fromARGB(255, 190, 190, 190),
                           fontSize: 14),
-                      fillColor: Color.fromARGB(255, 0, 0, 0),
+                      fillColor: const Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
               flex: 3,
               child: Container(
                 width: MediaQuery.of(context).size.width / 3.7,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: TextFormField(
                   enabled: false,
                   controller: widget.fieldController5,
                   validator: widget.fieldValidator,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15.0,
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     hintText: "${widget.content5}",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                         color: Color.fromARGB(255, 190, 190, 190),
                         fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    fillColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
               ),

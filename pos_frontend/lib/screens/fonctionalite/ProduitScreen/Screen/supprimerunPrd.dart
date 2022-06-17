@@ -1,5 +1,6 @@
+// ignore_for_file: must_be_immutable, unused_local_variable
+
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class supprimerUnProduit extends StatefulWidget {
@@ -24,11 +25,11 @@ class _supprimerUnProduitState extends State<supprimerUnProduit> {
   Widget build(BuildContext context) {
     return Card(
         elevation: 0,
-        color: Color(0xFF2A2D3E),
+        color: const Color(0xFF2A2D3E),
         child: Column(
           children: [
-            Text('Voulez vous vraiment supprimer ce fournisseur ?'),
-            SizedBox(
+            const Text('Voulez vous vraiment supprimer ce fournisseur ?'),
+            const SizedBox(
               height: 30,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -39,7 +40,13 @@ class _supprimerUnProduitState extends State<supprimerUnProduit> {
                   });
                   Navigator.of(context, rootNavigator: true).pop();
                 }),
-                child: Text(
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    primary: Colors.red,
+                    minimumSize: const Size(150, 50),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5))),
+                child: const Text(
                   "Supprimer",
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
@@ -47,17 +54,17 @@ class _supprimerUnProduitState extends State<supprimerUnProduit> {
                     color: Colors.white,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Colors.red,
-                    minimumSize: Size(150, 50),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5))),
               ),
               ElevatedButton(
                 onPressed: (() {
                   Navigator.of(context).pop();
                 }),
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    primary: Colors.white,
+                    minimumSize: const Size(150, 50),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5))),
                 child: Text(
                   "Annuler",
                   style: TextStyle(
@@ -66,12 +73,6 @@ class _supprimerUnProduitState extends State<supprimerUnProduit> {
                     color: Colors.grey.shade600,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Colors.white,
-                    minimumSize: Size(150, 50),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5))),
               ),
             ])
           ],

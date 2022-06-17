@@ -15,7 +15,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
   @override
   void initState() {
     super.initState();
-    this.fetchFournisseurs();
+    fetchFournisseurs();
   }
 
   fetchFournisseurs() async {
@@ -40,22 +40,22 @@ class _listeFournisseurState extends State<listeFournisseur> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         child: Material(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: Color(0xFF2A2D3E),
+          color: const Color(0xFF2A2D3E),
           elevation: 10,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: Column(children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(15),
+              const Padding(
+                padding: EdgeInsets.all(15),
                 child: Center(
-                    child: Container(
+                    child: SizedBox(
                   height: 20,
                   child: Center(
                     child: Text(
@@ -69,17 +69,17 @@ class _listeFournisseurState extends State<listeFournisseur> {
                   ),
                 )),
               ),
-              Divider(
+              const Divider(
                 thickness: 3,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               SizedBox(
                 height: 600,
                 child: SingleChildScrollView(
                   child: DataTable(
-                    columns: <DataColumn>[
+                    columns: const <DataColumn>[
                       DataColumn(
                           label: Flexible(
                         child: Text("Raison Sociale",
@@ -144,7 +144,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     IconButton(
-                                        icon: Icon(
+                                        icon: const Icon(
                                             Icons.mode_edit_outline_outlined,
                                             color: Colors.green),
                                         onPressed: () async {
@@ -157,12 +157,12 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                             builder: (BuildContext context) {
                                               return AlertDialog(
                                                 backgroundColor:
-                                                    Color(0xFF2A2D3E),
+                                                    const Color(0xFF2A2D3E),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                content: Container(
+                                                content: SizedBox(
                                                     width: 1200,
                                                     child:
                                                         modifierUnFournisseur(
@@ -172,7 +172,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                             animationType:
                                                 DialogTransitionType.fadeScale,
                                             curve: Curves.fastOutSlowIn,
-                                            duration: Duration(seconds: 1),
+                                            duration: const Duration(seconds: 1),
                                           );
                                           setState(() {
                                             fetchFournisseurs();

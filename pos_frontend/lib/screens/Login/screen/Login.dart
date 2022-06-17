@@ -1,4 +1,5 @@
-import 'package:admin/screens/Login/Screen/CreationCompte.dart';
+// ignore_for_file: unused_element, deprecated_member_use
+
 import 'package:admin/screens/Login/Screen/Network.dart';
 import 'package:flutter/material.dart';
 import 'package:admin/constants.dart';
@@ -20,8 +21,8 @@ class _LoginPageState extends State<LoginPage> {
   var password;
   _showMsg(msg) {
     final snackBar = SnackBar(
-      backgroundColor: Color(0xFF2A2D3E),
-      content: Text(msg, style: TextStyle(color: Colors.white)),
+      backgroundColor: const Color(0xFF2A2D3E),
+      content: Text(msg, style: const TextStyle(color: Colors.white)),
       action: SnackBarAction(
         label: 'Close',
         onPressed: () {
@@ -55,17 +56,17 @@ class _LoginPageState extends State<LoginPage> {
         barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-              insetPadding: EdgeInsets.symmetric(vertical: 10),
-              backgroundColor: Color(0xFF2A2D3E),
+              insetPadding: const EdgeInsets.symmetric(vertical: 10),
+              backgroundColor: const Color(0xFF2A2D3E),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Colors.red)),
-              content: Container(
+                  side: const BorderSide(color: Colors.red)),
+              content: SizedBox(
                 width: 400,
                 height: 110,
                 child: Center(
                     child: Column(
-                  children: [
+                  children: const [
                     Text("Erreur d'authentification",
                         style: TextStyle(fontSize: 20)),
                     Divider(
@@ -81,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
         },
         animationType: DialogTransitionType.fadeScale,
         curve: Curves.fastOutSlowIn,
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
       );
     }
 
@@ -97,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Color(0xFF2A2D3E),
+      backgroundColor: const Color(0xFF2A2D3E),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: secondaryColor,
@@ -109,31 +110,31 @@ class _LoginPageState extends State<LoginPage> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Card(
-                shadowColor: Color.fromARGB(255, 122, 120, 120),
-                color: Color(0xFF2A2D3E),
+                shadowColor: const Color.fromARGB(255, 122, 120, 120),
+                color: const Color(0xFF2A2D3E),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 elevation: 5.0,
-                child: Container(
+                child: SizedBox(
                   width: 500,
                   height: 600,
                   child: Column(children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 5),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 15, bottom: 5),
                       child: Text(
                         "Connectez-Vous",
                         style: TextStyle(
                             fontSize: 24.0, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Veuillez remplir l'entrée ci-dessous",
                       style: TextStyle(
                         color: Color.fromARGB(255, 179, 179, 179),
                       ),
                     ),
-                    SizedBox(height: 100),
+                    const SizedBox(height: 100),
                     SizedBox(
                       width: 350,
                       child: TextFormField(
@@ -149,45 +150,45 @@ class _LoginPageState extends State<LoginPage> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           hintText: 'Email',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.email,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SizedBox(
                       width: 350,
                       child: TextFormField(
@@ -204,45 +205,45 @@ class _LoginPageState extends State<LoginPage> {
                         cursorColor: Colors.white,
                         decoration: InputDecoration(
                           hintText: 'Mot de Passe',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.lock,
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF2A2D3E),
                               width: 1,
                             ),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
-                    SizedBox(height: 100),
+                    const SizedBox(height: 100),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
@@ -262,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(60)),
                           child: Text(
                             _isLoading ? 'Connexion en Cours' : "Connexion",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
                               color: Colors.white,

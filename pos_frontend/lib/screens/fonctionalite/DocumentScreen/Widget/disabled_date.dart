@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, missing_return
+// ignore_for_file: camel_case_types, missing_return, must_be_immutable, unused_element
 
 import 'package:flutter/material.dart';
 
@@ -21,8 +21,10 @@ class _DisabledCurrentDateState extends State<DisabledCurrentDate> {
   var fieldController = TextEditingController();
   final dateDocument = TextEditingController();
 
-  FormFieldValidator<String> fieldValidator = (_) {};
-  String DateNow = new DateTime.now().toString().substring(0, 19);
+  FormFieldValidator<String> fieldValidator = (_) {
+    return null;
+  };
+  String DateNow = DateTime.now().toString().substring(0, 19);
   DateTime currentDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -40,10 +42,11 @@ class _DisabledCurrentDateState extends State<DisabledCurrentDate> {
         );
       },
     );
-    if (pickedDate != null && pickedDate != currentDate)
+    if (pickedDate != null && pickedDate != currentDate) {
       setState(() {
         currentDate = pickedDate;
       });
+    }
   }
 
   @override
@@ -54,19 +57,19 @@ class _DisabledCurrentDateState extends State<DisabledCurrentDate> {
           children: <Widget>[
             Expanded(
               flex: 1,
-              child: Container(
+              child: SizedBox(
                 width: 50.0,
                 child: Text(
                   "${widget.label}",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             Expanded(
@@ -75,7 +78,7 @@ class _DisabledCurrentDateState extends State<DisabledCurrentDate> {
                 controller: dateDocument,
                 enabled: false,
                 decoration: InputDecoration(
-                  labelText: '${currentDate.toString().substring(0, 19)}',
+                  labelText: currentDate.toString().substring(0, 19),
                   labelStyle: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.grey.shade600,

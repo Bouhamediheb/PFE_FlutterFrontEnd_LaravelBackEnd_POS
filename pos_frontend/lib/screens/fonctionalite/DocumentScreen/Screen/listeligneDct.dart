@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,7 +17,7 @@ class _listeLigneDocumentState extends State<listeLigneDocument> {
   @override
   void initState() {
     super.initState();
-    this.fetchLigneDocuments();
+    fetchLigneDocuments();
   }
 
   fetchLigneDocuments() async {
@@ -38,7 +40,7 @@ class _listeLigneDocumentState extends State<listeLigneDocument> {
 
   @override
   Widget build(BuildContext context) {
-    return DataTable(columns: <DataColumn>[
+    return DataTable(columns: const <DataColumn>[
       DataColumn(
           label: Flexible(
         child: Text("Référence Produit",
