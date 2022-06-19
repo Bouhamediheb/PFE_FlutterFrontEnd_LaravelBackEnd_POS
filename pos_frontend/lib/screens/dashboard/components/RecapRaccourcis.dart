@@ -1,4 +1,4 @@
-import 'package:admin/models/raccourcis.dart';
+import 'package:projetpfe/models/raccourcis.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';

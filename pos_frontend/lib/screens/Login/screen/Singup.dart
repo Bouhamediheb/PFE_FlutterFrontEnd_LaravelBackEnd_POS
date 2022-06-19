@@ -1,6 +1,6 @@
-import 'package:admin/constants.dart';
-import 'package:admin/screens/Login/Screen/CreationCompte.dart';
-import 'package:admin/screens/Login/Screen/Login.dart';
+import 'package:projetpfe/constants.dart';
+import 'package:projetpfe/screens/Login/Screen/CreationCompte.dart';
+import 'package:projetpfe/screens/Login/Screen/Login.dart';
 import 'package:flutter/material.dart';
 
 import '../../dashboard/dashboard_screen.dart';

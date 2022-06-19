@@ -1,6 +1,6 @@
-import 'package:admin/models/raccourcis.dart';
-import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/RecapEtatWidg.dart';
+import 'package:projetpfe/models/raccourcis.dart';
+import 'package:projetpfe/responsive.dart';
+import 'package:projetpfe/screens/dashboard/components/RecapEtatWidg.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -31,7 +31,6 @@ class _RecapEtatState extends State<RecapEtat> {
             childAspectRatio: size.width < 1400 ? 1.1 : 3,
           ),
         ),
-        
       ],
     );
   }

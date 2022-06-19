@@ -1,17 +1,25 @@
-
-import 'package:admin/constants.dart';
-import 'package:admin/controllers/MenuController.dart';
-import 'package:admin/screens/Login/Screen/Singup.dart';
-import 'package:admin/screens/dashboard/dashboard_screen.dart';
-import 'package:admin/screens/main/main_screen.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:projetpfe/constants.dart';
+import 'package:projetpfe/controllers/MenuController.dart';
+import 'package:projetpfe/screens/Login/screen/Login.dart';
+import 'package:projetpfe/screens/dashboard/dashboard_screen.dart';
+import 'package:projetpfe/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screens/Login/Screen/Singup.dart';
 
-void main() {  
+void main() {
   runApp(const MyApp());
+  doWhenWindowReady(() {
+    final win = appWindow;
+    const initialSize = Size(1750, 920);
+    win.minSize = initialSize;
+    win.size = initialSize;
+    win.alignment = Alignment.center;
+    win.title = "PROJET DE FIN D'ETUDE - IHEB BOUHAMED & KARIM HACHICHA ";
+    win.show();
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -27,7 +35,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Admin Panel',
+      title: 'Gestionnaire',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: bgColor,
         textTheme: GoogleFonts.latoTextTheme(
@@ -76,9 +84,9 @@ class _CheckAuthState extends State<CheckAuth> {
   Widget build(BuildContext context) {
     Widget child;
     if (isAuth) {
-      child = MainScreen(DashboardScreen());
+      child = LoginPage();
     } else {
-      child = FirstScreen();
+      child = MainScreen(DashboardScreen());
     }
     return Scaffold(body: child);
   }

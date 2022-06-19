@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
 
-import 'package:admin/controllers/MenuController.dart';
-import 'package:admin/responsive.dart';
+import 'package:projetpfe/controllers/MenuController.dart';
+import 'package:projetpfe/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -31,8 +31,8 @@ class _HeaderState extends State<Header> {
           ),
         if (!Responsive.isMobile(context))
           Text(
-            "Tableau de bord",
-            style: Theme.of(context).textTheme.headline6,
+            "Bienvenue dans votre tableau de bord",
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),

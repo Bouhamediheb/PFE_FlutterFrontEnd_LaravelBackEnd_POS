@@ -50,7 +50,6 @@ class _supprimerUnProduitState extends State<supprimerUnProduit> {
                   "Supprimer",
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    fontFamily: 'Montserrat',
                     color: Colors.white,
                   ),
                 ),
@@ -69,7 +68,6 @@ class _supprimerUnProduitState extends State<supprimerUnProduit> {
                   "Annuler",
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    fontFamily: 'Montserrat',
                     color: Colors.grey.shade600,
                   ),
                 ),

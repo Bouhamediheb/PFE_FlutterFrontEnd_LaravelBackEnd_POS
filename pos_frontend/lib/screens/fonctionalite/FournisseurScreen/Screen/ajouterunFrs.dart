@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:admin/constants.dart';
-import 'package:admin/screens/dashboard/dashboard_screen.dart';
+import 'package:projetpfe/constants.dart';
+import 'package:projetpfe/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -37,7 +37,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
       String villeFournisseur,
       double? timbreFiscaleFournisseur,
       bool? exoTVA) async {
-   late List? fournisseurs = [];
+    late List? fournisseurs = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/fournisseur/'),
       headers: <String, String>{
@@ -66,170 +66,199 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2A2D3E),
+      backgroundColor: bgColor,
       body: Padding(
-        padding:
-            const EdgeInsets.only(top: 60.0, bottom: 60.0, left: 120.0, right: 120.0),
+        padding: const EdgeInsets.only(
+            top: 60.0, bottom: 60.0, left: 120.0, right: 120.0),
         child: Form(
           key: _formKey,
-          child: Card(
-            shadowColor: const Color.fromARGB(255, 122, 120, 120),
-            color: const Color(0xFF2A2D3E),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0)),
-            elevation: 5.0,
-            child: SizedBox(
-              width: 1800,
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: <Widget>[
-                          const Text(
-                            "AJOUTER UN FOURNISSEUR",
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                          const Divider(
-                            thickness: 3,
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    //InputField Widget from the widgets folder
-                                    InputField(
-                                      fieldController: raisonSocialeFournisseur,
-                                      label: "Raison Sociale",
-                                      content: "Le nom du fournisseur",
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+          child: SizedBox(
+            child: Column(
+              children: <Widget>[
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Column(
+                      children: <Widget>[
+                        const Text(
+                          "AJOUTER UN FOURNISSEUR",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        const Divider(
+                          thickness: 3,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  //InputField Widget from the widgets folder
+                                  InputField(
+                                    fieldController: raisonSocialeFournisseur,
+                                    label: "Raison Sociale",
+                                    content: "Le nom du fournisseur",
+                                    fieldValidator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ce Champ est obligatoire";
+                                      }
+                                      return null;
+                                    },
+                                  ),
 
-                                    const SizedBox(height: 20.0),
+                                  const SizedBox(height: 20.0),
 
-                                    //Gender Widget from the widgets folder
+                                  //Gender Widget from the widgets folder
 
-                                    //InputField Widget from the widgets folder
-                                    InputField(
-                                      fieldController: addressFournisseur,
-                                      label: "Addresse",
-                                      content: "Route ...",
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                  //InputField Widget from the widgets folder
+                                  InputField(
+                                    fieldController: addressFournisseur,
+                                    label: "Addresse",
+                                    content: "Route ...",
+                                    fieldValidator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ce Champ est obligatoire";
+                                      }
+                                      return null;
+                                    },
+                                  ),
 
-                                    //InputField Widget from the widgets folder
+                                  //InputField Widget from the widgets folder
 
-                                    const SizedBox(height: 20.0),
+                                  const SizedBox(height: 20.0),
 
-                                    //InputField Widget from the widgets folder
-                                    InputField(
-                                      fieldController: paysFournisseur,
-                                      label: "Pays",
-                                      content:
-                                          "Vide si le fournisseur est en Tunisie",
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 20.0),
+                                  //InputField Widget from the widgets folder
+                                  InputField(
+                                    fieldController: paysFournisseur,
+                                    label: "Pays",
+                                    content:
+                                        "Vide si le fournisseur est en Tunisie",
+                                    fieldValidator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ce Champ est obligatoire";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(height: 20.0),
 
-                                    InputField(
-                                      fieldController: villeFournisseur,
-                                      label: "Ville",
-                                      content: "Ville du siége du fournisseur",
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                  InputField(
+                                    fieldController: villeFournisseur,
+                                    label: "Ville",
+                                    content: "Ville du siége du fournisseur",
+                                    fieldValidator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ce Champ est obligatoire";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 25),
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    InputField(
-                                      fieldController:
-                                          matriculeFiscaleFournisseur,
-                                      label: "Matricule fiscale",
-                                      content: "MAT1234",
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                            ),
+                            const SizedBox(width: 25),
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  InputField(
+                                    fieldController:
+                                        matriculeFiscaleFournisseur,
+                                    label: "Matricule fiscale",
+                                    content: "MAT1234",
+                                    fieldValidator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ce Champ est obligatoire";
+                                      }
+                                      return null;
+                                    },
+                                  ),
 
-                                    const SizedBox(height: 20.0),
+                                  const SizedBox(height: 20.0),
 
-                                    //InputField Widget from the widgets folder
-                                    InputField(
-                                      fieldController: emailFournisseur,
-                                      label: "Email",
-                                      content: "foulen@mail.com",
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                  //InputField Widget from the widgets folder
+                                  InputField(
+                                    fieldController: emailFournisseur,
+                                    label: "Email",
+                                    content: "foulen@mail.com",
+                                    fieldValidator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ce Champ est obligatoire";
+                                      }
+                                      return null;
+                                    },
+                                  ),
 
-                                    const SizedBox(height: 20.0),
+                                  const SizedBox(height: 20.0),
 
-                                    InputField(
-                                      fieldController: numeroFournisseur,
-                                      label: "Numéro de téléphone",
-                                      content: "+29000000000",
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                  InputField(
+                                    fieldController: numeroFournisseur,
+                                    label: "Numéro de téléphone",
+                                    content: "+29000000000",
+                                    fieldValidator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ce Champ est obligatoire";
+                                      }
+                                      return null;
+                                    },
+                                  ),
 
-                                    const SizedBox(height: 20.0),
+                                  const SizedBox(height: 20.0),
 
-                                    //InputField Widget from the widgets folder
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: ListTile(
-                                            contentPadding: const EdgeInsets.all(0),
-                                            title: const SizedBox(
-                                              width: 50.0,
+                                  //InputField Widget from the widgets folder
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: ListTile(
+                                          contentPadding:
+                                              const EdgeInsets.all(0),
+                                          title: const SizedBox(
+                                            width: 50.0,
+                                            child: Text(
+                                              "Timbre Fiscale",
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w900,
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                              ),
+                                            ),
+                                          ),
+                                          trailing: Switch(
+                                              activeColor: const Color.fromARGB(
+                                                  255, 41, 17, 173),
+                                              value: isSwitched,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  isSwitched = value;
+                                                  if (isSwitched == false) {
+                                                    timbreFiscaleFournisseur =
+                                                        0.000;
+                                                  } else {
+                                                    timbreFiscaleFournisseur =
+                                                        0.600;
+                                                  }
+                                                });
+                                              }),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: ListTile(
+                                          title: const Padding(
+                                            padding: EdgeInsets.only(left: 1),
+                                            child: SizedBox(
+                                              width: 40.0,
                                               child: Text(
-                                                "Timbre Fiscale",
+                                                "Exonération TVA",
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                   fontSize: 15.0,
@@ -239,144 +268,106 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                                 ),
                                               ),
                                             ),
-                                            trailing: Switch(
-                                                activeColor: const Color.fromARGB(
-                                                    255, 41, 17, 173),
-                                                value: isSwitched,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    isSwitched = value;
-                                                    if (isSwitched == false) {
-                                                      timbreFiscaleFournisseur =
-                                                          0.000;
-                                                    } else {
-                                                      timbreFiscaleFournisseur =
-                                                          0.600;
-                                                    }
-                                                  });
-                                                }),
                                           ),
+                                          trailing: Checkbox(
+                                              activeColor: const Color.fromARGB(
+                                                  255, 41, 17, 173),
+                                              value: isTicked,
+                                              onChanged: (value) async {
+                                                setState(() {
+                                                  isTicked = value;
+                                                  if (isTicked == false) {
+                                                    exoTVA = false;
+                                                  } else {
+                                                    exoTVA = true;
+                                                  }
+                                                });
+                                              }),
                                         ),
-                                        Expanded(
-                                          child: ListTile(
-                                            title: const Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 1),
-                                              child: SizedBox(
-                                                width: 40.0,
-                                                child: Text(
-                                                  "Exonération TVA",
-                                                  textAlign: TextAlign.left,
-                                                  style: TextStyle(
-                                                    fontSize: 15.0,
-                                                    fontWeight: FontWeight.w900,
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            trailing: Checkbox(
-                                                activeColor: const Color.fromARGB(
-                                                    255, 41, 17, 173),
-                                                value: isTicked,
-                                                onChanged: (value) async {
-                                                  setState(() {
-                                                    isTicked = value;
-                                                    if (isTicked == false) {
-                                                      exoTVA = false;
-                                                    } else {
-                                                      exoTVA = true;
-                                                    }
-                                                  });
-                                                }),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
 
-                          const SizedBox(
-                            height: 40.0,
-                          ),
+                        const SizedBox(
+                          height: 40.0,
+                        ),
 
-                          //Membership Widget from the widgets folder
+                        //Membership Widget from the widgets folder
 
-                          const SizedBox(
-                            height: 40.0,
-                          ),
+                        const SizedBox(
+                          height: 40.0,
+                        ),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              const SizedBox(
-                                width: 370.0,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            MaterialButton(
+                              height: 53,
+                              color: Colors.grey[200],
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                "Annuler",
+                                style: TextStyle(color: Colors.black),
                               ),
-                              MaterialButton(
-                                color: Colors.grey[200],
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text(
-                                  "Annuler",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20.0,
-                              ),
-                              MaterialButton(
-                                color: const Color.fromARGB(255, 75, 100, 211),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    setState(() {
-                                      future = ajoutFournisseur(
-                                          numeroFournisseur.text,
-                                          emailFournisseur.text,
-                                          addressFournisseur.text,
-                                          matriculeFiscaleFournisseur.text,
-                                          raisonSocialeFournisseur.text,
-                                          paysFournisseur.text,
-                                          villeFournisseur.text,
-                                          timbreFiscaleFournisseur,
-                                          exoTVA);
-                                    });
+                            ),
+                            const SizedBox(
+                              width: 20.0,
+                            ),
+                            MaterialButton(
+                              height: 53,
+                              color: const Color.fromARGB(255, 75, 100, 211),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    future = ajoutFournisseur(
+                                        numeroFournisseur.text,
+                                        emailFournisseur.text,
+                                        addressFournisseur.text,
+                                        matriculeFiscaleFournisseur.text,
+                                        raisonSocialeFournisseur.text,
+                                        paysFournisseur.text,
+                                        villeFournisseur.text,
+                                        timbreFiscaleFournisseur,
+                                        exoTVA);
+                                  });
 
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          backgroundColor: (secondaryColor),
-                                          content: Text(
-                                            'Fournisseur Ajouté',
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 250, 253, 255)),
-                                          )),
-                                    );
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              MainScreen(DashboardScreen())),
-                                    );
-                                  }
-                                },
-                                child: const Text(
-                                  "Ajouter",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: (secondaryColor),
+                                        content: Text(
+                                          'Fournisseur Ajouté',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 250, 253, 255)),
+                                        )),
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MainScreen(DashboardScreen())),
+                                  );
+                                }
+                              },
+                              child: const Text(
+                                "Ajouter",
+                                style: TextStyle(color: Colors.white),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

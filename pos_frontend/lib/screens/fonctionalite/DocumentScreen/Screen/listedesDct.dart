@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:projetpfe/constants.dart';
 import 'listeligneDct.dart';
 import 'modifierunDct.dart';
 
@@ -20,18 +20,16 @@ class _listeDocumentState extends State<listeDocument> {
     fetchDocuments();
   }
 
-  String getDocType (int number){
+  String getDocType(int number) {
     print("Hedha type doc");
-    if( number == 1) {
+    if (number == 1) {
       return "Bon de commande";
-    } else if( number == 2) {
+    } else if (number == 2) {
       return "Bon de livraison";
-    } else if( number == 3) {
+    } else if (number == 3) {
       return "Bon de retour";
-    } else if( number == 4) {}
+    } else if (number == 4) {}
     return "Devis";
-    
-    
   }
 
   fetchDocuments() async {
@@ -57,27 +55,26 @@ class _listeDocumentState extends State<listeDocument> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width * 0.5,
         child: Material(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(5),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: const Color(0xFF2A2D3E),
+          color: bgColor,
           elevation: 10,
           child: SizedBox(
-            width: double.infinity,
+            width: MediaQuery.of(context).size.width * 0.5,
             child: Column(children: <Widget>[
               const Padding(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(5),
                 child: Center(
                     child: SizedBox(
-                  height: 20,
+                  height: 45,
                   child: Center(
                     child: Text(
                       'La Liste Des Documents :',
                       style: TextStyle(
-                          fontFamily: 'Montserrat',
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
@@ -89,10 +86,9 @@ class _listeDocumentState extends State<listeDocument> {
                 thickness: 3,
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               SizedBox(
-                height: 840,
                 child: SingleChildScrollView(
                   child: DataTable(
                     columns: const <DataColumn>[
@@ -134,12 +130,11 @@ class _listeDocumentState extends State<listeDocument> {
                       for (var i = 0; i < documents!.length; i++)
                         DataRow(
                           cells: <DataCell>[
-                             DataCell(
-                              Center(child: Text(
-                                getDocType(documents![i]['type'])
-                                )
-                                ),            
-                              ),
+                            DataCell(
+                              Center(
+                                  child:
+                                      Text(getDocType(documents![i]['type']))),
+                            ),
                             DataCell(InkWell(
                                 onTap: () {
                                   showAnimatedDialog(
@@ -147,7 +142,8 @@ class _listeDocumentState extends State<listeDocument> {
                                     barrierDismissible: true,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                          backgroundColor: const Color(0xFF2A2D3E),
+                                          backgroundColor:
+                                              const Color(0xFF2A2D3E),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -198,13 +194,13 @@ class _listeDocumentState extends State<listeDocument> {
                                             animationType:
                                                 DialogTransitionType.fadeScale,
                                             curve: Curves.fastOutSlowIn,
-                                            duration: const Duration(seconds: 1),
+                                            duration:
+                                                const Duration(seconds: 1),
                                           );
                                           setState(() {
                                             fetchDocuments();
                                           });
                                         }),
-                                    
                                   ]),
                             ),
                           ],

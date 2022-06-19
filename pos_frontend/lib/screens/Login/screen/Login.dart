@@ -1,8 +1,7 @@
 // ignore_for_file: unused_element, deprecated_member_use
 
-import 'package:admin/screens/Login/Screen/Network.dart';
+import 'package:projetpfe/screens/Login/Screen/Network.dart';
 import 'package:flutter/material.dart';
-import 'package:admin/constants.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -98,186 +97,185 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF2A2D3E),
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: secondaryColor,
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Card(
-                shadowColor: const Color.fromARGB(255, 122, 120, 120),
-                color: const Color(0xFF2A2D3E),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                elevation: 5.0,
-                child: SizedBox(
-                  width: 500,
-                  height: 600,
-                  child: Column(children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.only(top: 15, bottom: 5),
-                      child: Text(
-                        "Connectez-Vous",
+      backgroundColor: Color.fromARGB(255, 17, 19, 36),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SingleChildScrollView(
+            child: Center(
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SizedBox(
+                    child: Column(children: <Widget>[
+                      const Padding(
+                        padding: EdgeInsets.only(top: 15, bottom: 5),
+                        child: Text(
+                          "Bienvenue",
+                          style: TextStyle(
+                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Text(
+                        "Veuillez remplir les champs pour vous connecter",
                         style: TextStyle(
-                            fontSize: 24.0, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const Text(
-                      "Veuillez remplir l'entrée ci-dessous",
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 179, 179, 179),
-                      ),
-                    ),
-                    const SizedBox(height: 100),
-                    SizedBox(
-                      width: 350,
-                      child: TextFormField(
-                        validator: (emailValue) {
-                          if (emailValue == null || emailValue.isEmpty) {
-                            return 'Ce champ est obligatoire';
-                          }
-                          email = emailValue;
-                          return null;
-                        },
-                        cursorColor: Colors.white,
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          hintStyle: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Color.fromARGB(255, 179, 179, 179),
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.email,
-                            color: Color.fromARGB(255, 179, 179, 179),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF2A2D3E),
-                              width: 1,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF2A2D3E),
-                              width: 1,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF2A2D3E),
-                              width: 1,
-                            ),
-                          ),
-                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          color: Color.fromARGB(255, 179, 179, 179),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: 350,
-                      child: TextFormField(
-                        validator: (passwordValue) {
-                          if (passwordValue == null || passwordValue.isEmpty) {
-                            return 'Ce champ est obligatoire';
-                          }
-                          password = passwordValue;
-                          return null;
-                        },
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
-                        obscureText: true,
-                        cursorColor: Colors.white,
-                        decoration: InputDecoration(
-                          hintText: 'Mot de Passe',
-                          hintStyle: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Color.fromARGB(255, 179, 179, 179),
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: Color.fromARGB(255, 179, 179, 179),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF2A2D3E),
-                              width: 1,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF2A2D3E),
-                              width: 1,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF2A2D3E),
-                              width: 1,
-                            ),
-                          ),
-                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 100),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: MaterialButton(
-                          height: 70,
-                          minWidth: 200,
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _login();
+                      const SizedBox(height: 50),
+                      SizedBox(
+                        width: 350,
+                        child: TextFormField(
+                          validator: (emailValue) {
+                            if (emailValue == null || emailValue.isEmpty) {
+                              return 'Ce champ est obligatoire';
                             }
+                            email = emailValue;
+                            return null;
                           },
-                          color: Colors.blue[800],
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(60)),
-                          child: Text(
-                            _isLoading ? 'Connexion en Cours' : "Connexion",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: Colors.white,
+                          cursorColor: Colors.white,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            hintText: 'Adresse email',
+                            hintStyle: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Color.fromARGB(255, 179, 179, 179),
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.email,
+                              color: Color.fromARGB(255, 179, 179, 179),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                color: Color(0xFF2A2D3E),
+                                width: 1,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                color: Color(0xFF2A2D3E),
+                                width: 1,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                color: Color(0xFF2A2D3E),
+                                width: 1,
+                              ),
+                            ),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: 350,
+                        child: TextFormField(
+                          validator: (passwordValue) {
+                            if (passwordValue == null ||
+                                passwordValue.isEmpty) {
+                              return 'Ce champ est obligatoire';
+                            }
+                            password = passwordValue;
+                            return null;
+                          },
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          obscureText: true,
+                          cursorColor: Colors.white,
+                          decoration: InputDecoration(
+                            hintText: 'Mot de Passe',
+                            hintStyle: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Color.fromARGB(255, 179, 179, 179),
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: Color.fromARGB(255, 179, 179, 179),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                color: Color(0xFF2A2D3E),
+                                width: 1,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                color: Color(0xFF2A2D3E),
+                                width: 1,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                color: Color(0xFF2A2D3E),
+                                width: 1,
+                              ),
+                            ),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 100),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Center(
+                          child: MaterialButton(
+                            height: 70,
+                            minWidth: 200,
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _login();
+                              }
+                            },
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(60)),
+                            child: Text(
+                              _isLoading
+                                  ? 'Connexion en cours'
+                                  : "Se connecter",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 15, 15, 15),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ]),
+                    ]),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

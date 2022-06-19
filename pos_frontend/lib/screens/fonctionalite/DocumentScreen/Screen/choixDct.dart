@@ -1,4 +1,4 @@
-import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
+import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
@@ -56,13 +56,13 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           child: Column(
                             children: [
                               Container(
-                                  padding:
-                                      const EdgeInsets.all(defaultPadding * 0.75),
+                                  padding: const EdgeInsets.all(
+                                      defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
                                   decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
                                           "../../../../../assets/images/commande.png"),
@@ -96,7 +96,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                     ),
                     child: MaterialButton(
                       onPressed: () {
-                       Navigator.push(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
@@ -107,13 +107,13 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           child: Column(
                             children: [
                               Container(
-                                  padding:
-                                      const EdgeInsets.all(defaultPadding * 0.75),
+                                  padding: const EdgeInsets.all(
+                                      defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
                                   decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
                                           "../../../../../assets/images/livraison.png"),
@@ -147,7 +147,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                     ),
                     child: MaterialButton(
                       onPressed: () {
-                       Navigator.push(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
@@ -158,13 +158,13 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           child: Column(
                             children: [
                               Container(
-                                  padding:
-                                      const EdgeInsets.all(defaultPadding * 0.75),
+                                  padding: const EdgeInsets.all(
+                                      defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
                                   decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
                                           "../../../../../assets/images/commande.png"),
@@ -209,13 +209,13 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           child: Column(
                             children: [
                               Container(
-                                  padding:
-                                      const EdgeInsets.all(defaultPadding * 0.75),
+                                  padding: const EdgeInsets.all(
+                                      defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
                                   decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
                                           "../../../../../assets/images/commande.png"),
@@ -245,7 +245,6 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                 width: 15,
               ),
               const SizedBox(height: 20),
-              
             ],
           ),
         ),

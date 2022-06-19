@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types, must_be_immutable, depend_on_referenced_packages
 
-import 'package:admin/constants.dart';
-import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.dart';
+import 'package:projetpfe/constants.dart';
+import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Widget/seqDocNumero.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:searchfield/searchfield.dart';
@@ -170,14 +170,12 @@ static const snackBarStockError = SnackBar(
   String seqDocument() {
     print(idDoc);
     idDoc ??= 1;
-    return numSeqDocument =
-        '${date.toString().substring(0, 10)}/DOC$idDoc';
+    return numSeqDocument = '${date.toString().substring(0, 10)}/DOC$idDoc';
   }
 
   void TestFonction() {
     print("Hello");
   }
-
 
   List<DataRow> ligneDoc = [];
   LocalKey? key;
@@ -187,7 +185,7 @@ static const snackBarStockError = SnackBar(
     setState(() {
       confirmButton = true;
     });
-  
+
     TextEditingController referenceController = TextEditingController();
     widget.controllers.add(referenceController);
     TextEditingController nomController = TextEditingController();
@@ -209,11 +207,9 @@ static const snackBarStockError = SnackBar(
               validator: (value) {
                 if (value!.isEmpty || value == "") {
                   return 'Référence obligatoire';
-                }
-                else {
+                } else {
                   return "A7ala";
                 }
-                
               },
               searchInputDecoration: const InputDecoration(
                 border: InputBorder.none,
@@ -247,7 +243,6 @@ static const snackBarStockError = SnackBar(
               },
             ),
           ),
-          
           DataCell(
             TextFormField(
               enabled: false,
@@ -278,27 +273,22 @@ static const snackBarStockError = SnackBar(
                           (double.parse(widget.controllers[i].text) *
                               double.parse(widget.controllers[i - 1].text));
                       totalDocument.text = total.toString();
-
                     }
                   }
                 },
                 child: TextFormField(
-                  
                   controller: quantiteController,
                   style: const TextStyle(
                     fontSize: 15.0,
                     color: Colors.white,
                   ),
-                  validator: (value){
-                    if(value!.isEmpty){
+                  validator: (value) {
+                    if (value!.isEmpty) {
                       print("Quantité y weldi");
                       return 'Quantité obligatoire';
-                    }
-                    else {
+                    } else {
                       return "jawek behi";
                     }
-                    
-                  
                   },
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -350,13 +340,10 @@ static const snackBarStockError = SnackBar(
               ),
             ),
           ),
-          
         ],
       ),
-      
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -372,7 +359,7 @@ static const snackBarStockError = SnackBar(
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFF2A2D3E),
+        backgroundColor: bgColor,
         floatingActionButton: FloatingActionButton(
             onPressed: () async {
               showAnimatedDialog(
@@ -404,24 +391,21 @@ static const snackBarStockError = SnackBar(
                             )));
                   });
             },
-            backgroundColor: primaryColor,
+            backgroundColor: bgColor,
             child: const Icon(
               Icons.navigation,
               color: Colors.white,
             )),
         body: Padding(
-          padding: const EdgeInsets.only(
-              top: 60.0, bottom: 60.0, left: 120.0, right: 120.0),
+          padding: EdgeInsets.all(5),
           child: Form(
             key: _formKey,
             child: Card(
-              shadowColor: const Color.fromARGB(255, 255, 255, 255),
-              color: const Color(0xFF2A2D3E),
+              color: bgColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0)),
+                  borderRadius: BorderRadius.circular(5.0)),
               elevation: 10.0,
               child: SizedBox(
-                width: 1500,
                 child: Column(
                   children: <Widget>[
                     Center(
@@ -442,57 +426,61 @@ static const snackBarStockError = SnackBar(
                               label: 'Numero de Séquence',
                               content: numDoc = seqDocument(),
                               label2: 'Date',
+                              label3: 'Liste des fournisseurs',
                             ),
+
                             const Divider(
                               thickness: 3,
                             ),
-                            SizedBox(
-                              height: 500,
-                              child: DataTable2(
-                                showCheckboxColumn: true,
-                                dataRowHeight: 50,
-                                columnSpacing: 30,
-                                columns: const [
-                                  DataColumn2(
-                                    label: Text(
-                                      "Référence Produit",
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                            Center(
+                              child: SizedBox(
+                                height: 500,
+                                child: DataTable2(
+                                  showCheckboxColumn: true,
+                                  dataRowHeight: 50,
+                                  columnSpacing: 30,
+                                  columns: const [
+                                    DataColumn2(
+                                      label: Text(
+                                        "Référence Produit",
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                  ),
-                                  DataColumn2(
-                                    label: Text(
-                                      "Nom Produit",
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                    DataColumn2(
+                                      label: Text(
+                                        "Nom Produit",
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                  ),
-                                  DataColumn2(
-                                    size: ColumnSize.S,
-                                    label: Text(
-                                      "Quantité",
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                    DataColumn2(
+                                      size: ColumnSize.S,
+                                      label: Text(
+                                        "Quantité",
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                  ),
-                                  DataColumn2(
-                                    size: ColumnSize.S,
-                                    label: Text(
-                                      "Prix",
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                    DataColumn2(
+                                      size: ColumnSize.S,
+                                      label: Text(
+                                        "Prix",
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                                rows: ligneDoc,
+                                  ],
+                                  rows: ligneDoc,
+                                ),
                               ),
                             ),
 
@@ -522,7 +510,8 @@ static const snackBarStockError = SnackBar(
                                   ),
                                   MaterialButton(
                                     height: 53,
-                                    color: const Color.fromARGB(255, 112, 112, 112),
+                                    color: const Color.fromARGB(
+                                        255, 112, 112, 112),
                                     onPressed: () {
                                       ajouterLigne();
                                     },
@@ -536,85 +525,84 @@ static const snackBarStockError = SnackBar(
                                   ),
                                   MaterialButton(
                                     height: 53,
-                                    color: const Color.fromARGB(255, 75, 100, 211),
+                                    color:
+                                        const Color.fromARGB(255, 75, 100, 211),
                                     onPressed: () async {
-                                      
-                                      
-                                      if(confirmButton==false)
-                                      {
-                                        ScaffoldMessenger.of(context).showSnackBar(snackBarButtonError);
+                                      if (confirmButton == false) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBarButtonError);
                                       }
-                                      
-                                        for (var j=2;j < widget.controllers.length;
-                                            j = j + 4)
-                                            {
-                                              
-                                                if(double.parse(widget.controllers[j].text) > produits![j]['stock'] )
-                                                {
-                                                     ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBarStockError);
-                                                }
-                                                  else{
-                                      
-                                      if (confirmButton) {
 
-                                        if (_formKey.currentState!.validate()) {
-                                          print("hello from key");
-                                      
-                                        numDoc = seqDocument();
-                                        print(numDoc);
-                                        print(widget.id);
-                                        dateDoc =
-                                            date.toString().substring(0, 10);
-                                        print(dateDoc);
-                                        if (true) {
-                                          {
-                                            future = ajoutDocument(
-                                                widget.id,
-                                                numSeqDocument,
-                                                dateDoc,
-                                                double.parse(
-                                                    totalDocument.text));
+                                      for (var j = 2;
+                                          j < widget.controllers.length;
+                                          j = j + 4) {
+                                        if (double.parse(
+                                                widget.controllers[j].text) >
+                                            produits![j]['stock']) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBarStockError);
+                                        } else {
+                                          if (confirmButton) {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              print("hello from key");
+
+                                              numDoc = seqDocument();
+                                              print(numDoc);
+                                              print(widget.id);
+                                              dateDoc = date
+                                                  .toString()
+                                                  .substring(0, 10);
+                                              print(dateDoc);
+                                              if (true) {
+                                                {
+                                                  future = ajoutDocument(
+                                                      widget.id,
+                                                      numSeqDocument,
+                                                      dateDoc,
+                                                      double.parse(
+                                                          totalDocument.text));
+                                                }
+                                              }
+                                              for (var i = 3;
+                                                  i < widget.controllers.length;
+                                                  i = i + 4) {
+                                                future = ajoutLigneDocument(
+                                                    idDoc,
+                                                    widget.controllers[i - 3]
+                                                        .text,
+                                                    widget.controllers[i - 2]
+                                                        .text,
+                                                    double.parse(widget
+                                                        .controllers[i - 1]
+                                                        .text),
+                                                    double.parse(widget
+                                                        .controllers[i].text));
+                                                future = modificationStock(
+                                                    widget.controllers[i - 3]
+                                                        .text,
+                                                    double.parse(widget
+                                                            .controllers[i - 1]
+                                                            .text) *
+                                                        -1);
+                                              }
+                                            }
+                                            Navigator.of(context).pop();
+                                            setState(() {
+                                              confirmButton = false;
+                                            });
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(snackBarSucces);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MainScreen(
+                                                          DashboardScreen())),
+                                            );
                                           }
                                         }
-                                        for (var i = 3;
-                                            i < widget.controllers.length;
-                                            i = i + 4) {
-                                          future = ajoutLigneDocument(
-                                              idDoc,
-                                              widget.controllers[i - 3].text,
-                                              widget.controllers[i - 2].text,
-                                              double.parse(widget
-                                                  .controllers[i - 1].text),
-                                              double.parse(
-                                                  widget.controllers[i].text));
-                                          future = modificationStock(
-                                              widget.controllers[i - 3].text,
-                                              double.parse(widget
-                                                      .controllers[i - 1]
-                                                      .text) *
-                                                  -1);
-                                        }
                                       }
-                                      Navigator.of(context).pop();
-                                      setState(() {
-                                        confirmButton = false;
-                                      });
-                                       ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBarSucces);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MainScreen(DashboardScreen())),
-                                      );
-                                                  }
-                                                }
-                                            
-
-
-                                            }
-
                                     },
                                     child: const Text(
                                       "Confirmer",
@@ -631,7 +619,6 @@ static const snackBarStockError = SnackBar(
                                       style: TextStyle(
                                         fontWeight: FontWeight.w800,
                                         fontSize: 20,
-                                        fontFamily: 'Montserrat',
                                         color:
                                             Color.fromARGB(255, 255, 255, 255),
                                       ),
@@ -651,7 +638,6 @@ static const snackBarStockError = SnackBar(
                                           enabled: false,
                                           hintText: totalDoc,
                                           hintStyle: TextStyle(
-                                            fontFamily: 'Montserrat',
                                             fontWeight: FontWeight.w400,
                                             color: Colors.grey.shade400,
                                           ),
@@ -698,7 +684,8 @@ static const snackBarStockError = SnackBar(
                                             ),
                                           ),
                                           contentPadding:
-                                              const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                              const EdgeInsets.fromLTRB(
+                                                  15, 0, 15, 0),
                                         ),
                                       ),
                                     ),

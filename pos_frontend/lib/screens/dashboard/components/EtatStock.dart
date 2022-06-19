@@ -95,10 +95,9 @@ class _EtatStockState extends State<EtatStock> {
                   ),
                   DataColumn(
                     label: Flexible(
-                      flex:1,
+                      flex: 1,
                       child: Text(
                         "Etat",
-                       
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
                       ),

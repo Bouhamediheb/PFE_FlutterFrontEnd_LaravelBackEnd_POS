@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:projetpfe/constants.dart';
 import 'modifierunPrd.dart';
 
 class listeProduit extends StatefulWidget {
@@ -47,21 +48,20 @@ class listeProduitState extends State<listeProduit> {
             borderRadius: BorderRadius.circular(15),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: const Color(0xFF2A2D3E),
+          color: bgColor,
           elevation: 10,
           child: SizedBox(
             width: double.infinity,
             child: Column(children: <Widget>[
               const Padding(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(5),
                 child: Center(
                     child: SizedBox(
-                  height: 20,
+                  height: 45,
                   child: Center(
                     child: Text(
                       'La Liste Des Produits :',
                       style: TextStyle(
-                          fontFamily: 'Montserrat',
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
@@ -73,7 +73,7 @@ class listeProduitState extends State<listeProduit> {
                 thickness: 3,
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               SizedBox(
                 height: 600,
@@ -171,7 +171,8 @@ class listeProduitState extends State<listeProduit> {
                                             animationType:
                                                 DialogTransitionType.fadeScale,
                                             curve: Curves.fastOutSlowIn,
-                                            duration: const Duration(seconds: 1),
+                                            duration:
+                                                const Duration(seconds: 1),
                                           );
                                           setState(() {
                                             fetchProduits();

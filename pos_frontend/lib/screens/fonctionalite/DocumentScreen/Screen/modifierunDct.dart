@@ -1,4 +1,4 @@
-//import 'package:admin/screens/fonctionalite/DocumentScreen/Widget/input_doc_produit_ref_nom.dart';
+//import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Widget/input_doc_produit_ref_nom.dart';
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
@@ -91,8 +91,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
           TextEditingController prixController = TextEditingController();
           widget.controllers.add(prixController);
           prixController.text = ligneDocuments![i]['prixProd'].toString();
-          TextEditingController totalProdController =
-              TextEditingController();
+          TextEditingController totalProdController = TextEditingController();
           totalProdController.text = (double.parse(prixController.text) *
                   double.parse(qteController.text))
               .toString();
@@ -288,7 +287,8 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                               itemCount: _cardList.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
                                   child: _cardList[index],
                                 );
                               },
@@ -411,7 +411,6 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w800,
                                     fontSize: 20,
-                                    fontFamily: 'Montserrat',
                                     color: Color.fromARGB(255, 255, 255, 255),
                                   ),
                                 ),
@@ -430,7 +429,6 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                       enabled: false,
                                       hintText: totalDoc,
                                       hintStyle: TextStyle(
-                                        fontFamily: 'Montserrat',
                                         fontWeight: FontWeight.w400,
                                         color: Colors.grey.shade400,
                                       ),
@@ -470,8 +468,8 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
                                           width: 1,
                                         ),
                                       ),
-                                      contentPadding:
-                                          const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                      contentPadding: const EdgeInsets.fromLTRB(
+                                          15, 0, 15, 0),
                                     ),
                                   ),
                                 ),
@@ -609,14 +607,14 @@ class _InputRefNomProduitState extends State<InputRefNomProduit> {
                   autofocus: true,
                   child: SearchField(
                     hint: "${widget.content}",
-                    searchStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    searchStyle:
+                        const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                     controller: widget.fieldController,
                     validator: widget.fieldValidator,
                     searchInputDecoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
                     ),
-                    suggestions:
-                        refProduits,
+                    suggestions: refProduits,
                     maxSuggestionsInViewPort: 6,
                     suggestionsDecoration: const BoxDecoration(
                       color: Colors.white,

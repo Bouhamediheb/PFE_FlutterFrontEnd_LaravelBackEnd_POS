@@ -53,15 +53,14 @@ class _listeFournisseurState extends State<listeFournisseur> {
             width: double.infinity,
             child: Column(children: <Widget>[
               const Padding(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(5),
                 child: Center(
                     child: SizedBox(
-                  height: 20,
+                  height: 45,
                   child: Center(
                     child: Text(
-                      'La Liste Des Fournisseurs :',
+                      'La Liste Des fournisseurs :',
                       style: TextStyle(
-                          fontFamily: 'Montserrat',
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
@@ -73,7 +72,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
                 thickness: 3,
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               SizedBox(
                 height: 600,
@@ -172,7 +171,8 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                             animationType:
                                                 DialogTransitionType.fadeScale,
                                             curve: Curves.fastOutSlowIn,
-                                            duration: const Duration(seconds: 1),
+                                            duration:
+                                                const Duration(seconds: 1),
                                           );
                                           setState(() {
                                             fetchFournisseurs();

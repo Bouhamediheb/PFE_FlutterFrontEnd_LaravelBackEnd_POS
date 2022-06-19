@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:admin/models/raccourcis.dart';
+import 'package:projetpfe/models/raccourcis.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -31,12 +31,11 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Test()),
-            
           );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +57,6 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 14)),
-                
           ],
         ),
       ),

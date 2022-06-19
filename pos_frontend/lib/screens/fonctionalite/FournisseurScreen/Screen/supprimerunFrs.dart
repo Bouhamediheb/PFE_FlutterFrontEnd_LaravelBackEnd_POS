@@ -50,7 +50,6 @@ class _supprimerUnFournisseurState extends State<supprimerUnFournisseur> {
                   "Supprimer",
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    fontFamily: 'Montserrat',
                     color: Colors.white,
                   ),
                 ),
@@ -69,7 +68,6 @@ class _supprimerUnFournisseurState extends State<supprimerUnFournisseur> {
                   "Annuler",
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    fontFamily: 'Montserrat',
                     color: Colors.grey.shade600,
                   ),
                 ),

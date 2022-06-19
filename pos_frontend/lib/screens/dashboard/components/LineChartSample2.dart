@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 
-import 'package:admin/constants.dart';
+import 'package:projetpfe/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +40,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
             ),
           ),
         ),
-        
       ],
     );
   }
@@ -62,13 +61,13 @@ class _LineChartSample2State extends State<LineChartSample2> {
       case 4:
         text = const Text('04/2022', style: style);
         break;
-         case 6:
+      case 6:
         text = const Text('05/2022', style: style);
         break;
-         case 8:
+      case 8:
         text = const Text('06/2022', style: style);
         break;
-         case 10:
+      case 10:
         text = const Text('07/2022', style: style);
         break;
       default:
@@ -258,7 +257,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
             FlSpot(6.8, 3.44),
             FlSpot(8, 3.44),
             FlSpot(9.5, 3.44),
-            
           ],
           isCurved: true,
           gradient: LinearGradient(

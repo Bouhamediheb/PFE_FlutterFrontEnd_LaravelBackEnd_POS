@@ -1,11 +1,11 @@
 // ignore_for_file: file_names, non_constant_identifier_names, must_be_immutable
 
-import 'package:admin/constants.dart';
+import 'package:projetpfe/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class _LineChart extends StatelessWidget {
-   _LineChart({required this.isShowingMainData});
+  _LineChart({required this.isShowingMainData});
 
   final bool isShowingMainData;
 
@@ -66,7 +66,6 @@ class _LineChart extends StatelessWidget {
   List<LineChartBarData> get lineBarsData1 => [
         lineChartBarData1_1,
         lineChartBarData1_2,
-      
       ];
 
   LineTouchData get lineTouchData2 => LineTouchData(
@@ -113,7 +112,7 @@ class _LineChart extends StatelessWidget {
       case 4:
         text = '12M TND';
         break;
-      
+
       default:
         return Container();
     }
@@ -146,18 +145,18 @@ class _LineChart extends StatelessWidget {
         text = const Text('04/2022', style: style);
         break;
       case 7:
-       text = const Text('05/2022', style: style);
+        text = const Text('05/2022', style: style);
         break;
       case 9:
-       text = const Text('06/2022', style: style);
+        text = const Text('06/2022', style: style);
         break;
-       case 11:
-       text = const Text('07/2022', style: style);
+      case 11:
+        text = const Text('07/2022', style: style);
         break;
       case 13:
-       text = const Text('08/2022', style: style);
+        text = const Text('08/2022', style: style);
         break;
-      
+
       default:
         text = const Text('');
         break;
@@ -179,22 +178,25 @@ class _LineChart extends StatelessWidget {
 
   FlGridData get gridData => FlGridData(show: true);
 
-List<FlSpot> F1 = [const FlSpot(1, 1),
-          const FlSpot(3, 1.5),
-          const FlSpot(5, 1.4),
-          const FlSpot(7, 3.4),
-          const FlSpot(9, 2),
-          const FlSpot(11, 2.2),
-          const FlSpot(13, 1),];
+  List<FlSpot> F1 = [
+    const FlSpot(1, 1),
+    const FlSpot(3, 1.5),
+    const FlSpot(5, 1.4),
+    const FlSpot(7, 3.4),
+    const FlSpot(9, 2),
+    const FlSpot(11, 2.2),
+    const FlSpot(13, 1),
+  ];
 
-List<FlSpot> F2 = [const FlSpot(1, 2),
-          const FlSpot(3, 1),
-          const FlSpot(5, 2),
-          const FlSpot(7, 4),
-          const FlSpot(9, 1.5),
-          const FlSpot(11, 2.3),
-          const FlSpot(13, 2),];
-
+  List<FlSpot> F2 = [
+    const FlSpot(1, 2),
+    const FlSpot(3, 1),
+    const FlSpot(5, 2),
+    const FlSpot(7, 4),
+    const FlSpot(9, 1.5),
+    const FlSpot(11, 2.3),
+    const FlSpot(13, 2),
+  ];
 
   FlBorderData get borderData => FlBorderData(
         show: true,
@@ -213,7 +215,7 @@ List<FlSpot> F2 = [const FlSpot(1, 2),
         isStrokeCapRound: true,
         dotData: FlDotData(show: false),
         belowBarData: BarAreaData(show: false),
-        spots:  [
+        spots: [
           F1[0],
           F1[1],
           F1[2],
@@ -221,8 +223,6 @@ List<FlSpot> F2 = [const FlSpot(1, 2),
           F1[4],
           F1[5],
           F1[6],
-
-          
         ],
       );
 
@@ -236,8 +236,8 @@ List<FlSpot> F2 = [const FlSpot(1, 2),
           show: false,
           color: const Color(0x00aa4cfc),
         ),
-        spots:  [
-        //from F2[0] to F2[6]
+        spots: [
+          //from F2[0] to F2[6]
           F2[0],
           F2[1],
           F2[2],
@@ -245,39 +245,37 @@ List<FlSpot> F2 = [const FlSpot(1, 2),
           F2[4],
           F2[5],
           F2[6],
-
-
-          
         ],
       );
 
- 
-List<FlSpot> F3 = [const FlSpot(1, 4),
-          const FlSpot(3, 1.5),
-          const FlSpot(5, 2),
-          const FlSpot(7, 1),
-          const FlSpot(9, 4),
-          const FlSpot(11, 1.2),
-          const FlSpot(13, 1.9),];
+  List<FlSpot> F3 = [
+    const FlSpot(1, 4),
+    const FlSpot(3, 1.5),
+    const FlSpot(5, 2),
+    const FlSpot(7, 1),
+    const FlSpot(9, 4),
+    const FlSpot(11, 1.2),
+    const FlSpot(13, 1.9),
+  ];
 
-List<FlSpot> F4 = [const FlSpot(1, 2),
-          const FlSpot(3, 1),
-          const FlSpot(5, 2.5),
-          const FlSpot(7, 1),
-          const FlSpot(9, 3.5),
-          const FlSpot(11, 2),
-          const FlSpot(13, 3),];
- 
+  List<FlSpot> F4 = [
+    const FlSpot(1, 2),
+    const FlSpot(3, 1),
+    const FlSpot(5, 2.5),
+    const FlSpot(7, 1),
+    const FlSpot(9, 3.5),
+    const FlSpot(11, 2),
+    const FlSpot(13, 3),
+  ];
 
   LineChartBarData get lineChartBarData2_2 => LineChartBarData(
-         isCurved: false,
+        isCurved: false,
         color: const Color(0xff4af699),
         barWidth: 8,
         isStrokeCapRound: true,
         dotData: FlDotData(show: false),
         belowBarData: BarAreaData(show: false),
-        
-        spots:  [
+        spots: [
           F3[0],
           F3[1],
           F3[2],
@@ -285,7 +283,6 @@ List<FlSpot> F4 = [const FlSpot(1, 2),
           F3[4],
           F3[5],
           F3[6],
-
         ],
       );
 
@@ -299,7 +296,7 @@ List<FlSpot> F4 = [const FlSpot(1, 2),
           show: false,
           color: const Color(0x00aa4cfc),
         ),
-        spots:  [
+        spots: [
           F4[0],
           F4[1],
           F4[2],
@@ -352,79 +349,48 @@ class LineChartSample1State extends State<LineChartSample1> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(
-                Icons.square,
-                color: Color(0xff4af699),
-                size: 35.0,
-                
-              ),
-            const Text("Recettes"),
-                               const Icon(
-                Icons.square,
-                color: Color(0xffaa4cfc),
-                size: 35.0,
-                
-              ),
-              const SizedBox(width: 10),
-            const Text("Dépenses"),
-            
-Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-  children: [
-        DropdownButton<String>(
-    
+                  Icons.square,
+                  color: Color(0xff4af699),
+                  size: 35.0,
+                ),
+                const Text("Recettes"),
+                const Icon(
+                  Icons.square,
+                  color: Color(0xffaa4cfc),
+                  size: 35.0,
+                ),
+                const SizedBox(width: 10),
+                const Text("Dépenses"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    DropdownButton<String>(
                       value: isShowingMainData ? '2022' : '2021',
-    
                       icon: const Icon(Icons.arrow_drop_down),
-    
                       iconSize: 24,
-    
                       elevation: 16,
-    
                       style: const TextStyle(color: Colors.deepPurple),
-    
                       underline: Container(
-    
                         height: 2,
-    
                         color: Colors.deepPurpleAccent,
-    
                       ),
-    
                       onChanged: (String? newValue) {
-    
-                         
                         setState(() {
-    
                           isShowingMainData = newValue == '2022';
-    
                         });
-    
                       },
-    
                       items: <String>['2022', '2021']
-    
                           .map<DropdownMenuItem<String>>((String value) {
-    
                         return DropdownMenuItem<String>(
-    
                           value: value,
-    
                           child: Text(value),
-    
                         );
-    
                       }).toList(),
-    
                     ),
-  ],
-),
+                  ],
+                ),
               ],
-              
             ),
-           
-            
-            
             const SizedBox(
               height: 37,
             ),
@@ -437,8 +403,6 @@ Row(
             const SizedBox(
               height: 10,
             ),
-            
-            
           ],
         ),
       ),

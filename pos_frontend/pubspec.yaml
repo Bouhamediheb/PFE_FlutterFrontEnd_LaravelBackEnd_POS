@@ -1,5 +1,5 @@
-name: admin
-description: A new Flutter project.
+name: projetpfe
+description: Outil de gestion créer par Iheb et Karim dans le cadre d'un projet de fin d'études..
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -23,6 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  window_size:
+    git:
+      url: https://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: 5c51870ced62a00e809ba4b81a846a052d241c9f
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -43,7 +48,8 @@ dependencies:
   flip_card: ^0.6.0
   desktop_window: ^0.4.0
   flutter_lints: ^2.0.1
-
+  window_manager: ^0.2.5
+  bitsdojo_window: ^0.1.2
 
 dev_dependencies:
   flutter_test:

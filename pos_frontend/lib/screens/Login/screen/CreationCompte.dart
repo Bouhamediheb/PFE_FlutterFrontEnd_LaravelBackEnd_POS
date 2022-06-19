@@ -1,11 +1,10 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:admin/screens/Login/Screen/Login.dart';
+import 'package:projetpfe/screens/Login/Screen/Login.dart';
 import 'package:flutter/material.dart';
-import 'package:admin/constants.dart';
+import 'package:projetpfe/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 
 class CreationCompte extends StatefulWidget {
   @override
@@ -101,8 +100,8 @@ class _CreationCompteState extends State<CreationCompte> {
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                            borderSide: const BorderSide(
+                                width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -126,7 +125,8 @@ class _CreationCompteState extends State<CreationCompte> {
                               width: 1,
                             ),
                           ),
-                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
@@ -155,8 +155,8 @@ class _CreationCompteState extends State<CreationCompte> {
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                            borderSide: const BorderSide(
+                                width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -180,7 +180,8 @@ class _CreationCompteState extends State<CreationCompte> {
                               width: 1,
                             ),
                           ),
-                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
@@ -210,8 +211,8 @@ class _CreationCompteState extends State<CreationCompte> {
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                            borderSide: const BorderSide(
+                                width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -235,7 +236,8 @@ class _CreationCompteState extends State<CreationCompte> {
                               width: 1,
                             ),
                           ),
-                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),
@@ -264,8 +266,8 @@ class _CreationCompteState extends State<CreationCompte> {
                             color: Color.fromARGB(255, 179, 179, 179),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Color(0xFF2A2D3E)),
+                            borderSide: const BorderSide(
+                                width: 1, color: Color(0xFF2A2D3E)),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -289,7 +291,8 @@ class _CreationCompteState extends State<CreationCompte> {
                               width: 1,
                             ),
                           ),
-                          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         ),
                       ),
                     ),

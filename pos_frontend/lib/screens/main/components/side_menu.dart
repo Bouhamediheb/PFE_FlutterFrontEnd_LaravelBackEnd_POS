@@ -1,7 +1,8 @@
-import 'package:admin/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
-import 'package:admin/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
-import 'package:admin/screens/fonctionalite/UserRightsScreen/listedesUtilisateurs.dart';
-import 'package:admin/screens/main/main_screen.dart';
+import 'package:projetpfe/constants.dart';
+import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
+import 'package:projetpfe/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
+import 'package:projetpfe/screens/fonctionalite/UserRightsScreen/listedesUtilisateurs.dart';
+import 'package:projetpfe/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -24,6 +25,7 @@ class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: bgColor,
       child: SingleChildScrollView(
         // it enables scrolling
         child: Column(
@@ -76,14 +78,12 @@ class _SideMenuState extends State<SideMenu> {
                       builder: (context) => MainScreen(listeDocument())),
                 );
               },
-              
             ),
             DrawerListTile(
               title: "Fournisseurs",
               svgSrc: "assets/icons/menu_tran.svg",
               subTitle1: 'Ajouter Un Fournisseur',
               subTitle2: 'Liste Des Fournisseurs',
-              subTitle3: '---------',
               press1: () {
                 Navigator.push(
                   context,
@@ -98,24 +98,12 @@ class _SideMenuState extends State<SideMenu> {
                       builder: (context) => MainScreen(listeFournisseur())),
                 );
               },
-              press3: () {},
-            ),
-            DrawerListTile(
-              title: "Boutiques",
-              svgSrc: "assets/icons/menu_store.svg",
-              subTitle1: 'Liste Des Boutiques(Filiales)',
-              subTitle2: 'Ajouter Une Boutique',
-              subTitle3: 'Supprimer Une Boutique',
-              press1: () {},
-              press2: () {},
-              press3: () {},
             ),
             DrawerListTile(
               title: "Produits",
               svgSrc: "assets/icons/menu_doc.svg",
               subTitle1: 'Liste des produits',
               subTitle2: 'Ajouter un produit',
-              subTitle3: '-----------',
               press1: () {
                 Navigator.push(
                   context,
@@ -127,30 +115,10 @@ class _SideMenuState extends State<SideMenu> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainScreen(const ajouterUnProduit())),
+                      builder: (context) =>
+                          MainScreen(const ajouterUnProduit())),
                 );
               },
-              press3: () {},
-            ),
-            DrawerListTile(
-              title: "Taches",
-              svgSrc: "assets/icons/menu_task.svg",
-              subTitle1: 'xxxxx',
-              subTitle2: 'xxxxx',
-              subTitle3: 'xxxxx',
-              press1: () {},
-              press2: () {},
-              press3: () {},
-            ),
-            DrawerListTile(
-              title: "Profile",
-              svgSrc: "assets/icons/menu_profile.svg",
-              subTitle1: 'xxxxx',
-              subTitle2: 'xxxxx',
-              subTitle3: 'xxxxx',
-              press1: () {},
-              press2: () {},
-              press3: () {},
             ),
             DrawerListTile(
               title: "Parametres",
@@ -166,10 +134,7 @@ class _SideMenuState extends State<SideMenu> {
                 );
               },
               press2: () {},
-              press3: () {
-                
-
-              },
+              press3: () {},
             ),
           ],
         ),
@@ -234,7 +199,6 @@ class DrawerListTile extends StatelessWidget {
                 color: Color.fromARGB(255, 197, 195, 195), fontSize: 13),
           ),
         ),
-        
       ],
     );
   }

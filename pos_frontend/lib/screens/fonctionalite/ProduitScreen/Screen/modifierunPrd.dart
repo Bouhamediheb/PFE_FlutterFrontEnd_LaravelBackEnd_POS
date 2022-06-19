@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '../Widgets/input_field.dart';
 import '../Widgets/input_field_description.dart';
-import 'package:admin/constants.dart';
+import 'package:projetpfe/constants.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:io';
@@ -35,8 +35,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
 
   Future<void> chooseImage() async {
     final ImagePicker picker = ImagePicker();
-    var choosedimage =
-        (picker.pickImage(source: ImageSource.gallery) as XFile);
+    var choosedimage = (picker.pickImage(source: ImageSource.gallery) as XFile);
     final File convertimage = File(choosedimage.path);
     setState(() {
       uploadimage = convertimage;
@@ -77,7 +76,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       double prixVenteProduit,
       String descriptionProduit,
       File? imageProduit) async {
-      late List? produits = [];
+    late List? produits = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/produit/'),
       headers: <String, String>{'Content-Type': 'multipart/form-data'},

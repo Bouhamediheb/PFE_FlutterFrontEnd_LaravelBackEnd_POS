@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:admin/constants.dart';
+import 'package:projetpfe/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -298,8 +298,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                     Expanded(
                                       child: ListTile(
                                         title: const Padding(
-                                          padding:
-                                              EdgeInsets.only(left: 1),
+                                          padding: EdgeInsets.only(left: 1),
                                           child: SizedBox(
                                             width: 40.0,
                                             child: Text(

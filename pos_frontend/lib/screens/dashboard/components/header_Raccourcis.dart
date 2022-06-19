@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
-import 'package:admin/models/raccourcis.dart';
-import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/RaccourcisRapides.dart';
+import 'package:projetpfe/models/raccourcis.dart';
+import 'package:projetpfe/responsive.dart';
+import 'package:projetpfe/screens/dashboard/components/RaccourcisRapides.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -46,13 +46,15 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainScreen(const ajouterUnProduit())),
+                          builder: (context) =>
+                              MainScreen(const ajouterUnProduit())),
                     );
                   } else if (value == 3) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainScreen(const ChoixDocument())),
+                          builder: (context) =>
+                              MainScreen(const ChoixDocument())),
                     );
                   }
                 },
@@ -61,7 +63,6 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 child: Container(
-
                   decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(40.0)),
@@ -81,14 +82,11 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
                 ),
                 itemBuilder: (context) => [
                       const PopupMenuItem(
-                          value: 1,
-                          child: Text("Ajouter un Fournisseur")),
+                          value: 1, child: Text("Ajouter un Fournisseur")),
                       const PopupMenuItem(
-                          value: 2,
-                          child: Text("Ajouter un Produit")),
+                          value: 2, child: Text("Ajouter un Produit")),
                       const PopupMenuItem(
-                          value: 3,
-                          child: Text("Ajouter un Document")),
+                          value: 3, child: Text("Ajouter un Document")),
                     ])
           ],
         ),
@@ -101,7 +99,6 @@ class _HeaderRaccourcisState extends State<HeaderRaccourcis> {
           tablet: const FileInfoCardGridView(),
           desktop: FileInfoCardGridView(
             childAspectRatio: size.width < 1400 ? 1.1 : 1.5,
-            
           ),
         ),
       ],

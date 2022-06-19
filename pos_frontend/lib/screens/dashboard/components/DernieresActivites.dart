@@ -1,17 +1,15 @@
 // ignore_for_file: depend_on_referenced_packages, file_names
 
-import 'package:admin/models/DernieresActions.dart';
+import 'package:projetpfe/models/DernieresActions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 import '../../../constants.dart';
 
-
 class DernieresActivites extends StatefulWidget {
   const DernieresActivites({
     Key? key,
-    
   }) : super(key: key);
 
   @override
