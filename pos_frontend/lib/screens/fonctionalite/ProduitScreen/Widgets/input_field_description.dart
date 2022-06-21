@@ -32,7 +32,7 @@ class InputFieldDescription extends StatelessWidget {
                 "$label",
                 textAlign: TextAlign.left,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w900,
+                  fontSize: 15,
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
               ),

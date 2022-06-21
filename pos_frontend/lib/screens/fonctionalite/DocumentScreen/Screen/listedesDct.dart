@@ -159,10 +159,14 @@ class _listeDocumentState extends State<listeDocument> {
                                     duration: const Duration(seconds: 1),
                                   );
                                 },
-                                child: Text(documents![i]['numDoc']))),
-                            DataCell(Text(documents![i]['dateDoc'].toString())),
-                            DataCell(
-                                Text(documents![i]['totalDoc'].toString())),
+                                child: Center(
+                                    child: Text(documents![i]['numDoc'])))),
+                            DataCell(Center(
+                                child:
+                                    Text(documents![i]['dateDoc'].toString()))),
+                            DataCell(Center(
+                                child: Text(
+                                    documents![i]['totalDoc'].toString()))),
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -178,14 +182,13 @@ class _listeDocumentState extends State<listeDocument> {
                                             barrierDismissible: true,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                backgroundColor:
-                                                    const Color(0xFF2A2D3E),
+                                                backgroundColor: bgColor,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
                                                 content: SizedBox(
-                                                    width: 1500,
+                                                    width: 1100,
                                                     child: modifierUnDocument(
                                                         documents![i]['id'],
                                                         documentId)),

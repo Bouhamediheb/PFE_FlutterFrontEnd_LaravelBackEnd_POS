@@ -76,22 +76,22 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
         width: double.infinity,
         child: Material(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
+            borderRadius: BorderRadius.circular(15),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: const Color(0xFF2A2D3E),
+          color: bgColor,
           elevation: 10,
           child: SizedBox(
             width: double.infinity,
             child: Column(children: <Widget>[
               const Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(5),
                 child: Center(
                     child: SizedBox(
-                  height: 25,
+                  height: 45,
                   child: Center(
                     child: Text(
-                      'La Liste Des Utlisateurs :',
+                      'La Liste des utlisateurs :',
                       style: TextStyle(
                           //
                           color: Colors.white,
@@ -105,7 +105,7 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                 thickness: 3,
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               SizedBox(
                 height: 600,
@@ -174,22 +174,25 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                                       .showSnackBar(snackBar);
                                 }
                               },
-                              color: const Color(0xFF247b9c),
-                              offset: const Offset(0, 30),
+                              color: secondaryColor,
+                              offset: const Offset(10, 30),
                               elevation: 0,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: secondaryColor,
-                                    borderRadius: BorderRadius.circular(10.0)),
+                                    borderRadius: BorderRadius.circular(2.0)),
                                 width: 150,
                                 child: Row(
                                   children: [
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
                                     typeAcc(i),
                                     const SizedBox(
-                                      width: 20,
+                                      width: 10,
                                     ),
                                     const Icon(Icons.arrow_drop_down,
                                         color: Colors.white),

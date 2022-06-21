@@ -106,7 +106,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                     const SizedBox(height: 10),
                                     InputField(
                                       label: "Référence Produit",
-                                      content: "La Référende du produit",
+                                      content: "La Référence du produit",
                                       fieldController: refProduit,
                                       fieldValidator: (value) {
                                         if (value == null || value.isEmpty) {

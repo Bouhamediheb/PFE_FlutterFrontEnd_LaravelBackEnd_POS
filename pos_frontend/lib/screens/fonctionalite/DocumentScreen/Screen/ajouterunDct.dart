@@ -534,7 +534,7 @@ static const snackBarStockError = SnackBar(
                                       }
 
                                       for (var j = 2;
-                                          j < widget.controllers.length;
+                                          j <= widget.controllers.length;
                                           j = j + 4) {
                                         if (double.parse(
                                                 widget.controllers[j].text) >
@@ -545,8 +545,6 @@ static const snackBarStockError = SnackBar(
                                           if (confirmButton) {
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                              print("hello from key");
-
                                               numDoc = seqDocument();
                                               print(numDoc);
                                               print(widget.id);

@@ -70,12 +70,12 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
   Map<String, dynamic>? produits;
 
   Future<http.Response?> ajoutProduit(
-      String refProduit,
-      String nomProduit,
-      double prixAchatProduit,
-      double prixVenteProduit,
-      String descriptionProduit,
-      File? imageProduit) async {
+    String refProduit,
+    String nomProduit,
+    double prixAchatProduit,
+    double prixVenteProduit,
+    String descriptionProduit,
+  ) async {
     late List? produits = [];
     final response = await http.post(
       Uri.parse('http://127.0.0.1:8000/api/produit/'),
@@ -86,7 +86,6 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
         'prixAchat': prixAchatProduit,
         'prixVente': prixVenteProduit,
         'descriptionProd': descriptionProduit,
-        'imageProd': imageProduit,
       }),
     );
     if (response.statusCode == 200) {
@@ -104,10 +103,9 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       key: _formKey,
       child: SingleChildScrollView(
         child: Card(
-          shadowColor: const Color.fromARGB(255, 122, 120, 120),
-          color: const Color(0xFF2A2D3E),
+          color: bgColor,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 0.0,
           child: SizedBox(
             width: 1800,
@@ -115,7 +113,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
               children: [
                 Center(
                   child: Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         const Text(
@@ -138,7 +136,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   const SizedBox(height: 10),
                                   InputField(
                                     label: "Référence Produit",
-                                    content: "La Référende du produit",
+                                    content: "La Référence du produit",
                                     fieldController: refProduit,
                                     fieldValidator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -197,39 +195,6 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 25),
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          "Séléctionnez une Image",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w900,
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 25),
-                                        Container(
-                                          child: OutlinedButton(
-                                            onPressed: () {
-                                              chooseImage();
-                                            },
-                                            child: const Icon(
-                                              Icons.add,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 400)
-                                  ]),
-                            ),
                           ],
                         ),
                         const SizedBox(height: 40),
@@ -256,12 +221,12 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() {
                                     future = ajoutProduit(
-                                        refProduit.text,
-                                        nomProduit.text,
-                                        double.parse(prixAchatProduit.text),
-                                        double.parse(prixVenteProduit.text),
-                                        descriptionProduit.text,
-                                        uploadimage);
+                                      refProduit.text,
+                                      nomProduit.text,
+                                      double.parse(prixAchatProduit.text),
+                                      double.parse(prixVenteProduit.text),
+                                      descriptionProduit.text,
+                                    );
                                   });
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -276,7 +241,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                 }
                               },
                               child: const Text(
-                                "Ajouter",
+                                "Appliquer",
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:projetpfe/constants.dart';
 import 'modifierunFrs.dart';
 
 class listeFournisseur extends StatefulWidget {
@@ -47,7 +48,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
             borderRadius: BorderRadius.circular(15),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: const Color(0xFF2A2D3E),
+          color: bgColor,
           elevation: 10,
           child: SizedBox(
             width: double.infinity,
@@ -136,8 +137,10 @@ class _listeFournisseurState extends State<listeFournisseur> {
                             DataCell(Text(fournisseurs![i]['tel'])),
                             DataCell(Text(fournisseurs![i]['email'])),
                             DataCell(Text(fournisseurs![i]['mf'])),
-                            DataCell(Text(
-                                fournisseurs![i]['timbreFiscal'].toString())),
+                            DataCell(Text((fournisseurs![i]['timbreFiscal'] ==
+                                    null)
+                                ? '0'
+                                : fournisseurs![i]['timbreFiscal'].toString())),
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -155,14 +158,13 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                             barrierDismissible: true,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                backgroundColor:
-                                                    const Color(0xFF2A2D3E),
+                                                backgroundColor: bgColor,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
                                                 content: SizedBox(
-                                                    width: 1200,
+                                                    width: 1000,
                                                     child:
                                                         modifierUnFournisseur(
                                                             fournisseurId)),

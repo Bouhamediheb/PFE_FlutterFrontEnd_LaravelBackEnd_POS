@@ -112,18 +112,18 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
     return Form(
       key: _formKey,
       child: Card(
-        shadowColor: const Color.fromARGB(255, 122, 120, 120),
-        color: const Color(0xFF2A2D3E),
+        shadowColor: Color.fromARGB(255, 138, 102, 102),
+        color: bgColor,
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         elevation: 0,
         child: SizedBox(
-          width: 1800,
+          //width: 1000,
           child: Column(
             children: <Widget>[
               Center(
                 child: Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(5),
                   child: Column(
                     children: <Widget>[
                       const Text(
@@ -348,15 +348,13 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                       ),
 
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          const SizedBox(
-                            width: 370.0,
-                          ),
                           const SizedBox(
                             width: 20.0,
                           ),
                           MaterialButton(
+                            height: 50,
                             color: const Color.fromARGB(255, 75, 100, 211),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {

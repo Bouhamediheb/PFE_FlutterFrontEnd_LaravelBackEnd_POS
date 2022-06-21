@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:projetpfe/constants.dart';
 import 'package:searchfield/searchfield.dart';
 import '../../../dashboard/dashboard_screen.dart';
 import '../../../main/main_screen.dart';
@@ -266,9 +267,9 @@ class _modifierUnDocumentState extends State<modifierUnDocument> {
         child: Card(
           elevation: 0,
           shadowColor: const Color.fromARGB(255, 255, 255, 255),
-          color: const Color(0xFF2A2D3E),
+          color: bgColor,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: SizedBox(
             width: 2000,
             child: Column(
