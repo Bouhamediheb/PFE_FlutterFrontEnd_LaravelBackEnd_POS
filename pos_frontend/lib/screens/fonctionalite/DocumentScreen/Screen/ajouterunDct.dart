@@ -42,7 +42,6 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
       var items = jsonDecode(response.body);
       setState(() {
         produits = items;
-        print(produits);
       });
     } else {
       throw Exception('Error!');
@@ -51,7 +50,6 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
       setState(() {
         refProduits.add(produits![i]['refProd']);
       });
-      print("hello");
     }
   }
 
@@ -75,7 +73,7 @@ static const snackBarStockError = SnackBar(
   );
 */
   TextEditingController totalDocument = TextEditingController(text: '0');
-
+  num Stokkkkk = 0;
   Future<http.Response?> ajoutDocument(
       int type, String? numeroDoc, String? dateDoc, double totalDoc) async {
     final response = await http.post(
@@ -114,6 +112,23 @@ static const snackBarStockError = SnackBar(
     );
     if (response.statusCode == 200) {
       print("Ligne Document Ajouté");
+    } else {
+      throw Exception('Erreur base de données!');
+    }
+  }
+
+  getStock(String refProd) async {
+    final response = await http.get(
+      Uri.parse("http://127.0.0.1:8000/api/produit/$refProd"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json; charset=utf-8',
+      },
+    );
+    if (response.statusCode == 200) {
+      setState(() {
+        Stokkkkk = jsonDecode(response.body);
+      });
     } else {
       throw Exception('Erreur base de données!');
     }
@@ -171,10 +186,6 @@ static const snackBarStockError = SnackBar(
     print(idDoc);
     idDoc ??= 1;
     return numSeqDocument = '${date.toString().substring(0, 10)}/DOC$idDoc';
-  }
-
-  void TestFonction() {
-    print("Hello");
   }
 
   List<DataRow> ligneDoc = [];
@@ -534,11 +545,21 @@ static const snackBarStockError = SnackBar(
                                       }
 
                                       for (var j = 2;
-                                          j <= widget.controllers.length;
+                                          j < widget.controllers.length;
                                           j = j + 4) {
-                                        if (double.parse(
-                                                widget.controllers[j].text) >
-                                            produits![j]['stock']) {
+                                        getStock(
+                                            widget.controllers[j - 2].text);
+                                        if (widget
+                                            .controllers[j].text.isNotEmpty) {
+                                          if (double.parse(
+                                                  widget.controllers[j].text) >
+                                              Stokkkkk) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                                    snackBarStockError);
+                                          }
+                                        } else if (widget
+                                            .controllers[j].text.isEmpty) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(snackBarStockError);
                                         } else {
@@ -702,361 +723,6 @@ static const snackBarStockError = SnackBar(
           ),
         ),
       ),
-    );
-  }
-}
-
-class InputRefNomProduit extends StatefulWidget {
-  double total = 0;
-  String? totalDoc = "Hello";
-  TextEditingController totalDocument;
-
-  final String? label, label2, label3, label4;
-  final String? content, content2, content3, content4, content5;
-  TextEditingController? fieldController = TextEditingController();
-  TextEditingController? fieldController2 = TextEditingController();
-  TextEditingController? fieldController3 = TextEditingController();
-  TextEditingController? fieldController4 = TextEditingController();
-  TextEditingController? fieldController5 = TextEditingController();
-  List<TextEditingController> controllers = [];
-  VoidCallback? Prix;
-  FormFieldValidator<String>? fieldValidator = (_) {
-    return null;
-  };
-  InputRefNomProduit({
-    required this.total,
-    required this.controllers,
-    this.label,
-    this.content,
-    this.label2,
-    this.content2,
-    this.label3,
-    this.content3,
-    this.label4,
-    this.content4,
-    this.fieldController,
-    this.fieldController2,
-    this.fieldValidator,
-    this.fieldController3,
-    this.fieldController4,
-    this.fieldController5,
-    this.content5,
-    this.Prix,
-    this.totalDoc,
-    required this.totalDocument,
-  });
-
-  @override
-  State<InputRefNomProduit> createState() => _InputRefNomProduitState();
-}
-
-class _InputRefNomProduitState extends State<InputRefNomProduit> {
-  bool hasFocus = false;
-  String? nomProduit;
-  String? selectedProduit;
-  int? produitId;
-  List? produits = [];
-  List<SearchFieldListItem<dynamic>> refProduits = [];
-  @override
-  void initState() {
-    super.initState();
-    fetchProduits();
-  }
-
-  fetchProduits() async {
-    final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/api/produit'),
-      headers: <String, String>{
-        'Cache-Control': 'no-cache',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      var items = jsonDecode(response.body);
-      setState(() {
-        produits = items;
-        print(produits);
-      });
-    } else {
-      throw Exception('Error!');
-    }
-    for (var i = 0; i < produits!.length; i++) {
-      setState(() {
-        refProduits.add(produits![i]['refProd']);
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return Row(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Container(
-                child: Text(
-                  "${widget.label}",
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 5.0,
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                width: MediaQuery.of(context).size.width / 3.7,
-                color: const Color.fromARGB(255, 255, 255, 255),
-                child: Focus(
-                  autofocus: true,
-                  child: SearchField(
-                    hint: "${widget.content}",
-                    searchStyle: const TextStyle(color: Colors.black),
-                    controller: widget.fieldController,
-                    validator: widget.fieldValidator,
-                    searchInputDecoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
-                      hintStyle: TextStyle(
-                          color: Color.fromARGB(255, 190, 190, 190),
-                          fontSize: 14),
-                    ),
-                    suggestionItemDecoration: BoxDecoration(
-                        color: const Color(0xFF2A2D3E),
-                        border: Border.all(color: Colors.white, width: 1.0)),
-                    suggestions: refProduits.toList(),
-                    maxSuggestionsInViewPort: 6,
-                    suggestionsDecoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    suggestionState: Suggestion.expand,
-                    textInputAction: TextInputAction.next,
-                    onSubmit: (value) {
-                      setState(() {
-                        selectedProduit = value;
-                        for (var i = 0; i < produits!.length; i++) {
-                          if (selectedProduit == produits![i]['refProd']) {
-                            nomProduit = produits![i]['nomProd'];
-                            widget.fieldController4!.text =
-                                produits![i]['prixVente'].toString();
-                            widget.fieldController2!.text =
-                                nomProduit.toString();
-                          }
-                        }
-                      });
-                    },
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 5.0,
-            ),
-            Expanded(
-              flex: 3,
-              child: SizedBox(
-                width: 50.0,
-                child: Text(
-                  "${widget.label2}",
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 5.0,
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                width: MediaQuery.of(context).size.width / 3.7,
-                color: const Color.fromARGB(255, 255, 255, 255),
-                child: TextFormField(
-                  enabled: false,
-                  controller: widget.fieldController2,
-                  validator: widget.fieldValidator,
-                  style: const TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(10.0),
-                    hintText: "${widget.content2}",
-                    hintStyle: const TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: const Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 5.0,
-            ),
-            Expanded(
-              flex: 2,
-              child: SizedBox(
-                width: 50.0,
-                child: Text(
-                  "${widget.label3}",
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                width: MediaQuery.of(context).size.width / 3.7,
-                color: const Color.fromARGB(255, 255, 255, 255),
-                child: Focus(
-                  onFocusChange: (hasFocus) {
-                    if (!hasFocus) {
-                      widget.total = 0;
-                      for (var i = 3;
-                          i <= widget.controllers.length;
-                          i = i + 4) {
-                        widget.total = widget.total +
-                            (double.tryParse(widget.controllers[i].text)! *
-                                double.tryParse(
-                                    widget.controllers[i - 1].text)!);
-                        setState(() {
-                          widget.totalDoc = widget.total.toString();
-                          widget.totalDocument.text = widget.total.toString();
-                          widget.fieldController5!.text =
-                              (double.parse(widget.controllers[i - 1].text) *
-                                      double.parse(widget.controllers[i].text))
-                                  .toString();
-                        });
-                      }
-                    }
-                  },
-                  child: TextFormField(
-                    controller: widget.fieldController3,
-                    validator: widget.fieldValidator,
-                    style: const TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(10.0),
-                      hintText: "${widget.content3}",
-                      hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 190, 190, 190),
-                          fontSize: 14),
-                      fillColor: const Color.fromARGB(255, 0, 0, 0),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 5.0,
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                child: Text(
-                  "${widget.label4}",
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                width: MediaQuery.of(context).size.width / 3.7,
-                color: const Color.fromARGB(255, 255, 255, 255),
-                child: Focus(
-                  onFocusChange: (hasFocus) {
-                    if (!hasFocus) {
-                      widget.fieldController5!.text =
-                          (double.parse(widget.fieldController4!.text) *
-                                  double.parse(widget.fieldController3!.text))
-                              .toString();
-                      widget.total = 0;
-                      for (var i = 3;
-                          i <= widget.controllers.length;
-                          i = i + 4) {
-                        widget.total = widget.total +
-                            (double.tryParse(widget.controllers[i].text)! *
-                                double.tryParse(
-                                    widget.controllers[i - 1].text)!);
-                        setState(() {
-                          widget.totalDoc = widget.total.toString();
-                          widget.totalDocument.text = widget.total.toString();
-                          print(widget.fieldController5!.text);
-                        });
-                      }
-                    }
-                  },
-                  child: TextFormField(
-                    textInputAction: TextInputAction.done,
-                    enabled: true,
-                    controller: widget.fieldController4,
-                    validator: widget.fieldValidator,
-                    style: const TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(10.0),
-                      hintText: "${widget.content4}",
-                      hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 190, 190, 190),
-                          fontSize: 14),
-                      fillColor: const Color.fromARGB(255, 0, 0, 0),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 5.0,
-            ),
-            Expanded(
-              flex: 3,
-              child: Container(
-                width: MediaQuery.of(context).size.width / 3.7,
-                color: const Color.fromARGB(255, 255, 255, 255),
-                child: TextFormField(
-                  enabled: false,
-                  controller: widget.fieldController5,
-                  validator: widget.fieldValidator,
-                  style: const TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(10.0),
-                    hintText: "${widget.content5}",
-                    hintStyle: const TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: const Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }
