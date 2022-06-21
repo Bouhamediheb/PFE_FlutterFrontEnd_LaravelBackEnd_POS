@@ -338,11 +338,12 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                         exoTVA);
                                   });
 
+                                  Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         backgroundColor: (secondaryColor),
                                         content: Text(
-                                          'Fournisseur Ajouté',
+                                          'Tâche effectuée avec succès',
                                           style: TextStyle(
                                               color: Color.fromARGB(
                                                   255, 250, 253, 255)),

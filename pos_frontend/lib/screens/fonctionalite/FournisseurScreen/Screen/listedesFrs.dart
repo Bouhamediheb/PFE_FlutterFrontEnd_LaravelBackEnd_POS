@@ -165,6 +165,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                                 ),
                                                 content: SizedBox(
                                                     width: 1000,
+                                                    height: 500,
                                                     child:
                                                         modifierUnFournisseur(
                                                             fournisseurId)),

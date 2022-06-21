@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProduitStockController;
 use App\Http\Controllers\DocumentTotalController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StockProduitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use App\Http\Controllers\RoleController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/produit/stock/{refProd}', [StockProduitController::class, 'stockProduit']);
 
 Route::post('/role/{id}', [RoleController::class, 'attribuerRole']);
 

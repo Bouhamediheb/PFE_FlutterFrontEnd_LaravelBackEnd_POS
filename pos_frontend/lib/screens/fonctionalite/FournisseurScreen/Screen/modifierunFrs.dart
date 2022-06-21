@@ -81,7 +81,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
       String villeFournisseur,
       double? timbreFiscaleFournisseur,
       bool? exoTVA) async {
-    final response = await http.post(
+    final response = await http.put(
       Uri.parse('http://127.0.0.1:8000/api/fournisseur/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -127,7 +127,7 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                   child: Column(
                     children: <Widget>[
                       const Text(
-                        "MODIFIER UN FOURNISSEUR",
+                        "Modifier le fournisseur",
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
@@ -336,17 +336,9 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                           ),
                         ],
                       ),
-
                       const SizedBox(
                         height: 40.0,
                       ),
-
-                      //Membership Widget from the widgets folder
-
-                      const SizedBox(
-                        height: 40.0,
-                      ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
@@ -371,12 +363,13 @@ class _modifierUnFournisseurState extends State<modifierUnFournisseur> {
                                       timbreFiscaleFournisseur,
                                       exoTVA);
                                 });
-
+                                //back screen 1 please
+                                Navigator.pop(context);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       backgroundColor: (secondaryColor),
                                       content: Text(
-                                        'Fournisseur Ajouté',
+                                        'Tâche effectuée avec succès',
                                         style: TextStyle(
                                             color: Color.fromARGB(
                                                 255, 250, 253, 255)),

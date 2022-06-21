@@ -23,6 +23,8 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
   final prixAchatProduit = TextEditingController();
   final prixVenteProduit = TextEditingController();
   final descriptionProduit = TextEditingController();
+  final stockProduit = TextEditingController();
+  final tvaProduit = TextEditingController();
 
   File? uploadimage;
   String? baseimage;
@@ -63,6 +65,8 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       prixVenteProduit.text = produits!['prixVente'].toString();
       descriptionProduit.text = produits!['descriptionProd'];
       refProduit.text = produits!['refProd'];
+      stockProduit.text = produits!['stock'].toString();
+      tvaProduit.text = produits!['TVA'].toString();
     });
     return null;
   }
@@ -75,17 +79,24 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     double prixAchatProduit,
     double prixVenteProduit,
     String descriptionProduit,
+    double stockProduit,
+    double tvaProduit,
   ) async {
     late List? produits = [];
-    final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/api/produit/'),
-      headers: <String, String>{'Content-Type': 'multipart/form-data'},
+    final response = await http.put(
+      Uri.parse('http://127.0.0.1:8000/api/produit/${widget.produitId}'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
       body: jsonEncode(<String, dynamic>{
         'refProd': refProduit,
         'nomProd': nomProduit,
         'prixAchat': prixAchatProduit,
         'prixVente': prixVenteProduit,
         'descriptionProd': descriptionProduit,
+        'stock': stockProduit,
+        'TVA': tvaProduit,
       }),
     );
     if (response.statusCode == 200) {
@@ -117,7 +128,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                     child: Column(
                       children: [
                         const Text(
-                          "MODIFIER UN PRODUIT",
+                          "Modifier le produit",
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
@@ -181,6 +192,29 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                     },
                                   ),
                                   const SizedBox(height: 20),
+                                  InputField(
+                                      label: "TVA",
+                                      content: "TVA du Produit",
+                                      fieldController: tvaProduit,
+                                      fieldValidator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return "Ce Champ est obligatoire";
+                                        }
+                                        return null;
+                                      }),
+                                  const SizedBox(height: 20),
+                                  InputField(
+                                    label: "Stock",
+                                    content: "Stock",
+                                    fieldController: stockProduit,
+                                    fieldValidator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ce Champ est obligatoire";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(height: 20),
                                   InputFieldDescription(
                                     content: 'La Description du Produit',
                                     label: 'Description du Produit',
@@ -226,13 +260,16 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                       double.parse(prixAchatProduit.text),
                                       double.parse(prixVenteProduit.text),
                                       descriptionProduit.text,
+                                      double.parse(stockProduit.text),
+                                      double.parse(tvaProduit.text),
                                     );
                                   });
+                                  Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         backgroundColor: (secondaryColor),
                                         content: Text(
-                                          'Produit Ajouté',
+                                          'Tâche effectuée avec succès',
                                           style: TextStyle(
                                               color: Color.fromARGB(
                                                   255, 250, 253, 255)),

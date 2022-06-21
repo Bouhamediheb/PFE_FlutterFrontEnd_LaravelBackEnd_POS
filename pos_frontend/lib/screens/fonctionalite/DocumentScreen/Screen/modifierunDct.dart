@@ -395,7 +395,6 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                           color: Colors.white,
                         ),
                         decoration: InputDecoration(
-                          suffixText: "DT",
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.all(10.0),
                           hintText: "Taper le Prix",
@@ -603,45 +602,9 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
       },
       child: Scaffold(
         backgroundColor: bgColor,
-        floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              showAnimatedDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                        backgroundColor: bgColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        content: Container(
-                            width: 350,
-                            height: 300,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ListTile(
-                                  leading: Image.asset("images/f1.jpg"),
-                                  trailing: Text("Ajoutez une Ligne"),
-                                ),
-                                Divider(
-                                  thickness: 2,
-                                ),
-                                ListTile(
-                                    leading: Image.asset("images/f8.jpg"),
-                                    trailing: Text("Confirmer")),
-                              ],
-                            )));
-                  });
-            },
-            backgroundColor: primaryColor,
-            child: Icon(
-              Icons.navigation,
-              color: Colors.white,
-            )),
         body: Padding(
           padding:
-              EdgeInsets.only(top: 20.0, bottom: 20.0, left: 80.0, right: 80.0),
+              EdgeInsets.only(top: 20.0, bottom: 20.0, left: 10.0, right: 10.0),
           child: Form(
             key: _formKey,
             child: Card(
@@ -651,17 +614,17 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                   borderRadius: BorderRadius.circular(20.0)),
               elevation: 0,
               child: Container(
-                width: 1500,
+                width: 1300,
                 child: Column(
                   children: <Widget>[
                     Center(
                       child: Container(
                         padding: EdgeInsets.only(
-                            top: 20.0, bottom: 0.0, left: 20.0, right: 20.0),
+                            top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
                         child: Column(
                           children: <Widget>[
                             Text(
-                              "Modifier Document",
+                              "Modification du document",
                               style: TextStyle(
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
@@ -730,7 +693,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                             //Membership Widget from the widgets folder
 
                             SizedBox(
-                              width: 1260,
+                              width: 1300,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.end,

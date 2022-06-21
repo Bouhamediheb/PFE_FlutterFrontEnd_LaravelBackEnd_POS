@@ -105,6 +105,7 @@ class ProduitController extends Controller
         $data= array();
         $data['refProd'] = $request->refProd;
         $data['stock'] = $request->stock;
+        $data['prixVente']= $request->prixVente;
         $data['nomProd'] = $request->nomProd;
         $data['prixAchat'] = $request->prixAchat;
         $data['descriptionProd']= $request->descriptionProd;

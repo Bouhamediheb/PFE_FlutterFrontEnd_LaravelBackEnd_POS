@@ -142,8 +142,7 @@ class _listeDocumentState extends State<listeDocument> {
                                     barrierDismissible: true,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                          backgroundColor:
-                                              const Color(0xFF2A2D3E),
+                                          backgroundColor: bgColor,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -188,7 +187,7 @@ class _listeDocumentState extends State<listeDocument> {
                                                       BorderRadius.circular(10),
                                                 ),
                                                 content: SizedBox(
-                                                    width: 1100,
+                                                    width: 1300,
                                                     child: modifierUnDocument(
                                                         documents![i]['id'],
                                                         documentId)),

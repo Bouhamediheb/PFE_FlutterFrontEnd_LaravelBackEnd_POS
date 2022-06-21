@@ -12,9 +12,7 @@ class listeUtlisateurs extends StatefulWidget {
 
 class _listeUtlisateursState extends State<listeUtlisateurs> {
   String? _chosenValue;
-  static const snackBar = SnackBar(
-    content: Text('Tâche effectuée avec succès'),
-  );
+
   List? users = [];
   @override
   void initState() {
@@ -154,24 +152,48 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                                   setState(() {
                                     fetchUsers();
                                   });
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: (secondaryColor),
+                                        content: Text(
+                                          'Tâche effectuée avec succès',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 250, 253, 255)),
+                                        )),
+                                  );
                                 }
                                 if (value == 2) {
                                   attribuerRole(users![i]['id'], 2);
                                   setState(() {
                                     fetchUsers();
                                   });
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: (secondaryColor),
+                                        content: Text(
+                                          'Tâche effectuée avec succès',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 250, 253, 255)),
+                                        )),
+                                  );
                                 }
                                 if (value == 3) {
                                   attribuerRole(users![i]['id'], 3);
                                   setState(() {
                                     fetchUsers();
                                   });
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: (secondaryColor),
+                                        content: Text(
+                                          'Tâche effectuée avec succès',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 250, 253, 255)),
+                                        )),
+                                  );
                                 }
                               },
                               color: secondaryColor,
