@@ -37,7 +37,6 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
         'Cache-Control': 'no-cache',
       },
     );
-
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
@@ -434,12 +433,12 @@ static const snackBarStockError = SnackBar(
                               thickness: 3,
                             ),
                             SeqDoc(
+                              typedoc: widget.id,
                               label: 'Numero de Séquence',
                               content: numDoc = seqDocument(),
                               label2: 'Date',
                               label3: 'Liste des fournisseurs',
                             ),
-
                             const Divider(
                               thickness: 3,
                             ),

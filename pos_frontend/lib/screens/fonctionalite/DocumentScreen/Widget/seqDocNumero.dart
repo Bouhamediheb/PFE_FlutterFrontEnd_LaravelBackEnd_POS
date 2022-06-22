@@ -8,10 +8,12 @@ import 'disabled_date.dart';
 import 'package:http/http.dart' as http;
 
 class SeqDoc extends StatefulWidget {
+  final int? typedoc;
   final String? label, label2, label3;
   final String? content;
 
   SeqDoc({
+    this.typedoc,
     this.label,
     this.label2,
     this.label3,
@@ -109,42 +111,44 @@ class _SeqDocState extends State<SeqDoc> {
           width: 5,
         ),
         Expanded(flex: 2, child: DisabledCurrentDate(label: 'Date')),
-        Expanded(
-          flex: 1,
-          child: Text(
-            "${widget.label3}",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontWeight: FontWeight.w900,
-              color: Color.fromARGB(255, 255, 255, 255),
+        if (widget.typedoc == 1 || widget.typedoc == 3)
+          Expanded(
+            flex: 1,
+            child: Text(
+              "${widget.label3}",
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontWeight: FontWeight.w900,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
             ),
           ),
-        ),
-        Expanded(
-          child: DropdownButton(
-            // Initial Value
-            value: dropdownvalue,
+        if (widget.typedoc == 1 || widget.typedoc == 3)
+          Expanded(
+            child: DropdownButton(
+              // Initial Value
+              value: dropdownvalue,
 
-            // Down Arrow Icon
+              // Down Arrow Icon
 
-            //icon: const Icon(Icons.keyboard_arrow_down),
+              //icon: const Icon(Icons.keyboard_arrow_down),
 
-            // Array list of items
-            items: itemss.map((String itemss) {
-              return DropdownMenuItem(
-                value: itemss,
-                child: Text(itemss),
-              );
-            }).toList(),
-            // After selecting the desired option,it will
-            // change button value to selected value
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownvalue = newValue!;
-              });
-            },
+              // Array list of items
+              items: itemss.map((String itemss) {
+                return DropdownMenuItem(
+                  value: itemss,
+                  child: Text(itemss),
+                );
+              }).toList(),
+              // After selecting the desired option,it will
+              // change button value to selected value
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownvalue = newValue!;
+                });
+              },
+            ),
           ),
-        ),
       ]);
     });
   }

@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class ajouterUnProduit extends StatefulWidget {
   const ajouterUnProduit({Key? key}) : super(key: key);
@@ -26,6 +27,41 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
   final stockProduit = TextEditingController();
   final tvaProduit = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    fetchFours();
+  }
+
+  late int idFournisseur;
+  late List fournisseurs = [];
+  late String dropdownvalue;
+  late Map<int, String> raisonSociale = {};
+
+  fetchFours() async {
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/fournisseur'),
+      headers: <String, String>{
+        'Cache-Control': 'no-cache',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var items = jsonDecode(response.body);
+      setState(() {
+        fournisseurs = items;
+        for (var i = 0; i < fournisseurs.length; i++) {
+          raisonSociale[fournisseurs[i]['id']] =
+              fournisseurs[i]['raisonSociale'];
+        }
+        ;
+        dropdownvalue = fournisseurs[0]['raisonSociale'];
+      });
+    } else {
+      throw Exception('Error!');
+    }
+  }
+
   late File uploadimage;
 
   Future chooseImage() async {
@@ -43,6 +79,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
     double prixVenteProduit,
     String descriptionProduit,
     double stockProduit,
+    int idFournisseur,
   ) async {
     FormData data = FormData.fromMap({
       'refProd': refProduit,
@@ -52,6 +89,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
       'descriptionProd': descriptionProduit,
       'stock': stockProduit,
       'TVA': tvaProduit,
+      'id_fournisseur': idFournisseur
     });
 
     Dio dio = Dio();
@@ -193,6 +231,53 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       return null;
                                     },
                                   ),
+                                  SizedBox(height: 20),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            "Fournisseur",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                fontSize: 15),
+                                          )),
+                                      Expanded(
+                                        flex: 3,
+                                        child: DropdownButton(
+                                          // Initial Value
+                                          value: dropdownvalue,
+
+                                          // Down Arrow Icon
+
+                                          //icon: const Icon(Icons.keyboard_arrow_down),
+
+                                          // Array list of items
+                                          items: raisonSociale.values
+                                              .toList()
+                                              .map((String itemss) {
+                                            return DropdownMenuItem(
+                                              value: itemss,
+                                              child: Text(itemss),
+                                            );
+                                          }).toList(),
+                                          // After selecting the desired option,it will
+                                          // change button value to selected value
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              dropdownvalue = newValue!;
+                                              idFournisseur = raisonSociale.keys
+                                                  .firstWhere((element) =>
+                                                      raisonSociale[element] ==
+                                                      newValue);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ]),
                               ),
                             ],
@@ -229,7 +314,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                           double.parse(prixAchatProduit.text),
                                           double.parse(prixVenteProduit.text),
                                           descriptionProduit.text,
-                                          double.parse(stockProduit.text));
+                                          double.parse(stockProduit.text),
+                                          idFournisseur);
                                     });
                                     Navigator.of(context).pop();
 

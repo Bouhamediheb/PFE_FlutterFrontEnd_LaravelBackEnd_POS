@@ -45,6 +45,7 @@ class ProduitController extends Controller
             'prixVente' => 'required',
             'descriptionProd',
             'stock' => 'required',
+            'id_fournisseur',
             'imageProd' => 'mimes:jpg,png,jpeg,gif,svg'
         ]);
         $data= array();
@@ -55,6 +56,7 @@ class ProduitController extends Controller
         $data['stock'] = $request->stock;
         $data['descriptionProd']= $request->descriptionProd;
         $data['TVA']= $request->TVA;
+        $data['id_fournisseur'] = $request->id_fournisseur;
         /**
         *  $imageProd = $request->file('imageProd');
         * $name_gen = hexdec(uniqid());
@@ -110,6 +112,7 @@ class ProduitController extends Controller
         $data['prixAchat'] = $request->prixAchat;
         $data['descriptionProd']= $request->descriptionProd;
         $data['TVA']= $request->TVA;
+        $data['id_fournisseur'] = $request->id_fournisseur;
         $insert = DB::table('produits')->where('id',$id)->update($data);
         return response()->json('Produit Modifié');
     }

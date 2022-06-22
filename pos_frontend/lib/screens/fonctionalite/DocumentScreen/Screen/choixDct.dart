@@ -100,7 +100,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
-                                    ajouterUnDocument(3, 'BON DE RETOUR'))));
+                                    ajouterUnDocument(2, 'BON DE LIVRAISON'))));
                       },
                       child: SizedBox(
                           height: 110,
@@ -151,7 +151,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
-                                    ajouterUnDocument(4, 'BON DE RETOUR'))));
+                                    ajouterUnDocument(3, 'BON DE RETOUR'))));
                       },
                       child: SizedBox(
                           height: 110,
@@ -202,7 +202,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    ajouterUnDocument(4, 'BON DE LIVRAISON')));
+                                    ajouterUnDocument(4, 'DEVIS')));
                       },
                       child: SizedBox(
                           height: 110,

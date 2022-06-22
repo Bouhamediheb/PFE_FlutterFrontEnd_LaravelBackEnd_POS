@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('produits', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_fournisseur');
             $table->string('refProd');
             $table->string('nomProd');
             $table->float('prixAchat');
@@ -24,6 +25,8 @@ return new class extends Migration
             $table->float('TVA')->nullable();
             $table->string('imageProd')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_fournisseur')->references('id')->on('fournisseurs');
         });
     }
 
