@@ -1,7 +1,6 @@
 import 'package:projetpfe/constants.dart';
 import 'package:projetpfe/screens/dashboard/components/EtatStock.dart';
 import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
-import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/pdfpreview.dart';
 import 'package:projetpfe/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
 import 'package:projetpfe/screens/fonctionalite/StockScreen/Screen/listedesPrd.dart';
 import 'package:projetpfe/screens/fonctionalite/UserRightsScreen/listedesUtilisateurs.dart';
@@ -55,44 +54,6 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 title: const Text(
                   "Dashboard",
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                trailing: const Text("")),
-          ),
-          MaterialButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MainScreen(PdfPreviewPage(
-                          invoice: Invoice(
-                              address: 'Sfax',
-                              customer: 'Iheb',
-                              items: [
-                                LineItem(
-                                  'Laptop',
-                                  1000,
-                                ),
-                                LineItem(
-                                  'Test',
-                                  200,
-                                ),
-                              ],
-                              name: 'Bouhamed'),
-                        ))),
-              );
-            },
-            child: ListTile(
-                leading: SvgPicture.asset(
-                  "assets/icons/menu_dashbord.svg",
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  height: 16,
-                ),
-                title: const Text(
-                  "PDFs",
                   style: TextStyle(
                     fontSize: 14,
                   ),
