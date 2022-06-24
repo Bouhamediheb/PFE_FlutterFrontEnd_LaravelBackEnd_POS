@@ -120,6 +120,23 @@ class _SideMenuState extends State<SideMenu> {
                 );
               },
             ),
+            MaterialButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: () {},
+              child: ListTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/menu_dashbord.svg",
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    height: 16,
+                  ),
+                  title: const Text(
+                    "Stock",
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  trailing: const Text("")),
+            ),
             DrawerListTile(
               title: "Parametres",
               svgSrc: "assets/icons/menu_setting.svg",

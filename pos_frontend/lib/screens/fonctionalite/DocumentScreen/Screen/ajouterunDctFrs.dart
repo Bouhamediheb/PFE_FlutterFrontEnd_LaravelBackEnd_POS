@@ -12,23 +12,51 @@ import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:data_table_2/data_table_2.dart';
 
-class ajouterUnDocument extends StatefulWidget {
+class ajouterUnDocument2 extends StatefulWidget {
   final int id;
   final String doctype;
 
   List<TextEditingController> controllers = [];
 
-  ajouterUnDocument(this.id, this.doctype, {Key? key}) : super(key: key);
+  ajouterUnDocument2(this.id, this.doctype, {Key? key}) : super(key: key);
   @override
-  State<ajouterUnDocument> createState() => _ajouterUnDocumentState();
+  State<ajouterUnDocument2> createState() => _ajouterUnDocumentState();
 }
 
-class _ajouterUnDocumentState extends State<ajouterUnDocument>
+class _ajouterUnDocumentState extends State<ajouterUnDocument2>
     with SingleTickerProviderStateMixin {
   List<dynamic> refProduits = [];
   List? produits = [];
   String? selectedProduit;
   String? nomProduit;
+  late List fournisseurs = [];
+  String? dropdownvalue;
+  late Map<int, String> raisonSocialeFournisseur = {};
+  late int idFournisseur;
+
+  fetchFours() async {
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/fournisseur'),
+      headers: <String, String>{
+        'Cache-Control': 'no-cache',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var items = jsonDecode(response.body);
+      setState(() {
+        fournisseurs = items;
+        for (var i = 0; i < fournisseurs.length; i++) {
+          raisonSocialeFournisseur[fournisseurs[i]['id']] =
+              fournisseurs[i]['raisonSociale'];
+        }
+        ;
+        dropdownvalue = fournisseurs[0]['raisonSociale'];
+      });
+    } else {
+      throw Exception('Error!');
+    }
+  }
 
   fetchProduits() async {
     final response = await http.get(
@@ -47,7 +75,8 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
     }
     for (var i = 0; i < produits!.length; i++) {
       setState(() {
-        refProduits.add(produits![i]['refProd']);
+        if (produits![i]['id_fournisseur'] == idFournisseur)
+          refProduits.add(produits![i]['refProd']);
       });
     }
   }
@@ -72,7 +101,9 @@ static const snackBarStockError = SnackBar(
   );
 */
   TextEditingController totalDocument = TextEditingController(text: '0');
-  double Stokkkkk = 0;
+
+  late num? Stokkkkk;
+
   Future<http.Response?> ajoutDocument(
       int type, String? numeroDoc, String? dateDoc, double totalDoc) async {
     final response = await http.post(
@@ -158,6 +189,7 @@ static const snackBarStockError = SnackBar(
     super.initState();
     fetchDocuments();
     fetchProduits();
+    fetchFours();
   }
 
   fetchDocuments() async {
@@ -435,11 +467,69 @@ static const snackBarStockError = SnackBar(
                               thickness: 3,
                             ),
                             SeqDoc(
-                              typedoc: widget.id,
                               label: 'Numero de Séquence',
                               content: numDoc = seqDocument(),
                               label2: 'Date',
-                              label3: 'Liste des fournisseurs',
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "Liste des fournisseurs",
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: DropdownButton(
+                                      borderRadius: BorderRadius.circular(5),
+
+                                      underline: SizedBox(),
+                                      // Initial Value
+                                      value: dropdownvalue,
+
+                                      // Down Arrow Icon
+
+                                      //icon: const Icon(Icons.keyboard_arrow_down),
+
+                                      // Array list of items
+                                      items: raisonSocialeFournisseur.values
+                                          .toList()
+                                          .map((String
+                                              raisonSocialeFournisseur) {
+                                        return DropdownMenuItem(
+                                          value: raisonSocialeFournisseur,
+                                          child: Text(raisonSocialeFournisseur),
+                                        );
+                                      }).toList(),
+                                      // After selecting the desired option,it will
+                                      // change button value to selected value
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          dropdownvalue = newValue!;
+                                          idFournisseur =
+                                              raisonSocialeFournisseur.keys
+                                                  .firstWhere((element) =>
+                                                      raisonSocialeFournisseur[
+                                                          element] ==
+                                                      newValue);
+                                          refProduits.clear();
+                                          fetchProduits();
+                                          ligneDoc.clear();
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Expanded(flex: 2, child: Container()),
+                              ],
                             ),
                             const Divider(
                               thickness: 3,
@@ -540,36 +630,12 @@ static const snackBarStockError = SnackBar(
                                     color:
                                         const Color.fromARGB(255, 75, 100, 211),
                                     onPressed: () async {
-                                      bool documentValide = true;
                                       if (confirmButton == false) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBarButtonError);
                                       }
-                                      for (var j = 2;
-                                          j < widget.controllers.length;
-                                          j = j + 4) {
-                                        int stock = await getStock(
-                                            widget.controllers[j - 2].text);
 
-                                        if (widget
-                                            .controllers[j].text.isNotEmpty) {
-                                          if (double.parse(
-                                                  widget.controllers[j].text) >
-                                              stock) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                                    snackBarStockError);
-                                            documentValide = false;
-                                            break;
-                                          }
-                                        } else if (widget
-                                            .controllers[j].text.isEmpty) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                                  snackBarButtonError);
-                                        }
-                                      }
-                                      if (confirmButton && documentValide) {
+                                      if (confirmButton) {
                                         numDoc = seqDocument();
                                         print(numDoc);
                                         print(widget.id);
@@ -600,9 +666,7 @@ static const snackBarStockError = SnackBar(
                                           future = modificationStock(
                                               widget.controllers[i - 3].text,
                                               double.parse(widget
-                                                      .controllers[i - 1]
-                                                      .text) *
-                                                  -1);
+                                                  .controllers[i - 1].text));
                                         }
 
                                         setState(() {

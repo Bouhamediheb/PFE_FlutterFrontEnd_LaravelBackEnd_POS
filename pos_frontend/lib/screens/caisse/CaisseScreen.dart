@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../Login/Screen/Login.dart';
 import 'Produit.dart';
 
 class Caisse extends StatefulWidget {
@@ -11,10 +15,13 @@ class Caisse extends StatefulWidget {
 }
 
 class _CaisseState extends State<Caisse> {
+  late var token;
+  Map<String, dynamic> user = {};
   @override
   initState() {
     super.initState();
     fillListePanier();
+    getUserData();
   }
 
   void fillListePanier() {
@@ -25,12 +32,29 @@ class _CaisseState extends State<Caisse> {
     });
   }
 
+  void logout() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.remove('user');
+    localStorage.remove('token');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
+  getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    token = jsonDecode(prefs.getString('access_token') as String);
+    setState(() {
+      user = json.decode(prefs.getString('user') as String);
+    });
+  }
+
   Map<int, List<Produit>> listePanier = {};
   List<Produit> listeProduits = [
     Produit(
       nom: 'Coca Cola',
       prix: 2.5,
       quantite: 10,
+      image: "assets/images/jus.png",
     ),
     Produit(
       nom: 'Fanta',
@@ -114,9 +138,55 @@ class _CaisseState extends State<Caisse> {
           elevation: 0,
           centerTitle: false,
           actions: [
-            Text(
-              "Table : $selectedTable / $nbTotalesTables",
-              style: const TextStyle(fontSize: 16),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Table : $selectedTable / $nbTotalesTables",
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: PopupMenuButton(
+                  onSelected: (dynamic value) {
+                    if (value == 2) logout();
+                  },
+                  offset: const Offset(0, 50.0),
+                  color: Color(0xFF331f61),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Container(
+                    height: 56,
+                    width: 225,
+                    decoration: BoxDecoration(
+                        color: Color(0xFF462c86),
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          "assets/images/profile_pic.png",
+                          height: 38,
+                        ),
+                        Text(user["name"].toString())
+                      ],
+                    ),
+                  ),
+                  itemBuilder: (context) => [
+                        const PopupMenuItem(value: 1, child: Text("Profile")),
+                        PopupMenuItem(
+                            value: 2,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Icon(Icons.logout, color: Colors.red),
+                                  Text("Se Déconnecter",
+                                      style: TextStyle(color: Colors.red))
+                                ])),
+                      ]),
             ),
           ]),
       backgroundColor: const Color(0xFF331f61),
@@ -284,7 +354,7 @@ class _CaisseState extends State<Caisse> {
                                   topLeft: Radius.circular(25),
                                   topRight: Radius.circular(25)),
                               child: Image.asset(
-                                "assets/images/jus.png",
+                                "${listeProduits[i].image}",
                                 //height: MediaQuery.of(context).size.height / 3,
                                 fit: BoxFit.fill,
                               ),
@@ -524,10 +594,9 @@ class _CaisseState extends State<Caisse> {
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
-                        onPressed: () {
-                        },
-                        child:
-                            const Text("Confirmer", style: TextStyle(fontSize: 20)),
+                        onPressed: () {},
+                        child: const Text("Confirmer",
+                            style: TextStyle(fontSize: 20)),
                       ),
                     ),
                   ],

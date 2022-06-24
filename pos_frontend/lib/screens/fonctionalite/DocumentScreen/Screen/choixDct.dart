@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
 import '../../../main/main_screen.dart';
+import 'ajouterunDctFrs.dart';
 
 class ChoixDocument extends StatefulWidget {
   const ChoixDocument({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
-                                    ajouterUnDocument(1, 'BON DE COMMANDE'))));
+                                    ajouterUnDocument2(1, 'BON DE COMMANDE'))));
                       },
                       child: SizedBox(
                           height: 110,
@@ -151,7 +152,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
-                                    ajouterUnDocument(3, 'BON DE RETOUR'))));
+                                    ajouterUnDocument2(3, 'BON DE RETOUR'))));
                       },
                       child: SizedBox(
                           height: 110,

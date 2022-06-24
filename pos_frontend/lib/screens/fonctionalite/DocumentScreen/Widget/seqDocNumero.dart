@@ -87,22 +87,27 @@ class _SeqDocState extends State<SeqDoc> {
         ),
         Expanded(
           flex: 2,
-          child: Container(
-            color: const Color.fromARGB(255, 255, 255, 255),
-            child: TextFormField(
-              enabled: false,
-              controller: fieldController,
-              validator: fieldValidator,
-              style: const TextStyle(
-                fontSize: 15.0,
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10.0),
-                hintText: "${widget.content}",
-                hintStyle: const TextStyle(
-                    color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
-                fillColor: const Color.fromARGB(255, 0, 0, 0),
+          child: TextFormField(
+            enabled: false,
+            controller: fieldController,
+            validator: fieldValidator,
+            style: const TextStyle(
+              fontSize: 15.0,
+              color: Colors.black,
+            ),
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(10.0),
+              hintText: "${widget.content}",
+              hintStyle: const TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  width: 1,
+                ),
               ),
             ),
           ),

@@ -81,11 +81,15 @@ class _DisabledCurrentDateState extends State<DisabledCurrentDate> {
                   labelText: currentDate.toString().substring(0, 19),
                   labelStyle: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: Colors.grey.shade600,
+                      color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 14),
                   disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5),
-                      borderSide: BorderSide(color: Colors.grey.shade400)),
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      width: 1,
+                    ),
+                  ),
                 ),
               ),
             )
