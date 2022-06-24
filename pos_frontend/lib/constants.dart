@@ -16,3 +16,5 @@ const snackBarStockError = SnackBar(
 const snackBarButtonError = SnackBar(
   content: Text('Impossible de passer un document est vide'),
 );
+
+const timeDelay = Duration(seconds: 2);

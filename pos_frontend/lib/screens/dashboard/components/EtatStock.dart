@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, depend_on_referenced_packages
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -16,10 +18,11 @@ class EtatStock extends StatefulWidget {
 
 class _EtatStockState extends State<EtatStock> {
   List? produits = [];
+  Timer? t;
   @override
   void initState() {
     super.initState();
-    fetchProduits();
+    t = new Timer.periodic(timeDelay, (t) => fetchProduits());
   }
 
   fetchProduits() async {
@@ -37,6 +40,12 @@ class _EtatStockState extends State<EtatStock> {
     } else {
       throw Exception('Error!');
     }
+  }
+
+  @override
+  void dispose() {
+    t?.cancel();
+    super.dispose();
   }
 
   @override

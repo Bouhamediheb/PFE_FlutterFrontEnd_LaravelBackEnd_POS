@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -13,10 +15,11 @@ class listeProduit extends StatefulWidget {
 class listeProduitState extends State<listeProduit> {
   int? produitId;
   List? produits = [];
+  Timer? t;
   @override
   void initState() {
     super.initState();
-    fetchProduits();
+    t = new Timer.periodic(timeDelay, (t) => fetchProduits());
   }
 
   fetchProduits() async {
@@ -35,6 +38,12 @@ class listeProduitState extends State<listeProduit> {
     } else {
       throw Exception('Error!');
     }
+  }
+
+  @override
+  void dispose() {
+    t?.cancel();
+    super.dispose();
   }
 
   @override

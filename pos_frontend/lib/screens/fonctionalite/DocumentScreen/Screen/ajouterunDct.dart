@@ -63,17 +63,9 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   String? numDoc;
   bool confirmButton = false;
   int idligne = -1;
-  /*
-static const snackBarSucces = SnackBar(
-    content: Text('Tâche effectuée avec succès'),
-  );
 
-static const snackBarStockError = SnackBar(
-    content: Text('Certains articles ont un stock insuffisant'),
-  );
-*/
   TextEditingController totalDocument = TextEditingController(text: '0');
-  num Stokkkkk = 0;
+  double Stokkkkk = 0;
   Future<http.Response?> ajoutDocument(
       int type, String? numeroDoc, String? dateDoc, double totalDoc) async {
     final response = await http.post(
@@ -119,7 +111,7 @@ static const snackBarStockError = SnackBar(
 
   getStock(String refProd) async {
     final response = await http.get(
-      Uri.parse("http://127.0.0.1:8000/api/produit/$refProd"),
+      Uri.parse("http://127.0.0.1:8000/api/produit/stock/$refProd"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=utf-8',
         'Accept': 'application/json; charset=utf-8',
@@ -183,7 +175,6 @@ static const snackBarStockError = SnackBar(
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String seqDocument() {
-    print(idDoc);
     idDoc ??= 1;
     return numSeqDocument = '${date.toString().substring(0, 10)}/DOC$idDoc';
   }
@@ -219,7 +210,7 @@ static const snackBarStockError = SnackBar(
                 if (value!.isEmpty || value == "") {
                   return 'Référence obligatoire';
                 } else {
-                  return "A7ala";
+                  return "";
                 }
               },
               searchInputDecoration: const InputDecoration(
@@ -241,7 +232,6 @@ static const snackBarStockError = SnackBar(
               suggestionState: Suggestion.expand,
               textInputAction: TextInputAction.next,
               onSubmit: (value) {
-                print(value);
                 setState(() {
                   selectedProduit = value;
                   for (var i = 0; i < produits!.length; i++) {
@@ -258,6 +248,13 @@ static const snackBarStockError = SnackBar(
             TextFormField(
               enabled: false,
               controller: nomController,
+              validator: (value) {
+                if (value!.isEmpty || value == "") {
+                  return 'Nom obligatoire -- Tapez la référence du produit';
+                } else {
+                  return "";
+                }
+              },
               style: const TextStyle(
                 fontSize: 15.0,
                 color: Colors.white,
@@ -288,6 +285,11 @@ static const snackBarStockError = SnackBar(
                   }
                 },
                 child: TextFormField(
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                      RegExp('[0-9]'),
+                    ),
+                  ],
                   controller: quantiteController,
                   style: const TextStyle(
                     fontSize: 15.0,
@@ -295,10 +297,9 @@ static const snackBarStockError = SnackBar(
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      print("Quantité y weldi");
                       return 'Quantité obligatoire';
                     } else {
-                      return "jawek behi";
+                      return "";
                     }
                   },
                   decoration: const InputDecoration(
@@ -330,6 +331,11 @@ static const snackBarStockError = SnackBar(
                   }
                 },
                 child: TextFormField(
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                      RegExp('[0-9]'),
+                    ),
+                  ],
                   textInputAction: TextInputAction.done,
                   enabled: true,
                   controller: prixController,
@@ -549,10 +555,13 @@ static const snackBarStockError = SnackBar(
                                           j = j + 4) {
                                         getStock(
                                             widget.controllers[j - 2].text);
+                                        print("Hedha stock :" +
+                                            getStock(widget
+                                                .controllers[j - 2].text));
                                         if (widget
                                             .controllers[j].text.isNotEmpty) {
-                                          if (double.parse(
-                                                  widget.controllers[j].text) >
+                                          if (double.parse(widget
+                                                  .controllers[j - 2].text) >=
                                               Stokkkkk) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
@@ -567,12 +576,9 @@ static const snackBarStockError = SnackBar(
                                             if (_formKey.currentState!
                                                 .validate()) {
                                               numDoc = seqDocument();
-                                              print(numDoc);
-                                              print(widget.id);
-                                              dateDoc = date
-                                                  .toString()
-                                                  .substring(0, 10);
-                                              print(dateDoc);
+                                              print(
+                                                  "Numdoc" + numDoc.toString());
+
                                               if (true) {
                                                 {
                                                   future = ajoutDocument(

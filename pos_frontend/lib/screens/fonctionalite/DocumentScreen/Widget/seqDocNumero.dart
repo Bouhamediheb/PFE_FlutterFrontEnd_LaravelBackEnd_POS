@@ -23,14 +23,16 @@ class SeqDoc extends StatefulWidget {
 }
 
 class _SeqDocState extends State<SeqDoc> {
-  late List frs = [];
-  late String dropdownvalue;
+  List? frs = [];
+  String? dropdownvalue;
   late List<String> itemss = [];
 
   @override
   void initState() {
     super.initState();
-    fetchFours();
+    fetchFours().whenComplete(() {
+      setState(() {});
+    });
   }
 
   fetchFours() async {
@@ -45,11 +47,11 @@ class _SeqDocState extends State<SeqDoc> {
       var items = jsonDecode(response.body);
       setState(() {
         frs = items;
-        for (var i = 0; i < frs.length; i++) {
-          itemss.add(frs[i]['raisonSociale']);
+        for (var i = 0; i < frs!.length; i++) {
+          itemss.add(frs![i]['raisonSociale']);
         }
         ;
-        dropdownvalue = frs[0]['raisonSociale'];
+        dropdownvalue = frs![0]['raisonSociale'];
       });
     } else {
       throw Exception('Error!');

@@ -108,6 +108,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       label: "Référence Produit",
                                       content: "La Référence du produit",
                                       fieldController: refProduit,
+                                      whattoAllow:
+                                          RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                       fieldValidator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return "Ce Champ est obligatoire";
@@ -119,6 +121,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                     InputField(
                                       label: "Nom du produit",
                                       content: "Le Nom du produit",
+                                      whattoAllow:
+                                          RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                       fieldController: nomProduit,
                                       fieldValidator: (value) {
                                         if (value == null || value.isEmpty) {
@@ -150,6 +154,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                   InputField(
                                     content: 'La Quantité de Produit',
                                     label: 'Quantité',
+                                    whattoAllow: RegExp('[0-9]'),
                                     fieldController: stockProduit,
                                     fieldValidator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -163,6 +168,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       label: "Prix Achat",
                                       content: "Prix Achat du Produit",
                                       fieldController: prixAchatProduit,
+                                      whattoAllow: RegExp('[0-9]'),
                                       fieldValidator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return "Ce Champ est obligatoire";
@@ -174,6 +180,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                     label: "Prix Vente",
                                     content: "Prix Vente du Produit",
                                     fieldController: prixVenteProduit,
+                                    whattoAllow: RegExp('[0-9]'),
                                     fieldValidator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return "Ce Champ est obligatoire";
@@ -185,6 +192,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                   InputField(
                                     label: "TVA",
                                     content: "TVA du Produit",
+                                    whattoAllow: RegExp('[0-9]'),
                                     fieldController: tvaProduit,
                                     fieldValidator: (value) {
                                       if (value == null || value.isEmpty) {

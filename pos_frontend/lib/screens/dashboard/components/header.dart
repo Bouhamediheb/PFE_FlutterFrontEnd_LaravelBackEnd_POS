@@ -51,9 +51,10 @@ class ProfileCard extends StatefulWidget {
 }
 
 class _ProfileCardState extends State<ProfileCard> {
-  late List users = [];
+  late List? users = [];
   late var token;
-  Map<String, dynamic>? user;
+  late Map<String, dynamic>? user;
+
   @override
   void initState() {
     super.initState();
