@@ -5,26 +5,29 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:projetpfe/constants.dart';
-import 'modifierunFrs.dart';
 
-class listeFournisseur extends StatefulWidget {
+import '../../ProduitScreen/Screen/modifierunPrd.dart';
+
+class EtatStockGlobal extends StatefulWidget {
   @override
-  State<listeFournisseur> createState() => _listeFournisseurState();
+  State<EtatStockGlobal> createState() => EtatStockGlobalState();
 }
 
-class _listeFournisseurState extends State<listeFournisseur> {
-  int? fournisseurId;
-  List? fournisseurs = [];
+class EtatStockGlobalState extends State<EtatStockGlobal> {
+  int? produitId;
+  List? produits = [];
+
   Timer? t;
+
   @override
   void initState() {
     super.initState();
-    t = new Timer.periodic(timeDelay, (t) => fetchFournisseurs());
+    t = new Timer.periodic(timeDelay, (t) => fetchProduits());
   }
 
-  fetchFournisseurs() async {
+  fetchProduits() async {
     final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/api/fournisseur'),
+      Uri.parse('http://127.0.0.1:8000/api/produit'),
       headers: <String, String>{
         'Cache-Control': 'no-cache',
       },
@@ -33,7 +36,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
-        fournisseurs = items;
+        produits = items;
       });
     } else {
       throw Exception('Error!');
@@ -69,7 +72,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
                   height: 45,
                   child: Center(
                     child: Text(
-                      'La Liste Des fournisseurs :',
+                      'La Liste Des Produits :',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -91,107 +94,78 @@ class _listeFournisseurState extends State<listeFournisseur> {
                     columns: const <DataColumn>[
                       DataColumn(
                           label: Flexible(
-                        child: Text("Raison Sociale",
+                        child: Text("Référence Produit",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Adresse",
+                        child: Text("Nom Produit",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Numéro de Téléphone",
+                        child: Text("Stock",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("E-mail",
+                        child: Text("Prix Achat",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Matricule Fiscale",
+                        child: Text("Prix Vente",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Timbre Fiscale",
+                        child: Text("TVA",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                              child: Text("Actions",
+                              child: Text("Etat",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)))),
                     ],
                     rows: <DataRow>[
-                      for (var i = 0; i < fournisseurs!.length; i++)
+                      for (var i = 0; i < produits!.length; i++)
                         DataRow(
                           cells: <DataCell>[
-                            DataCell(Text(fournisseurs![i]['raisonSociale'])),
-                            DataCell(Text(fournisseurs![i]['adresse'])),
-                            DataCell(Text(fournisseurs![i]['tel'])),
-                            DataCell(Text(fournisseurs![i]['email'])),
-                            DataCell(Text(fournisseurs![i]['mf'])),
-                            DataCell(Text((fournisseurs![i]['timbreFiscal'] ==
-                                    null)
-                                ? '0'
-                                : fournisseurs![i]['timbreFiscal'].toString())),
+                            DataCell(Text(produits![i]['refProd'].toString())),
+                            DataCell(Text(produits![i]['nomProd'].toString())),
+                            DataCell(Text(produits![i]['stock'].toString())),
                             DataCell(
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                        icon: const Icon(
-                                            Icons.mode_edit_outline_outlined,
-                                            color: Colors.green),
-                                        onPressed: () async {
-                                          fournisseurId =
-                                              fournisseurs![i]['id'];
-
-                                          await showAnimatedDialog(
-                                            context: context,
-                                            barrierDismissible: true,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor: bgColor,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                content: SizedBox(
-                                                    width: 1000,
-                                                    height: 500,
-                                                    child:
-                                                        modifierUnFournisseur(
-                                                            fournisseurId)),
-                                              );
-                                            },
-                                            animationType:
-                                                DialogTransitionType.fadeScale,
-                                            curve: Curves.fastOutSlowIn,
-                                            duration:
-                                                const Duration(seconds: 1),
-                                          );
-                                          setState(() {
-                                            fetchFournisseurs();
-                                          });
-                                        }),
-                                  ]),
-                            ),
+                                Text(produits![i]['prixAchat'].toString())),
+                            DataCell(
+                                Text(produits![i]['prixVente'].toString())),
+                            DataCell(
+                                Text("${produits![i]['TVA'].toString()}%")),
+                            produits![i]['stock'] <= 5
+                                ? const DataCell(
+                                    Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    ),
+                                  )
+                                : const DataCell(
+                                    Icon(
+                                      Icons.check,
+                                      color: Colors.green,
+                                    ),
+                                  ),
                           ],
                         )
                     ],

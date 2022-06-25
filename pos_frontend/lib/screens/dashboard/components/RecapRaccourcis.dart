@@ -20,7 +20,7 @@ class _RecapMonetiquesRaccState extends State<RecapMonetiquesRacc> {
   @override
   void initState() {
     super.initState();
-    if (widget.info.value! <= 0) {
+    if (widget.info.value! == 0) {
       setState(() {
         valColor = Colors.red;
       });

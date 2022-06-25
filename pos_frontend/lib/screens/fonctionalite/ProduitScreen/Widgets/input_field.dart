@@ -1,9 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputField extends StatelessWidget {
   final String? label, label2;
+  final RegExp? whattoAllow;
+
   final String? content, content2;
   TextEditingController? fieldController = TextEditingController();
   FormFieldValidator<String>? fieldValidator = (_) {
@@ -15,7 +18,8 @@ class InputField extends StatelessWidget {
       this.content,
       this.content2,
       this.fieldValidator,
-      this.fieldController});
+      this.fieldController,
+      this.whattoAllow});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +50,10 @@ class InputField extends StatelessWidget {
               child: TextFormField(
                 controller: fieldController,
                 validator: fieldValidator,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(whattoAllow!),
+                ],
                 style: const TextStyle(
                   fontSize: 15.0,
                   color: Colors.black,

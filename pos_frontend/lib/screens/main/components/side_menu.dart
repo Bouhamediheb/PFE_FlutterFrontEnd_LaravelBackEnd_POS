@@ -1,6 +1,8 @@
 import 'package:projetpfe/constants.dart';
+import 'package:projetpfe/screens/dashboard/components/EtatStock.dart';
 import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
 import 'package:projetpfe/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
+import 'package:projetpfe/screens/fonctionalite/StockScreen/Screen/listedesPrd.dart';
 import 'package:projetpfe/screens/fonctionalite/UserRightsScreen/listedesUtilisateurs.dart';
 import 'package:projetpfe/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import '../../fonctionalite/DocumentScreen/Screen/listedesDct.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/listedesFrs.dart';
 import '../../fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
+import '../../../models/invoices.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({
@@ -26,135 +29,136 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: bgColor,
-      child: SingleChildScrollView(
-        // it enables scrolling
-        child: Column(
-          children: [
-            DrawerHeader(
-              child: Image.asset(
-                "assets/images/logo2.png",
-                color: Colors.white,
-              ),
+      child: Column(
+        children: [
+          DrawerHeader(
+            child: Image.asset(
+              "assets/images/logo2.png",
+              color: Colors.white,
             ),
-            MaterialButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MainScreen(DashboardScreen())),
-                );
-              },
-              child: ListTile(
-                  leading: SvgPicture.asset(
-                    "assets/icons/menu_dashbord.svg",
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    height: 16,
+          ),
+          MaterialButton(
+            padding: const EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(DashboardScreen())),
+              );
+            },
+            child: ListTile(
+                leading: SvgPicture.asset(
+                  "assets/icons/menu_dashbord.svg",
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  height: 16,
+                ),
+                title: const Text(
+                  "Dashboard",
+                  style: TextStyle(
+                    fontSize: 14,
                   ),
-                  title: const Text(
-                    "Dashboard",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
+                ),
+                trailing: const Text("")),
+          ),
+          MaterialButton(
+            padding: const EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(EtatStockGlobal())),
+              );
+            },
+            child: ListTile(
+                leading: SvgPicture.asset(
+                  "assets/icons/menu_dashbord.svg",
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  height: 16,
+                ),
+                title: const Text(
+                  "Etat du stock",
+                  style: TextStyle(
+                    fontSize: 14,
                   ),
-                  trailing: const Text("")),
-            ),
-            DrawerListTile(
-              title: "Documents",
-              svgSrc: "assets/icons/menu_doc.svg",
-              subTitle1: 'Ajouter Un Document',
-              subTitle2: 'Liste Des Documents',
-              press1: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MainScreen(const ChoixDocument())),
-                );
-              },
-              press2: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MainScreen(listeDocument())),
-                );
-              },
-            ),
-            DrawerListTile(
-              title: "Fournisseurs",
-              svgSrc: "assets/icons/menu_tran.svg",
-              subTitle1: 'Ajouter Un Fournisseur',
-              subTitle2: 'Liste Des Fournisseurs',
-              press1: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MainScreen(ajouterUnFournisseur())),
-                );
-              },
-              press2: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MainScreen(listeFournisseur())),
-                );
-              },
-            ),
-            DrawerListTile(
-              title: "Produits",
-              svgSrc: "assets/icons/menu_doc.svg",
-              subTitle1: 'Liste des produits',
-              subTitle2: 'Ajouter un produit',
-              press1: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MainScreen(listeProduit())),
-                );
-              },
-              press2: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          MainScreen(const ajouterUnProduit())),
-                );
-              },
-            ),
-            MaterialButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: () {},
-              child: ListTile(
-                  leading: SvgPicture.asset(
-                    "assets/icons/menu_dashbord.svg",
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    height: 16,
-                  ),
-                  title: const Text(
-                    "Stock",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  trailing: const Text("")),
-            ),
-            DrawerListTile(
-              title: "Parametres",
-              svgSrc: "assets/icons/menu_setting.svg",
-              subTitle1: 'Gestion des droits des utilisateurs',
-              subTitle2: 'Parametres du compte',
-              subTitle3: 'Se Déconnecter',
-              press1: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MainScreen(listeUtlisateurs())),
-                );
-              },
-              press2: () {},
-              press3: () {},
-            ),
-          ],
-        ),
+                ),
+                trailing: const Text("")),
+          ),
+          DrawerListTile(
+            title: "Documents",
+            svgSrc: "assets/icons/menu_doc.svg",
+            subTitle1: 'Ajouter Un Document',
+            subTitle2: 'Liste Des Documents',
+            press1: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(const ChoixDocument())),
+              );
+            },
+            press2: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(listeDocument())),
+              );
+            },
+          ),
+          DrawerListTile(
+            title: "Fournisseurs",
+            svgSrc: "assets/icons/menu_tran.svg",
+            subTitle1: 'Ajouter Un Fournisseur',
+            subTitle2: 'Liste Des Fournisseurs',
+            press1: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(ajouterUnFournisseur())),
+              );
+            },
+            press2: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(listeFournisseur())),
+              );
+            },
+          ),
+          DrawerListTile(
+            title: "Produits",
+            svgSrc: "assets/icons/menu_doc.svg",
+            subTitle1: 'Liste des produits',
+            subTitle2: 'Ajouter un produit',
+            press1: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(listeProduit())),
+              );
+            },
+            press2: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(const ajouterUnProduit())),
+              );
+            },
+          ),
+          DrawerListTile(
+            title: "Parametres",
+            svgSrc: "assets/icons/menu_setting.svg",
+            subTitle1: 'Gestion des droits des utilisateurs',
+            subTitle2: 'Parametres du compte',
+            subTitle3: 'Se Déconnecter',
+            press1: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MainScreen(listeUtlisateurs())),
+              );
+            },
+            press2: () {},
+          ),
+        ],
       ),
     );
   }

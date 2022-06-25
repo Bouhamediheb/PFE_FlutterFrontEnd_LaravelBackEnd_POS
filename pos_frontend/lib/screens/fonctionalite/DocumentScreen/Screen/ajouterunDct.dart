@@ -62,15 +62,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   String? numDoc;
   bool confirmButton = false;
   int idligne = -1;
-  /*
-static const snackBarSucces = SnackBar(
-    content: Text('Tâche effectuée avec succès'),
-  );
 
-static const snackBarStockError = SnackBar(
-    content: Text('Certains articles ont un stock insuffisant'),
-  );
-*/
   TextEditingController totalDocument = TextEditingController(text: '0');
   double Stokkkkk = 0;
   Future<http.Response?> ajoutDocument(
@@ -184,7 +176,6 @@ static const snackBarStockError = SnackBar(
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String seqDocument() {
-    print(idDoc);
     idDoc ??= 1;
     return numSeqDocument = '${date.toString().substring(0, 10)}/DOC$idDoc';
   }
@@ -220,7 +211,7 @@ static const snackBarStockError = SnackBar(
                 if (value!.isEmpty || value == "") {
                   return 'Référence obligatoire';
                 } else {
-                  return "A7ala";
+                  return "";
                 }
               },
               searchInputDecoration: const InputDecoration(
@@ -242,7 +233,6 @@ static const snackBarStockError = SnackBar(
               suggestionState: Suggestion.expand,
               textInputAction: TextInputAction.next,
               onSubmit: (value) {
-                print(value);
                 setState(() {
                   selectedProduit = value;
                   for (var i = 0; i < produits!.length; i++) {
@@ -259,6 +249,13 @@ static const snackBarStockError = SnackBar(
             TextFormField(
               enabled: false,
               controller: nomController,
+              validator: (value) {
+                if (value!.isEmpty || value == "") {
+                  return 'Nom obligatoire -- Tapez la référence du produit';
+                } else {
+                  return "";
+                }
+              },
               style: const TextStyle(
                 fontSize: 15.0,
                 color: Colors.white,
@@ -289,6 +286,11 @@ static const snackBarStockError = SnackBar(
                   }
                 },
                 child: TextFormField(
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                      RegExp('[0-9]'),
+                    ),
+                  ],
                   controller: quantiteController,
                   style: const TextStyle(
                     fontSize: 15.0,
@@ -296,10 +298,9 @@ static const snackBarStockError = SnackBar(
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      print("Quantité y weldi");
                       return 'Quantité obligatoire';
                     } else {
-                      return "jawek behi";
+                      return "";
                     }
                   },
                   decoration: const InputDecoration(
@@ -331,6 +332,11 @@ static const snackBarStockError = SnackBar(
                   }
                 },
                 child: TextFormField(
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                      RegExp('[0-9]'),
+                    ),
+                  ],
                   textInputAction: TextInputAction.done,
                   enabled: true,
                   controller: prixController,
