@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:projetpfe/constants.dart';
 import 'package:projetpfe/controllers/MenuController.dart';
 import 'package:projetpfe/screens/Login/screen/Login.dart';
+import 'package:projetpfe/screens/caisse/CaisseScreen.dart';
 import 'package:projetpfe/screens/dashboard/dashboard_screen.dart';
 import 'package:projetpfe/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +67,7 @@ class CheckAuth extends StatefulWidget {
 
 class _CheckAuthState extends State<CheckAuth> {
   bool isAuth = false;
+  Map<String, dynamic>? user;
   @override
   void initState() {
     _checkIfLoggedIn();
@@ -73,6 +77,9 @@ class _CheckAuthState extends State<CheckAuth> {
   void _checkIfLoggedIn() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('access_token');
+    setState(() {
+      user = json.decode(localStorage.getString('user') as String);
+    });
     if (token != null) {
       setState(() {
         isAuth = true;
@@ -86,7 +93,11 @@ class _CheckAuthState extends State<CheckAuth> {
     if (isAuth) {
       child = LoginPage();
     } else {
-      child = MainScreen(DashboardScreen());
+      if (user!['role'] == 3) {
+        child = Caisse();
+      } else {
+        child = MainScreen(DashboardScreen());
+      }
     }
     return Scaffold(body: child);
   }

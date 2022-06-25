@@ -10,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 import '../../Login/Screen/Login.dart';
-import '../../Login/Screen/Network.dart';
 
 class Header extends StatefulWidget {
   const Header({Key? key}) : super(key: key);
@@ -120,15 +119,11 @@ class _ProfileCardState extends State<ProfileCard> {
   }
 
   void logout() async {
-    var res = await Network().getData('/logout');
-    var body = json.decode(res.body);
-    if (body['success']) {
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.remove('user');
-      localStorage.remove('token');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
-    }
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.remove('user');
+    localStorage.remove('token');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 }
 

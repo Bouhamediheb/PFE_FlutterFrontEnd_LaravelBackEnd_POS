@@ -2,6 +2,7 @@
 
 import 'package:projetpfe/screens/Login/Screen/Network.dart';
 import 'package:flutter/material.dart';
+import 'package:projetpfe/screens/caisse/CaisseScreen.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,14 +42,20 @@ class _LoginPageState extends State<LoginPage> {
 
     var res = await Network().authData(data, '/login');
     var body = json.decode(res.body);
+    var user = body['user'];
     if (body['success']) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('access_token', json.encode(body['access_token']));
       localStorage.setString('user', json.encode(body['user']));
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MainScreen(DashboardScreen())),
-      );
+      if (user['role'] == 3) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Caisse()));
+      } else {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainScreen(DashboardScreen())));
+      }
     } else {
       showAnimatedDialog(
         context: context,

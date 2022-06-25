@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
 import '../../../main/main_screen.dart';
+import 'ajouterunDctFrs.dart';
 
 class ChoixDocument extends StatefulWidget {
   const ChoixDocument({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
-                                    ajouterUnDocument(1, 'BON DE COMMANDE'))));
+                                    ajouterUnDocument2(1, 'BON DE COMMANDE'))));
                       },
                       child: SizedBox(
                           height: 110,
@@ -100,7 +101,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
-                                    ajouterUnDocument(3, 'BON DE RETOUR'))));
+                                    ajouterUnDocument(2, 'BON DE LIVRAISON'))));
                       },
                       child: SizedBox(
                           height: 110,
@@ -202,7 +203,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
-                                    ajouterUnDocument(3, 'DEVIS COMMERCIAL'))));
+                                    ajouterUnDocument2(3, 'BON DE RETOUR'))));
                       },
                       child: SizedBox(
                           height: 110,
@@ -218,7 +219,58 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                         BorderRadius.all(Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
-                                          "assets/images/ticket.png"),
+                                          "../../../../../assets/images/commande.png"),
+                                    ),
+
+                                    //color: Colors.grey[300],
+                                    // borderRadius: BorderRadius.circular(20.0),
+                                  )),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              const Text("Bon de retour ",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 15,
+                                  )),
+                            ],
+                          )),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    height: 200,
+                    width: 240,
+                    decoration: const BoxDecoration(
+                      color: secondaryColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: MaterialButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ajouterUnDocument(4, 'DEVIS')));
+                      },
+                      child: SizedBox(
+                          height: 110,
+                          child: Column(
+                            children: [
+                              Container(
+                                  padding: const EdgeInsets.all(
+                                      defaultPadding * 0.75),
+                                  height: 60,
+                                  width: 80,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "../../../../../assets/images/commande.png"),
                                     ),
 
                                     //color: Colors.grey[300],
@@ -252,14 +304,3 @@ class _ChoixDocumentState extends State<ChoixDocument> {
     );
   }
 }
-/*
-Text(
-                "Choississez le type de document souhaité",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
-              ),
-              
-              
-*/
