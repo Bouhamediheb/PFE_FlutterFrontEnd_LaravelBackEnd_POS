@@ -19,7 +19,7 @@ class listeProduitState extends State<listeProduit> {
   @override
   void initState() {
     super.initState();
-    t = new Timer.periodic(timeDelay, (t) => fetchProduits());
+    fetchProduits();
   }
 
   fetchProduits() async {
@@ -38,12 +38,6 @@ class listeProduitState extends State<listeProduit> {
     } else {
       throw Exception('Error!');
     }
-  }
-
-  @override
-  void dispose() {
-    t?.cancel();
-    super.dispose();
   }
 
   @override

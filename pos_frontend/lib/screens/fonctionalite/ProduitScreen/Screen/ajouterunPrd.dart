@@ -1,6 +1,8 @@
 // ignore_for_file: unused_local_variable, invalid_return_type_for_catch_error
 
 import 'package:flutter/material.dart';
+import '../../../dashboard/dashboard_screen.dart';
+import '../../../main/main_screen.dart';
 import '../Widgets/input_field.dart';
 import '../Widgets/input_field_description.dart';
 import 'package:projetpfe/constants.dart';
@@ -34,8 +36,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
   }
 
   late int idFournisseur;
-  late List fournisseurs = [];
-  late String dropdownvalue;
+  List fournisseurs = [];
+  String? dropdownvalue;
   late Map<int, String> raisonSociale = {};
 
   fetchFours() async {
@@ -325,7 +327,6 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                           double.parse(stockProduit.text),
                                           idFournisseur);
                                     });
-                                    Navigator.of(context).pop();
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
@@ -338,8 +339,12 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                           )),
                                     );
 
-                                    Navigator.of(context)
-                                        .pushReplacementNamed('/dashboard');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MainScreen(DashboardScreen())),
+                                    );
                                     setState(() {});
                                   }
                                 },

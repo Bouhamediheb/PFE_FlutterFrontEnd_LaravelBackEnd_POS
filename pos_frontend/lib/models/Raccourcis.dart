@@ -27,36 +27,42 @@ List listeRaccourcis = [
 
 List listeRaccourcisMonetiques = [
   Raccourcis(
-      ico: Icons.attach_money,
-      title: "Solde",
-      imgSrc: "assets/images/commande.png",
-      value: 3500),
+    ico: Icons.attach_money,
+    title: "Solde",
+    imgSrc: "assets/images/commande.png",
+    value: 3500,
+  ),
   Raccourcis(
-      ico: Icons.receipt,
-      title: "Montant des chéques payés",
-      imgSrc: "assets/images/livraison.png",
-      value: 5000),
+    ico: Icons.receipt,
+    title: "Montant des chéques payés",
+    imgSrc: "assets/images/livraison.png",
+    value: 5000,
+  ),
   Raccourcis(
-      ico: Icons.insert_page_break,
-      title: "Montant des chéques impayés",
-      imgSrc: "assets/images/livraison.png",
-      value: 1200),
+    ico: Icons.insert_page_break,
+    title: "Montant des chéques impayés",
+    imgSrc: "assets/images/livraison.png",
+    value: 1200,
+  ),
 ];
 
 List listeRaccourcisEtat = [
   Raccourcis(
-      ico: Icons.factory,
-      title: "Nombre de fournisseurs",
-      imgSrc: "assets/images/commande.png",
-      value: 5),
+    ico: Icons.factory,
+    title: "Nombre de fournisseurs",
+    imgSrc: "assets/images/commande.png",
+    value: 1200,
+  ),
   Raccourcis(
-      ico: Icons.production_quantity_limits,
-      title: "Nombre de produits",
-      imgSrc: "assets/images/livraison.png",
-      value: 12),
+    ico: Icons.production_quantity_limits,
+    title: "Nombre de produits",
+    imgSrc: "assets/images/livraison.png",
+    value: 1200,
+  ),
   Raccourcis(
-      ico: Icons.document_scanner,
-      title: "Nombre de documents",
-      imgSrc: "assets/images/livraison.png",
-      value: 120),
+    ico: Icons.document_scanner,
+    title: "Nombre de documents",
+    imgSrc: "assets/images/livraison.png",
+    value: 1200,
+  ),
 ];

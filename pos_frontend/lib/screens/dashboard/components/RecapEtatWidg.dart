@@ -71,7 +71,10 @@ class _RecapEtatRaccState extends State<RecapEtatRacc> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 17)),
                 const SizedBox(height: defaultPadding / 2),
-                Text(widget.info.value!.toString(),
+                Text(
+                    widget.info.value!
+                        .toString()
+                        .substring(0, widget.info.value!.toString().length - 2),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

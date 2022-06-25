@@ -22,7 +22,7 @@ class _EtatStockState extends State<EtatStock> {
   @override
   void initState() {
     super.initState();
-    t = new Timer.periodic(timeDelay, (t) => fetchProduits());
+    fetchProduits();
   }
 
   fetchProduits() async {
@@ -40,12 +40,6 @@ class _EtatStockState extends State<EtatStock> {
     } else {
       throw Exception('Error!');
     }
-  }
-
-  @override
-  void dispose() {
-    t?.cancel();
-    super.dispose();
   }
 
   @override

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../../main/main_screen.dart';
-import '../Widgets/input_field.dart';
+import '../../ProduitScreen/Widgets/input_field.dart';
 
 class ajouterUnFournisseur extends StatefulWidget {
   @override
@@ -100,6 +100,8 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                   ),
                                   //InputField Widget from the widgets folder
                                   InputField(
+                                    whattoAllow:
+                                        RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                     fieldController: raisonSocialeFournisseur,
                                     label: "Raison Sociale",
                                     content: "Le nom du fournisseur",
@@ -117,6 +119,8 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
 
                                   //InputField Widget from the widgets folder
                                   InputField(
+                                    whattoAllow:
+                                        RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                     fieldController: addressFournisseur,
                                     label: "Addresse",
                                     content: "Route ...",
@@ -134,6 +138,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
 
                                   //InputField Widget from the widgets folder
                                   InputField(
+                                    whattoAllow: RegExp('[a-z A-Z á-ú Á-Ú ]'),
                                     fieldController: paysFournisseur,
                                     label: "Pays",
                                     content:
@@ -148,6 +153,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                   const SizedBox(height: 20.0),
 
                                   InputField(
+                                    whattoAllow: RegExp('[a-z A-Z á-ú Á-Ú ]'),
                                     fieldController: villeFournisseur,
                                     label: "Ville",
                                     content: "Ville du siége du fournisseur",
@@ -170,6 +176,8 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                     height: 10,
                                   ),
                                   InputField(
+                                    whattoAllow:
+                                        RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                     fieldController:
                                         matriculeFiscaleFournisseur,
                                     label: "Matricule fiscale",
@@ -186,6 +194,8 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
 
                                   //InputField Widget from the widgets folder
                                   InputField(
+                                    whattoAllow: RegExp(
+                                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'),
                                     fieldController: emailFournisseur,
                                     label: "Email",
                                     content: "foulen@mail.com",
@@ -200,6 +210,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                   const SizedBox(height: 20.0),
 
                                   InputField(
+                                    whattoAllow: RegExp('[0-9 +]'),
                                     fieldController: numeroFournisseur,
                                     label: "Numéro de téléphone",
                                     content: "+29000000000",

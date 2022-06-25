@@ -46,7 +46,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     });
   }
 
-  Future<http.Response?> getProduit() async {
+  getProduit() async {
     print(widget.produitId);
     final response = await http.get(
         Uri.parse('http://127.0.0.1:8000/api/produit/${widget.produitId}'),
@@ -68,7 +68,6 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       stockProduit.text = produits!['stock'].toString();
       tvaProduit.text = produits!['TVA'].toString();
     });
-    return null;
   }
 
   Map<String, dynamic>? produits;
@@ -81,8 +80,9 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     String descriptionProduit,
     double stockProduit,
     double tvaProduit,
+    int idFournisseur,
   ) async {
-    late List? produits = [];
+    List? produits = [];
     final response = await http.put(
       Uri.parse('http://127.0.0.1:8000/api/produit/${widget.produitId}'),
       headers: <String, String>{
@@ -97,6 +97,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
         'descriptionProd': descriptionProduit,
         'stock': stockProduit,
         'TVA': tvaProduit,
+        'id_fournisseur': idFournisseur,
       }),
     );
     if (response.statusCode == 200) {
@@ -146,6 +147,8 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                 children: [
                                   const SizedBox(height: 10),
                                   InputField(
+                                    whattoAllow:
+                                        RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                     label: "Référence Produit",
                                     content: "La Référence du produit",
                                     fieldController: refProduit,
@@ -158,6 +161,8 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   ),
                                   const SizedBox(height: 20),
                                   InputField(
+                                    whattoAllow:
+                                        RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                     label: "Nom du produit",
                                     content: "Le Nom du produit",
                                     fieldController: nomProduit,
@@ -170,6 +175,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   ),
                                   const SizedBox(height: 20),
                                   InputField(
+                                      whattoAllow: RegExp('[0-9 . ]'),
                                       label: "Prix Achat",
                                       content: "Prix Achat du Produit",
                                       fieldController: prixAchatProduit,
@@ -181,6 +187,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                       }),
                                   const SizedBox(height: 20),
                                   InputField(
+                                    whattoAllow: RegExp('[0-9 . ]'),
                                     label: "Prix Vente",
                                     content: "Prix Vente du Produit",
                                     fieldController: prixVenteProduit,
@@ -193,6 +200,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   ),
                                   const SizedBox(height: 20),
                                   InputField(
+                                      whattoAllow: RegExp('[0-9 . ]'),
                                       label: "TVA",
                                       content: "TVA du Produit",
                                       fieldController: tvaProduit,
@@ -204,6 +212,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                       }),
                                   const SizedBox(height: 20),
                                   InputField(
+                                    whattoAllow: RegExp('[0-9 . ]'),
                                     label: "Stock",
                                     content: "Stock",
                                     fieldController: stockProduit,
@@ -254,15 +263,15 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() {
-                                    future = ajoutProduit(
-                                      refProduit.text,
-                                      nomProduit.text,
-                                      double.parse(prixAchatProduit.text),
-                                      double.parse(prixVenteProduit.text),
-                                      descriptionProduit.text,
-                                      double.parse(stockProduit.text),
-                                      double.parse(tvaProduit.text),
-                                    );
+                                    ajoutProduit(
+                                        refProduit.text,
+                                        nomProduit.text,
+                                        double.parse(prixAchatProduit.text),
+                                        double.parse(prixVenteProduit.text),
+                                        descriptionProduit.text,
+                                        double.parse(stockProduit.text),
+                                        double.parse(tvaProduit.text),
+                                        produits!['id_fournisseur']);
                                   });
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
