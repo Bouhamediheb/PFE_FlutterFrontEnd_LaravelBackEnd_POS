@@ -21,13 +21,11 @@ class ajouterUnProduit extends StatefulWidget {
 
 class _ajouterUnProduitState extends State<ajouterUnProduit> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final refProduit = TextEditingController();
-  final nomProduit = TextEditingController();
-  final prixAchatProduit = TextEditingController();
-  final prixVenteProduit = TextEditingController();
-  final descriptionProduit = TextEditingController();
-  final stockProduit = TextEditingController();
-  final tvaProduit = TextEditingController();
+  final TextEditingController refProduit = TextEditingController();
+  final TextEditingController nomProduit = TextEditingController();
+  final TextEditingController prixAchatProduit = TextEditingController();
+  final TextEditingController descriptionProduit = TextEditingController();
+  final TextEditingController stockProduit = TextEditingController();
 
   @override
   void initState() {
@@ -74,11 +72,9 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
   }
 
   Future upload(
-    double tvaProduit,
     String refProduit,
     String nomProduit,
     double prixAchatProduit,
-    double prixVenteProduit,
     String descriptionProduit,
     double stockProduit,
     int idFournisseur,
@@ -87,10 +83,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
       'refProd': refProduit,
       'nomProd': nomProduit,
       'prixAchat': prixAchatProduit,
-      'prixVente': prixVenteProduit,
       'descriptionProd': descriptionProduit,
       'stock': stockProduit,
-      'TVA': tvaProduit,
       'id_fournisseur': idFournisseur
     });
 
@@ -141,72 +135,64 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                             children: [
                               Expanded(
                                 flex: 3,
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 10),
-                                    InputField(
-                                      label: "Référence Produit",
-                                      content: "La Référence du produit",
-                                      fieldController: refProduit,
-                                      whattoAllow:
-                                          RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    InputField(
-                                      label: "Nom du produit",
-                                      content: "Le Nom du produit",
-                                      whattoAllow:
-                                          RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
-                                      fieldController: nomProduit,
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    InputFieldDescription(
-                                      content: 'La Description du Produit',
-                                      label: 'Description du Produit',
-                                      fieldController: descriptionProduit,
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ],
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 10),
+                                      InputField(
+                                        label: "Référence Produit",
+                                        content: "La Référence du produit",
+                                        fieldController: refProduit,
+                                        whattoAllow:
+                                            RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
+                                        fieldValidator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return "Ce Champ est obligatoire";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(height: 20),
+                                      InputField(
+                                        label: "Nom du produit",
+                                        content: "Le Nom du produit",
+                                        whattoAllow:
+                                            RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
+                                        fieldController: nomProduit,
+                                        fieldValidator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return "Ce Champ est obligatoire";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(height: 20),
+                                      InputFieldDescription(
+                                        content: 'La Description du Produit',
+                                        label: 'Description du Produit',
+                                        fieldController: descriptionProduit,
+                                        fieldValidator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return "Ce Champ est obligatoire";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 25),
                               Expanded(
                                 flex: 3,
                                 child: Column(children: [
-                                  const SizedBox(height: 10),
-                                  InputField(
-                                    content: 'La Quantité de Produit',
-                                    label: 'Quantité',
-                                    whattoAllow: RegExp('[0-9]'),
-                                    fieldController: stockProduit,
-                                    fieldValidator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Ce Champ est obligatoire";
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                                  
                                   const SizedBox(height: 20),
                                   InputField(
-                                      label: "Prix Achat",
-                                      content: "Prix Achat du Produit",
+                                      label: "Prix Achat HT",
+                                      content: "Prix d'achat du produit HT",
                                       fieldController: prixAchatProduit,
                                       whattoAllow: RegExp('[0-9]'),
                                       fieldValidator: (value) {
@@ -216,31 +202,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                         return null;
                                       }),
                                   const SizedBox(height: 20),
-                                  InputField(
-                                    label: "Prix Vente",
-                                    content: "Prix Vente du Produit",
-                                    fieldController: prixVenteProduit,
-                                    whattoAllow: RegExp('[0-9]'),
-                                    fieldValidator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Ce Champ est obligatoire";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 20),
-                                  InputField(
-                                    label: "TVA",
-                                    content: "TVA du Produit",
-                                    whattoAllow: RegExp('[0-9]'),
-                                    fieldController: tvaProduit,
-                                    fieldValidator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Ce Champ est obligatoire";
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                                  
+                                  
                                   SizedBox(height: 20),
                                   Row(
                                     children: [
@@ -287,7 +250,11 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                         ),
                                       ),
                                     ],
-                                  )
+                                  ),
+
+                                  Row(children: [
+SizedBox(height:138),
+                                  ],)
                                 ]),
                               ),
                             ],
@@ -318,13 +285,11 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                   if (_formKey.currentState!.validate()) {
                                     setState(() {
                                       future = upload(
-                                          double.parse(tvaProduit.text),
                                           refProduit.text,
                                           nomProduit.text,
                                           double.parse(prixAchatProduit.text),
-                                          double.parse(prixVenteProduit.text),
                                           descriptionProduit.text,
-                                          double.parse(stockProduit.text),
+                                          0,
                                           idFournisseur);
                                     });
 
