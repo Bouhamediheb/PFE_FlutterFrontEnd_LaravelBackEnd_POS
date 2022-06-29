@@ -90,7 +90,7 @@ class _CheckAuthState extends State<CheckAuth> {
   @override
   Widget build(BuildContext context) {
     Widget child;
-    if (isAuth) {
+    if (isAuth == false) {
       child = LoginPage();
     } else {
       if (user!['role'] == 3) {

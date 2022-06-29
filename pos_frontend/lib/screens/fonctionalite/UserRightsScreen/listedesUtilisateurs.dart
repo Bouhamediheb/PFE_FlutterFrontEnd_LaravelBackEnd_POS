@@ -56,9 +56,9 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
 
   Text typeAcc(int y) {
     if (users![y]['role'] == 1) {
-      return const Text('Administrateur');
+      return const Text('Proriétaire');
     } else if (users![y]['role'] == 2) {
-      return const Text("Agent de Bureau");
+      return const Text("Gérant");
     } else if (users![y]['role'] == 3) {
       return const Text("Caissier");
     } else {
@@ -89,7 +89,7 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                   height: 45,
                   child: Center(
                     child: Text(
-                      'La Liste des utlisateurs :',
+                      'La liste des utilisateurs :',
                       style: TextStyle(
                           //
                           color: Colors.white,
@@ -224,14 +224,14 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                               itemBuilder: (context) => [
                                 const PopupMenuItem(
                                   value: 1,
-                                  child: Text('Administrateur'),
+                                  child: Text('Proriétaire'),
                                 ),
                                 const PopupMenuDivider(
                                   height: 5,
                                 ),
                                 const PopupMenuItem(
                                   value: 2,
-                                  child: Text('Agent de Bureau'),
+                                  child: Text('Gérant'),
                                 ),
                                 const PopupMenuDivider(
                                   height: 5,
