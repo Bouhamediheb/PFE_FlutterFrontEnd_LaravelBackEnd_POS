@@ -101,7 +101,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainScreen(
-                                    ajouterUnDocument(2, 'BON DE LIVRAISON'))));
+                                    ajouterUnDocument2(2, "BON D'ENTREE"))));
                       },
                       child: SizedBox(
                           height: 110,
@@ -126,58 +126,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              const Text("Bon de retour ",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 15,
-                                  )),
-                            ],
-                          )),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Container(
-                    height: 200,
-                    width: 240,
-                    decoration: const BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MainScreen(
-                                    ajouterUnDocument(2, 'BON DE LIVRAISON'))));
-                      },
-                      child: SizedBox(
-                          height: 110,
-                          child: Column(
-                            children: [
-                              Container(
-                                  padding: const EdgeInsets.all(
-                                      defaultPadding * 0.75),
-                                  height: 60,
-                                  width: 80,
-                                  decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/livraison.png"),
-                                    ),
-
-                                    //color: Colors.grey[300],
-                                    // borderRadius: BorderRadius.circular(20.0),
-                                  )),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const Text("Bon de livraison ",
+                              const Text("Bon d'entrée",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -253,8 +202,8 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ajouterUnDocument(4, 'DEVIS')));
+                                builder: (context) => MainScreen(
+                                    ajouterUnDocument(5, 'FACTURE'))));
                       },
                       child: SizedBox(
                           height: 110,
@@ -279,7 +228,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              const Text("Devis commercial ",
+                              const Text("Facture",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(

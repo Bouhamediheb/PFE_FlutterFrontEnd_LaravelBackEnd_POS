@@ -14,6 +14,7 @@ class listeDocument extends StatefulWidget {
 class _listeDocumentState extends State<listeDocument> {
   int? documentId;
   List? documents = [];
+  String dropdownvalue = 'Tous les Documents';
   @override
   void initState() {
     super.initState();
@@ -21,14 +22,17 @@ class _listeDocumentState extends State<listeDocument> {
   }
 
   String getDocType(int number) {
-    print("Hedha type doc");
     if (number == 1) {
       return "Bon de commande";
     } else if (number == 2) {
-      return "Bon de livraison";
+      return "Bon d'entrée";
     } else if (number == 3) {
       return "Bon de retour";
-    } else if (number == 4) {}
+    } else if (number == 4) {
+      return "Ticket";
+    } else if (number == 5) {
+      return "Facture";
+    }
     return "Devis";
   }
 

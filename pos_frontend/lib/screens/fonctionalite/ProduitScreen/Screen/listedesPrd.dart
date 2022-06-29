@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:projetpfe/constants.dart';
+import 'package:projetpfe/screens/fonctionalite/ProduitScreen/Screen/supprimerunPrd.dart';
 import 'modifierunPrd.dart';
 
 class listeProduit extends StatefulWidget {
@@ -180,6 +181,41 @@ class listeProduitState extends State<listeProduit> {
                                             fetchProduits();
                                           });
                                         }),
+                                    if (produits![i]['stock'] == 0)
+                                      IconButton(
+                                          icon: const Icon(Icons.delete,
+                                              color: Colors.red),
+                                          onPressed: () async {
+                                            produitId = produits![i]['id'];
+                                            await showAnimatedDialog(
+                                              context: context,
+                                              barrierDismissible: true,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor: bgColor,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  content: SizedBox(
+                                                      height: 130,
+                                                      width: 320,
+                                                      child: supprimerUnProduit(
+                                                          produitId)),
+                                                );
+                                              },
+                                              animationType:
+                                                  DialogTransitionType
+                                                      .fadeScale,
+                                              curve: Curves.fastOutSlowIn,
+                                              duration:
+                                                  const Duration(seconds: 1),
+                                            );
+                                            setState(() {
+                                              fetchProduits();
+                                            });
+                                          }),
                                   ]),
                             ),
                           ],

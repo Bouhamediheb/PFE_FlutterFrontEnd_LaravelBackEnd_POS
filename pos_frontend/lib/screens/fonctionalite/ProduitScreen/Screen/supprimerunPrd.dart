@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:projetpfe/constants.dart';
 
 class supprimerUnProduit extends StatefulWidget {
   int? produitId;
@@ -25,10 +26,10 @@ class _supprimerUnProduitState extends State<supprimerUnProduit> {
   Widget build(BuildContext context) {
     return Card(
         elevation: 0,
-        color: const Color(0xFF2A2D3E),
+        color: bgColor,
         child: Column(
           children: [
-            const Text('Voulez vous vraiment supprimer ce fournisseur ?'),
+            const Text('Voulez vous vraiment supprimer ce Produit ?'),
             const SizedBox(
               height: 30,
             ),

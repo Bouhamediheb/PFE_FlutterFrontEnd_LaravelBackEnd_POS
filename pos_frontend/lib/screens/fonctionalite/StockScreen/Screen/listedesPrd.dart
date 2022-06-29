@@ -3,10 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:projetpfe/constants.dart';
-
-import '../../ProduitScreen/Screen/modifierunPrd.dart';
 
 class EtatStockGlobal extends StatefulWidget {
   @override

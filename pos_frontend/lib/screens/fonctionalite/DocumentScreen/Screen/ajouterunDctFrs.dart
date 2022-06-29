@@ -184,30 +184,43 @@ static const snackBarStockError = SnackBar(
     }
   }
 
+  updateSeqDocument() async {
+    final response = await http.post(
+      Uri.parse("http://127.0.0.1:8000/api/seqdoc/${widget.id}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json; charset=utf-8',
+      },
+    );
+    if (response.statusCode == 200) {
+      print("Numéro de Document Modifié");
+    } else {
+      throw Exception('Erreur base de données!');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    fetchDocuments();
+    fetchSequence();
     fetchProduits();
     fetchFours();
   }
 
-  fetchDocuments() async {
+  fetchSequence() async {
     final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/api/document'),
+      Uri.parse('http://127.0.0.1:8000/api/seqdoc/${widget.id}'),
       headers: <String, String>{
-        'Cache-Control': 'no-cache',
+        'Accept': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
       },
     );
-
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
-        documents = items;
-        idDoc = documents![documents!.length - 1]['id'] + 1;
+        idDoc = items['seq_id'] + 1;
+        print('hedha idDoc : ' + idDoc.toString());
       });
-    } else {
-      throw Exception('Error!');
     }
   }
 
@@ -216,9 +229,17 @@ static const snackBarStockError = SnackBar(
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String seqDocument() {
-    print(idDoc);
-    idDoc ??= 1;
-    return numSeqDocument = '${date.toString().substring(0, 10)}/DOC$idDoc';
+    if (widget.id == 1) {
+      idDoc ??= 1;
+      return numSeqDocument = '${date.toString().substring(0, 10)}/BC$idDoc';
+    } else if (widget.id == 2) {
+      idDoc ??= 1;
+      return numSeqDocument = '${date.toString().substring(0, 10)}/BE$idDoc';
+    } else if (widget.id == 3) {
+      idDoc ??= 1;
+      return numSeqDocument = '${date.toString().substring(0, 10)}/BR$idDoc';
+    } else
+      return numSeqDocument = 'Vérifier Base de Données';
   }
 
   List<DataRow> ligneDoc = [];
@@ -650,6 +671,7 @@ static const snackBarStockError = SnackBar(
                                                 dateDoc,
                                                 double.parse(
                                                     totalDocument.text));
+                                            updateSeqDocument();
                                           }
                                         }
                                         for (var i = 3;

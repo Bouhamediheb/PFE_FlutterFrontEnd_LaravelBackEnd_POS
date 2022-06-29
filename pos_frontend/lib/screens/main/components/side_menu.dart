@@ -1,5 +1,4 @@
 import 'package:projetpfe/constants.dart';
-import 'package:projetpfe/screens/dashboard/components/EtatStock.dart';
 import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
 import 'package:projetpfe/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
 import 'package:projetpfe/screens/fonctionalite/StockScreen/Screen/listedesPrd.dart';
@@ -13,7 +12,6 @@ import '../../fonctionalite/DocumentScreen/Screen/listedesDct.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/listedesFrs.dart';
 import '../../fonctionalite/ProduitScreen/Screen/ajouterunPrd.dart';
-import '../../../models/invoices.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({

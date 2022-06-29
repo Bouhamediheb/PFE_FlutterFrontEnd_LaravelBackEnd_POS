@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Produit;
 
 class ProduitController extends Controller
@@ -41,8 +41,7 @@ class ProduitController extends Controller
         $validatedData = $request->validate([
             'refProd' => 'required|unique:produits',
             'nomProd' => 'required',
-            'prixAchat' => 'required',
-            'prixVente' => 'required',
+            'prixAchatHT' => 'required',
             'descriptionProd',
             'stock' => 'required',
             'id_fournisseur',
@@ -51,8 +50,7 @@ class ProduitController extends Controller
         $data= array();
         $data['refProd'] = $request->refProd;
         $data['nomProd'] = $request->nomProd;
-        $data['prixAchat'] = $request->prixAchat;
-        $data['prixVente'] = $request->prixVente;
+        $data['prixAchatHT'] = $request->prixAchatHT;
         $data['stock'] = $request->stock;
         $data['descriptionProd']= $request->descriptionProd;
         $data['TVA']= $request->TVA;
@@ -107,9 +105,8 @@ class ProduitController extends Controller
         $data= array();
         $data['refProd'] = $request->refProd;
         $data['stock'] = $request->stock;
-        $data['prixVente']= $request->prixVente;
         $data['nomProd'] = $request->nomProd;
-        $data['prixAchat'] = $request->prixAchat;
+        $data['prixAchatHT'] = $request->prixAchatHT;
         $data['descriptionProd']= $request->descriptionProd;
         $data['TVA']= $request->TVA;
         $data['id_fournisseur'] = $request->id_fournisseur;
@@ -126,6 +123,6 @@ class ProduitController extends Controller
     public function destroy($id)
     {
         DB::table('produits')->where('id', $id)->delete();
-        return reponse('Produit Supprimé');
+        return response('Produit Supprimé');
     }
 }
