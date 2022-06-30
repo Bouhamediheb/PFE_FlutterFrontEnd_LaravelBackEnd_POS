@@ -82,7 +82,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
     FormData data = FormData.fromMap({
       'refProd': refProduit,
       'nomProd': nomProduit,
-      'prixAchat': prixAchatProduit,
+      'prixAchatHT': prixAchatProduit,
       'descriptionProd': descriptionProduit,
       'stock': stockProduit,
       'id_fournisseur': idFournisseur
@@ -188,13 +188,12 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                               Expanded(
                                 flex: 3,
                                 child: Column(children: [
-                                  
                                   const SizedBox(height: 20),
                                   InputField(
                                       label: "Prix Achat HT",
                                       content: "Prix d'achat du produit HT",
                                       fieldController: prixAchatProduit,
-                                      whattoAllow: RegExp('[0-9]'),
+                                      whattoAllow: RegExp('[0-9 . ]'),
                                       fieldValidator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return "Ce Champ est obligatoire";
@@ -202,8 +201,6 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                         return null;
                                       }),
                                   const SizedBox(height: 20),
-                                  
-                                  
                                   SizedBox(height: 20),
                                   Row(
                                     children: [
@@ -251,10 +248,11 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       ),
                                     ],
                                   ),
-
-                                  Row(children: [
-SizedBox(height:138),
-                                  ],)
+                                  Row(
+                                    children: [
+                                      SizedBox(height: 138),
+                                    ],
+                                  )
                                 ]),
                               ),
                             ],
@@ -289,7 +287,7 @@ SizedBox(height:138),
                                           nomProduit.text,
                                           double.parse(prixAchatProduit.text),
                                           descriptionProduit.text,
-                                          0,
+                                          0.0,
                                           idFournisseur);
                                     });
 

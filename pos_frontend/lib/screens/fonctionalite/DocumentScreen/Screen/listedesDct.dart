@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:projetpfe/constants.dart';
+import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/bonentree.dart';
 import 'listeligneDct.dart';
 import 'modifierunDct.dart';
 
@@ -207,6 +208,48 @@ class _listeDocumentState extends State<listeDocument> {
                                             fetchDocuments();
                                           });
                                         }),
+                                    if (documents![i]['type'] == 1)
+                                      IconButton(
+                                          icon: const Icon(
+                                              Icons.description_rounded,
+                                              color: Colors.blue),
+                                          onPressed: () async {
+                                            documentId = documents![i]['id'];
+                                            await showAnimatedDialog(
+                                              context: context,
+                                              barrierDismissible: true,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor: bgColor,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  content: SizedBox(
+                                                      width: 325,
+                                                      height: 75,
+                                                      child: BonEntree(
+                                                          documents![i]['id'],
+                                                          documents![i]
+                                                              ['dateDoc'],
+                                                          documents![i]
+                                                              ['totalDoc'],
+                                                          documents![i]
+                                                              ['numDoc'])),
+                                                );
+                                              },
+                                              animationType:
+                                                  DialogTransitionType
+                                                      .fadeScale,
+                                              curve: Curves.fastOutSlowIn,
+                                              duration:
+                                                  const Duration(seconds: 1),
+                                            );
+                                            setState(() {
+                                              fetchDocuments();
+                                            });
+                                          }),
                                   ]),
                             ),
                           ],

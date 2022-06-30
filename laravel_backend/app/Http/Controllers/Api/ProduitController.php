@@ -45,7 +45,7 @@ class ProduitController extends Controller
             'descriptionProd',
             'stock' => 'required',
             'id_fournisseur',
-            'imageProd' => 'mimes:jpg,png,jpeg,gif,svg'
+           
         ]);
         $data= array();
         $data['refProd'] = $request->refProd;
@@ -53,18 +53,9 @@ class ProduitController extends Controller
         $data['prixAchatHT'] = $request->prixAchatHT;
         $data['stock'] = $request->stock;
         $data['descriptionProd']= $request->descriptionProd;
-        $data['TVA']= $request->TVA;
+    
         $data['id_fournisseur'] = $request->id_fournisseur;
-        /**
-        *  $imageProd = $request->file('imageProd');
-        * $name_gen = hexdec(uniqid());
-        * $img_ext = strtolower($imageProd->getClientOriginalExtension());
-        * $img_name = $name_gen.'.'.$img_ext;
-        * $up_location = 'public/produit';
-        * $last_img = $up_location.$img_name;
-        * $imageProd->move($up_location,$img_name);
-        * $data['imageProd'] = $last_img;
-        **/
+       
         $insert = DB::table('produits')->insert($data);
         return response('Produit Ajouté');
     }
@@ -108,7 +99,6 @@ class ProduitController extends Controller
         $data['nomProd'] = $request->nomProd;
         $data['prixAchatHT'] = $request->prixAchatHT;
         $data['descriptionProd']= $request->descriptionProd;
-        $data['TVA']= $request->TVA;
         $data['id_fournisseur'] = $request->id_fournisseur;
         $insert = DB::table('produits')->where('id',$id)->update($data);
         return response()->json('Produit Modifié');

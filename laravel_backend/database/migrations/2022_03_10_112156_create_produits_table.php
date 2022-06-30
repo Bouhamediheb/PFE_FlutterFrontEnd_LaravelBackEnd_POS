@@ -18,11 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('id_fournisseur');
             $table->string('refProd');
             $table->string('nomProd');
-            $table->float('prixAchat');
+            $table->float('prixAchatHT');
             $table->string('descriptionProd');
             $table->float('stock');
-            $table->float('TVA')->nullable();
-            $table->string('imageProd')->nullable();
+
             $table->timestamps();
 
             $table->foreign('id_fournisseur')->references('id')->on('fournisseurs');

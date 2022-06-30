@@ -50,8 +50,6 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument2>
           raisonSocialeFournisseur[fournisseurs[i]['id']] =
               fournisseurs[i]['raisonSociale'];
         }
-        ;
-        dropdownvalue = fournisseurs[0]['raisonSociale'];
       });
     } else {
       throw Exception('Error!');
@@ -91,6 +89,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument2>
   String? numDoc;
   bool confirmButton = false;
   int idligne = -1;
+  bool selectionFrs = false;
   /*
 static const snackBarSucces = SnackBar(
     content: Text('Tâche effectuée avec succès'),
@@ -242,11 +241,10 @@ static const snackBarStockError = SnackBar(
       return numSeqDocument = 'Vérifier Base de Données';
   }
 
-  List<DataRow> ligneDoc = [];
-  LocalKey? key;
+  Map<int, DataRow> ligneDoc = {};
 
   void ajouterLigne() {
-    idligne++;
+    var idligne = ligneDoc.length + 1;
     setState(() {
       confirmButton = true;
     });
@@ -259,154 +257,246 @@ static const snackBarStockError = SnackBar(
     widget.controllers.add(quantiteController);
     TextEditingController prixController = TextEditingController();
     widget.controllers.add(prixController);
-    ligneDoc.add(
-      DataRow(
-        key: key,
-        cells: <DataCell>[
-          DataCell(
-            SearchField(
-              hasOverlay: true,
-              hint: "Taper la référence du produit",
-              searchStyle: const TextStyle(color: Colors.white),
-              controller: referenceController,
-              validator: (value) {
-                if (value!.isEmpty || value == "") {
-                  return 'Référence obligatoire';
-                } else {
-                  return "A7ala";
-                }
-              },
-              searchInputDecoration: const InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.all(10.0),
-                hintStyle: TextStyle(
-                    color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
-              ),
-              suggestionItemDecoration: BoxDecoration(
-                  color: const Color(0xFF2A2D3E),
-                  border: Border.all(color: Colors.white, width: 1.0)),
-              suggestions: refProduits
-                  .map((e) => SearchFieldListItem<dynamic>(e, item: e))
-                  .toList(),
-              maxSuggestionsInViewPort: 6,
-              suggestionsDecoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              suggestionState: Suggestion.expand,
-              textInputAction: TextInputAction.next,
-              onSubmit: (value) {
-                print(value);
-                setState(() {
-                  selectedProduit = value;
-                  for (var i = 0; i < produits!.length; i++) {
-                    if (selectedProduit == produits![i]['refProd']) {
-                      nomProduit = produits![i]['nomProd'];
-                      nomController.text = nomProduit.toString();
-                    }
+
+    TextEditingController tvaController = new TextEditingController();
+    TextEditingController totalHTController = new TextEditingController();
+    TextEditingController totalTTCController = new TextEditingController();
+
+    ligneDoc[idligne] = DataRow(
+      cells: <DataCell>[
+        DataCell(
+          SearchField(
+            hasOverlay: true,
+            hint: "Taper la référence du produit",
+            searchStyle: const TextStyle(color: Colors.white),
+            controller: referenceController,
+            validator: (value) {
+              if (value!.isEmpty || value == "") {
+                return 'Référence obligatoire';
+              } else {
+                return "A7ala";
+              }
+            },
+            searchInputDecoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(10.0),
+              hintStyle: TextStyle(
+                  color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+            ),
+            suggestionItemDecoration: BoxDecoration(
+                color: const Color(0xFF2A2D3E),
+                border: Border.all(color: Colors.white, width: 1.0)),
+            suggestions: refProduits
+                .map((e) => SearchFieldListItem<dynamic>(e, item: e))
+                .toList(),
+            maxSuggestionsInViewPort: 6,
+            suggestionsDecoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            suggestionState: Suggestion.expand,
+            textInputAction: TextInputAction.next,
+            onSubmit: (value) {
+              print(value);
+              setState(() {
+                selectedProduit = value;
+                for (var i = 0; i < produits!.length; i++) {
+                  if (selectedProduit == produits![i]['refProd']) {
+                    nomProduit = produits![i]['nomProd'];
+                    nomController.text = nomProduit.toString();
                   }
-                });
-              },
+                }
+              });
+            },
+          ),
+        ),
+        DataCell(
+          TextFormField(
+            enabled: false,
+            controller: nomController,
+            style: const TextStyle(
+              fontSize: 15.0,
+              color: Colors.white,
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(10.0),
+              hintText: "Commencez par taper la référence à gauche",
+              hintStyle: TextStyle(
+                  color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+              fillColor: Color.fromARGB(255, 0, 0, 0),
             ),
           ),
-          DataCell(
-            TextFormField(
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: Focus(
+              onFocusChange: (hasFocus) {
+                if (!hasFocus) {
+                  totalHTController.text =
+                      (double.parse(quantiteController.text) *
+                              double.parse(prixController.text))
+                          .toString();
+                }
+              },
+              child: TextFormField(
+                controller: quantiteController,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    print("Quantité y weldi");
+                    return 'Quantité obligatoire';
+                  } else {
+                    return "jawek behi";
+                  }
+                },
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: "Taper la quantité",
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                  fillColor: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+          ),
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: Focus(
+              onFocusChange: (hasFocus) {
+                if (!hasFocus) {
+                  totalHTController.text =
+                      (double.parse(quantiteController.text) *
+                              double.parse(prixController.text))
+                          .toString();
+                }
+              },
+              child: TextFormField(
+                textInputAction: TextInputAction.done,
+                enabled: true,
+                controller: prixController,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+                decoration: const InputDecoration(
+                  suffixText: "DT",
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: "Taper le Prix",
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                  fillColor: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+          ),
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: Focus(
+              onFocusChange: (hasFocus) {
+                if (!hasFocus) {
+                  setState(() {
+                    totalTTCController.text =
+                        (double.parse(totalHTController.text) *
+                                (1 + (double.parse(tvaController.text) / 100)))
+                            .toString();
+                  });
+                  totalDocument.text = (double.parse(totalDocument.text) +
+                          double.parse(totalTTCController.text))
+                      .toString();
+                }
+              },
+              child: TextFormField(
+                textInputAction: TextInputAction.done,
+                enabled: true,
+                controller: tvaController,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+                decoration: const InputDecoration(
+                  suffixText: "%",
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: "Taper le TVA",
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                  fillColor: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+          ),
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: TextFormField(
+              textInputAction: TextInputAction.done,
               enabled: false,
-              controller: nomController,
+              controller: totalHTController,
               style: const TextStyle(
                 fontSize: 15.0,
                 color: Colors.white,
               ),
               decoration: const InputDecoration(
+                suffixText: 'DT',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(10.0),
-                hintText: "Commencez par taper la référence à gauche",
+                hintText: "Total HT",
                 hintStyle: TextStyle(
                     color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
                 fillColor: Color.fromARGB(255, 0, 0, 0),
               ),
             ),
           ),
-          DataCell(
-            SizedBox(
-              width: 145,
-              child: Focus(
-                onFocusChange: (hasFocus) {
-                  if (!hasFocus) {
-                    double total = 0;
-                    for (var i = 3; i <= widget.controllers.length; i = i + 4) {
-                      total = total +
-                          (double.parse(widget.controllers[i].text) *
-                              double.parse(widget.controllers[i - 1].text));
-                      totalDocument.text = total.toString();
-                    }
-                  }
-                },
-                child: TextFormField(
-                  controller: quantiteController,
-                  style: const TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.white,
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      print("Quantité y weldi");
-                      return 'Quantité obligatoire';
-                    } else {
-                      return "jawek behi";
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(10.0),
-                    hintText: "Taper la quantité",
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: TextFormField(
+              textInputAction: TextInputAction.done,
+              enabled: false,
+              controller: totalTTCController,
+              style: const TextStyle(
+                fontSize: 15.0,
+                color: Colors.white,
+              ),
+              decoration: const InputDecoration(
+                suffixText: 'DT',
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.all(10.0),
+                hintText: "Total TTC",
+                hintStyle: TextStyle(
+                    color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                fillColor: Color.fromARGB(255, 0, 0, 0),
               ),
             ),
           ),
-          DataCell(
-            SizedBox(
-              width: 145,
-              child: Focus(
-                onFocusChange: (hasFocus) {
-                  if (!hasFocus) {
-                    double total = 0;
-                    for (var i = 3; i <= widget.controllers.length; i = i + 4) {
-                      total = total +
-                          (double.parse(widget.controllers[i].text) *
-                              double.parse(widget.controllers[i - 1].text));
-                      totalDocument.text = total.toString();
-                    }
-                  }
-                },
-                child: TextFormField(
-                  textInputAction: TextInputAction.done,
-                  enabled: true,
-                  controller: prixController,
-                  style: const TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.white,
-                  ),
-                  decoration: const InputDecoration(
-                    suffixText: "DT",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(10.0),
-                    hintText: "Taper le Prix",
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ),
+        ),
+        DataCell(IconButton(
+            icon: Icon(
+              Icons.highlight_remove,
+              color: Colors.red,
+              size: 24,
             ),
-          ),
-        ],
-      ),
+            onPressed: () {
+              setState(() {
+                ligneDoc.remove(idligne);
+                print(idligne);
+                widget.controllers.removeRange(idligne, idligne + 3);
+                print(widget.controllers);
+              });
+            }))
+      ],
     );
   }
 
@@ -419,7 +509,13 @@ static const snackBarStockError = SnackBar(
         if (event.isKeyPressed(LogicalKeyboardKey.controlLeft) &&
             event.isKeyPressed(LogicalKeyboardKey.f1)) {
           setState(() {
-            ajouterLigne();
+            if (selectionFrs == true)
+              ajouterLigne();
+            else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Séelectionner un fournisseur"),
+              ));
+            }
           });
         }
       },
@@ -510,6 +606,7 @@ static const snackBarStockError = SnackBar(
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 10),
                                     child: DropdownButton(
+                                      hint: Text("Sélectionner un Fournisseur"),
                                       borderRadius: BorderRadius.circular(5),
 
                                       underline: SizedBox(),
@@ -541,7 +638,9 @@ static const snackBarStockError = SnackBar(
                                                       raisonSocialeFournisseur[
                                                           element] ==
                                                       newValue);
+                                          selectionFrs = true;
                                           refProduits.clear();
+                                          widget.controllers.clear();
                                           fetchProduits();
                                           ligneDoc.clear();
                                         });
@@ -594,7 +693,47 @@ static const snackBarStockError = SnackBar(
                                     DataColumn2(
                                       size: ColumnSize.S,
                                       label: Text(
-                                        "Prix",
+                                        "Prix HT Unitaire",
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    DataColumn2(
+                                      size: ColumnSize.S,
+                                      label: Text(
+                                        "TVA",
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    DataColumn2(
+                                      size: ColumnSize.S,
+                                      label: Text(
+                                        "Total HT",
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    DataColumn2(
+                                      size: ColumnSize.S,
+                                      label: Text(
+                                        "Total TTC",
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    DataColumn2(
+                                      size: ColumnSize.S,
+                                      label: Text(
+                                        "",
                                         maxLines: 5,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -602,7 +741,7 @@ static const snackBarStockError = SnackBar(
                                       ),
                                     ),
                                   ],
-                                  rows: ligneDoc,
+                                  rows: ligneDoc.values.toList(),
                                 ),
                               ),
                             ),
@@ -636,7 +775,15 @@ static const snackBarStockError = SnackBar(
                                     color: const Color.fromARGB(
                                         255, 112, 112, 112),
                                     onPressed: () {
-                                      ajouterLigne();
+                                      if (selectionFrs == true)
+                                        ajouterLigne();
+                                      else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text(
+                                              "Sélectionner un fournisseur"),
+                                        ));
+                                      }
                                     },
                                     child: const Text(
                                       "Ajouter une ligne",
@@ -685,10 +832,12 @@ static const snackBarStockError = SnackBar(
                                                   .controllers[i - 1].text),
                                               double.parse(
                                                   widget.controllers[i].text));
-                                          future = modificationStock(
-                                              widget.controllers[i - 3].text,
-                                              double.parse(widget
-                                                  .controllers[i - 1].text));
+                                          if (widget.id == 2) {
+                                            future = modificationStock(
+                                                widget.controllers[i - 3].text,
+                                                double.parse(widget
+                                                    .controllers[i - 1].text));
+                                          }
                                         }
 
                                         setState(() {
@@ -744,44 +893,12 @@ static const snackBarStockError = SnackBar(
                                           prefixIcon: Icon(
                                               Icons.attach_money_outlined,
                                               color: Colors.grey.shade400),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 1,
-                                                color: Colors.grey.shade200),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
                                           disabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 width: 1,
                                                 color: Colors.grey.shade200),
                                             borderRadius:
                                                 BorderRadius.circular(5),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            borderSide: BorderSide(
-                                              color: Colors.grey.shade400,
-                                              width: 1,
-                                            ),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            borderSide: BorderSide(
-                                              color: Colors.grey.shade400,
-                                              width: 1,
-                                            ),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            borderSide: BorderSide(
-                                              color: Colors.grey.shade400,
-                                              width: 1,
-                                            ),
                                           ),
                                           contentPadding:
                                               const EdgeInsets.fromLTRB(
