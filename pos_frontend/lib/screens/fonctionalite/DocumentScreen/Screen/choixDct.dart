@@ -40,7 +40,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                   Container(
                     width: 240,
                     height: 200,
-                    decoration: const BoxDecoration(
+                    decoration:  BoxDecoration(
                       color: secondaryColor,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
@@ -57,7 +57,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                           child: Column(
                             children: [
                               Container(
-                                  padding: const EdgeInsets.all(
+                                  padding:  EdgeInsets.all(
                                       defaultPadding * 0.75),
                                   height: 60,
                                   width: 80,
@@ -91,7 +91,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                   Container(
                     width: 240,
                     height: 200,
-                    decoration: const BoxDecoration(
+                    decoration:  BoxDecoration(
                       color: secondaryColor,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
@@ -142,7 +142,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                   Container(
                     height: 200,
                     width: 240,
-                    decoration: const BoxDecoration(
+                    decoration:  BoxDecoration(
                       color: secondaryColor,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
@@ -168,7 +168,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                         BorderRadius.all(Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
-                                          "../../../../../assets/images/commande.png"),
+                                          "assets/images/livraison.png"),
                                     ),
 
                                     //color: Colors.grey[300],
@@ -193,7 +193,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                   Container(
                     height: 200,
                     width: 240,
-                    decoration: const BoxDecoration(
+                    decoration:  BoxDecoration(
                       color: secondaryColor,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
@@ -219,7 +219,7 @@ class _ChoixDocumentState extends State<ChoixDocument> {
                                         BorderRadius.all(Radius.circular(10)),
                                     image: DecorationImage(
                                       image: AssetImage(
-                                          "../../../../../assets/images/commande.png"),
+                                          "assets/images/livraison.png"),
                                     ),
 
                                     //color: Colors.grey[300],

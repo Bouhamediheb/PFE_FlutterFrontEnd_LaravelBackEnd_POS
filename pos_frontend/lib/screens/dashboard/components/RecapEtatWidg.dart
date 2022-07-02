@@ -35,7 +35,7 @@ class _RecapEtatRaccState extends State<RecapEtatRacc> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),

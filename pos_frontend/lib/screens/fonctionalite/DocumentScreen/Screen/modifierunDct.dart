@@ -134,6 +134,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
     } else {
       throw Exception('Erreur base de données!');
     }
+    return null;
   }
 
   ajoutLigneDocument(int? idDoc, String refProd, String nomProd, double qteProd,

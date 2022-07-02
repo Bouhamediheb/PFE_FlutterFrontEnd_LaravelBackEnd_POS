@@ -50,6 +50,7 @@ dependencies:
   flutter_lints: ^2.0.1
   window_manager: ^0.2.5
   bitsdojo_window: ^0.1.2
+  bubble: ^1.2.1
   pdf: ^3.8.1
   printing:
 

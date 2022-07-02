@@ -46,7 +46,7 @@ class _EtatStockState extends State<EtatStock> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
@@ -58,10 +58,10 @@ class _EtatStockState extends State<EtatStock> {
             children: [
               const Center(
                 child: Text(
-                  'La Liste Des Produits :',
+                  'La liste des produits en stock :',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -81,7 +81,8 @@ class _EtatStockState extends State<EtatStock> {
                         "Produit",
                         maxLines: 5,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontSize: 15,
+                            color: Colors.white),
                       ),
                     ),
                   ),
@@ -92,7 +93,8 @@ class _EtatStockState extends State<EtatStock> {
                         "Quantité",
                         maxLines: 5,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontSize: 15,
+                            color: Colors.white),
                       ),
                     ),
                   ),
@@ -102,7 +104,8 @@ class _EtatStockState extends State<EtatStock> {
                       child: Text(
                         "Etat",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontSize: 15,
+                            color: Colors.white),
                       ),
                     ),
                   ),

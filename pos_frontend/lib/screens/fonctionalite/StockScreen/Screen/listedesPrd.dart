@@ -69,7 +69,7 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                   height: 45,
                   child: Center(
                     child: Text(
-                      'La Liste Des Produits :',
+                      'Etat du stock :',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -91,42 +91,42 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                     columns: const <DataColumn>[
                       DataColumn(
                           label: Flexible(
-                        child: Text("Référence Produit",
+                        child: Text("Référence du produit",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Nom Produit",
+                        child: Text("Nom du produit",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Stock",
+                        child: Text("Stock existant",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Prix Achat",
+                        child: Text("Prix d'achat",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Prix Vente",
+                        child: Text("Prix de vente",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("TVA",
+                        child: Text("Taxe sur valeur ajoutée",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),

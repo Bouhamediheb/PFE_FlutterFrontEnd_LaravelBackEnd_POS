@@ -26,7 +26,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
         AspectRatio(
           aspectRatio: 2,
           child: Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(18),
                 ),

@@ -8,9 +8,11 @@ import '../../main/TestScreen.dart';
 
 class RaccourcisRapides extends StatefulWidget {
   final Raccourcis info;
+  final VoidCallback onpress;
   const RaccourcisRapides({
     Key? key,
-    required this.info,
+   
+    required this.info, required this.onpress,
   }) : super(key: key);
 
   @override
@@ -22,17 +24,12 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: MaterialButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Test()),
-          );
-        },
+        onPressed: widget.onpress,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,

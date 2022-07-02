@@ -29,7 +29,7 @@ class _supprimerUnProduitState extends State<supprimerUnProduit> {
         color: bgColor,
         child: Column(
           children: [
-            const Text('Voulez vous vraiment supprimer ce Produit ?'),
+            const Text('Voulez vous vraiment supprimer ce produit ?'),
             const SizedBox(
               height: 30,
             ),

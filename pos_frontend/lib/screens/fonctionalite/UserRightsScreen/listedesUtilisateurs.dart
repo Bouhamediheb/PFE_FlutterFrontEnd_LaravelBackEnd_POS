@@ -153,7 +153,7 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                                     fetchUsers();
                                   });
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                     SnackBar(
                                         backgroundColor: (secondaryColor),
                                         content: Text(
                                           'Tâche effectuée avec succès',
@@ -169,7 +169,7 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                                     fetchUsers();
                                   });
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                     SnackBar(
                                         backgroundColor: (secondaryColor),
                                         content: Text(
                                           'Tâche effectuée avec succès',
@@ -185,8 +185,8 @@ class _listeUtlisateursState extends State<listeUtlisateurs> {
                                     fetchUsers();
                                   });
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        backgroundColor: (secondaryColor),
+                                     SnackBar(
+                                        backgroundColor: secondaryColor,
                                         content: Text(
                                           'Tâche effectuée avec succès',
                                           style: TextStyle(

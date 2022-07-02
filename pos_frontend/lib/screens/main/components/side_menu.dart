@@ -51,7 +51,7 @@ class _SideMenuState extends State<SideMenu> {
                   height: 16,
                 ),
                 title: const Text(
-                  "Dashboard",
+                  "Tableau de bord",
                   style: TextStyle(
                     fontSize: 14,
                   ),
@@ -74,7 +74,7 @@ class _SideMenuState extends State<SideMenu> {
                   height: 16,
                 ),
                 title: const Text(
-                  "Etat du stock",
+                  "Etat du stock & Inventaire",
                   style: TextStyle(
                     fontSize: 14,
                   ),

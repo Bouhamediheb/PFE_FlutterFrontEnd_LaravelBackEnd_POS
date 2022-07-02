@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
 
+
 import 'package:projetpfe/controllers/MenuController.dart';
 import 'package:projetpfe/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:projetpfe/screens/dashboard/dashboard_screen.dart';
+import 'package:projetpfe/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,8 +37,7 @@ class _HeaderState extends State<Header> {
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
         if (!Responsive.isMobile(context))
-          Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-        const Expanded(child: SearchField()),
+          Spacer(),
         const ProfileCard()
       ],
     );
@@ -53,6 +55,8 @@ class _ProfileCardState extends State<ProfileCard> {
   late List? users = [];
   late var token;
   late Map<String, dynamic>? user;
+  late  bool isSwitched = false;
+
 
   @override
   void initState() {
@@ -70,52 +74,48 @@ class _ProfileCardState extends State<ProfileCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: defaultPadding,
-        vertical: defaultPadding / 2,
-      ),
-      child: PopupMenuButton(
-          onSelected: (dynamic value) {
-            if (value == 2) logout();
-          },
-          offset: const Offset(0, 56.0),
-          color: secondaryColor,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+    return PopupMenuButton(
+        onSelected: (dynamic value) {
+          if (value == 2) logout();
+        },
+        offset: const Offset(0, 56.0),
+        color: secondaryColor,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Container(
+          height: 60,
+          width: 225,
+          decoration: BoxDecoration(
+              color: secondaryColor,
+              borderRadius: BorderRadius.circular(10.0)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                "assets/images/profile_pic.png",
+                height: 38,
+              ),
+              Text(user!["name"].toString())
+            ],
           ),
-          child: Container(
-            height: 56,
-            width: 225,
-            decoration: BoxDecoration(
-                color: secondaryColor,
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  "assets/images/profile_pic.png",
-                  height: 38,
-                ),
-                Text(user!["name"].toString())
-              ],
-            ),
-          ),
-          itemBuilder: (context) => [
-                const PopupMenuItem(value: 1, child: Text("Profile")),
-                PopupMenuItem(
-                    value: 2,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Icon(Icons.logout, color: Colors.red),
-                          Text("Se Déconnecter",
-                              style: TextStyle(color: Colors.red))
-                        ])),
-              ]),
-    );
+        ),
+        itemBuilder: (context) => [
+              const PopupMenuItem(value: 1, child: Text("Profile")),
+              PopupMenuItem(
+                  value: 2,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Icon(Icons.logout, color: Colors.red),
+                        Text("Se Déconnecter",
+                            style: TextStyle(color: Colors.red))
+                      ])),
+                                       
+
+            ]);
   }
 
   void logout() async {
@@ -153,8 +153,8 @@ class _SearchFieldState extends State<SearchField> {
           child: Container(
             padding: const EdgeInsets.all(defaultPadding * 0.75),
             margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            decoration: const BoxDecoration(
-              color: primaryColor,
+            decoration:  BoxDecoration(
+              color: bgColor,
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: SvgPicture.asset("assets/icons/Search.svg"),

@@ -275,7 +275,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   });
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                     SnackBar(
                                         backgroundColor: (secondaryColor),
                                         content: Text(
                                           'Tâche effectuée avec succès',
