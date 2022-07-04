@@ -4,15 +4,14 @@ import 'package:projetpfe/models/raccourcis.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../main/TestScreen.dart';
 
 class RaccourcisRapides extends StatefulWidget {
   final Raccourcis info;
   final VoidCallback onpress;
   const RaccourcisRapides({
     Key? key,
-   
-    required this.info, required this.onpress,
+    required this.info,
+    required this.onpress,
   }) : super(key: key);
 
   @override
@@ -24,7 +23,7 @@ class _RaccourcisRapidesState extends State<RaccourcisRapides> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),

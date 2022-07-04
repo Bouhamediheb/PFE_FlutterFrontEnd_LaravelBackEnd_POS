@@ -1,12 +1,10 @@
 // ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
 
-
 import 'package:projetpfe/controllers/MenuController.dart';
 import 'package:projetpfe/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:projetpfe/screens/dashboard/dashboard_screen.dart';
-import 'package:projetpfe/screens/main/main_screen.dart';
+
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,8 +34,7 @@ class _HeaderState extends State<Header> {
             "Bienvenue dans votre tableau de bord",
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
-        if (!Responsive.isMobile(context))
-          Spacer(),
+        if (!Responsive.isMobile(context)) Spacer(),
         const ProfileCard()
       ],
     );
@@ -55,8 +52,7 @@ class _ProfileCardState extends State<ProfileCard> {
   late List? users = [];
   late var token;
   late Map<String, dynamic>? user;
-  late  bool isSwitched = false;
-
+  late bool isSwitched = false;
 
   @override
   void initState() {
@@ -88,8 +84,7 @@ class _ProfileCardState extends State<ProfileCard> {
           height: 60,
           width: 225,
           decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: BorderRadius.circular(10.0)),
+              color: secondaryColor, borderRadius: BorderRadius.circular(10.0)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -113,8 +108,6 @@ class _ProfileCardState extends State<ProfileCard> {
                         Text("Se Déconnecter",
                             style: TextStyle(color: Colors.red))
                       ])),
-                                       
-
             ]);
   }
 
@@ -153,7 +146,7 @@ class _SearchFieldState extends State<SearchField> {
           child: Container(
             padding: const EdgeInsets.all(defaultPadding * 0.75),
             margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            decoration:  BoxDecoration(
+            decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),

@@ -242,6 +242,7 @@ static const snackBarStockError = SnackBar(
   }
 
   Map<int, DataRow> ligneDoc = {};
+  List<TextEditingController> totalTTCDocument = [];
 
   void ajouterLigne() {
     var idligne = ligneDoc.length + 1;
@@ -261,6 +262,7 @@ static const snackBarStockError = SnackBar(
     TextEditingController tvaController = new TextEditingController();
     TextEditingController totalHTController = new TextEditingController();
     TextEditingController totalTTCController = new TextEditingController();
+    totalTTCDocument.add(totalTTCController);
 
     ligneDoc[idligne] = DataRow(
       cells: <DataCell>[
@@ -410,9 +412,11 @@ static const snackBarStockError = SnackBar(
                                 (1 + (double.parse(tvaController.text) / 100)))
                             .toString();
                   });
-                  totalDocument.text = (double.parse(totalDocument.text) +
-                          double.parse(totalTTCController.text))
-                      .toString();
+                  var total = 0.0;
+                  for (var i = 0; i < totalTTCDocument.length; i++) {
+                    total = total + double.parse(totalTTCDocument[i].text);
+                  }
+                  totalDocument.text = total.toString();
                 }
               },
               child: TextFormField(

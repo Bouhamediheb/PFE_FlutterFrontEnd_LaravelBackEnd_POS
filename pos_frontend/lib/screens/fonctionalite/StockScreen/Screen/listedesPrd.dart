@@ -119,20 +119,6 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Prix de vente",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Taxe sur valeur ajoutée",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
                               child: Text("Etat",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)))),
@@ -145,11 +131,7 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                             DataCell(Text(produits![i]['nomProd'].toString())),
                             DataCell(Text(produits![i]['stock'].toString())),
                             DataCell(
-                                Text(produits![i]['prixAchat'].toString())),
-                            DataCell(
-                                Text(produits![i]['prixVente'].toString())),
-                            DataCell(
-                                Text("${produits![i]['TVA'].toString()}%")),
+                                Text(produits![i]['prixAchatHT'].toString())),
                             produits![i]['stock'] <= 5
                                 ? const DataCell(
                                     Icon(
