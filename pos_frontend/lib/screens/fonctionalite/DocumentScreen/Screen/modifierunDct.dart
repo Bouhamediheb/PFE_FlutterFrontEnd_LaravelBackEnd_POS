@@ -105,11 +105,11 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
   final DateTime date = new DateTime.now();
   String? numSeqDocument;
   int? idDoc;
-  List? documents = [];
+  Map<String, dynamic> documents = {};
   String? dateDoc;
   String? numDoc;
   bool confirmButton = true;
-  int idligne = -1;
+
   List? ligneDocuments = [];
   List stockInitial = [];
   List<DataRow> ligneDoc = [];
@@ -179,24 +179,27 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
 
   fetchDocuments() async {
     final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/api/document'),
+      Uri.parse('http://127.0.0.1:8000/api/document/${widget.documentId}'),
       headers: <String, String>{
-        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json; charset=utf-8',
       },
     );
 
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
+
       setState(() {
         documents = items;
-        idDoc = documents![documents!.length - 1]['id'] + 1;
-        totalDocument.text =
-            documents![widget.documentId! - 1]['totalDoc'].toString();
+        print(documents.toString());
+        totalDocument.text = documents['totalDoc'].toString();
       });
     } else {
       throw Exception('Error!');
     }
   }
+
+  List<TextEditingController> totalTTCDocument = [];
 
   fetchLigneDocuments() async {
     final response = await http.get(
@@ -219,6 +222,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
       throw Exception('Error!');
     }
     for (var i = 0; i < ligneDocuments!.length; i++) {
+      var idligne = ligneDoc.length + 1;
       if (ligneDocuments![i]['id_doc'] == widget.ligneDocumentId) {
         setState(() {
           TextEditingController idController = new TextEditingController();
@@ -238,10 +242,18 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
           TextEditingController prixController = new TextEditingController();
           widget.controllers.add(prixController);
           prixController.text = ligneDocuments![i]['prixProd'].toString();
-          TextEditingController totalProdController =
-              new TextEditingController();
-          totalProdController.text = (double.parse(prixController.text) *
+
+          TextEditingController tvaController = new TextEditingController();
+          widget.controllers.add(tvaController);
+          tvaController.text = ligneDocuments![i]['tvaProd'].toString();
+          TextEditingController totalHTController = new TextEditingController();
+          totalHTController.text = (double.parse(prixController.text) *
                   double.parse(quantiteController.text))
+              .toString();
+          TextEditingController totalTTCController =
+              new TextEditingController();
+          totalTTCController.text = (double.parse(totalHTController.text) *
+                  (1 + double.parse(tvaController.text) / 100))
               .toString();
           ligneDoc.add(
             DataRow(
@@ -406,6 +418,112 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                     ),
                   ),
                 ),
+                DataCell(
+                  SizedBox(
+                    width: 145,
+                    child: Focus(
+                      onFocusChange: (hasFocus) {
+                        if (!hasFocus) {
+                          setState(() {
+                            totalTTCController.text =
+                                (double.parse(totalHTController.text) *
+                                        (1 +
+                                            (double.parse(tvaController.text) /
+                                                100)))
+                                    .toString();
+                          });
+                          var total = 0.0;
+                          for (var i = 0; i < totalTTCDocument.length; i++) {
+                            total =
+                                total + double.parse(totalTTCDocument[i].text);
+                          }
+                          totalDocument.text = total.toString();
+                        }
+                      },
+                      child: TextFormField(
+                        textInputAction: TextInputAction.done,
+                        enabled: true,
+                        controller: tvaController,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.white,
+                        ),
+                        decoration: const InputDecoration(
+                          suffixText: "%",
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.all(10.0),
+                          hintText: "Taper le TVA",
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 190, 190, 190),
+                              fontSize: 14),
+                          fillColor: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  SizedBox(
+                    width: 145,
+                    child: TextFormField(
+                      textInputAction: TextInputAction.done,
+                      enabled: false,
+                      controller: totalHTController,
+                      style: const TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.white,
+                      ),
+                      decoration: const InputDecoration(
+                        suffixText: 'DT',
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(10.0),
+                        hintText: "Total HT",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 190, 190, 190),
+                            fontSize: 14),
+                        fillColor: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  SizedBox(
+                    width: 145,
+                    child: TextFormField(
+                      textInputAction: TextInputAction.done,
+                      enabled: false,
+                      controller: totalTTCController,
+                      style: const TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.white,
+                      ),
+                      decoration: const InputDecoration(
+                        suffixText: 'DT',
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(10.0),
+                        hintText: "Total TTC",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 190, 190, 190),
+                            fontSize: 14),
+                        fillColor: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(IconButton(
+                    icon: Icon(
+                      Icons.highlight_remove,
+                      color: Colors.red,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        ligneDoc.remove(idligne);
+                        print(idligne);
+
+                        print(widget.controllers);
+                      });
+                    }))
               ],
             ),
           );
@@ -417,6 +535,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
   Future<dynamic>? future;
 
   void ajouterLigne() {
+    var idligne = ligneDoc.length + 1;
     TextEditingController referenceController = TextEditingController();
     widget.controllers2.add(referenceController);
     TextEditingController nomController = TextEditingController();
@@ -425,6 +544,11 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
     widget.controllers2.add(quantiteController);
     TextEditingController prixController = TextEditingController();
     widget.controllers2.add(prixController);
+    TextEditingController tvaController = TextEditingController();
+    widget.controllers2.add(tvaController);
+    TextEditingController totalHTController = new TextEditingController();
+    TextEditingController totalTTCController = new TextEditingController();
+    totalTTCDocument.add(totalTTCController);
     ligneDoc.add(
       DataRow(
         cells: <DataCell>[
@@ -579,6 +703,107 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
               ),
             ),
           ),
+          DataCell(
+            SizedBox(
+              width: 145,
+              child: Focus(
+                onFocusChange: (hasFocus) {
+                  if (!hasFocus) {
+                    setState(() {
+                      totalTTCController
+                          .text = (double.parse(totalHTController.text) *
+                              (1 + (double.parse(tvaController.text) / 100)))
+                          .toString();
+                    });
+                    var total = 0.0;
+                    for (var i = 0; i < totalTTCDocument.length; i++) {
+                      total = total + double.parse(totalTTCDocument[i].text);
+                    }
+                    totalDocument.text = total.toString();
+                  }
+                },
+                child: TextFormField(
+                  textInputAction: TextInputAction.done,
+                  enabled: true,
+                  controller: tvaController,
+                  style: const TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                  ),
+                  decoration: const InputDecoration(
+                    suffixText: "%",
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(10.0),
+                    hintText: "Taper le TVA",
+                    hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 190, 190, 190),
+                        fontSize: 14),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          DataCell(
+            SizedBox(
+              width: 145,
+              child: TextFormField(
+                textInputAction: TextInputAction.done,
+                enabled: false,
+                controller: totalHTController,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+                decoration: const InputDecoration(
+                  suffixText: 'DT',
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: "Total HT",
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                  fillColor: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+          ),
+          DataCell(
+            SizedBox(
+              width: 145,
+              child: TextFormField(
+                textInputAction: TextInputAction.done,
+                enabled: false,
+                controller: totalTTCController,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+                decoration: const InputDecoration(
+                  suffixText: 'DT',
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: "Total TTC",
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                  fillColor: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+          ),
+          DataCell(IconButton(
+              icon: Icon(
+                Icons.highlight_remove,
+                color: Colors.red,
+                size: 24,
+              ),
+              onPressed: () {
+                setState(() {
+                  ligneDoc.remove(idligne);
+                  print(idligne);
+                  widget.controllers.removeRange(idligne, idligne + 3);
+                  print(widget.controllers);
+                });
+              }))
         ],
       ),
     );
@@ -632,8 +857,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                             ),
                             SeqDoc(
                                 label: 'Numero de Séquence',
-                                content:
-                                    '${documents![widget.documentId! - 1]['numDoc']}',
+                                content: '${documents['numDoc']}',
                                 label2: 'Date',
                                 label3: 'Liste des Fournisseurs'),
                             Divider(
@@ -677,7 +901,47 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                                   DataColumn2(
                                     size: ColumnSize.S,
                                     label: Text(
-                                      "Prix",
+                                      "Prix HT Unitaire",
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    label: Text(
+                                      "TVA",
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    label: Text(
+                                      "Total HT",
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    label: Text(
+                                      "Total TTC",
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    label: Text(
+                                      "",
                                       maxLines: 5,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -755,12 +1019,12 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                                           j++;
                                         }
                                         for (var i = 0;
-                                            i < documents!.length;
+                                            i < documents.length;
                                             i++) {
-                                          if (documents![i]['id'] ==
+                                          if (documents[i]['id'] ==
                                               widget.ligneDocumentId) {
                                             modifierDocument(
-                                                documents![i]['id'],
+                                                documents[i]['id'],
                                                 double.parse(
                                                     totalDocument.text));
                                           }

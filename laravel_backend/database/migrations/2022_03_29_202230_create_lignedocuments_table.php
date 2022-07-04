@@ -16,15 +16,16 @@ return new class extends Migration
         Schema::create('lignedocuments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_doc')->nullable();
-            $table->unsignedBigInteger('id_prod')->nullable();
+            
             $table->string('refProd');
             $table->string('nomProd');
             $table->float('qteProd');
             $table->float('prixProd');
+            $table->float('tvaProd');
             $table->timestamps();
 
             $table->foreign('id_doc')->references('id')->on('documents');
-            $table->foreign('id_prod')->references('id')->on('produits');
+           
         });
     }
 

@@ -83,6 +83,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument2>
   String totalDoc = "0";
   final DateTime date = DateTime.now();
   String? numSeqDocument;
+  int? idSeq;
   int? idDoc;
   List? documents = [];
   String? dateDoc;
@@ -125,7 +126,7 @@ static const snackBarStockError = SnackBar(
   }
 
   ajoutLigneDocument(int? idDoc, String refProd, String nomProd, double qteProd,
-      double prixProd) async {
+      double prixProd, double tvaProd) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument"),
       headers: <String, String>{
@@ -137,12 +138,34 @@ static const snackBarStockError = SnackBar(
         'nomProd': nomProd,
         'qteProd': qteProd,
         'prixProd': prixProd,
+        'tvaProd': tvaProd
       }),
     );
     if (response.statusCode == 200) {
       print("Ligne Document Ajouté");
     } else {
       throw Exception('Erreur base de données!');
+    }
+  }
+
+  getidDoc() async {
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/document'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json; charset=utf-8',
+      },
+    );
+    if (response.statusCode == 200) {
+      var items = jsonDecode(response.body);
+      setState(() {
+        print(items[items.length - 1]['id']);
+        if (items[items.length - 1]['id'] == null)
+          idDoc = 1;
+        else {
+          idDoc = items[items.length - 1]['id'] + 1;
+        }
+      });
     }
   }
 
@@ -204,6 +227,7 @@ static const snackBarStockError = SnackBar(
     fetchSequence();
     fetchProduits();
     fetchFours();
+    getidDoc();
   }
 
   fetchSequence() async {
@@ -217,8 +241,7 @@ static const snackBarStockError = SnackBar(
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
-        idDoc = items['seq_id'] + 1;
-        print('hedha idDoc : ' + idDoc.toString());
+        idSeq = items['seq_id'] + 1;
       });
     }
   }
@@ -229,14 +252,14 @@ static const snackBarStockError = SnackBar(
 
   String seqDocument() {
     if (widget.id == 1) {
-      idDoc ??= 1;
-      return numSeqDocument = '${date.toString().substring(0, 10)}/BC$idDoc';
+      idSeq ??= 1;
+      return numSeqDocument = '${date.toString().substring(0, 10)}/BC$idSeq';
     } else if (widget.id == 2) {
-      idDoc ??= 1;
-      return numSeqDocument = '${date.toString().substring(0, 10)}/BE$idDoc';
+      idSeq ??= 1;
+      return numSeqDocument = '${date.toString().substring(0, 10)}/BE$idSeq';
     } else if (widget.id == 3) {
-      idDoc ??= 1;
-      return numSeqDocument = '${date.toString().substring(0, 10)}/BR$idDoc';
+      idSeq ??= 1;
+      return numSeqDocument = '${date.toString().substring(0, 10)}/BR$idSeq';
     } else
       return numSeqDocument = 'Vérifier Base de Données';
   }
@@ -258,8 +281,9 @@ static const snackBarStockError = SnackBar(
     widget.controllers.add(quantiteController);
     TextEditingController prixController = TextEditingController();
     widget.controllers.add(prixController);
-
     TextEditingController tvaController = new TextEditingController();
+    widget.controllers.add(tvaController);
+
     TextEditingController totalHTController = new TextEditingController();
     TextEditingController totalTTCController = new TextEditingController();
     totalTTCDocument.add(totalTTCController);
@@ -808,30 +832,29 @@ static const snackBarStockError = SnackBar(
                                       }
 
                                       if (confirmButton) {
-                                        numDoc = seqDocument();
-                                        print(numDoc);
                                         print(widget.id);
                                         dateDoc =
                                             date.toString().substring(0, 10);
                                         print(dateDoc);
-                                        if (true) {
-                                          {
-                                            future = ajoutDocument(
-                                                widget.id,
-                                                numSeqDocument,
-                                                dateDoc,
-                                                double.parse(
-                                                    totalDocument.text));
-                                            updateSeqDocument();
-                                          }
+
+                                        {
+                                          ajoutDocument(
+                                              widget.id,
+                                              numSeqDocument,
+                                              dateDoc,
+                                              double.parse(totalDocument.text));
+                                          updateSeqDocument();
                                         }
-                                        for (var i = 3;
+
+                                        for (var i = 4;
                                             i < widget.controllers.length;
-                                            i = i + 4) {
+                                            i = i + 5) {
                                           future = ajoutLigneDocument(
                                               idDoc,
+                                              widget.controllers[i - 4].text,
                                               widget.controllers[i - 3].text,
-                                              widget.controllers[i - 2].text,
+                                              double.parse(widget
+                                                  .controllers[i - 2].text),
                                               double.parse(widget
                                                   .controllers[i - 1].text),
                                               double.parse(
