@@ -181,6 +181,7 @@ class _listeDocumentState extends State<listeDocument> {
                                             color: Colors.green),
                                         onPressed: () async {
                                           documentId = documents![i]['id'];
+                                          print(documentId);
                                           await showAnimatedDialog(
                                             context: context,
                                             barrierDismissible: true,

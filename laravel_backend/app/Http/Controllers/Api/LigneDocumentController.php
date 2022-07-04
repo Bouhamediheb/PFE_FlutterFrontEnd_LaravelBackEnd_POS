@@ -44,6 +44,7 @@ class LigneDocumentController extends Controller
             'refProd',
             'qteProd',
             'prixProd',
+            'tvaProd',
         ]);
 
         $data=array();
@@ -52,6 +53,7 @@ class LigneDocumentController extends Controller
         $data['nomProd'] = $request->nomProd;
         $data['qteProd'] = $request->qteProd;
         $data['prixProd'] = $request->prixProd;
+        $data['tvaProd'] = $request->tvaProd;
         $insert = DB::table('lignedocuments')->insert($data);
         return response('Ligne Document Ajouté');
     }
@@ -94,6 +96,7 @@ class LigneDocumentController extends Controller
         $data['nomProd'] = $request->nomProd;
         $data['qteProd'] = $request->qteProd;
         $data['prixProd'] = $request->prixProd;
+        $data['tvaProd'] = $request->tvaProd;
         $insert = DB::table('lignedocuments')->where('id',$id)->update($data);
         return response('Ligne Document Modifié');
     }

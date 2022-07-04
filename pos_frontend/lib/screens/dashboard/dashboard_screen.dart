@@ -22,7 +22,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            
             Header(),
             const SizedBox(height: defaultPadding),
             Row(
@@ -32,34 +31,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   flex: 5,
                   child: Column(
                     children: [
-
                       const RecapMonetiques(),
                       const SizedBox(height: defaultPadding),
                       //HeaderRaccourcis(),
                       const RecapEtat(),
-                      SizedBox(height: 10,),
-                      Divider(thickness: 1,),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: [
-                          Text(
-                            "Evolution du chiffre d'affaires",
-                            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)
-                          ),
+                          Text("Evolution du chiffre d'affaires",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
                         ],
                       ),
                       const SizedBox(height: defaultPadding),
                       const LineChartSample2(),
                       const SizedBox(height: defaultPadding),
-                      SizedBox(height: 10,),
-                      Divider(thickness: 1,),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: [
-                          Text(
-                            "Récapitulatif du flux monétaire",
-                            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)
-                          ),
+                          Text("Récapitulatif du flux monétaire",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
                         ],
                       ),
                       const SizedBox(height: defaultPadding),

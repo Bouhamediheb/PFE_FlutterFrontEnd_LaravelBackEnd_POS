@@ -6,6 +6,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Login/Screen/Login.dart';
 import 'Produit.dart';
+import 'Panier.dart';
 
 class Caisse extends StatefulWidget {
   const Caisse({Key? key}) : super(key: key);
@@ -48,47 +49,40 @@ class _CaisseState extends State<Caisse> {
     });
   }
 
-  Map<int, List<Produit>> listePanier = {};
+  Map<int, List<Panier>> listePanier = {};
   List<Produit> listeProduits = [
     Produit(
         nom: 'Coca-Cola',
         prix: 2.5,
-        quantite: 10,
+        quantite: 0,
         image: "assets/images/coca.jpg"),
     Produit(
-        nom: 'Fanta',
-        prix: 2.5,
-        quantite: 10,
-        image: "assets/images/fanta.jpg"),
+        nom: 'Fanta', prix: 2.5, quantite: 0, image: "assets/images/fanta.jpg"),
     Produit(
-        nom: 'Pepsi',
-        prix: 2.5,
-        quantite: 10,
-        image: "assets/images/pepsi.jpg"),
+        nom: 'Pepsi', prix: 2.5, quantite: 0, image: "assets/images/pepsi.jpg"),
     Produit(
         nom: 'Sprite',
         prix: 2.5,
-        quantite: 10,
+        quantite: 0,
         image: "assets/images/sprite.jpg"),
     Produit(
         nom: 'Eau Minérale',
         prix: 2.5,
-        quantite: 10,
+        quantite: 0,
         image: "assets/images/eau.jpg"),
     Produit(
       nom: 'Citronade',
       prix: 2.5,
-      quantite: 10,
+      quantite: 0,
       image: "assets/images/citronade.jpg",
     ),
     Produit(
       nom: "Jus d'orange",
       prix: 2.5,
-      quantite: 10,
+      quantite: 0,
       image: "assets/images/jus.png",
     ),
   ];
-  int quantite = 0;
   int selectedTable = 1;
   int nbTotalesTables = 20;
   final TextEditingController controller = TextEditingController();
@@ -501,21 +495,70 @@ class _CaisseState extends State<Caisse> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            quantiteWidget(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.grey[800],
+                                      fixedSize: const Size(40, 40),
+                                      shape: const CircleBorder(),
+                                      side: const BorderSide(
+                                        color: Colors.white,
+                                      )),
+                                  onPressed: () {
+                                    if (listeProduits[i].quantite! > 0) {
+                                      setState(() {
+                                        listeProduits[i].quantite =
+                                            listeProduits[i].quantite! - 1;
+                                      });
+                                    }
+                                  },
+                                  child: const Icon(Icons.remove),
+                                ),
+                                Text(listeProduits[i].quantite.toString(),
+                                    style: const TextStyle(fontSize: 36)),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.grey[800],
+                                      fixedSize: const Size(40, 40),
+                                      shape: const CircleBorder(),
+                                      side: const BorderSide(
+                                        color: Colors.white,
+                                      )),
+                                  onPressed: () {
+                                    setState(() {
+                                      listeProduits[i].quantite =
+                                          listeProduits[i].quantite! + 1;
+                                    });
+                                  },
+                                  child: const Icon(Icons.add),
+                                ),
+                              ],
+                            ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.grey[800],
-                                  fixedSize: const Size(200, 40),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25)),
-                                  side: const BorderSide(
-                                    color: Colors.white,
-                                  )),
+                                primary: Colors.grey[800],
+                                fixedSize: const Size(200, 40),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
+                                side: const BorderSide(
+                                  color: Colors.white,
+                                ),
+                              ),
                               onPressed: () {
                                 setState(
                                   () {
-                                    listePanier.appendToList(
-                                        selectedTable, listeProduits[i]);
+                                    if (listeProduits[i].quantite! > 0) {
+                                      listePanier.appendToList(
+                                          selectedTable,
+                                          Panier(
+                                              nomProd: listeProduits[i].nom,
+                                              prixProd: listeProduits[i].prix! *
+                                                  listeProduits[i].quantite!,
+                                              quantiteProd:
+                                                  listeProduits[i].quantite));
+                                    }
                                   },
                                 );
                               },
@@ -628,7 +671,7 @@ class _CaisseState extends State<Caisse> {
                                   cells: [
                                     DataCell(
                                       Text(
-                                        "${listePanier[selectedTable]!.elementAt(i).nom}",
+                                        "${listePanier[selectedTable]!.elementAt(i).nomProd}",
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.grey[300],
@@ -637,7 +680,7 @@ class _CaisseState extends State<Caisse> {
                                     ),
                                     DataCell(
                                       Text(
-                                        "${listePanier[selectedTable]!.elementAt(i).quantite}",
+                                        "${listePanier[selectedTable]!.elementAt(i).quantiteProd}",
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.grey[300],
@@ -646,7 +689,7 @@ class _CaisseState extends State<Caisse> {
                                     ),
                                     DataCell(
                                       Text(
-                                        "${listePanier[selectedTable]!.elementAt(i).prix} DT",
+                                        "${listePanier[selectedTable]!.elementAt(i).prixProd} DT",
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.grey[300],
@@ -666,7 +709,7 @@ class _CaisseState extends State<Caisse> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text(
                               "Total",
                               style: TextStyle(
@@ -674,7 +717,7 @@ class _CaisseState extends State<Caisse> {
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Text("2 DT",
+                            Text(getTotal().toString() + " DT",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20)),
                           ],
@@ -791,45 +834,12 @@ class _CaisseState extends State<Caisse> {
     );
   }
 
-  Row quantiteWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              primary: Colors.grey[800],
-              fixedSize: const Size(40, 40),
-              shape: const CircleBorder(),
-              side: const BorderSide(
-                color: Colors.white,
-              )),
-          onPressed: () {
-            if (quantite > 0) {
-              setState(() {
-                quantite = quantite - 1;
-              });
-            }
-          },
-          child: const Icon(Icons.remove),
-        ),
-        Text('$quantite', style: const TextStyle(fontSize: 36)),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              primary: Colors.grey[800],
-              fixedSize: const Size(40, 40),
-              shape: const CircleBorder(),
-              side: const BorderSide(
-                color: Colors.white,
-              )),
-          onPressed: () {
-            setState(() {
-              quantite = quantite + 1;
-            });
-          },
-          child: const Icon(Icons.add),
-        ),
-      ],
-    );
+  double getTotal() {
+    double total = 0;
+    for (var i = 0; i < listePanier[selectedTable]!.length; i++) {
+      total += listePanier[selectedTable]!.elementAt(i).prixProd!;
+    }
+    return total;
   }
 }
 

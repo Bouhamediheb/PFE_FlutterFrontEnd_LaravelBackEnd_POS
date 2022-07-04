@@ -10,6 +10,6 @@ class LigneDocument extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_doc','refProd','nomProd','qteProd','prixProd'
+        'id_doc','refProd','nomProd','qteProd','prixProd','tvaProd'
     ];
 }
