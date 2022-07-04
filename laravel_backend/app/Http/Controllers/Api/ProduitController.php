@@ -94,12 +94,11 @@ class ProduitController extends Controller
     public function update(Request $request, $id)
     {
         $data= array();
-        $data['refProd'] = $request->refProd;
-        $data['stock'] = $request->stock;
+        $data['refProd'] = $request->refProd;      
         $data['nomProd'] = $request->nomProd;
         $data['prixAchatHT'] = $request->prixAchatHT;
         $data['descriptionProd']= $request->descriptionProd;
-        $data['id_fournisseur'] = $request->id_fournisseur;
+       
         $insert = DB::table('produits')->where('id',$id)->update($data);
         return response()->json('Produit Modifié');
     }

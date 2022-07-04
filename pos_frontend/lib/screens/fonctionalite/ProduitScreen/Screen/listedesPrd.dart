@@ -15,6 +15,7 @@ class listeProduit extends StatefulWidget {
 
 class listeProduitState extends State<listeProduit> {
   int? produitId;
+  int? fournisseurId;
   List? produits = [];
   Timer? t;
   @override
@@ -98,9 +99,9 @@ class listeProduitState extends State<listeProduit> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
-                      DataColumn(
+                     DataColumn(
                           label: Flexible(
-                        child: Text("Stock",
+                        child: Text("Description du produit",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -112,20 +113,8 @@ class listeProduitState extends State<listeProduit> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Prix de vente",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Taxe sur la valeur ajoutée",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
+                      
+                      
                       DataColumn(
                           label: Flexible(
                               child: Text("Actions",
@@ -138,13 +127,12 @@ class listeProduitState extends State<listeProduit> {
                           cells: <DataCell>[
                             DataCell(Text(produits![i]['refProd'].toString())),
                             DataCell(Text(produits![i]['nomProd'].toString())),
-                            DataCell(Text(produits![i]['stock'].toString())),
                             DataCell(
-                                Text(produits![i]['prixAchat'].toString())),
+                                Text(produits![i]['descriptionProd'].toString())),
                             DataCell(
-                                Text(produits![i]['prixVente'].toString())),
-                            DataCell(
-                                Text("${produits![i]['TVA'].toString()}%")),
+                                Text(produits![i]['prixAchatHT'].toString())),
+                            
+                            
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -155,6 +143,7 @@ class listeProduitState extends State<listeProduit> {
                                             color: Colors.green),
                                         onPressed: () async {
                                           produitId = produits![i]['id'];
+                                          fournisseurId = produits![i]['id_fournisseur'];
                                           await showAnimatedDialog(
                                             context: context,
                                             barrierDismissible: true,

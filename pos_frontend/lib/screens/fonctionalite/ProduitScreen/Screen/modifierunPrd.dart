@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 class modifierUnProduit extends StatefulWidget {
   int? produitId;
+
   modifierUnProduit(this.produitId);
   @override
   State<modifierUnProduit> createState() => _modifierUnProduitState();
@@ -21,10 +22,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
   final refProduit = TextEditingController();
   final nomProduit = TextEditingController();
   final prixAchatProduit = TextEditingController();
-  final prixVenteProduit = TextEditingController();
   final descriptionProduit = TextEditingController();
-  final stockProduit = TextEditingController();
-  final tvaProduit = TextEditingController();
 
   File? uploadimage;
   String? baseimage;
@@ -61,12 +59,9 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     }
     setState(() {
       nomProduit.text = produits!['nomProd'].toString();
-      prixAchatProduit.text = produits!['prixAchat'].toString();
-      prixVenteProduit.text = produits!['prixVente'].toString();
+      prixAchatProduit.text = produits!['prixAchatHT'].toString();
       descriptionProduit.text = produits!['descriptionProd'];
       refProduit.text = produits!['refProd'];
-      stockProduit.text = produits!['stock'].toString();
-      tvaProduit.text = produits!['TVA'].toString();
     });
   }
 
@@ -76,11 +71,8 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     String refProduit,
     String nomProduit,
     double prixAchatProduit,
-    double prixVenteProduit,
     String descriptionProduit,
-    double stockProduit,
-    double tvaProduit,
-    int idFournisseur,
+   
   ) async {
     List? produits = [];
     final response = await http.put(
@@ -92,12 +84,9 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
       body: jsonEncode(<String, dynamic>{
         'refProd': refProduit,
         'nomProd': nomProduit,
-        'prixAchat': prixAchatProduit,
-        'prixVente': prixVenteProduit,
+        'prixAchatHT': prixAchatProduit,
         'descriptionProd': descriptionProduit,
-        'stock': stockProduit,
-        'TVA': tvaProduit,
-        'id_fournisseur': idFournisseur,
+        
       }),
     );
     if (response.statusCode == 200) {
@@ -149,7 +138,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   InputField(
                                     whattoAllow:
                                         RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
-                                    label: "Référence Produit",
+                                    label: "Référence du produit",
                                     content: "La Référence du produit",
                                     fieldController: refProduit,
                                     fieldValidator: (value) {
@@ -176,7 +165,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                   const SizedBox(height: 20),
                                   InputField(
                                       whattoAllow: RegExp('[0-9 . ]'),
-                                      label: "Prix Achat",
+                                      label: "Prix d'achat HT",
                                       content: "Prix Achat du Produit",
                                       fieldController: prixAchatProduit,
                                       fieldValidator: (value) {
@@ -185,44 +174,10 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                         }
                                         return null;
                                       }),
+                                  
+                                 
                                   const SizedBox(height: 20),
-                                  InputField(
-                                    whattoAllow: RegExp('[0-9 . ]'),
-                                    label: "Prix Vente",
-                                    content: "Prix Vente du Produit",
-                                    fieldController: prixVenteProduit,
-                                    fieldValidator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Ce Champ est obligatoire";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 20),
-                                  InputField(
-                                      whattoAllow: RegExp('[0-9 . ]'),
-                                      label: "TVA",
-                                      content: "TVA du Produit",
-                                      fieldController: tvaProduit,
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      }),
-                                  const SizedBox(height: 20),
-                                  InputField(
-                                    whattoAllow: RegExp('[0-9 . ]'),
-                                    label: "Stock",
-                                    content: "Stock",
-                                    fieldController: stockProduit,
-                                    fieldValidator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Ce Champ est obligatoire";
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                                  
                                   const SizedBox(height: 20),
                                   InputFieldDescription(
                                     content: 'La Description du Produit',
@@ -267,11 +222,11 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                         refProduit.text,
                                         nomProduit.text,
                                         double.parse(prixAchatProduit.text),
-                                        double.parse(prixVenteProduit.text),
+                                       
                                         descriptionProduit.text,
-                                        double.parse(stockProduit.text),
-                                        double.parse(tvaProduit.text),
-                                        produits!['id_fournisseur']);
+                                        
+                                       
+                                        );
                                   });
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
