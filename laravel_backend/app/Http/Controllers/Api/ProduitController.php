@@ -97,8 +97,7 @@ class ProduitController extends Controller
     public function update(Request $request, $id)
     {
         $data= array();
-        $data['refProd'] = $request->refProd;
-        $data['stock'] = $request->stock;
+        $data['refProd'] = $request->refProd;      
         $data['nomProd'] = $request->nomProd;
         $data['prixAchatHT'] = $request->prixAchatHT;
         $data['descriptionProd']= $request->descriptionProd;

@@ -84,7 +84,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument2>
   final DateTime date = DateTime.now();
   String? numSeqDocument;
   int? idSeq;
-  int? idDoc;
+  late int idDoc;
   List? documents = [];
   String? dateDoc;
   String? numDoc;
@@ -104,12 +104,13 @@ static const snackBarStockError = SnackBar(
 
   late num? Stokkkkk;
 
-  Future<http.Response?> ajoutDocument(
+  ajoutDocument(
       int type, String? numeroDoc, String? dateDoc, double totalDoc) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/document"),
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: jsonEncode(<String, dynamic>{
         'type': type,
@@ -125,7 +126,7 @@ static const snackBarStockError = SnackBar(
     }
   }
 
-  ajoutLigneDocument(int? idDoc, String refProd, String nomProd, double qteProd,
+  ajoutLigneDocument(int idDoc, String refProd, String nomProd, double qteProd,
       double prixProd, double tvaProd) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument"),
@@ -329,6 +330,9 @@ static const snackBarStockError = SnackBar(
                   if (selectedProduit == produits![i]['refProd']) {
                     nomProduit = produits![i]['nomProd'];
                     nomController.text = nomProduit.toString();
+                    prixController.text =
+                        produits![i]['prixVenteHT'].toStringAsFixed(3);
+                    tvaController.text = produits![i]['tvaProd'].toString();
                   }
                 }
               });
@@ -362,7 +366,18 @@ static const snackBarStockError = SnackBar(
                   totalHTController.text =
                       (double.parse(quantiteController.text) *
                               double.parse(prixController.text))
-                          .toString();
+                          .toStringAsFixed(3);
+                  setState(() {
+                    totalTTCController.text =
+                        (double.parse(totalHTController.text) *
+                                (1 + (double.parse(tvaController.text) / 100)))
+                            .toStringAsFixed(3);
+                  });
+                  var total = 0.0;
+                  for (var i = 0; i < totalTTCDocument.length; i++) {
+                    total = total + double.parse(totalTTCDocument[i].text);
+                  }
+                  totalDocument.text = total.toStringAsFixed(3);
                 }
               },
               child: TextFormField(
@@ -400,7 +415,7 @@ static const snackBarStockError = SnackBar(
                   totalHTController.text =
                       (double.parse(quantiteController.text) *
                               double.parse(prixController.text))
-                          .toString();
+                          .toStringAsFixed(3);
                 }
               },
               child: TextFormField(
@@ -445,7 +460,7 @@ static const snackBarStockError = SnackBar(
               },
               child: TextFormField(
                 textInputAction: TextInputAction.done,
-                enabled: true,
+                enabled: false,
                 controller: tvaController,
                 style: const TextStyle(
                   fontSize: 15.0,
@@ -832,19 +847,17 @@ static const snackBarStockError = SnackBar(
                                       }
 
                                       if (confirmButton) {
-                                        print(widget.id);
                                         dateDoc =
                                             date.toString().substring(0, 10);
-                                        print(dateDoc);
 
-                                        {
+                                        await {
                                           ajoutDocument(
                                               widget.id,
                                               numSeqDocument,
                                               dateDoc,
-                                              double.parse(totalDocument.text));
-                                          updateSeqDocument();
-                                        }
+                                              double.parse(totalDocument.text)),
+                                          updateSeqDocument()
+                                        };
 
                                         for (var i = 4;
                                             i < widget.controllers.length;

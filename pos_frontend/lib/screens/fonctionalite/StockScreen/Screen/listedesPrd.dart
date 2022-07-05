@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -14,12 +12,10 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
   int? produitId;
   List? produits = [];
 
-  Timer? t;
-
   @override
   void initState() {
     super.initState();
-    t = new Timer.periodic(timeDelay, (t) => fetchProduits());
+    fetchProduits();
   }
 
   fetchProduits() async {
@@ -38,12 +34,6 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
     } else {
       throw Exception('Error!');
     }
-  }
-
-  @override
-  void dispose() {
-    t?.cancel();
-    super.dispose();
   }
 
   @override
@@ -119,6 +109,13 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                       )),
                       DataColumn(
                           label: Flexible(
+                        child: Text("Prix de Vente",
+                            maxLines: 5,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      )),
+                      DataColumn(
+                          label: Flexible(
                               child: Text("Etat",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)))),
@@ -130,8 +127,10 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                             DataCell(Text(produits![i]['refProd'].toString())),
                             DataCell(Text(produits![i]['nomProd'].toString())),
                             DataCell(Text(produits![i]['stock'].toString())),
-                            DataCell(
-                                Text(produits![i]['prixAchatHT'].toString())),
+                            DataCell(Text(
+                                "${produits![i]['prixAchatHT'].toStringAsFixed(3)} DT")),
+                            DataCell(Text(
+                                "${produits![i]['prixVenteHT'].toStringAsFixed(3)} DT")),
                             produits![i]['stock'] <= 5
                                 ? const DataCell(
                                     Icon(

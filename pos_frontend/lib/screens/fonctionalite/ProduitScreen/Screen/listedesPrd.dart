@@ -15,6 +15,7 @@ class listeProduit extends StatefulWidget {
 
 class listeProduitState extends State<listeProduit> {
   int? produitId;
+  int? fournisseurId;
   List? produits = [];
   Timer? t;
   @override
@@ -100,7 +101,7 @@ class listeProduitState extends State<listeProduit> {
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Stock",
+                        child: Text("Description du produit",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -114,14 +115,14 @@ class listeProduitState extends State<listeProduit> {
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Prix de vente",
+                        child: Text("Prix de Vente",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       DataColumn(
                           label: Flexible(
-                        child: Text("Taxe sur la valeur ajoutée",
+                        child: Text("TVA",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -138,7 +139,8 @@ class listeProduitState extends State<listeProduit> {
                           cells: <DataCell>[
                             DataCell(Text(produits![i]['refProd'].toString())),
                             DataCell(Text(produits![i]['nomProd'].toString())),
-                            DataCell(Text(produits![i]['stock'].toString())),
+                            DataCell(Text(
+                                produits![i]['descriptionProd'].toString())),
                             DataCell(Text(
                                 "${produits![i]['prixAchatHT'].toStringAsFixed(3)}DT")),
                             DataCell(Text(
@@ -155,6 +157,8 @@ class listeProduitState extends State<listeProduit> {
                                             color: Colors.green),
                                         onPressed: () async {
                                           produitId = produits![i]['id'];
+                                          fournisseurId =
+                                              produits![i]['id_fournisseur'];
                                           await showAnimatedDialog(
                                             context: context,
                                             barrierDismissible: true,

@@ -192,7 +192,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
       setState(() {
         documents = items;
         print(documents.toString());
-        totalDocument.text = documents['totalDoc'].toString();
+        totalDocument.text = documents['totalDoc'].toStringAsFixed(3);
       });
     } else {
       throw Exception('Error!');
@@ -249,12 +249,12 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
           TextEditingController totalHTController = new TextEditingController();
           totalHTController.text = (double.parse(prixController.text) *
                   double.parse(quantiteController.text))
-              .toString();
+              .toStringAsFixed(3);
           TextEditingController totalTTCController =
               new TextEditingController();
           totalTTCController.text = (double.parse(totalHTController.text) *
                   (1 + double.parse(tvaController.text) / 100))
-              .toString();
+              .toStringAsFixed(3);
           ligneDoc.add(
             DataRow(
               cells: <DataCell>[
@@ -677,7 +677,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                     }
                     setState(() {
                       total = totalC1 + totalC2;
-                      totalDocument.text = total.toString();
+                      totalDocument.text = total.toStringAsFixed(3);
                     });
                   }
                 },

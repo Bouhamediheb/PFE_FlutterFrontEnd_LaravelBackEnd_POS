@@ -16,11 +16,11 @@ class listeFournisseur extends StatefulWidget {
 class _listeFournisseurState extends State<listeFournisseur> {
   int? fournisseurId;
   List? fournisseurs = [];
-  Timer? t;
+
   @override
   void initState() {
     super.initState();
-    t = new Timer.periodic(timeDelay, (t) => fetchFournisseurs());
+    fetchFournisseurs();
   }
 
   fetchFournisseurs() async {
@@ -39,12 +39,6 @@ class _listeFournisseurState extends State<listeFournisseur> {
     } else {
       throw Exception('Error!');
     }
-  }
-
-  @override
-  void dispose() {
-    t?.cancel();
-    super.dispose();
   }
 
   @override
@@ -147,10 +141,11 @@ class _listeFournisseurState extends State<listeFournisseur> {
                             DataCell(Text(fournisseurs![i]['tel'])),
                             DataCell(Text(fournisseurs![i]['email'])),
                             DataCell(Text(fournisseurs![i]['mf'])),
-                            DataCell(Text((fournisseurs![i]['timbreFiscal'] ==
-                                    null)
-                                ? '0'
-                                : fournisseurs![i]['timbreFiscal'].toString())),
+                            DataCell(Text(
+                                (fournisseurs![i]['timbreFiscal'] == null)
+                                    ? '0.000'
+                                    : fournisseurs![i]['timbreFiscal']
+                                        .toStringAsFixed(3))),
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -191,40 +186,40 @@ class _listeFournisseurState extends State<listeFournisseur> {
                                             fetchFournisseurs();
                                           });
                                         }),
-                                        IconButton(
-                                          icon: const Icon(Icons.delete,
-                                              color: Colors.red),
-                                          onPressed: () async {
-                                            fournisseurId = fournisseurs![i]['id'];
-                                            await showAnimatedDialog(
-                                              context: context,
-                                              barrierDismissible: true,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  backgroundColor: bgColor,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  content: SizedBox(
-                                                      height: 130,
-                                                      width: 320,
-                                                      child: supprimerUnFournisseur(
-                                                          fournisseurId)),
-                                                );
-                                              },
-                                              animationType:
-                                                  DialogTransitionType
-                                                      .fadeScale,
-                                              curve: Curves.fastOutSlowIn,
-                                              duration:
-                                                  const Duration(seconds: 1),
-                                            );
-                                            setState(() {
-                                              fetchFournisseurs();
-                                            });
-                                          }),
+                                    IconButton(
+                                        icon: const Icon(Icons.delete,
+                                            color: Colors.red),
+                                        onPressed: () async {
+                                          fournisseurId =
+                                              fournisseurs![i]['id'];
+                                          await showAnimatedDialog(
+                                            context: context,
+                                            barrierDismissible: true,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                backgroundColor: bgColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                content: SizedBox(
+                                                    height: 130,
+                                                    width: 320,
+                                                    child:
+                                                        supprimerUnFournisseur(
+                                                            fournisseurId)),
+                                              );
+                                            },
+                                            animationType:
+                                                DialogTransitionType.fadeScale,
+                                            curve: Curves.fastOutSlowIn,
+                                            duration:
+                                                const Duration(seconds: 1),
+                                          );
+                                          setState(() {
+                                            fetchFournisseurs();
+                                          });
+                                        }),
                                   ]),
                             ),
                           ],
