@@ -26,6 +26,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
   final TextEditingController prixAchatProduit = TextEditingController();
   final TextEditingController descriptionProduit = TextEditingController();
   final TextEditingController stockProduit = TextEditingController();
+  final TextEditingController prixVenteProduit = TextEditingController();
+  final TextEditingController tvaProduit = TextEditingController();
 
   @override
   void initState() {
@@ -55,7 +57,6 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
               fournisseurs[i]['raisonSociale'];
         }
         ;
-        
       });
     } else {
       throw Exception('Error!');
@@ -75,6 +76,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
     String refProduit,
     String nomProduit,
     double prixAchatProduit,
+    double prixVenteProduit,
+    double tvaProduit,
     String descriptionProduit,
     double stockProduit,
     int idFournisseur,
@@ -83,8 +86,10 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
       'refProd': refProduit,
       'nomProd': nomProduit,
       'prixAchatHT': prixAchatProduit,
+      'prixVenteHT': prixVenteProduit,
       'descriptionProd': descriptionProduit,
       'stock': stockProduit,
+      'tvaProd': tvaProduit,
       'id_fournisseur': idFournisseur
     });
 
@@ -142,18 +147,18 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                     children: [
                                       const SizedBox(height: 10),
                                       ConstrainedBox(
-   constraints: BoxConstraints(
-      maxHeight: 50.0,
-      minHeight: 50.0)
-      ,child: InputField(
-        
+                                        constraints: BoxConstraints(
+                                            maxHeight: 50.0, minHeight: 50.0),
+                                        child: InputField(
                                           label: "Référence du produit",
-                                          content: "Tapez la référence du produit",
+                                          content:
+                                              "Tapez la référence du produit",
                                           fieldController: refProduit,
                                           whattoAllow:
                                               RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                           fieldValidator: (value) {
-                                            if (value == null || value.isEmpty) {
+                                            if (value == null ||
+                                                value.isEmpty) {
                                               return "Ce Champ est obligatoire";
                                             }
                                             return null;
@@ -162,9 +167,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       ),
                                       const SizedBox(height: 20),
                                       ConstrainedBox(
-   constraints: BoxConstraints(
-      maxHeight: 50.0,
-      minHeight: 50.0),
+                                        constraints: BoxConstraints(
+                                            maxHeight: 50.0, minHeight: 50.0),
                                         child: InputField(
                                           label: "Nom du produit",
                                           content: "Tapez le nom du produit",
@@ -172,7 +176,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                               RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
                                           fieldController: nomProduit,
                                           fieldValidator: (value) {
-                                            if (value == null || value.isEmpty) {
+                                            if (value == null ||
+                                                value.isEmpty) {
                                               return "Ce Champ est obligatoire";
                                             }
                                             return null;
@@ -181,15 +186,16 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                       ),
                                       const SizedBox(height: 20),
                                       ConstrainedBox(
-   constraints: BoxConstraints(
-      maxHeight: 150.0,
-      minHeight: 150.0),
+                                        constraints: BoxConstraints(
+                                            maxHeight: 150.0, minHeight: 150.0),
                                         child: InputFieldDescription(
-                                          content: 'Tapez la description du produit',
+                                          content:
+                                              'Tapez la description du produit',
                                           label: 'Description du produit',
                                           fieldController: descriptionProduit,
                                           fieldValidator: (value) {
-                                            if (value == null || value.isEmpty) {
+                                            if (value == null ||
+                                                value.isEmpty) {
                                               return "Ce Champ est obligatoire";
                                             }
                                             return null;
@@ -205,9 +211,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                 flex: 2,
                                 child: Column(children: [
                                   ConstrainedBox(
-   constraints: BoxConstraints(
-      maxHeight: 50.0,
-      minHeight: 50.0),
+                                    constraints: BoxConstraints(
+                                        maxHeight: 50.0, minHeight: 50.0),
                                     child: InputField(
                                         label: "Prix d'achat HT",
                                         content: "Prix d'achat du produit HT",
@@ -220,8 +225,39 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                           return null;
                                         }),
                                   ),
-                                                                        const SizedBox(height: 20),
-
+                                  const SizedBox(height: 20),
+                                  ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                        maxHeight: 50.0, minHeight: 50.0),
+                                    child: InputField(
+                                        label: "Prix de vente HT",
+                                        content: "Prix de vente du produit HT",
+                                        fieldController: prixVenteProduit,
+                                        whattoAllow: RegExp('[0-9 . ]'),
+                                        fieldValidator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return "Ce Champ est obligatoire";
+                                          }
+                                          return null;
+                                        }),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                        maxHeight: 50.0, minHeight: 50.0),
+                                    child: InputField(
+                                        label: "TVA",
+                                        content: "TVA du produit",
+                                        fieldController: tvaProduit,
+                                        whattoAllow: RegExp('[0-9 . ]'),
+                                        fieldValidator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return "Ce Champ est obligatoire";
+                                          }
+                                          return null;
+                                        }),
+                                  ),
+                                  const SizedBox(height: 20),
                                   Row(
                                     children: [
                                       Expanded(
@@ -238,7 +274,8 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                         flex: 3,
                                         child: DropdownButton(
                                           // Initial Value
-                                          hint: Text("Sélectionnez le fournisseur"),
+                                          hint: Text(
+                                              "Sélectionnez le fournisseur"),
                                           value: dropdownvalue,
                                           underline: SizedBox(),
                                           // Down Arrow Ico
@@ -271,7 +308,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                   ),
                                   Row(
                                     children: [
-                                      SizedBox(height: 160),
+                                      SizedBox(height: 20),
                                     ],
                                   )
                                 ]),
@@ -302,9 +339,9 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                 color: const Color.fromARGB(255, 75, 100, 211),
                                 onPressed: () {
                                   print(dropdownvalue);
-if(dropdownvalue == null){
-  ScaffoldMessenger.of(context).showSnackBar(
-                                       SnackBar(
+                                  if (dropdownvalue == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
                                           backgroundColor: (secondaryColor),
                                           content: Text(
                                             'Le champ fournisseur est obligatoire',
@@ -313,7 +350,7 @@ if(dropdownvalue == null){
                                                     255, 250, 253, 255)),
                                           )),
                                     );
-}
+                                  }
 
                                   if (_formKey.currentState!.validate()) {
                                     setState(() {
@@ -321,13 +358,15 @@ if(dropdownvalue == null){
                                           refProduit.text,
                                           nomProduit.text,
                                           double.parse(prixAchatProduit.text),
+                                          double.parse(prixVenteProduit.text),
+                                          double.parse(tvaProduit.text),
                                           descriptionProduit.text,
                                           0.0,
                                           idFournisseur);
                                     });
 
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                       SnackBar(
+                                      SnackBar(
                                           backgroundColor: (secondaryColor),
                                           content: Text(
                                             'Tâche effectuée avec succès',

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('nomProd');
             $table->float('prixAchatHT');
             $table->string('descriptionProd');
+            $table->float('tvaProd');
+            $table->float('prixVenteHT');
             $table->float('stock');
 
             $table->timestamps();

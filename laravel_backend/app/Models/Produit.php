@@ -9,6 +9,6 @@ class Produit extends Model
 {
     use HasFactory;
     protected $fillable = [
-       'id_fournisseur', 'refProd', 'nomProd', 'prixAchatHT', 'descriptionProd','stock'
+       'id_fournisseur', 'refProd', 'nomProd', 'prixAchatHT', 'descriptionProd','stock','tvaProd','prixVenteHT'
     ];
 }

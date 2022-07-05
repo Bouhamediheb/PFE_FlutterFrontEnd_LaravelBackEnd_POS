@@ -139,12 +139,12 @@ class listeProduitState extends State<listeProduit> {
                             DataCell(Text(produits![i]['refProd'].toString())),
                             DataCell(Text(produits![i]['nomProd'].toString())),
                             DataCell(Text(produits![i]['stock'].toString())),
+                            DataCell(Text(
+                                "${produits![i]['prixAchatHT'].toStringAsFixed(3)}DT")),
+                            DataCell(Text(
+                                "${produits![i]['prixVenteHT'].toStringAsFixed(3)}DT")),
                             DataCell(
-                                Text(produits![i]['prixAchat'].toString())),
-                            DataCell(
-                                Text(produits![i]['prixVente'].toString())),
-                            DataCell(
-                                Text("${produits![i]['TVA'].toString()}%")),
+                                Text("${produits![i]['tvaProd'].toString()}%")),
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

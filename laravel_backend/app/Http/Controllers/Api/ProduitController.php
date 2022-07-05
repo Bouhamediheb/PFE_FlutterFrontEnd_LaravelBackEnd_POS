@@ -42,8 +42,10 @@ class ProduitController extends Controller
             'refProd' => 'required|unique:produits',
             'nomProd' => 'required',
             'prixAchatHT' => 'required',
+            'prixVenteHT' => 'required',
             'descriptionProd',
             'stock' => 'required',
+            'tvaProd' => 'required',
             'id_fournisseur',
            
         ]);
@@ -53,7 +55,8 @@ class ProduitController extends Controller
         $data['prixAchatHT'] = $request->prixAchatHT;
         $data['stock'] = $request->stock;
         $data['descriptionProd']= $request->descriptionProd;
-    
+        $data['tvaProd'] = $request->tvaProd;
+        $data['prixVenteHT'] = $request->prixVenteHT;
         $data['id_fournisseur'] = $request->id_fournisseur;
        
         $insert = DB::table('produits')->insert($data);
@@ -98,6 +101,8 @@ class ProduitController extends Controller
         $data['stock'] = $request->stock;
         $data['nomProd'] = $request->nomProd;
         $data['prixAchatHT'] = $request->prixAchatHT;
+        $data['descriptionProd']= $request->descriptionProd;
+        $data['tvaProd'] = $request->tvaProd;
         $data['descriptionProd']= $request->descriptionProd;
         $data['id_fournisseur'] = $request->id_fournisseur;
         $insert = DB::table('produits')->where('id',$id)->update($data);

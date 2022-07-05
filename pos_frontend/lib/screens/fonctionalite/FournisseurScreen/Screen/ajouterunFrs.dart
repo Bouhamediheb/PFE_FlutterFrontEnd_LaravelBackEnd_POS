@@ -177,7 +177,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
                                   ),
                                   InputField(
                                     whattoAllow:
-                                        RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
+                                        RegExp('[a-z A-Z á-ú Á-Ú 0-9 /]'),
                                     fieldController:
                                         matriculeFiscaleFournisseur,
                                     label: "Matricule fiscale",
@@ -194,8 +194,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
 
                                   //InputField Widget from the widgets folder
                                   InputField(
-                                    whattoAllow: RegExp(
-                                        "[a-z A-Z 0-9 @ .]"),
+                                    whattoAllow: RegExp("[a-z A-Z 0-9 @ .]"),
                                     fieldController: emailFournisseur,
                                     label: "Email",
                                     content: "foulen@mail.com",
@@ -351,7 +350,7 @@ class _ajouterUnFournisseurState extends State<ajouterUnFournisseur> {
 
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                     SnackBar(
+                                    SnackBar(
                                         backgroundColor: (secondaryColor),
                                         content: Text(
                                           'Tâche effectuée avec succès',
