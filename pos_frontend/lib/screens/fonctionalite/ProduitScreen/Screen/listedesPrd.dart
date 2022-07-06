@@ -170,7 +170,7 @@ class listeProduitState extends State<listeProduit> {
                                                       BorderRadius.circular(10),
                                                 ),
                                                 content: SizedBox(
-                                                    width: 1000,
+                                                    width: 1200,
                                                     child: modifierUnProduit(
                                                         produitId)),
                                               );

@@ -100,10 +100,11 @@ class ProduitController extends Controller
         $data['refProd'] = $request->refProd;      
         $data['nomProd'] = $request->nomProd;
         $data['prixAchatHT'] = $request->prixAchatHT;
+        $data['prixVenteHT'] = $request->prixVenteHT;
         $data['descriptionProd']= $request->descriptionProd;
         $data['tvaProd'] = $request->tvaProd;
         $data['descriptionProd']= $request->descriptionProd;
-        $data['id_fournisseur'] = $request->id_fournisseur;
+       
         $insert = DB::table('produits')->where('id',$id)->update($data);
         return response()->json('Produit Modifié');
     }

@@ -1,10 +1,12 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:data_table_2/data_table_2.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Login/Screen/Login.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'Produit.dart';
 import 'Panier.dart';
 
@@ -49,6 +51,192 @@ class _CaisseState extends State<Caisse> {
     });
   }
 
+  imprimerCommande() async {
+    final pdf = pw.Document();
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Column(
+              children: [
+                pw.Text('POS360', style: pw.TextStyle(fontSize: 4)),
+                pw.SizedBox(height: 5),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
+                  children: [
+                    pw.Expanded(
+                      flex: 2,
+                      child: pw.Align(
+                        alignment: pw.Alignment.center,
+                        child: pw.Text('Commande n° 001',
+                            style: pw.TextStyle(fontSize: 1)),
+                      ),
+                    ),
+                    pw.Expanded(
+                      flex: 2,
+                      child: pw.Align(
+                        alignment: pw.Alignment.center,
+                        child: pw.Text(
+                            'Date : ${DateTime.now().toString().substring(0, 19)}',
+                            style: pw.TextStyle(fontSize: 1)),
+                      ),
+                    ),
+                  ],
+                ),
+                pw.SizedBox(height: 1),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
+                  children: [
+                    pw.Expanded(
+                      flex: 2,
+                      child: pw.Align(
+                        alignment: pw.Alignment.center,
+                        child: pw.Text('Caissier : ${user['name']}',
+                            style: pw.TextStyle(fontSize: 1)),
+                      ),
+                    ),
+                    pw.Expanded(
+                      flex: 2,
+                      child: pw.Align(
+                        alignment: pw.Alignment.center,
+                        child: pw.Text('Table : $selectedTable',
+                            style: pw.TextStyle(fontSize: 1)),
+                      ),
+                    ),
+                  ],
+                ),
+                pw.SizedBox(height: 2),
+                pw.Column(
+                  children: [
+                    pw.Row(children: [
+                      pw.Expanded(
+                        flex: 2,
+                        child: pw.Align(
+                          alignment: pw.Alignment.center,
+                          child: pw.Text('Quantité',
+                              style: pw.TextStyle(fontSize: 1)),
+                        ),
+                      ),
+                      pw.Expanded(
+                        flex: 2,
+                        child: pw.Align(
+                          alignment: pw.Alignment.center,
+                          child: pw.Text('Désignation',
+                              style: pw.TextStyle(fontSize: 1)),
+                        ),
+                      ),
+                      pw.Expanded(
+                        flex: 2,
+                        child: pw.Align(
+                          alignment: pw.Alignment.center,
+                          child: pw.Text('Prix Unitaire',
+                              style: pw.TextStyle(fontSize: 1)),
+                        ),
+                      ),
+                      pw.Expanded(
+                        flex: 2,
+                        child: pw.Align(
+                          alignment: pw.Alignment.center,
+                          child: pw.Text('Total',
+                              style: pw.TextStyle(fontSize: 1)),
+                        ),
+                      ),
+                    ]),
+                    pw.SizedBox(height: 0.5),
+                    pw.Text(
+                        '----------------------------------------------------------------------------------------------------------------------',
+                        style: pw.TextStyle(fontSize: 1)),
+                    pw.SizedBox(height: 0.5),
+                    for (var i = 0; i < listePanier[selectedTable]!.length; i++)
+                      pw.SizedBox(
+                        height: 2,
+                        child: pw.Row(children: [
+                          pw.Expanded(
+                            flex: 2,
+                            child: pw.Align(
+                              alignment: pw.Alignment.center,
+                              child: pw.Text(
+                                  '${listePanier[selectedTable]!.elementAt(i).quantiteProd}',
+                                  style: pw.TextStyle(fontSize: 1)),
+                            ),
+                          ),
+                          pw.Expanded(
+                            flex: 2,
+                            child: pw.Align(
+                              alignment: pw.Alignment.center,
+                              child: pw.Text(
+                                  '${listePanier[selectedTable]!.elementAt(i).nomProd}',
+                                  style: pw.TextStyle(fontSize: 1)),
+                            ),
+                          ),
+                          pw.Expanded(
+                            flex: 2,
+                            child: pw.Align(
+                              alignment: pw.Alignment.center,
+                              child: pw.Text(
+                                  '${listePanier[selectedTable]!.elementAt(i).prixProd!.toStringAsFixed(3)}',
+                                  style: pw.TextStyle(fontSize: 1)),
+                            ),
+                          ),
+                          pw.Expanded(
+                            flex: 2,
+                            child: pw.Align(
+                              alignment: pw.Alignment.center,
+                              child: pw.Text(
+                                  '${(listePanier[selectedTable]!.elementAt(i).prixProd! * listePanier[selectedTable]!.elementAt(i).quantiteProd!).toStringAsFixed(3)}',
+                                  style: pw.TextStyle(fontSize: 1)),
+                            ),
+                          ),
+                        ]),
+                      ),
+                    pw.SizedBox(height: 0.5),
+                    pw.Text(
+                        '----------------------------------------------------------------------------------------------------------------------',
+                        style: pw.TextStyle(fontSize: 1)),
+                    pw.SizedBox(height: 0.5),
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.Expanded(
+                            flex: 2,
+                            child: pw.Align(
+                              alignment: pw.Alignment.center,
+                              child: pw.Text('Total',
+                                  style: pw.TextStyle(
+                                      fontSize: 2,
+                                      fontWeight: pw.FontWeight.bold)),
+                            ),
+                          ),
+                          pw.Expanded(
+                            flex: 2,
+                            child: pw.Align(
+                              alignment: pw.Alignment.center,
+                              child: pw.Text(
+                                  '${getTotal().toStringAsFixed(3)} DT',
+                                  style: pw.TextStyle(
+                                      fontSize: 2,
+                                      fontWeight: pw.FontWeight.bold)),
+                            ),
+                          ),
+                        ]),
+                    pw.SizedBox(height: 0.5),
+                    pw.Text(
+                        '----------------------------------------------------------------------------------------------------------------------',
+                        style: pw.TextStyle(fontSize: 1)),
+                    pw.SizedBox(height: 0.5),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+        pageFormat: PdfPageFormat(40, 80),
+      ),
+    );
+    final file = File("Commande.pdf");
+    file.writeAsBytesSync(await pdf.save());
+  }
+
   Map<int, List<Panier>> listePanier = {};
   List<Produit> listeProduits = [
     Produit(
@@ -84,7 +272,8 @@ class _CaisseState extends State<Caisse> {
     ),
   ];
   int selectedTable = 1;
-  int nbTotalesTables = 20;
+  int nbTotalesTables = 15;
+
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -162,11 +351,13 @@ class _CaisseState extends State<Caisse> {
                         itemCount: nbTotalesTables,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: ElevatedButton(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 3),
+                            child: Stack(children: [
+                              ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: const Color(0xFF462c86),
-                                  fixedSize: const Size(50, 50),
+                                  fixedSize: const Size(60, 60),
                                   shape: const CircleBorder(),
                                 ),
                                 onPressed: () {
@@ -174,7 +365,24 @@ class _CaisseState extends State<Caisse> {
                                     selectedTable = index++;
                                   });
                                 },
-                                child: Text("${index = index + 1}")),
+                                child: Text(
+                                  "${index = index + 1}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              if (listePanier[index]!.isNotEmpty)
+                                Positioned(
+                                  right: 10,
+                                  top: 0,
+                                  child: Icon(
+                                    Icons.circle,
+                                    color: Colors.red,
+                                  ),
+                                )
+                            ]),
                           );
                         }),
                   ),
@@ -631,10 +839,10 @@ class _CaisseState extends State<Caisse> {
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 3.75,
-                          child: DataTable2(
-                            columnSpacing: 10,
+                          child: DataTable(
+                            columnSpacing: 40,
                             columns: const [
-                              DataColumn2(
+                              DataColumn(
                                 label: Text(
                                   "Nom",
                                   style: TextStyle(
@@ -643,7 +851,8 @@ class _CaisseState extends State<Caisse> {
                                   ),
                                 ),
                               ),
-                              DataColumn2(
+                              DataColumn(
+                                numeric: true,
                                 label: Text(
                                   "Quantité",
                                   style: TextStyle(
@@ -652,8 +861,7 @@ class _CaisseState extends State<Caisse> {
                                   ),
                                 ),
                               ),
-                              DataColumn2(
-                                size: ColumnSize.S,
+                              DataColumn(
                                 label: Text(
                                   "Prix",
                                   style: TextStyle(
@@ -667,7 +875,7 @@ class _CaisseState extends State<Caisse> {
                               for (var i = 0;
                                   i < listePanier[selectedTable]!.length;
                                   i++)
-                                DataRow2(
+                                DataRow(
                                   cells: [
                                     DataCell(
                                       Text(
@@ -723,7 +931,7 @@ class _CaisseState extends State<Caisse> {
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 20,
+                          height: MediaQuery.of(context).size.height / 120,
                         ),
                         Align(
                           alignment: Alignment.center,
@@ -731,14 +939,35 @@ class _CaisseState extends State<Caisse> {
                             style: ElevatedButton.styleFrom(
                               elevation: 10,
                               primary: const Color(0xFF09c569),
-                              fixedSize: const Size(200, 40),
+                              fixedSize: const Size(200, 35),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                            ),
+                            onPressed: () {
+                              imprimerCommande();
+                            },
+                            child: const Text("Passer la commande",
+                                style: TextStyle(fontSize: 18)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 50,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 10,
+                              primary: const Color(0xFF09c569),
+                              fixedSize: const Size(200, 35),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               ),
                             ),
                             onPressed: () {},
-                            child: const Text("Confirmer",
-                                style: TextStyle(fontSize: 20)),
+                            child: const Text("Payer",
+                                style: TextStyle(fontSize: 18)),
                           ),
                         ),
                       ],
@@ -753,7 +982,7 @@ class _CaisseState extends State<Caisse> {
                   child: Container(
                       padding: const EdgeInsets.all(20.0),
                       width: MediaQuery.of(context).size.width / 5,
-                      height: MediaQuery.of(context).size.height / 4.5,
+                      height: MediaQuery.of(context).size.height / 6,
                       decoration: BoxDecoration(
                         color: const Color(0xFF462c86),
                         borderRadius: BorderRadius.circular(25),

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -64,7 +62,7 @@ class _listeFournisseurState extends State<listeFournisseur> {
                   height: 45,
                   child: Center(
                     child: Text(
-                      'La Liste Des fournisseurs :',
+                      'La liste des fournisseurs :',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

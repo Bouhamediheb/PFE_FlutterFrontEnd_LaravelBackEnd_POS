@@ -22,7 +22,9 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
   final refProduit = TextEditingController();
   final nomProduit = TextEditingController();
   final prixAchatProduit = TextEditingController();
+  final prixVenteProduit = TextEditingController();
   final descriptionProduit = TextEditingController();
+  final tvaProduit = TextEditingController();
 
   File? uploadimage;
   String? baseimage;
@@ -59,9 +61,11 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     }
     setState(() {
       nomProduit.text = produits!['nomProd'].toString();
-      prixAchatProduit.text = produits!['prixAchatHT'].toString();
+      prixAchatProduit.text = produits!['prixAchatHT'].toStringAsFixed(3);
       descriptionProduit.text = produits!['descriptionProd'];
       refProduit.text = produits!['refProd'];
+      prixVenteProduit.text = produits!['prixVenteHT'].toStringAsFixed(3);
+      tvaProduit.text = produits!['tvaProd'].toString();
     });
   }
 
@@ -71,8 +75,9 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
     String refProduit,
     String nomProduit,
     double prixAchatProduit,
+    double prixVenteProduit,
+    double tvaProduit,
     String descriptionProduit,
-   
   ) async {
     List? produits = [];
     final response = await http.put(
@@ -86,7 +91,8 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
         'nomProd': nomProduit,
         'prixAchatHT': prixAchatProduit,
         'descriptionProd': descriptionProduit,
-        
+        'tvaProd': tvaProduit,
+        'prixVenteHT': prixVenteProduit,
       }),
     );
     if (response.statusCode == 200) {
@@ -109,7 +115,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 0.0,
           child: SizedBox(
-            width: 1800,
+            width: 1200,
             child: Column(
               children: [
                 Center(
@@ -131,7 +137,7 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              flex: 5,
+                              flex: 2,
                               child: Column(
                                 children: [
                                   const SizedBox(height: 10),
@@ -163,22 +169,6 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                     },
                                   ),
                                   const SizedBox(height: 20),
-                                  InputField(
-                                      whattoAllow: RegExp('[0-9 . ]'),
-                                      label: "Prix d'achat HT",
-                                      content: "Prix Achat du Produit",
-                                      fieldController: prixAchatProduit,
-                                      fieldValidator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Ce Champ est obligatoire";
-                                        }
-                                        return null;
-                                      }),
-                                  
-                                 
-                                  const SizedBox(height: 20),
-                                  
-                                  const SizedBox(height: 20),
                                   InputFieldDescription(
                                     content: 'La Description du Produit',
                                     label: 'Description du Produit',
@@ -190,6 +180,52 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                       return null;
                                     },
                                   ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                children: [
+                                  InputField(
+                                      whattoAllow: RegExp('[0-9 . ]'),
+                                      label: "Prix d'achat HT",
+                                      content: "Prix Achat du Produit",
+                                      fieldController: prixAchatProduit,
+                                      fieldValidator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return "Ce Champ est obligatoire";
+                                        }
+                                        return null;
+                                      }),
+                                  const SizedBox(height: 20),
+                                  InputField(
+                                      whattoAllow: RegExp('[0-9 . ]'),
+                                      label: "Prix de vente HT",
+                                      content: "Prix de Vente du Produit",
+                                      fieldController: prixVenteProduit,
+                                      fieldValidator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return "Ce Champ est obligatoire";
+                                        }
+                                        return null;
+                                      }),
+                                  const SizedBox(height: 20),
+                                  InputField(
+                                      label: "TVA",
+                                      content: "TVA du produit",
+                                      fieldController: tvaProduit,
+                                      whattoAllow: RegExp('[0-9 . ]'),
+                                      fieldValidator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return "Ce Champ est obligatoire";
+                                        }
+                                        return null;
+                                      }),
+                                  SizedBox(height: 100),
                                 ],
                               ),
                             ),
@@ -219,18 +255,17 @@ class _modifierUnProduitState extends State<modifierUnProduit> {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() {
                                     ajoutProduit(
-                                        refProduit.text,
-                                        nomProduit.text,
-                                        double.parse(prixAchatProduit.text),
-                                       
-                                        descriptionProduit.text,
-                                        
-                                       
-                                        );
+                                      refProduit.text,
+                                      nomProduit.text,
+                                      double.parse(prixAchatProduit.text),
+                                      double.parse(prixVenteProduit.text),
+                                      double.parse(tvaProduit.text),
+                                      descriptionProduit.text,
+                                    );
                                   });
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                     SnackBar(
+                                    SnackBar(
                                         backgroundColor: (secondaryColor),
                                         content: Text(
                                           'Tâche effectuée avec succès',

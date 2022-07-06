@@ -160,8 +160,7 @@ static const snackBarStockError = SnackBar(
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       setState(() {
-        print(items[items.length - 1]['id']);
-        if (items[items.length - 1]['id'] == null)
+        if (items.isEmpty)
           idDoc = 1;
         else {
           idDoc = items[items.length - 1]['id'] + 1;
@@ -845,7 +844,7 @@ static const snackBarStockError = SnackBar(
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBarButtonError);
                                       }
-
+                                      print(idDoc);
                                       if (confirmButton) {
                                         dateDoc =
                                             date.toString().substring(0, 10);
@@ -862,7 +861,12 @@ static const snackBarStockError = SnackBar(
                                         for (var i = 4;
                                             i < widget.controllers.length;
                                             i = i + 5) {
-                                          future = ajoutLigneDocument(
+                                          print(widget.controllers[i - 4].text);
+                                          print(widget.controllers[i - 3].text);
+                                          print(widget.controllers[i - 2].text);
+                                          print(widget.controllers[i - 1].text);
+                                          print(widget.controllers[i].text);
+                                          ajoutLigneDocument(
                                               idDoc,
                                               widget.controllers[i - 4].text,
                                               widget.controllers[i - 3].text,

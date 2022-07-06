@@ -78,7 +78,7 @@ class _listeDocumentState extends State<listeDocument> {
                   height: 45,
                   child: Center(
                     child: Text(
-                      'La Liste Des Documents :',
+                      'La liste des documents :',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -170,7 +170,7 @@ class _listeDocumentState extends State<listeDocument> {
                                     Text(documents![i]['dateDoc'].toString()))),
                             DataCell(Center(
                                 child: Text(
-                                    documents![i]['totalDoc'].toString()))),
+                                    "${documents![i]['totalDoc'].toString()} DT"))),
                             DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -231,13 +231,10 @@ class _listeDocumentState extends State<listeDocument> {
                                                       width: 325,
                                                       height: 75,
                                                       child: BonEntree(
-                                                          documents![i]['id'],
-                                                          documents![i]
-                                                              ['dateDoc'],
-                                                          documents![i]
-                                                              ['totalDoc'],
-                                                          documents![i]
-                                                              ['numDoc'])),
+                                                        documents![i]['id'],
+                                                        documents![i]
+                                                            ['totalDoc'],
+                                                      )),
                                                 );
                                               },
                                               animationType:
