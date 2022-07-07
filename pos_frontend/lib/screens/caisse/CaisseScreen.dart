@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:flutter/services.dart';
+import 'package:projetpfe/screens/caisse/previewPDF.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Login/Screen/Login.dart';
@@ -9,6 +11,10 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'Produit.dart';
 import 'Panier.dart';
+import 'package:printing/printing.dart';
+import 'package:provider/provider.dart';
+
+
 
 class Caisse extends StatefulWidget {
   const Caisse({Key? key}) : super(key: key);
@@ -51,8 +57,9 @@ class _CaisseState extends State<Caisse> {
     });
   }
 
+  
   imprimerCommande() async {
-    final pdf = pw.Document();
+    var pdf = pw.Document();
     pdf.addPage(
       pw.Page(
         build: (pw.Context context) {
@@ -174,7 +181,7 @@ class _CaisseState extends State<Caisse> {
                             child: pw.Align(
                               alignment: pw.Alignment.center,
                               child: pw.Text(
-                                  '${listePanier[selectedTable]!.elementAt(i).prixProd!.toStringAsFixed(3)}',
+                                  '${(listePanier[selectedTable]!.elementAt(i).prixProd! / listePanier[selectedTable]!.elementAt(i).quantiteProd!).toStringAsFixed(3)}',
                                   style: pw.TextStyle(fontSize: 1)),
                             ),
                           ),
@@ -183,7 +190,7 @@ class _CaisseState extends State<Caisse> {
                             child: pw.Align(
                               alignment: pw.Alignment.center,
                               child: pw.Text(
-                                  '${(listePanier[selectedTable]!.elementAt(i).prixProd! * listePanier[selectedTable]!.elementAt(i).quantiteProd!).toStringAsFixed(3)}',
+                                  '${(listePanier[selectedTable]!.elementAt(i).prixProd)!.toStringAsFixed(3)}',
                                   style: pw.TextStyle(fontSize: 1)),
                             ),
                           ),
@@ -233,8 +240,11 @@ class _CaisseState extends State<Caisse> {
         pageFormat: PdfPageFormat(40, 80),
       ),
     );
-    final file = File("Commande.pdf");
+    final file = File("lib/Commande.pdf");
     file.writeAsBytesSync(await pdf.save());
+    PdfPreview(
+      build: (format) => pdf.save(),
+    );
   }
 
   Map<int, List<Panier>> listePanier = {};
@@ -944,8 +954,15 @@ class _CaisseState extends State<Caisse> {
                                 borderRadius: BorderRadius.circular(25),
                               ),
                             ),
-                            onPressed: () {
-                              imprimerCommande();
+                            onPressed: () async {
+                             await imprimerCommande();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PreviewPDF()
+                                ),
+                              );                      
+
                             },
                             child: const Text("Passer la commande",
                                 style: TextStyle(fontSize: 18)),

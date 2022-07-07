@@ -84,8 +84,8 @@ class _SideMenuState extends State<SideMenu> {
           DrawerListTile(
             title: "Documents",
             svgSrc: "assets/icons/menu_doc.svg",
-            subTitle1: 'Ajouter Un Document',
-            subTitle2: 'Liste Des Documents',
+            subTitle1: 'Ajouter un document',
+            subTitle2: 'Liste des documents',
             press1: () {
               Navigator.push(
                 context,
@@ -104,8 +104,8 @@ class _SideMenuState extends State<SideMenu> {
           DrawerListTile(
             title: "Fournisseurs",
             svgSrc: "assets/icons/menu_tran.svg",
-            subTitle1: 'Ajouter Un Fournisseur',
-            subTitle2: 'Liste Des Fournisseurs',
+            subTitle1: 'Ajouter un fournisseur',
+            subTitle2: 'Liste des fournisseurs',
             press1: () {
               Navigator.push(
                 context,

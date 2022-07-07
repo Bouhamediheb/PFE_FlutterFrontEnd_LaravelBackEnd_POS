@@ -52,7 +52,9 @@ dependencies:
   bitsdojo_window: ^0.1.2
   bubble: ^1.2.1
   pdf: ^3.8.1
-  printing:
+  printing: ^5.9.1
+  plugin_platform_interface: ^2.1.2
+  syncfusion_flutter_pdfviewer: ^20.2.36-beta
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +74,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - lib/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

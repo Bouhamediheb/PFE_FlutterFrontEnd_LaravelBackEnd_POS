@@ -300,7 +300,7 @@ static const snackBarStockError = SnackBar(
               if (value!.isEmpty || value == "") {
                 return 'Référence obligatoire';
               } else {
-                return "A7ala";
+                return "";
               }
             },
             searchInputDecoration: const InputDecoration(
@@ -326,11 +326,12 @@ static const snackBarStockError = SnackBar(
               setState(() {
                 selectedProduit = value;
                 for (var i = 0; i < produits!.length; i++) {
-                  if (selectedProduit == produits![i]['refProd']) {
+                  if (selectedProduit == produits![i]['refProd']) 
+                  {
                     nomProduit = produits![i]['nomProd'];
                     nomController.text = nomProduit.toString();
                     prixController.text =
-                        produits![i]['prixVenteHT'].toStringAsFixed(3);
+                    produits![i]['prixVenteHT'].toStringAsFixed(3);
                     tvaController.text = produits![i]['tvaProd'].toString();
                   }
                 }
@@ -362,21 +363,30 @@ static const snackBarStockError = SnackBar(
             child: Focus(
               onFocusChange: (hasFocus) {
                 if (!hasFocus) {
-                  totalHTController.text =
+                  setState(() {
+                     totalHTController.text =
                       (double.parse(quantiteController.text) *
                               double.parse(prixController.text))
                           .toStringAsFixed(3);
+                  });
+                 
                   setState(() {
                     totalTTCController.text =
                         (double.parse(totalHTController.text) *
                                 (1 + (double.parse(tvaController.text) / 100)))
                             .toStringAsFixed(3);
                   });
+                
+                setState(() {
                   var total = 0.0;
                   for (var i = 0; i < totalTTCDocument.length; i++) {
-                    total = total + double.parse(totalTTCDocument[i].text);
+                    if(totalTTCDocument[i].text != "" || totalTTCDocument[i].text.isNotEmpty){
+                      total += double.parse(totalTTCDocument[i].text);
+                    }
                   }
                   totalDocument.text = total.toStringAsFixed(3);
+});
+                  
                 }
               },
               child: TextFormField(
@@ -387,10 +397,9 @@ static const snackBarStockError = SnackBar(
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    print("Quantité y weldi");
                     return 'Quantité obligatoire';
                   } else {
-                    return "jawek behi";
+                    return "";
                   }
                 },
                 decoration: const InputDecoration(
@@ -411,10 +420,31 @@ static const snackBarStockError = SnackBar(
             child: Focus(
               onFocusChange: (hasFocus) {
                 if (!hasFocus) {
-                  totalHTController.text =
+                    setState(() {
+                     totalHTController.text =
                       (double.parse(quantiteController.text) *
                               double.parse(prixController.text))
                           .toStringAsFixed(3);
+                  });
+                 
+                  setState(() {
+                    totalTTCController.text =
+                        (double.parse(totalHTController.text) *
+                                (1 + (double.parse(tvaController.text) / 100)))
+                            .toStringAsFixed(3);
+                  });
+                
+                setState(() {
+                  var total = 0.0;
+                  for (var i = 0; i < totalTTCDocument.length; i++) {
+                    if(totalTTCDocument[i].text != "" || totalTTCDocument[i].text.isNotEmpty){
+                      total += double.parse(totalTTCDocument[i].text);
+                    }
+                  }
+                  totalDocument.text = total.toStringAsFixed(3);
+                });
+                
+                 
                 }
               },
               child: TextFormField(
@@ -448,13 +478,18 @@ static const snackBarStockError = SnackBar(
                     totalTTCController.text =
                         (double.parse(totalHTController.text) *
                                 (1 + (double.parse(tvaController.text) / 100)))
-                            .toString();
+                            .toStringAsFixed(3);
                   });
-                  var total = 0.0;
+                  setState(() {
+                    var total = 0.0;
                   for (var i = 0; i < totalTTCDocument.length; i++) {
+                    if(totalTTCDocument[i].text != "" || totalTTCDocument[i].text.isNotEmpty){
+
                     total = total + double.parse(totalTTCDocument[i].text);
                   }
-                  totalDocument.text = total.toString();
+                  totalDocument.text = total.toStringAsFixed(3);
+                }});
+                
                 }
               },
               child: TextFormField(
@@ -533,9 +568,23 @@ static const snackBarStockError = SnackBar(
             onPressed: () {
               setState(() {
                 ligneDoc.remove(idligne);
-                print(idligne);
                 widget.controllers.removeRange(idligne, idligne + 3);
-                print(widget.controllers);
+                print("---------------------");
+                print("hedha ID"+idligne.toString()+"Tefsakh");
+                print("---------------------");
+                print("LONGEUR "+totalTTCDocument.length.toString());
+                totalTTCDocument.removeAt(idligne-1);
+              
+                   
+              });
+              setState(() {
+                  var total = 0.0;
+                  for (var i = 0; i < totalTTCDocument.length; i++) {
+                    if(totalTTCDocument[i].text != "" || totalTTCDocument[i].text.isNotEmpty){
+                      total += double.parse(totalTTCDocument[i].text);
+                    }
+                  }
+                  totalDocument.text = total.toStringAsFixed(3);
               });
             }))
       ],

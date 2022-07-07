@@ -34,7 +34,7 @@ class _ListeRaccourcisState extends State<ListeRaccourcis> {
                 children: [
                   const Center(
                     child: Text(
-                      'La Liste Des Raccourcis :',
+                      'La liste des raccourcis :',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
