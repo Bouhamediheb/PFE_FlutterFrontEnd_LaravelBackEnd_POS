@@ -26,6 +26,7 @@ return new class extends Migration
             ['id' => 3, 'seq_id' => 0,],
             ['id' => 4, 'seq_id' => 0,],
             ['id' => 5, 'seq_id' => 0,],
+            ['id' => 6, 'seq_id' => 0,],
         ],);
     }
 

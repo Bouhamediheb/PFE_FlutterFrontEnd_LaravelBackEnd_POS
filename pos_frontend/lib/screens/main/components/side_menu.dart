@@ -1,5 +1,5 @@
 import 'package:projetpfe/constants.dart';
-import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/choixDct.dart';
+import 'package:projetpfe/screens/fonctionalite/DocumentScreen/Screen/ajouterunDctFrs.dart';
 import 'package:projetpfe/screens/fonctionalite/ProduitScreen/Screen/listedesPrd.dart';
 import 'package:projetpfe/screens/fonctionalite/StockScreen/Screen/listedesPrd.dart';
 import 'package:projetpfe/screens/fonctionalite/UserRightsScreen/listedesUtilisateurs.dart';
@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../dashboard/dashboard_screen.dart';
+import '../../fonctionalite/DocumentScreen/Screen/ajouterunDct.dart';
 import '../../fonctionalite/DocumentScreen/Screen/listedesDct.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/ajouterunFrs.dart';
 import '../../fonctionalite/FournisseurScreen/Screen/listedesFrs.dart';
@@ -81,26 +82,214 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 trailing: const Text("")),
           ),
-          DrawerListTile(
-            title: "Documents",
-            svgSrc: "assets/icons/menu_doc.svg",
-            subTitle1: 'Ajouter un document',
-            subTitle2: 'Liste des documents',
-            press1: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MainScreen(const ChoixDocument())),
-              );
-            },
-            press2: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MainScreen(listeDocument())),
-              );
-            },
-          ),
+          ExpansionTile(
+              title:
+                  Text('Ajouter un document', style: TextStyle(fontSize: 14)),
+              leading: SvgPicture.asset('assets/icons/menu_doc.svg',
+                  color: const Color.fromARGB(255, 255, 255, 255), height: 16),
+              children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text('Bon de commande fournisseur',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(ajouterUnDocument2(
+                              1, "BON DE COMMANDE FOURNISSEUR"))),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text("Bon d'entrée",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(
+                              ajouterUnDocument2(2, "BON D'ENTREE"))),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text("Bon de retour",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(
+                              ajouterUnDocument(3, "BON DE RETOUR"))),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text("Bon de sortie",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(
+                              ajouterUnDocument(6, "BON DE SORTIE"))),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text("Facture",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              MainScreen(ajouterUnDocument(5, "FACTURE"))),
+                    );
+                  },
+                ),
+              ]),
+          ExpansionTile(
+              title:
+                  Text('Liste des documents', style: TextStyle(fontSize: 14)),
+              leading: SvgPicture.asset('assets/icons/menu_doc.svg',
+                  color: const Color.fromARGB(255, 255, 255, 255), height: 16),
+              children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text('Bon de commande fournisseur',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(listeDocument(1))),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text("Bon d'entrée",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(listeDocument(2))),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text("Bon de retour",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(listeDocument(3))),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text("Bon de sortie",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(listeDocument(6))),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.arrow_right_rounded,
+                    color: Color.fromARGB(255, 197, 195, 195),
+                  ),
+                  title: Text("Facture",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 197, 195, 195))),
+                  horizontalTitleGap: 0.0,
+                  contentPadding: EdgeInsets.only(left: 30),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => listeDocument(5)),
+                    );
+                  },
+                ),
+              ]),
           DrawerListTile(
             title: "Fournisseurs",
             svgSrc: "assets/icons/menu_tran.svg",

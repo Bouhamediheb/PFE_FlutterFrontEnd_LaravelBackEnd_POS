@@ -17,8 +17,9 @@ class modifierUnDocument extends StatefulWidget {
   List<TextEditingController> controllers = [];
   List<TextEditingController> controllers2 = [];
   int? documentId;
-  int? ligneDocumentId;
-  modifierUnDocument(this.ligneDocumentId, this.documentId);
+  int ligneDocumentId;
+  int typeDoc;
+  modifierUnDocument(this.ligneDocumentId, this.documentId, this.typeDoc);
 
   @override
   State<modifierUnDocument> createState() => _modifierUnDocumentState();
@@ -30,8 +31,8 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
   void initState() {
     super.initState();
     this.fetchDocuments();
-    this.fetchProduits();
     this.fetchLigneDocuments();
+    this.fetchProduits();
   }
 
   List<dynamic> refProduits = [];
@@ -54,19 +55,19 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
     }
   }
 
-  modifierLigneDocument(int id, int? idDoc, String refProd, String nomProd,
-      double qteProd, double prixProd) async {
+  modifierLigneDocument(int id, String refProd, String nomProd, double qteProd,
+      double prixProd, tvaProd) async {
     final response = await http.put(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=utf-8',
       },
       body: jsonEncode(<String, dynamic>{
-        'id_doc': idDoc,
         'refProd': refProd,
         'nomProd': nomProd,
         'qteProd': qteProd,
         'prixProd': prixProd,
+        'tvaProd': tvaProd
       }),
     );
     if (response.statusCode == 200) {
@@ -77,6 +78,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
   }
 
   fetchProduits() async {
+    var idFournisseur;
     final response = await http.get(
       Uri.parse('http://127.0.0.1:8000/api/produit'),
       headers: <String, String>{
@@ -88,14 +90,26 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
       var items = jsonDecode(response.body);
       setState(() {
         produits = items;
-        print(produits);
       });
     } else {
       throw Exception('Error!');
     }
     for (var i = 0; i < produits!.length; i++) {
+      if (ligneDocuments![0]['refProd'] == produits![i]['refProd']) {
+        idFournisseur = produits![i]['id_fournisseur'];
+        break;
+      }
+      break;
+    }
+    for (var i = 0; i < produits!.length; i++) {
       setState(() {
-        refProduits.add(produits![i]['refProd']);
+        if (widget.typeDoc == 1 || widget.typeDoc == 2) {
+          if (produits![i]['id_fournisseur'] == idFournisseur) {
+            refProduits.add(produits![i]['refProd']);
+          }
+        } else {
+          refProduits.add(produits![i]['refProd']);
+        }
       });
       print(refProduits);
     }
@@ -111,34 +125,12 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
   bool confirmButton = true;
 
   List? ligneDocuments = [];
-  List stockInitial = [];
-  List<DataRow> ligneDoc = [];
+  List<TextEditingController> stockInitial = [];
+  Map<int, DataRow> ligneDoc = {};
   TextEditingController totalDocument = TextEditingController(text: '0');
 
-  Future<http.Response?> ajoutDocument(
-      int type, String? numeroDoc, String? dateDoc, double totalDoc) async {
-    final response = await http.post(
-      Uri.parse("http://127.0.0.1:8000/api/document"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'type': type,
-        'numDoc': numeroDoc,
-        'dateDoc': dateDoc,
-        'totalDoc': totalDoc
-      }),
-    );
-    if (response.statusCode == 200) {
-      print("Document Ajouté");
-    } else {
-      throw Exception('Erreur base de données!');
-    }
-    return null;
-  }
-
   ajoutLigneDocument(int? idDoc, String refProd, String nomProd, double qteProd,
-      double prixProd) async {
+      double prixProd, double tvaProd) async {
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/lignedocument"),
       headers: <String, String>{
@@ -150,6 +142,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
         'nomProd': nomProd,
         'qteProd': qteProd,
         'prixProd': prixProd,
+        'tvaProd': tvaProd
       }),
     );
     if (response.statusCode == 200) {
@@ -157,6 +150,15 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
     } else {
       throw Exception('Erreur base de données!');
     }
+  }
+
+  supprimerLigneDocument(int id) async {
+    final response = await http.delete(
+        Uri.parse("http://127.0.0.1:8000/api/lignedocument/$id"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        });
   }
 
   modificationStock(String refProd, double stock) async {
@@ -200,6 +202,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
   }
 
   List<TextEditingController> totalTTCDocument = [];
+  List<TextEditingController> idsToRemove = [];
 
   fetchLigneDocuments() async {
     final response = await http.get(
@@ -213,18 +216,18 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
       var items = jsonDecode(response.body);
       setState(() {
         ligneDocuments = items;
-        for (var i = 0; i < items.length; i++) {
-          stockInitial.add(items[i]['qteProd']);
-          print(stockInitial);
-        }
       });
     } else {
       throw Exception('Error!');
     }
     for (var i = 0; i < ligneDocuments!.length; i++) {
-      var idligne = ligneDoc.length + 1;
       if (ligneDocuments![i]['id_doc'] == widget.ligneDocumentId) {
+        var idligne = ligneDoc.length + 1;
+
         setState(() {
+          TextEditingController qteInitial = TextEditingController(
+              text: ligneDocuments![i]['qteProd'].toString());
+          stockInitial.add(qteInitial);
           TextEditingController idController = new TextEditingController();
           widget.controllers.add(idController);
           idController.text = ligneDocuments![i]['id'].toString();
@@ -241,7 +244,8 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
           quantiteController.text = ligneDocuments![i]['qteProd'].toString();
           TextEditingController prixController = new TextEditingController();
           widget.controllers.add(prixController);
-          prixController.text = ligneDocuments![i]['prixProd'].toString();
+          prixController.text =
+              ligneDocuments![i]['prixProd'].toStringAsFixed(3);
 
           TextEditingController tvaController = new TextEditingController();
           widget.controllers.add(tvaController);
@@ -255,60 +259,236 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
           totalTTCController.text = (double.parse(totalHTController.text) *
                   (1 + double.parse(tvaController.text) / 100))
               .toStringAsFixed(3);
-          ligneDoc.add(
-            DataRow(
-              cells: <DataCell>[
-                DataCell(
-                  SearchField(
-                    hasOverlay: true,
-                    hint: "Taper la référence du produit",
-                    searchStyle: TextStyle(color: Colors.white),
-                    controller: referenceController,
-                    searchInputDecoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.all(10.0),
-                      hintStyle: TextStyle(
-                          color: Color.fromARGB(255, 190, 190, 190),
-                          fontSize: 14),
-                    ),
-                    suggestionItemDecoration: BoxDecoration(
-                        color: Color(0xFF2A2D3E),
-                        border: Border.all(color: Colors.white, width: 1.0)),
-                    suggestions: refProduits
-                        .map((e) => SearchFieldListItem<dynamic>(e, item: e))
-                        .toList(),
-                    maxSuggestionsInViewPort: 6,
-                    suggestionsDecoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    suggestionState: Suggestion.expand,
-                    textInputAction: TextInputAction.next,
-                    onSubmit: (value) {
-                      print(value);
-                      setState(() {
-                        selectedProduit = value;
-                        for (var i = 0; i < produits!.length; i++) {
-                          if (selectedProduit == produits![i]['refProd']) {
-                            nomProduit = produits![i]['nomProd'];
-                            nomController.text = nomProduit.toString();
-                          }
+          totalTTCDocument.add(totalTTCController);
+          ligneDoc[idligne] = DataRow(
+            cells: <DataCell>[
+              DataCell(
+                SearchField(
+                  hasOverlay: true,
+                  hint: "Taper la référence du produit",
+                  searchStyle: TextStyle(color: Colors.white),
+                  controller: referenceController,
+                  searchInputDecoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(10.0),
+                    hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 190, 190, 190),
+                        fontSize: 14),
+                  ),
+                  suggestionItemDecoration: BoxDecoration(
+                      color: Color(0xFF2A2D3E),
+                      border: Border.all(color: Colors.white, width: 1.0)),
+                  suggestions: refProduits
+                      .map((e) => SearchFieldListItem<dynamic>(e, item: e))
+                      .toList(),
+                  maxSuggestionsInViewPort: 6,
+                  suggestionsDecoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  suggestionState: Suggestion.expand,
+                  textInputAction: TextInputAction.next,
+                  onSubmit: (value) {
+                    print(value);
+                    setState(() {
+                      selectedProduit = value;
+                      for (var i = 0; i < produits!.length; i++) {
+                        if (selectedProduit == produits![i]['refProd']) {
+                          nomProduit = produits![i]['nomProd'];
+                          nomController.text = nomProduit.toString();
+                          prixController.text =
+                              produits![i]['prixProd'].toStringAsFixed(3);
+                          tvaController.text =
+                              produits![i]['tvaProd'].toString();
                         }
-                      });
-                    },
+                      }
+                    });
+                  },
+                ),
+              ),
+              DataCell(
+                TextFormField(
+                  enabled: false,
+                  controller: nomController,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                  ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(10.0),
+                    hintText: "Nom du Produit",
+                    hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 190, 190, 190),
+                        fontSize: 14),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
-                DataCell(
-                  TextFormField(
+              ),
+              DataCell(
+                Container(
+                  width: 145,
+                  child: Focus(
+                    onFocusChange: (hasFocus) {
+                      if (!hasFocus) {
+                        setState(() {
+                          totalHTController.text =
+                              (double.parse(quantiteController.text) *
+                                      double.parse(prixController.text))
+                                  .toStringAsFixed(3);
+                        });
+
+                        setState(() {
+                          totalTTCController
+                              .text = (double.parse(totalHTController.text) *
+                                  (1 +
+                                      (double.parse(tvaController.text) / 100)))
+                              .toStringAsFixed(3);
+                        });
+
+                        setState(() {
+                          var total = 0.0;
+                          for (var i = 0; i < totalTTCDocument.length; i++) {
+                            if (totalTTCDocument[i].text != "" ||
+                                totalTTCDocument[i].text.isNotEmpty) {
+                              total += double.parse(totalTTCDocument[i].text);
+                            }
+                          }
+                          totalDocument.text = total.toStringAsFixed(3);
+                        });
+                      }
+                    },
+                    child: TextFormField(
+                      controller: quantiteController,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.white,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(10.0),
+                        hintText: "Taper la quantité",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 190, 190, 190),
+                            fontSize: 14),
+                        fillColor: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              DataCell(
+                Container(
+                  width: 145,
+                  child: Focus(
+                    onFocusChange: (hasFocus) {
+                      if (!hasFocus) {
+                        setState(() {
+                          totalHTController.text =
+                              (double.parse(quantiteController.text) *
+                                      double.parse(prixController.text))
+                                  .toStringAsFixed(3);
+                        });
+
+                        setState(() {
+                          totalTTCController
+                              .text = (double.parse(totalHTController.text) *
+                                  (1 +
+                                      (double.parse(tvaController.text) / 100)))
+                              .toStringAsFixed(3);
+                        });
+
+                        setState(() {
+                          var total = 0.0;
+                          for (var i = 0; i < totalTTCDocument.length; i++) {
+                            if (totalTTCDocument[i].text != "" ||
+                                totalTTCDocument[i].text.isNotEmpty) {
+                              total += double.parse(totalTTCDocument[i].text);
+                            }
+                          }
+                          totalDocument.text = total.toStringAsFixed(3);
+                        });
+                      }
+                    },
+                    child: TextFormField(
+                      textInputAction: TextInputAction.done,
+                      enabled: true,
+                      controller: prixController,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.white,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(10.0),
+                        hintText: "Taper le Prix",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 190, 190, 190),
+                            fontSize: 14),
+                        fillColor: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              DataCell(
+                SizedBox(
+                  width: 145,
+                  child: Focus(
+                    onFocusChange: (hasFocus) {
+                      if (!hasFocus) {
+                        setState(() {
+                          totalTTCController
+                              .text = (double.parse(totalHTController.text) *
+                                  (1 +
+                                      (double.parse(tvaController.text) / 100)))
+                              .toString();
+                        });
+                        var total = 0.0;
+                        for (var i = 0; i < totalTTCDocument.length; i++) {
+                          total =
+                              total + double.parse(totalTTCDocument[i].text);
+                        }
+                        totalDocument.text = total.toString();
+                      }
+                    },
+                    child: TextFormField(
+                      textInputAction: TextInputAction.done,
+                      enabled: false,
+                      controller: tvaController,
+                      style: const TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.white,
+                      ),
+                      decoration: const InputDecoration(
+                        suffixText: "%",
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(10.0),
+                        hintText: "Taper le TVA",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 190, 190, 190),
+                            fontSize: 14),
+                        fillColor: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              DataCell(
+                SizedBox(
+                  width: 145,
+                  child: TextFormField(
+                    textInputAction: TextInputAction.done,
                     enabled: false,
-                    controller: nomController,
-                    style: TextStyle(
+                    controller: totalHTController,
+                    style: const TextStyle(
                       fontSize: 15.0,
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
+                      suffixText: 'DT',
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.all(10.0),
-                      hintText: "Nom du Produit",
+                      hintText: "Total HT",
                       hintStyle: TextStyle(
                           color: Color.fromARGB(255, 190, 190, 190),
                           fontSize: 14),
@@ -316,226 +496,74 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                     ),
                   ),
                 ),
-                DataCell(
-                  Container(
-                    width: 145,
-                    child: Focus(
-                      onFocusChange: (hasFocus) {
-                        if (!hasFocus) {
-                          double totalC1 = 0;
-                          double totalC2 = 0;
-                          double total = 0;
-                          for (var i = 4;
-                              i <= widget.controllers.length;
-                              i = i + 5) {
-                            totalC1 = totalC1 +
-                                (double.parse(widget.controllers[i].text) *
-                                    double.parse(
-                                        widget.controllers[i - 1].text));
-                          }
-                          for (var i = 3;
-                              i <= widget.controllers2.length;
-                              i = i + 4) {
-                            totalC2 = totalC2 +
-                                (double.parse(widget.controllers2[i].text) *
-                                    double.parse(
-                                        widget.controllers2[i - 1].text));
-                          }
-                          setState(() {
-                            total = totalC1 + totalC2;
-                            totalDocument.text = total.toString();
-                          });
+              ),
+              DataCell(
+                SizedBox(
+                  width: 145,
+                  child: TextFormField(
+                    textInputAction: TextInputAction.done,
+                    enabled: false,
+                    controller: totalTTCController,
+                    style: const TextStyle(
+                      fontSize: 15.0,
+                      color: Colors.white,
+                    ),
+                    decoration: const InputDecoration(
+                      suffixText: 'DT',
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(10.0),
+                      hintText: "Total TTC",
+                      hintStyle: TextStyle(
+                          color: Color.fromARGB(255, 190, 190, 190),
+                          fontSize: 14),
+                      fillColor: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                ),
+              ),
+              DataCell(IconButton(
+                  icon: Icon(
+                    Icons.highlight_remove,
+                    color: Colors.red,
+                    size: 24,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      ligneDoc.remove(idligne);
+                      idsToRemove.add(idController);
+                      stockInitial.remove(qteInitial);
+                      widget.controllers.remove(idController);
+                      widget.controllers.remove(referenceController);
+                      widget.controllers.remove(nomController);
+                      widget.controllers.remove(quantiteController);
+                      widget.controllers.remove(prixController);
+                      widget.controllers.remove(tvaController);
+                      totalTTCDocument.remove(totalTTCController);
+                    });
+                    setState(() {
+                      var total = 0.0;
+                      for (var i = 0; i < totalTTCDocument.length; i++) {
+                        if (totalTTCDocument[i].text != "" ||
+                            totalTTCDocument[i].text.isNotEmpty) {
+                          total += double.parse(totalTTCDocument[i].text);
                         }
-                      },
-                      child: TextFormField(
-                        controller: quantiteController,
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.white,
-                        ),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(10.0),
-                          hintText: "Taper la quantité",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 190, 190, 190),
-                              fontSize: 14),
-                          fillColor: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                DataCell(
-                  Container(
-                    width: 145,
-                    child: Focus(
-                      onFocusChange: (hasFocus) {
-                        if (!hasFocus) {
-                          double totalC1 = 0;
-                          double totalC2 = 0;
-                          double total = 0;
-                          for (var i = 4;
-                              i <= widget.controllers.length;
-                              i = i + 5) {
-                            totalC1 = totalC1 +
-                                (double.parse(widget.controllers[i].text) *
-                                    double.parse(
-                                        widget.controllers[i - 1].text));
-                          }
-                          for (var i = 3;
-                              i <= widget.controllers2.length;
-                              i = i + 4) {
-                            totalC2 = totalC2 +
-                                (double.parse(widget.controllers2[i].text) *
-                                    double.parse(
-                                        widget.controllers2[i - 1].text));
-                          }
-                          setState(() {
-                            total = totalC1 + totalC2;
-                            totalDocument.text = total.toString();
-                          });
-                        }
-                      },
-                      child: TextFormField(
-                        textInputAction: TextInputAction.done,
-                        enabled: true,
-                        controller: prixController,
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.white,
-                        ),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(10.0),
-                          hintText: "Taper le Prix",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 190, 190, 190),
-                              fontSize: 14),
-                          fillColor: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                DataCell(
-                  SizedBox(
-                    width: 145,
-                    child: Focus(
-                      onFocusChange: (hasFocus) {
-                        if (!hasFocus) {
-                          setState(() {
-                            totalTTCController.text =
-                                (double.parse(totalHTController.text) *
-                                        (1 +
-                                            (double.parse(tvaController.text) /
-                                                100)))
-                                    .toString();
-                          });
-                          var total = 0.0;
-                          for (var i = 0; i < totalTTCDocument.length; i++) {
-                            total =
-                                total + double.parse(totalTTCDocument[i].text);
-                          }
-                          totalDocument.text = total.toString();
-                        }
-                      },
-                      child: TextFormField(
-                        textInputAction: TextInputAction.done,
-                        enabled: true,
-                        controller: tvaController,
-                        style: const TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.white,
-                        ),
-                        decoration: const InputDecoration(
-                          suffixText: "%",
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(10.0),
-                          hintText: "Taper le TVA",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 190, 190, 190),
-                              fontSize: 14),
-                          fillColor: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                DataCell(
-                  SizedBox(
-                    width: 145,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.done,
-                      enabled: false,
-                      controller: totalHTController,
-                      style: const TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.white,
-                      ),
-                      decoration: const InputDecoration(
-                        suffixText: 'DT',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(10.0),
-                        hintText: "Total HT",
-                        hintStyle: TextStyle(
-                            color: Color.fromARGB(255, 190, 190, 190),
-                            fontSize: 14),
-                        fillColor: Color.fromARGB(255, 0, 0, 0),
-                      ),
-                    ),
-                  ),
-                ),
-                DataCell(
-                  SizedBox(
-                    width: 145,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.done,
-                      enabled: false,
-                      controller: totalTTCController,
-                      style: const TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.white,
-                      ),
-                      decoration: const InputDecoration(
-                        suffixText: 'DT',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(10.0),
-                        hintText: "Total TTC",
-                        hintStyle: TextStyle(
-                            color: Color.fromARGB(255, 190, 190, 190),
-                            fontSize: 14),
-                        fillColor: Color.fromARGB(255, 0, 0, 0),
-                      ),
-                    ),
-                  ),
-                ),
-                DataCell(IconButton(
-                    icon: Icon(
-                      Icons.highlight_remove,
-                      color: Colors.red,
-                      size: 24,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        ligneDoc.remove(idligne);
-                        print(idligne);
-
-                        print(widget.controllers);
-                      });
-                    }))
-              ],
-            ),
+                      }
+                      totalDocument.text = total.toStringAsFixed(3);
+                    });
+                  }))
+            ],
           );
         });
       }
     }
   }
 
-  Future<dynamic>? future;
-
   void ajouterLigne() {
     var idligne = ligneDoc.length + 1;
+    setState(() {
+      confirmButton = true;
+    });
+
     TextEditingController referenceController = TextEditingController();
     widget.controllers2.add(referenceController);
     TextEditingController nomController = TextEditingController();
@@ -544,268 +572,308 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
     widget.controllers2.add(quantiteController);
     TextEditingController prixController = TextEditingController();
     widget.controllers2.add(prixController);
-    TextEditingController tvaController = TextEditingController();
+    TextEditingController tvaController = new TextEditingController();
     widget.controllers2.add(tvaController);
     TextEditingController totalHTController = new TextEditingController();
     TextEditingController totalTTCController = new TextEditingController();
     totalTTCDocument.add(totalTTCController);
-    ligneDoc.add(
-      DataRow(
-        cells: <DataCell>[
-          DataCell(
-            SearchField(
-              hasOverlay: true,
-              hint: "Taper la référence du produit",
-              searchStyle: TextStyle(color: Colors.white),
-              controller: referenceController,
-              searchInputDecoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.all(10.0),
-                hintStyle: TextStyle(
-                    color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
-              ),
-              suggestionItemDecoration: BoxDecoration(
-                  color: Color(0xFF2A2D3E),
-                  border: Border.all(color: Colors.white, width: 1.0)),
-              suggestions: refProduits
-                  .map((e) => SearchFieldListItem<dynamic>(e, item: e))
-                  .toList(),
-              maxSuggestionsInViewPort: 6,
-              suggestionsDecoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              suggestionState: Suggestion.expand,
-              textInputAction: TextInputAction.next,
-              onSubmit: (value) {
-                print(value);
-                setState(() {
-                  selectedProduit = value;
-                  for (var i = 0; i < produits!.length; i++) {
-                    if (selectedProduit == produits![i]['refProd']) {
-                      nomProduit = produits![i]['nomProd'];
-                      nomController.text = nomProduit.toString();
-                    }
+    ligneDoc[idligne] = DataRow(
+      cells: <DataCell>[
+        DataCell(
+          SearchField(
+            hasOverlay: true,
+            hint: "Taper la référence du produit",
+            searchStyle: const TextStyle(color: Colors.white),
+            controller: referenceController,
+            validator: (value) {
+              if (value!.isEmpty || value == "") {
+                return 'Référence obligatoire';
+              } else {
+                return "";
+              }
+            },
+            searchInputDecoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(10.0),
+              hintStyle: TextStyle(
+                  color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+            ),
+            suggestionItemDecoration: BoxDecoration(
+                color: const Color(0xFF2A2D3E),
+                border: Border.all(color: Colors.white, width: 1.0)),
+            suggestions: refProduits
+                .map((e) => SearchFieldListItem<dynamic>(e, item: e))
+                .toList(),
+            maxSuggestionsInViewPort: 6,
+            suggestionsDecoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            suggestionState: Suggestion.expand,
+            textInputAction: TextInputAction.next,
+            onSubmit: (value) {
+              print(value);
+              setState(() {
+                selectedProduit = value;
+                for (var i = 0; i < produits!.length; i++) {
+                  if (selectedProduit == produits![i]['refProd']) {
+                    nomProduit = produits![i]['nomProd'];
+                    nomController.text = nomProduit.toString();
+                    prixController.text =
+                        produits![i]['prixVenteHT'].toStringAsFixed(3);
+                    tvaController.text = produits![i]['tvaProd'].toString();
                   }
-                });
-              },
+                }
+              });
+            },
+          ),
+        ),
+        DataCell(
+          TextFormField(
+            enabled: false,
+            controller: nomController,
+            style: const TextStyle(
+              fontSize: 15.0,
+              color: Colors.white,
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(10.0),
+              hintText: "Commencez par taper la référence à gauche",
+              hintStyle: TextStyle(
+                  color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+              fillColor: Color.fromARGB(255, 0, 0, 0),
             ),
           ),
-          DataCell(
-            TextFormField(
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: Focus(
+              onFocusChange: (hasFocus) {
+                if (!hasFocus) {
+                  setState(() {
+                    totalHTController.text =
+                        (double.parse(quantiteController.text) *
+                                double.parse(prixController.text))
+                            .toStringAsFixed(3);
+                  });
+
+                  setState(() {
+                    totalTTCController.text =
+                        (double.parse(totalHTController.text) *
+                                (1 + (double.parse(tvaController.text) / 100)))
+                            .toStringAsFixed(3);
+                  });
+
+                  setState(() {
+                    var total = 0.0;
+                    for (var i = 0; i < totalTTCDocument.length; i++) {
+                      if (totalTTCDocument[i].text != "" ||
+                          totalTTCDocument[i].text.isNotEmpty) {
+                        total += double.parse(totalTTCDocument[i].text);
+                      }
+                    }
+                    totalDocument.text = total.toStringAsFixed(3);
+                  });
+                }
+              },
+              child: TextFormField(
+                controller: quantiteController,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Quantité obligatoire';
+                  } else {
+                    return "";
+                  }
+                },
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: "Taper la quantité",
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                  fillColor: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+          ),
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: Focus(
+              onFocusChange: (hasFocus) {
+                if (!hasFocus) {
+                  setState(() {
+                    totalHTController.text =
+                        (double.parse(quantiteController.text) *
+                                double.parse(prixController.text))
+                            .toStringAsFixed(3);
+                  });
+
+                  setState(() {
+                    totalTTCController.text =
+                        (double.parse(totalHTController.text) *
+                                (1 + (double.parse(tvaController.text) / 100)))
+                            .toStringAsFixed(3);
+                  });
+
+                  setState(() {
+                    var total = 0.0;
+                    for (var i = 0; i < totalTTCDocument.length; i++) {
+                      if (totalTTCDocument[i].text != "" ||
+                          totalTTCDocument[i].text.isNotEmpty) {
+                        total += double.parse(totalTTCDocument[i].text);
+                      }
+                    }
+                    totalDocument.text = total.toStringAsFixed(3);
+                  });
+                }
+              },
+              child: TextFormField(
+                textInputAction: TextInputAction.done,
+                enabled: true,
+                controller: prixController,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+                decoration: const InputDecoration(
+                  suffixText: "DT",
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: "Taper le Prix",
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                  fillColor: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+          ),
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: Focus(
+              onFocusChange: (hasFocus) {
+                if (!hasFocus) {
+                  setState(() {
+                    totalTTCController.text =
+                        (double.parse(totalHTController.text) *
+                                (1 + (double.parse(tvaController.text) / 100)))
+                            .toStringAsFixed(3);
+                  });
+                  setState(() {
+                    var total = 0.0;
+                    for (var i = 0; i < totalTTCDocument.length; i++) {
+                      if (totalTTCDocument[i].text != "" ||
+                          totalTTCDocument[i].text.isNotEmpty) {
+                        total = total + double.parse(totalTTCDocument[i].text);
+                      }
+                      totalDocument.text = total.toStringAsFixed(3);
+                    }
+                  });
+                }
+              },
+              child: TextFormField(
+                textInputAction: TextInputAction.done,
+                enabled: false,
+                controller: tvaController,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+                decoration: const InputDecoration(
+                  suffixText: "%",
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: "Taper le TVA",
+                  hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                  fillColor: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+          ),
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: TextFormField(
+              textInputAction: TextInputAction.done,
               enabled: false,
-              controller: nomController,
-              style: TextStyle(
+              controller: totalHTController,
+              style: const TextStyle(
                 fontSize: 15.0,
                 color: Colors.white,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
+                suffixText: 'DT',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(10.0),
-                hintText: "Nom du Produit",
+                hintText: "Total HT",
                 hintStyle: TextStyle(
                     color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
                 fillColor: Color.fromARGB(255, 0, 0, 0),
               ),
             ),
           ),
-          DataCell(
-            Container(
-              width: 145,
-              child: Focus(
-                onFocusChange: (hasFocus) {
-                  if (!hasFocus) {
-                    double totalC1 = 0;
-                    double totalC2 = 0;
-                    double total = 0;
-                    for (var i = 4; i <= widget.controllers.length; i = i + 5) {
-                      totalC1 = totalC1 +
-                          (double.parse(widget.controllers[i].text) *
-                              double.parse(widget.controllers[i - 1].text));
-                    }
-                    for (var i = 3;
-                        i <= widget.controllers2.length;
-                        i = i + 4) {
-                      totalC2 = totalC2 +
-                          (double.parse(widget.controllers2[i].text) *
-                              double.parse(widget.controllers2[i - 1].text));
-                    }
-                    setState(() {
-                      total = totalC1 + totalC2;
-                      totalDocument.text = total.toString();
-                    });
+        ),
+        DataCell(
+          SizedBox(
+            width: 145,
+            child: TextFormField(
+              textInputAction: TextInputAction.done,
+              enabled: false,
+              controller: totalTTCController,
+              style: const TextStyle(
+                fontSize: 15.0,
+                color: Colors.white,
+              ),
+              decoration: const InputDecoration(
+                suffixText: 'DT',
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.all(10.0),
+                hintText: "Total TTC",
+                hintStyle: TextStyle(
+                    color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
+                fillColor: Color.fromARGB(255, 0, 0, 0),
+              ),
+            ),
+          ),
+        ),
+        DataCell(IconButton(
+            icon: Icon(
+              Icons.highlight_remove,
+              color: Colors.red,
+              size: 24,
+            ),
+            onPressed: () {
+              setState(() {
+                ligneDoc.remove(idligne);
+                widget.controllers2.remove(referenceController);
+                widget.controllers2.remove(nomController);
+                widget.controllers2.remove(quantiteController);
+                widget.controllers2.remove(prixController);
+                widget.controllers2.remove(tvaController);
+                totalTTCDocument.remove(totalTTCController);
+              });
+              setState(() {
+                var total = 0.0;
+                for (var i = 0; i < totalTTCDocument.length; i++) {
+                  if (totalTTCDocument[i].text != "" ||
+                      totalTTCDocument[i].text.isNotEmpty) {
+                    total += double.parse(totalTTCDocument[i].text);
                   }
-                },
-                child: TextFormField(
-                  controller: quantiteController,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(10.0),
-                    hintText: "Taper la quantité",
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          DataCell(
-            Container(
-              width: 145,
-              child: Focus(
-                onFocusChange: (hasFocus) {
-                  if (!hasFocus) {
-                    double totalC1 = 0;
-                    double totalC2 = 0;
-                    double total = 0;
-                    for (var i = 4; i <= widget.controllers.length; i = i + 5) {
-                      totalC1 = totalC1 +
-                          (double.parse(widget.controllers[i].text) *
-                              double.parse(widget.controllers[i - 1].text));
-                    }
-                    for (var i = 3;
-                        i <= widget.controllers2.length;
-                        i = i + 4) {
-                      totalC2 = totalC2 +
-                          (double.parse(widget.controllers2[i].text) *
-                              double.parse(widget.controllers2[i - 1].text));
-                    }
-                    setState(() {
-                      total = totalC1 + totalC2;
-                      totalDocument.text = total.toStringAsFixed(3);
-                    });
-                  }
-                },
-                child: TextFormField(
-                  textInputAction: TextInputAction.done,
-                  enabled: true,
-                  controller: prixController,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    suffixText: "DT",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(10.0),
-                    hintText: "Taper le Prix",
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          DataCell(
-            SizedBox(
-              width: 145,
-              child: Focus(
-                onFocusChange: (hasFocus) {
-                  if (!hasFocus) {
-                    setState(() {
-                      totalTTCController
-                          .text = (double.parse(totalHTController.text) *
-                              (1 + (double.parse(tvaController.text) / 100)))
-                          .toString();
-                    });
-                    var total = 0.0;
-                    for (var i = 0; i < totalTTCDocument.length; i++) {
-                      total = total + double.parse(totalTTCDocument[i].text);
-                    }
-                    totalDocument.text = total.toString();
-                  }
-                },
-                child: TextFormField(
-                  textInputAction: TextInputAction.done,
-                  enabled: true,
-                  controller: tvaController,
-                  style: const TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.white,
-                  ),
-                  decoration: const InputDecoration(
-                    suffixText: "%",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(10.0),
-                    hintText: "Taper le TVA",
-                    hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 190, 190, 190),
-                        fontSize: 14),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          DataCell(
-            SizedBox(
-              width: 145,
-              child: TextFormField(
-                textInputAction: TextInputAction.done,
-                enabled: false,
-                controller: totalHTController,
-                style: const TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.white,
-                ),
-                decoration: const InputDecoration(
-                  suffixText: 'DT',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(10.0),
-                  hintText: "Total HT",
-                  hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
-                  fillColor: Color.fromARGB(255, 0, 0, 0),
-                ),
-              ),
-            ),
-          ),
-          DataCell(
-            SizedBox(
-              width: 145,
-              child: TextFormField(
-                textInputAction: TextInputAction.done,
-                enabled: false,
-                controller: totalTTCController,
-                style: const TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.white,
-                ),
-                decoration: const InputDecoration(
-                  suffixText: 'DT',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(10.0),
-                  hintText: "Total TTC",
-                  hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 190, 190, 190), fontSize: 14),
-                  fillColor: Color.fromARGB(255, 0, 0, 0),
-                ),
-              ),
-            ),
-          ),
-          DataCell(IconButton(
-              icon: Icon(
-                Icons.highlight_remove,
-                color: Colors.red,
-                size: 24,
-              ),
-              onPressed: () {
-                setState(() {
-                  ligneDoc.remove(idligne);
-                  print(idligne);
-                  widget.controllers.removeRange(idligne, idligne + 3);
-                  print(widget.controllers);
-                });
-              }))
-        ],
-      ),
+                }
+                totalDocument.text = total.toStringAsFixed(3);
+              });
+            }))
+      ],
     );
   }
 
@@ -949,7 +1017,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                                     ),
                                   ),
                                 ],
-                                rows: ligneDoc,
+                                rows: ligneDoc.values.toList(),
                               ),
                             ),
 
@@ -996,55 +1064,117 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                                     color: Color.fromARGB(255, 75, 100, 211),
                                     onPressed: () async {
                                       if (confirmButton) {
-                                        int j = 0;
-                                        for (var i = 4;
+                                        var j = 0;
+                                        for (var i = 5;
                                             i < widget.controllers.length;
-                                            i = i + 5) {
-                                          future = modifierLigneDocument(
-                                              int.parse(widget
-                                                  .controllers[i - 4].text),
-                                              widget.documentId,
-                                              widget.controllers[i - 3].text,
-                                              widget.controllers[i - 2].text,
-                                              double.parse(widget
-                                                  .controllers[i - 1].text),
-                                              double.parse(
-                                                  widget.controllers[i].text));
-                                          future = modificationStock(
-                                              widget.controllers[i - 3].text,
-                                              (double.parse(widget
-                                                      .controllers[i - 1]
-                                                      .text) -
-                                                  stockInitial[j]));
-                                          j++;
-                                        }
-                                        for (var i = 0;
-                                            i < documents.length;
-                                            i++) {
-                                          if (documents[i]['id'] ==
-                                              widget.ligneDocumentId) {
-                                            modifierDocument(
-                                                documents[i]['id'],
-                                                double.parse(
-                                                    totalDocument.text));
+                                            i = i + 6) {
+                                          print(stockInitial[j].text);
+                                          if (widget.controllers[i - 5].text
+                                                  .isNotEmpty ||
+                                              widget.controllers[i - 4].text
+                                                  .isNotEmpty ||
+                                              widget.controllers[i - 3].text
+                                                  .isNotEmpty ||
+                                              widget.controllers[i - 2].text
+                                                  .isNotEmpty ||
+                                              widget.controllers[i - 1].text
+                                                  .isNotEmpty ||
+                                              widget.controllers[i].text
+                                                  .isNotEmpty) {
+                                            modifierLigneDocument(
+                                                int.parse(widget
+                                                    .controllers[i - 5].text),
+                                                widget.controllers[i - 4].text,
+                                                widget.controllers[i - 3].text,
+                                                double.parse(widget
+                                                    .controllers[i - 2].text),
+                                                double.parse(widget
+                                                    .controllers[i - 1].text),
+                                                double.parse(widget
+                                                    .controllers[i].text));
+                                            if (widget.typeDoc == 2) {
+                                              double stockToModify = (double
+                                                      .parse(widget
+                                                          .controllers[i - 2]
+                                                          .text) -
+                                                  double.parse(
+                                                      stockInitial[j].text));
+
+                                              modificationStock(
+                                                  (widget.controllers[i - 4]
+                                                          .text)
+                                                      .toString(),
+                                                  stockToModify);
+                                              j = j + 1;
+                                            } else if (widget.typeDoc == 6) {
+                                              double stockToModify = (double
+                                                      .parse(widget
+                                                          .controllers[i - 2]
+                                                          .text) -
+                                                  double.parse(
+                                                      stockInitial[j].text));
+
+                                              modificationStock(
+                                                  (widget.controllers[i - 4]
+                                                          .text)
+                                                      .toString(),
+                                                  (stockToModify * -1));
+                                              j = j + 1;
+                                            }
                                           }
                                         }
-                                        for (var i = 3;
-                                            i < widget.controllers2.length;
-                                            i = i + 4) {
-                                          future = ajoutLigneDocument(
-                                              widget.documentId,
-                                              widget.controllers2[i - 3].text,
-                                              widget.controllers2[i - 2].text,
-                                              double.parse(widget
-                                                  .controllers2[i - 1].text),
-                                              double.parse(
-                                                  widget.controllers2[i].text));
-                                          future = modificationStock(
-                                              widget.controllers2[i - 3].text,
-                                              double.parse(widget
-                                                  .controllers2[i - 1].text));
+                                        for (var i = 0;
+                                            i < idsToRemove.length;
+                                            i++) {
+                                          supprimerLigneDocument(
+                                              int.parse(idsToRemove[i].text));
                                         }
+                                        modifierDocument(widget.documentId,
+                                            double.parse(totalDocument.text));
+
+                                        for (var i = 4;
+                                            i < widget.controllers2.length;
+                                            i = i + 5) {
+                                          if (widget.controllers2[i - 4].text
+                                                  .isNotEmpty ||
+                                              widget.controllers2[i - 3].text
+                                                  .isNotEmpty ||
+                                              widget.controllers2[i - 2].text
+                                                  .isNotEmpty ||
+                                              widget.controllers2[i - 1].text
+                                                  .isNotEmpty ||
+                                              widget.controllers2[i].text
+                                                  .isNotEmpty) {
+                                            ajoutLigneDocument(
+                                                widget.documentId,
+                                                widget.controllers2[i - 4].text,
+                                                widget.controllers2[i - 3].text,
+                                                double.parse(widget
+                                                    .controllers2[i - 2].text),
+                                                double.parse(widget
+                                                    .controllers2[i - 1].text),
+                                                double.parse(widget
+                                                    .controllers2[i].text));
+                                            if (widget.typeDoc == 2) {
+                                              modificationStock(
+                                                  widget
+                                                      .controllers2[i - 4].text,
+                                                  double.parse(widget
+                                                      .controllers2[i - 2]
+                                                      .text));
+                                            } else if (widget.typeDoc == 6) {
+                                              modificationStock(
+                                                  widget
+                                                      .controllers2[i - 4].text,
+                                                  (double.parse(widget
+                                                          .controllers2[i - 2]
+                                                          .text) *
+                                                      -1));
+                                            }
+                                          }
+                                        }
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBarSucces);
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(

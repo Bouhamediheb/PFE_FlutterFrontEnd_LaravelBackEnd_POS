@@ -73,8 +73,12 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument2>
     }
     for (var i = 0; i < produits!.length; i++) {
       setState(() {
-        if (produits![i]['id_fournisseur'] == idFournisseur)
+        if (widget.id == 1 || widget.id == 2) {
+          if (produits![i]['id_fournisseur'] == idFournisseur)
+            refProduits.add(produits![i]['refProd']);
+        } else {
           refProduits.add(produits![i]['refProd']);
+        }
       });
     }
   }
@@ -260,6 +264,9 @@ static const snackBarStockError = SnackBar(
     } else if (widget.id == 3) {
       idSeq ??= 1;
       return numSeqDocument = '${date.toString().substring(0, 10)}/BR$idSeq';
+    } else if (widget.id == 6) {
+      idSeq ??= 1;
+      return numSeqDocument = '${date.toString().substring(0, 10)}/BS$idSeq';
     } else
       return numSeqDocument = 'Vérifier Base de Données';
   }
@@ -326,12 +333,11 @@ static const snackBarStockError = SnackBar(
               setState(() {
                 selectedProduit = value;
                 for (var i = 0; i < produits!.length; i++) {
-                  if (selectedProduit == produits![i]['refProd']) 
-                  {
+                  if (selectedProduit == produits![i]['refProd']) {
                     nomProduit = produits![i]['nomProd'];
                     nomController.text = nomProduit.toString();
                     prixController.text =
-                    produits![i]['prixVenteHT'].toStringAsFixed(3);
+                        produits![i]['prixVenteHT'].toStringAsFixed(3);
                     tvaController.text = produits![i]['tvaProd'].toString();
                   }
                 }
@@ -364,29 +370,29 @@ static const snackBarStockError = SnackBar(
               onFocusChange: (hasFocus) {
                 if (!hasFocus) {
                   setState(() {
-                     totalHTController.text =
-                      (double.parse(quantiteController.text) *
-                              double.parse(prixController.text))
-                          .toStringAsFixed(3);
+                    totalHTController.text =
+                        (double.parse(quantiteController.text) *
+                                double.parse(prixController.text))
+                            .toStringAsFixed(3);
                   });
-                 
+
                   setState(() {
                     totalTTCController.text =
                         (double.parse(totalHTController.text) *
                                 (1 + (double.parse(tvaController.text) / 100)))
                             .toStringAsFixed(3);
                   });
-                
-                setState(() {
-                  var total = 0.0;
-                  for (var i = 0; i < totalTTCDocument.length; i++) {
-                    if(totalTTCDocument[i].text != "" || totalTTCDocument[i].text.isNotEmpty){
-                      total += double.parse(totalTTCDocument[i].text);
+
+                  setState(() {
+                    var total = 0.0;
+                    for (var i = 0; i < totalTTCDocument.length; i++) {
+                      if (totalTTCDocument[i].text != "" ||
+                          totalTTCDocument[i].text.isNotEmpty) {
+                        total += double.parse(totalTTCDocument[i].text);
+                      }
                     }
-                  }
-                  totalDocument.text = total.toStringAsFixed(3);
-});
-                  
+                    totalDocument.text = total.toStringAsFixed(3);
+                  });
                 }
               },
               child: TextFormField(
@@ -420,31 +426,30 @@ static const snackBarStockError = SnackBar(
             child: Focus(
               onFocusChange: (hasFocus) {
                 if (!hasFocus) {
-                    setState(() {
-                     totalHTController.text =
-                      (double.parse(quantiteController.text) *
-                              double.parse(prixController.text))
-                          .toStringAsFixed(3);
+                  setState(() {
+                    totalHTController.text =
+                        (double.parse(quantiteController.text) *
+                                double.parse(prixController.text))
+                            .toStringAsFixed(3);
                   });
-                 
+
                   setState(() {
                     totalTTCController.text =
                         (double.parse(totalHTController.text) *
                                 (1 + (double.parse(tvaController.text) / 100)))
                             .toStringAsFixed(3);
                   });
-                
-                setState(() {
-                  var total = 0.0;
-                  for (var i = 0; i < totalTTCDocument.length; i++) {
-                    if(totalTTCDocument[i].text != "" || totalTTCDocument[i].text.isNotEmpty){
-                      total += double.parse(totalTTCDocument[i].text);
+
+                  setState(() {
+                    var total = 0.0;
+                    for (var i = 0; i < totalTTCDocument.length; i++) {
+                      if (totalTTCDocument[i].text != "" ||
+                          totalTTCDocument[i].text.isNotEmpty) {
+                        total += double.parse(totalTTCDocument[i].text);
+                      }
                     }
-                  }
-                  totalDocument.text = total.toStringAsFixed(3);
-                });
-                
-                 
+                    totalDocument.text = total.toStringAsFixed(3);
+                  });
                 }
               },
               child: TextFormField(
@@ -482,14 +487,14 @@ static const snackBarStockError = SnackBar(
                   });
                   setState(() {
                     var total = 0.0;
-                  for (var i = 0; i < totalTTCDocument.length; i++) {
-                    if(totalTTCDocument[i].text != "" || totalTTCDocument[i].text.isNotEmpty){
-
-                    total = total + double.parse(totalTTCDocument[i].text);
-                  }
-                  totalDocument.text = total.toStringAsFixed(3);
-                }});
-                
+                    for (var i = 0; i < totalTTCDocument.length; i++) {
+                      if (totalTTCDocument[i].text != "" ||
+                          totalTTCDocument[i].text.isNotEmpty) {
+                        total = total + double.parse(totalTTCDocument[i].text);
+                      }
+                      totalDocument.text = total.toStringAsFixed(3);
+                    }
+                  });
                 }
               },
               child: TextFormField(
@@ -568,23 +573,22 @@ static const snackBarStockError = SnackBar(
             onPressed: () {
               setState(() {
                 ligneDoc.remove(idligne);
-                widget.controllers.removeRange(idligne, idligne + 3);
-                print("---------------------");
-                print("hedha ID"+idligne.toString()+"Tefsakh");
-                print("---------------------");
-                print("LONGEUR "+totalTTCDocument.length.toString());
-                totalTTCDocument.removeAt(idligne-1);
-              
-                   
+                widget.controllers.remove(referenceController);
+                widget.controllers.remove(nomController);
+                widget.controllers.remove(quantiteController);
+                widget.controllers.remove(prixController);
+                widget.controllers.remove(tvaController);
+                totalTTCDocument.remove(totalTTCController);
               });
               setState(() {
-                  var total = 0.0;
-                  for (var i = 0; i < totalTTCDocument.length; i++) {
-                    if(totalTTCDocument[i].text != "" || totalTTCDocument[i].text.isNotEmpty){
-                      total += double.parse(totalTTCDocument[i].text);
-                    }
+                var total = 0.0;
+                for (var i = 0; i < totalTTCDocument.length; i++) {
+                  if (totalTTCDocument[i].text != "" ||
+                      totalTTCDocument[i].text.isNotEmpty) {
+                    total += double.parse(totalTTCDocument[i].text);
                   }
-                  totalDocument.text = total.toStringAsFixed(3);
+                }
+                totalDocument.text = total.toStringAsFixed(3);
               });
             }))
       ],
@@ -679,69 +683,74 @@ static const snackBarStockError = SnackBar(
                               content: numDoc = seqDocument(),
                               label2: 'Date',
                             ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "Liste des fournisseurs",
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      color: Color.fromARGB(255, 255, 255, 255),
+                            if (widget.id == 1 || widget.id == 2)
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      "Liste des fournisseurs",
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: DropdownButton(
-                                      hint: Text("Sélectionner un Fournisseur"),
-                                      borderRadius: BorderRadius.circular(5),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: DropdownButton(
+                                        hint:
+                                            Text("Sélectionner un Fournisseur"),
+                                        borderRadius: BorderRadius.circular(5),
 
-                                      underline: SizedBox(),
-                                      // Initial Value
-                                      value: dropdownvalue,
+                                        underline: SizedBox(),
+                                        // Initial Value
+                                        value: dropdownvalue,
 
-                                      // Down Arrow Icon
+                                        // Down Arrow Icon
 
-                                      //icon: const Icon(Icons.keyboard_arrow_down),
+                                        //icon: const Icon(Icons.keyboard_arrow_down),
 
-                                      // Array list of items
-                                      items: raisonSocialeFournisseur.values
-                                          .toList()
-                                          .map((String
-                                              raisonSocialeFournisseur) {
-                                        return DropdownMenuItem(
-                                          value: raisonSocialeFournisseur,
-                                          child: Text(raisonSocialeFournisseur),
-                                        );
-                                      }).toList(),
-                                      // After selecting the desired option,it will
-                                      // change button value to selected value
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          dropdownvalue = newValue!;
-                                          idFournisseur =
-                                              raisonSocialeFournisseur.keys
-                                                  .firstWhere((element) =>
-                                                      raisonSocialeFournisseur[
-                                                          element] ==
-                                                      newValue);
-                                          selectionFrs = true;
-                                          refProduits.clear();
-                                          widget.controllers.clear();
-                                          fetchProduits();
-                                          ligneDoc.clear();
-                                        });
-                                      },
+                                        // Array list of items
+                                        items: raisonSocialeFournisseur.values
+                                            .toList()
+                                            .map((String
+                                                raisonSocialeFournisseur) {
+                                          return DropdownMenuItem(
+                                            value: raisonSocialeFournisseur,
+                                            child:
+                                                Text(raisonSocialeFournisseur),
+                                          );
+                                        }).toList(),
+                                        // After selecting the desired option,it will
+                                        // change button value to selected value
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            dropdownvalue = newValue!;
+                                            idFournisseur =
+                                                raisonSocialeFournisseur
+                                                    .keys
+                                                    .firstWhere((element) =>
+                                                        raisonSocialeFournisseur[
+                                                            element] ==
+                                                        newValue);
+                                            selectionFrs = true;
+                                            refProduits.clear();
+                                            widget.controllers.clear();
+                                            fetchProduits();
+                                            ligneDoc.clear();
+                                          });
+                                        },
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Expanded(flex: 2, child: Container()),
-                              ],
-                            ),
+                                  Expanded(flex: 2, child: Container()),
+                                ],
+                              ),
                             const Divider(
                               thickness: 3,
                             ),
@@ -910,29 +919,44 @@ static const snackBarStockError = SnackBar(
                                         for (var i = 4;
                                             i < widget.controllers.length;
                                             i = i + 5) {
-                                          print(widget.controllers[i - 4].text);
-                                          print(widget.controllers[i - 3].text);
-                                          print(widget.controllers[i - 2].text);
-                                          print(widget.controllers[i - 1].text);
-                                          print(widget.controllers[i].text);
-                                          ajoutLigneDocument(
-                                              idDoc,
-                                              widget.controllers[i - 4].text,
-                                              widget.controllers[i - 3].text,
-                                              double.parse(widget
-                                                  .controllers[i - 2].text),
-                                              double.parse(widget
-                                                  .controllers[i - 1].text),
-                                              double.parse(
-                                                  widget.controllers[i].text));
-                                          if (widget.id == 2) {
-                                            future = modificationStock(
+                                          if (widget.controllers[i - 4].text
+                                                  .isNotEmpty ||
+                                              widget.controllers[i - 3].text
+                                                  .isNotEmpty ||
+                                              widget.controllers[i - 2].text
+                                                  .isNotEmpty ||
+                                              widget.controllers[i - 1].text
+                                                  .isNotEmpty) {
+                                            ajoutLigneDocument(
+                                                idDoc,
+                                                widget.controllers[i - 4].text,
                                                 widget.controllers[i - 3].text,
                                                 double.parse(widget
-                                                    .controllers[i - 1].text));
+                                                    .controllers[i - 2].text),
+                                                double.parse(widget
+                                                    .controllers[i - 1].text),
+                                                double.parse(widget
+                                                    .controllers[i].text));
+                                            if (widget.id == 2) {
+                                              modificationStock(
+                                                  widget
+                                                      .controllers[i - 4].text,
+                                                  double.parse(widget
+                                                      .controllers[i - 2]
+                                                      .text));
+                                            } else if (widget.id == 6) {
+                                              double stockToModify =
+                                                  (double.parse(widget
+                                                          .controllers[i - 2]
+                                                          .text) *
+                                                      -1);
+                                              modificationStock(
+                                                  widget
+                                                      .controllers[i - 4].text,
+                                                  stockToModify);
+                                            }
                                           }
                                         }
-
                                         setState(() {
                                           confirmButton = false;
                                         });
