@@ -49,20 +49,20 @@ List listeRaccourcisMonetiques = [
 List listeRaccourcisEtat = [
   Raccourcis(
     ico: Icons.factory,
-    title: "Nombre de fournisseurs",
+    title: "Bons de commandes",
     imgSrc: "assets/images/commande.png",
-    value: 1200,
+    value: 5,
   ),
   Raccourcis(
     ico: Icons.production_quantity_limits,
-    title: "Nombre de produits",
+    title: "Bons de sorties",
     imgSrc: "assets/images/livraison.png",
-    value: 1200,
+    value: 15,
   ),
   Raccourcis(
     ico: Icons.document_scanner,
-    title: "Nombre de documents",
+    title: "Commandes caisse traitées ",
     imgSrc: "assets/images/livraison.png",
-    value: 1200,
+    value: 15,
   ),
 ];

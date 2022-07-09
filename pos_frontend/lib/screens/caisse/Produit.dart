@@ -5,5 +5,6 @@ class Produit {
   double? prix;
   int? quantite;
   String? image;
-  Produit({this.nom, this.prix, this.quantite, this.image});
+  int? categorie;
+  Produit({this.nom, this.prix, this.quantite, this.image,this.categorie});
 }
