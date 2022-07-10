@@ -866,8 +866,7 @@ static const snackBarStockError = SnackBar(
                                   ),
                                   MaterialButton(
                                     height: 53,
-                                    color: const Color.fromARGB(
-                                        255, 112, 112, 112),
+                                    color: Colors.green,
                                     onPressed: () {
                                       if (selectionFrs == true)
                                         ajouterLigne();

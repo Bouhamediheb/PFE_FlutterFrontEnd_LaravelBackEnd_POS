@@ -11,12 +11,43 @@ class EtatStockGlobal extends StatefulWidget {
 class EtatStockGlobalState extends State<EtatStockGlobal> {
   int? produitId;
   List? produits = [];
+  String? refProd;
 
   @override
   void initState() {
     super.initState();
     fetchProduits();
   }
+
+  List <TextEditingController> _stockcontrollers = [];
+  final nvStock = TextEditingController();
+
+  Future<http.Response?> InventaireProd(
+    String refProd,
+    double nvStock,
+  ) async {
+    List? produits = [];
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/api/produit/stock/$refProd'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'stock':nvStock,
+      }),
+    );
+    if (response.statusCode == 200) {
+      print('Quantité Produit inventaire Modifié');
+    } else {
+      throw Exception('Erreur base de données!');
+    }
+    return null;
+  }
+
+  Future<dynamic>? future;
+
+
 
   fetchProduits() async {
     final response = await http.get(
@@ -30,7 +61,11 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
       var items = jsonDecode(response.body);
       setState(() {
         produits = items;
+        for(var i =0; i<produits!.length; i++){
+          _stockcontrollers.add(TextEditingController());
+        }
       });
+      print("length of controllers ="+_stockcontrollers.length.toString());
     } else {
       throw Exception('Error!');
     }
@@ -119,6 +154,11 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                               child: Text("Etat",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)))),
+                                      DataColumn(
+                          label: Flexible(
+                              child: Text("Action",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)))),
                     ],
                     rows: <DataRow>[
                       for (var i = 0; i < produits!.length; i++)
@@ -126,7 +166,34 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                           cells: <DataCell>[
                             DataCell(Text(produits![i]['refProd'].toString())),
                             DataCell(Text(produits![i]['nomProd'].toString())),
-                            DataCell(Text(produits![i]['stock'].toString())),
+                            DataCell(Center(
+                              child: TextFormField(
+                                controller: _stockcontrollers[i],
+                                textAlign: TextAlign.center, 
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'erreur stock';
+                                  }
+                                  return null;
+                                
+                                },
+                                decoration: InputDecoration(
+                                      errorBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+
+                                  hintText: produits![i]['stock'].toString(),
+                                 hintStyle: 
+                                  TextStyle(color: Colors.grey[600]),
+
+                                ),
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                    color: Colors.white),
+                              ),
+                            )),
+
+                            
                             DataCell(Text(
                                 "${produits![i]['prixAchatHT'].toStringAsFixed(3)} DT")),
                             DataCell(Text(
@@ -144,6 +211,39 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                                       color: Colors.green,
                                     ),
                                   ),
+                                  DataCell(
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        icon: const Icon(
+                                            Icons.save_as,
+                                            color: Colors.yellow),
+                                        onPressed: () {
+                                          
+                                    InventaireProd(
+                                      produits![i]['refProd'].toString(),
+                                      double.parse(_stockcontrollers[i].text.toString()),
+                                    );
+                                    //Show snackbar saying done
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        backgroundColor: (secondaryColor),
+                                        content: Text(
+                                          "le stock du produit "+produits![i]['refProd'].toString()+" mis à jour",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 250, 253, 255)),
+                                        )),
+                                  );
+                                    
+                                    setState(() {
+                                      
+                                    });
+                                    }),
+                                          
+                                  ]),
+                            ),
                           ],
                         )
                     ],

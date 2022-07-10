@@ -9,7 +9,8 @@ import 'modifierunDct.dart';
 
 class listeDocument extends StatefulWidget {
   int? typeDoc;
-  listeDocument(this.typeDoc);
+  String? nomListeDoc;
+  listeDocument(this.typeDoc,this.nomListeDoc);
   @override
   State<listeDocument> createState() => _listeDocumentState();
 }
@@ -75,14 +76,14 @@ class _listeDocumentState extends State<listeDocument> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.5,
             child: Column(children: <Widget>[
-              const Padding(
+               Padding(
                 padding: EdgeInsets.all(5),
                 child: Center(
                     child: SizedBox(
                   height: 45,
                   child: Center(
                     child: Text(
-                      'La liste des documents :',
+                      widget.nomListeDoc!,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

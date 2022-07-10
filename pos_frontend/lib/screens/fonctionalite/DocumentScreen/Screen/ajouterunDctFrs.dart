@@ -683,6 +683,7 @@ static const snackBarStockError = SnackBar(
                               content: numDoc = seqDocument(),
                               label2: 'Date',
                             ),
+                            SizedBox(height: 5,),
                             if (widget.id == 1 || widget.id == 2)
                               Row(
                                 children: <Widget>[
@@ -701,50 +702,61 @@ static const snackBarStockError = SnackBar(
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: DropdownButton(
-                                        hint:
-                                            Text("Sélectionner un Fournisseur"),
-                                        borderRadius: BorderRadius.circular(5),
+                                      padding: const EdgeInsets.only(left: 3),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.white, width: 1),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5)),
+                                        ),
+                                        
+          
+                                        child: DropdownButton(
+                                          
+                                          hint:
+                                              Text("Sélectionner un Fournisseur"),
+                                          borderRadius: BorderRadius.circular(5),
 
-                                        underline: SizedBox(),
-                                        // Initial Value
-                                        value: dropdownvalue,
+                                          underline: SizedBox(),
+                                          // Initial Value
+                                          value: dropdownvalue,
 
-                                        // Down Arrow Icon
+                                          // Down Arrow Icon
 
-                                        //icon: const Icon(Icons.keyboard_arrow_down),
+                                          //icon: const Icon(Icons.keyboard_arrow_down),
 
-                                        // Array list of items
-                                        items: raisonSocialeFournisseur.values
-                                            .toList()
-                                            .map((String
-                                                raisonSocialeFournisseur) {
-                                          return DropdownMenuItem(
-                                            value: raisonSocialeFournisseur,
-                                            child:
-                                                Text(raisonSocialeFournisseur),
-                                          );
-                                        }).toList(),
-                                        // After selecting the desired option,it will
-                                        // change button value to selected value
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            dropdownvalue = newValue!;
-                                            idFournisseur =
-                                                raisonSocialeFournisseur
-                                                    .keys
-                                                    .firstWhere((element) =>
-                                                        raisonSocialeFournisseur[
-                                                            element] ==
-                                                        newValue);
-                                            selectionFrs = true;
-                                            refProduits.clear();
-                                            widget.controllers.clear();
-                                            fetchProduits();
-                                            ligneDoc.clear();
-                                          });
-                                        },
+                                          // Array list of items
+                                          items: raisonSocialeFournisseur.values
+                                              .toList()
+                                              .map((String
+                                                  raisonSocialeFournisseur) {
+                                            return DropdownMenuItem(
+                                              value: raisonSocialeFournisseur,
+                                              child:
+                                                  Text(raisonSocialeFournisseur),
+                                            );
+                                          }).toList(),
+                                          // After selecting the desired option,it will
+                                          // change button value to selected value
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              dropdownvalue = newValue!;
+                                              idFournisseur =
+                                                  raisonSocialeFournisseur
+                                                      .keys
+                                                      .firstWhere((element) =>
+                                                          raisonSocialeFournisseur[
+                                                              element] ==
+                                                          newValue);
+                                              selectionFrs = true;
+                                              refProduits.clear();
+                                              widget.controllers.clear();
+                                              fetchProduits();
+                                              ligneDoc.clear();
+                                            });
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -872,8 +884,7 @@ static const snackBarStockError = SnackBar(
                                   ),
                                   MaterialButton(
                                     height: 53,
-                                    color: const Color.fromARGB(
-                                        255, 112, 112, 112),
+                                    color: Colors.green,
                                     onPressed: () {
                                       if (selectionFrs == true)
                                         ajouterLigne();
