@@ -8,6 +8,7 @@ use App\Http\Controllers\DocumentTotalController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StockProduitController;
 use App\Http\Controllers\SequenceDocumentController;
+use App\Http\Controllers\UpdateStock;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ use App\Http\Controllers\SequenceDocumentController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/stock/{id}', [UpdateStock::class, 'updateStock']);
 
 Route::get('/seqdoc/{id}', [SequenceDocumentController::class, 'getSeqDocument']);
 

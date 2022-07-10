@@ -10,7 +10,7 @@ import 'modifierunDct.dart';
 class listeDocument extends StatefulWidget {
   int? typeDoc;
   String? nomListeDoc;
-  listeDocument(this.typeDoc,this.nomListeDoc);
+  listeDocument(this.typeDoc, this.nomListeDoc);
   @override
   State<listeDocument> createState() => _listeDocumentState();
 }
@@ -75,8 +75,8 @@ class _listeDocumentState extends State<listeDocument> {
           elevation: 10,
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.5,
-            child: Column(children: <Widget>[
-               Padding(
+            child: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
+              Padding(
                 padding: EdgeInsets.all(5),
                 child: Center(
                     child: SizedBox(
@@ -95,99 +95,134 @@ class _listeDocumentState extends State<listeDocument> {
               const Divider(
                 thickness: 3,
               ),
-              const SizedBox(
-                height: 20,
-              ),
               SizedBox(
-                child: SingleChildScrollView(
-                  child: DataTable(
-                    columns: const <DataColumn>[
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Type du document",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Numéro du document",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Date du document",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                        child: Text("Montant total du document",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                      DataColumn(
-                          label: Flexible(
-                              child: Text("Actions",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)))),
-                    ],
-                    rows: <DataRow>[
-                      for (var i = 0; i < documents!.length; i++)
-                        if (documents![i]['type'] == widget.typeDoc)
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(
-                                Center(
-                                    child: Text(
-                                        getDocType(documents![i]['type']))),
-                              ),
-                              DataCell(InkWell(
-                                  onTap: () {
-                                    showAnimatedDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                            backgroundColor: bgColor,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            content: SizedBox(
-                                                width: 800,
-                                                child: listeLigneDocument(
-                                                    documents![i]['id'])));
-                                      },
-                                      animationType:
-                                          DialogTransitionType.fadeScale,
-                                      curve: Curves.fastOutSlowIn,
-                                      duration: const Duration(seconds: 1),
-                                    );
-                                  },
-                                  child: Center(
-                                      child: Text(documents![i]['numDoc'])))),
-                              DataCell(Center(
-                                  child: Text(
-                                      documents![i]['dateDoc'].toString()))),
-                              DataCell(Center(
-                                  child: Text(
-                                      "${documents![i]['totalDoc'].toString()} DT"))),
-                              DataCell(
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                height: 10,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: DataTable(
+                  columns: <DataColumn>[
+                    DataColumn(
+                        label: Flexible(
+                      child: Text("Type du document",
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    )),
+                    DataColumn(
+                        label: Flexible(
+                      child: Text("Numéro du document",
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    )),
+                    DataColumn(
+                        label: Flexible(
+                      child: Text("Date du document",
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    )),
+                    DataColumn(
+                        label: Flexible(
+                      child: Text("Montant total du document",
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    )),
+                    DataColumn(
+                        label: Flexible(
+                            child: Text("Actions",
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)))),
+                  ],
+                  rows: <DataRow>[
+                    for (var i = 0; i < documents!.length; i++)
+                      if (documents![i]['type'] == widget.typeDoc)
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(
+                              Center(
+                                  child:
+                                      Text(getDocType(documents![i]['type']))),
+                            ),
+                            DataCell(InkWell(
+                                onTap: () {
+                                  showAnimatedDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                          backgroundColor: bgColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          content: SizedBox(
+                                              width: 800,
+                                              child: listeLigneDocument(
+                                                  documents![i]['id'])));
+                                    },
+                                    animationType:
+                                        DialogTransitionType.fadeScale,
+                                    curve: Curves.fastOutSlowIn,
+                                    duration: const Duration(seconds: 1),
+                                  );
+                                },
+                                child: Center(
+                                    child: Text(documents![i]['numDoc'])))),
+                            DataCell(Center(
+                                child:
+                                    Text(documents![i]['dateDoc'].toString()))),
+                            DataCell(Center(
+                                child: Text(
+                                    "${documents![i]['totalDoc'].toString()} DT"))),
+                            DataCell(
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        icon: const Icon(
+                                            Icons.mode_edit_outline_outlined,
+                                            color: Colors.green),
+                                        onPressed: () async {
+                                          documentId = documents![i]['id'];
+                                          print(documentId);
+                                          await showAnimatedDialog(
+                                            context: context,
+                                            barrierDismissible: true,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                backgroundColor: bgColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                content: SizedBox(
+                                                    width: 1300,
+                                                    child: modifierUnDocument(
+                                                        documents![i]['id'],
+                                                        documentId,
+                                                        documents![i]['type'])),
+                                              );
+                                            },
+                                            animationType:
+                                                DialogTransitionType.fadeScale,
+                                            curve: Curves.fastOutSlowIn,
+                                            duration:
+                                                const Duration(seconds: 1),
+                                          );
+                                          setState(() {
+                                            fetchDocuments();
+                                          });
+                                        }),
+                                    if (documents![i]['type'] == 1)
                                       IconButton(
                                           icon: const Icon(
-                                              Icons.mode_edit_outline_outlined,
-                                              color: Colors.green),
+                                              Icons.description_rounded,
+                                              color: Colors.blue),
                                           onPressed: () async {
                                             documentId = documents![i]['id'];
-                                            print(documentId);
                                             await showAnimatedDialog(
                                               context: context,
                                               barrierDismissible: true,
@@ -200,12 +235,13 @@ class _listeDocumentState extends State<listeDocument> {
                                                             10),
                                                   ),
                                                   content: SizedBox(
-                                                      width: 1300,
-                                                      child: modifierUnDocument(
-                                                          documents![i]['id'],
-                                                          documentId,
-                                                          documents![i]
-                                                              ['type'])),
+                                                      width: 325,
+                                                      height: 75,
+                                                      child: BonEntree(
+                                                        documents![i]['id'],
+                                                        documents![i]
+                                                            ['totalDoc'],
+                                                      )),
                                                 );
                                               },
                                               animationType:
@@ -219,53 +255,11 @@ class _listeDocumentState extends State<listeDocument> {
                                               fetchDocuments();
                                             });
                                           }),
-                                      if (documents![i]['type'] == 1)
-                                        IconButton(
-                                            icon: const Icon(
-                                                Icons.description_rounded,
-                                                color: Colors.blue),
-                                            onPressed: () async {
-                                              documentId = documents![i]['id'];
-                                              await showAnimatedDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    backgroundColor: bgColor,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                    content: SizedBox(
-                                                        width: 325,
-                                                        height: 75,
-                                                        child: BonEntree(
-                                                          documents![i]['id'],
-                                                          documents![i]
-                                                              ['totalDoc'],
-                                                        )),
-                                                  );
-                                                },
-                                                animationType:
-                                                    DialogTransitionType
-                                                        .fadeScale,
-                                                curve: Curves.fastOutSlowIn,
-                                                duration:
-                                                    const Duration(seconds: 1),
-                                              );
-                                              setState(() {
-                                                fetchDocuments();
-                                              });
-                                            }),
-                                    ]),
-                              ),
-                            ],
-                          )
-                    ],
-                  ),
+                                  ]),
+                            ),
+                          ],
+                        )
+                  ],
                 ),
               ),
             ]),

@@ -19,22 +19,20 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
     fetchProduits();
   }
 
-  List <TextEditingController> _stockcontrollers = [];
+  List<TextEditingController> _stockcontrollers = [];
   final nvStock = TextEditingController();
-
   Future<http.Response?> InventaireProd(
-    String refProd,
+    int id,
     double nvStock,
   ) async {
-    List? produits = [];
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/api/produit/stock/$refProd'),
+      Uri.parse('http://127.0.0.1:8000/api/stock/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
       body: jsonEncode(<String, dynamic>{
-        'stock':nvStock,
+        'stock': nvStock,
       }),
     );
     if (response.statusCode == 200) {
@@ -46,8 +44,6 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
   }
 
   Future<dynamic>? future;
-
-
 
   fetchProduits() async {
     final response = await http.get(
@@ -61,11 +57,11 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
       var items = jsonDecode(response.body);
       setState(() {
         produits = items;
-        for(var i =0; i<produits!.length; i++){
+        for (var i = 0; i < produits!.length; i++) {
           _stockcontrollers.add(TextEditingController());
         }
       });
-      print("length of controllers ="+_stockcontrollers.length.toString());
+      print("length of controllers =" + _stockcontrollers.length.toString());
     } else {
       throw Exception('Error!');
     }
@@ -154,7 +150,7 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                               child: Text("Etat",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)))),
-                                      DataColumn(
+                      DataColumn(
                           label: Flexible(
                               child: Text("Action",
                                   style:
@@ -169,31 +165,24 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                             DataCell(Center(
                               child: TextFormField(
                                 controller: _stockcontrollers[i],
-                                textAlign: TextAlign.center, 
+                                textAlign: TextAlign.center,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'erreur stock';
                                   }
                                   return null;
-                                
                                 },
                                 decoration: InputDecoration(
-                                      errorBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-
+                                  errorBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
                                   hintText: produits![i]['stock'].toString(),
-                                 hintStyle: 
-                                  TextStyle(color: Colors.grey[600]),
-
+                                  hintStyle: TextStyle(color: Colors.grey[600]),
                                 ),
                                 keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                    color: Colors.white),
+                                style: TextStyle(color: Colors.white),
                               ),
                             )),
-
-                            
                             DataCell(Text(
                                 "${produits![i]['prixAchatHT'].toStringAsFixed(3)} DT")),
                             DataCell(Text(
@@ -211,37 +200,39 @@ class EtatStockGlobalState extends State<EtatStockGlobal> {
                                       color: Colors.green,
                                     ),
                                   ),
-                                  DataCell(
+                            DataCell(
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     IconButton(
-                                        icon: const Icon(
-                                            Icons.save_as,
+                                        icon: const Icon(Icons.save_as,
                                             color: Colors.yellow),
                                         onPressed: () {
-                                          
-                                    InventaireProd(
-                                      produits![i]['refProd'].toString(),
-                                      double.parse(_stockcontrollers[i].text.toString()),
-                                    );
-                                    //Show snackbar saying done
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        backgroundColor: (secondaryColor),
-                                        content: Text(
-                                          "le stock du produit "+produits![i]['refProd'].toString()+" mis à jour",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 250, 253, 255)),
-                                        )),
-                                  );
-                                    
-                                    setState(() {
-                                      
-                                    });
-                                    }),
-                                          
+                                          InventaireProd(
+                                            produits![i]['id'],
+                                            double.parse(_stockcontrollers[i]
+                                                .text
+                                                .toString()),
+                                          );
+                                          //Show snackbar saying done
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                backgroundColor:
+                                                    (secondaryColor),
+                                                content: Text(
+                                                  "le stock du produit " +
+                                                      produits![i]['refProd']
+                                                          .toString() +
+                                                      " mis à jour",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 250, 253, 255)),
+                                                )),
+                                          );
+
+                                          setState(() {});
+                                        }),
                                   ]),
                             ),
                           ],

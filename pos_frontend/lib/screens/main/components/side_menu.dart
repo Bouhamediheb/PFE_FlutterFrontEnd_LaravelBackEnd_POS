@@ -210,7 +210,8 @@ class _SideMenuState extends State<SideMenu> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainScreen(listeDocument(1,'Bon de commande fournisseur'))),
+                          builder: (context) => MainScreen(listeDocument(
+                              1, 'Liste des bons de commande fournisseur'))),
                     );
                   },
                 ),
@@ -229,7 +230,8 @@ class _SideMenuState extends State<SideMenu> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainScreen(listeDocument(2,'Bon d\'entrée'))),
+                          builder: (context) => MainScreen(
+                              listeDocument(2, 'Liste des bons d\'entrée'))),
                     );
                   },
                 ),
@@ -248,7 +250,8 @@ class _SideMenuState extends State<SideMenu> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainScreen(listeDocument(3,'Bon de retour'))),
+                          builder: (context) => MainScreen(
+                              listeDocument(3, 'Liste des bons de retour'))),
                     );
                   },
                 ),
@@ -267,7 +270,8 @@ class _SideMenuState extends State<SideMenu> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainScreen(listeDocument(6,'Bon de sortie'))),
+                          builder: (context) => MainScreen(
+                              listeDocument(6, 'Liste des bons de sortie'))),
                     );
                   },
                 ),
@@ -285,7 +289,9 @@ class _SideMenuState extends State<SideMenu> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => listeDocument(5,'Facture')),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              listeDocument(5, 'Liste des factures')),
                     );
                   },
                 ),

@@ -33,6 +33,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   String? dropdownvalue;
   late Map<int, String> raisonSocialeFournisseur = {};
   late int idFournisseur;
+  bool verifStock = false;
 
   fetchFours() async {
     final response = await http.get(
@@ -94,7 +95,7 @@ class _ajouterUnDocumentState extends State<ajouterUnDocument>
   String? numDoc;
   bool confirmButton = false;
   int idligne = -1;
-  bool selectionFrs = false;
+
   /*
 static const snackBarSucces = SnackBar(
     content: Text('Tâche effectuée avec succès'),
@@ -303,13 +304,6 @@ static const snackBarStockError = SnackBar(
             hint: "Taper la référence du produit",
             searchStyle: const TextStyle(color: Colors.white),
             controller: referenceController,
-            validator: (value) {
-              if (value!.isEmpty || value == "") {
-                return 'Référence obligatoire';
-              } else {
-                return "";
-              }
-            },
             searchInputDecoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(10.0),
@@ -329,7 +323,6 @@ static const snackBarStockError = SnackBar(
             suggestionState: Suggestion.expand,
             textInputAction: TextInputAction.next,
             onSubmit: (value) {
-              print(value);
               setState(() {
                 selectedProduit = value;
                 for (var i = 0; i < produits!.length; i++) {
@@ -404,9 +397,27 @@ static const snackBarStockError = SnackBar(
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Quantité obligatoire';
-                  } else {
-                    return "";
-                  }
+                  } else if (widget.id == 6 && verifStock == false)
+                    return 'Quantité non disponible';
+                },
+                onFieldSubmitted: (value) {
+                  if (widget.id == 6)
+                    for (var i = 0; i < produits!.length; i++)
+                      if (referenceController.text.toString() ==
+                          produits![i]['refProd']) {
+                        if (double.parse(value) > produits![i]['stock']) {
+                          setState(() {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                  "Quantité du ${referenceController.text.toString()} est insuffisante"),
+                            ));
+                            verifStock = false;
+                          });
+                        } else {
+                          verifStock = true;
+                        }
+                        break;
+                      }
                 },
                 decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -677,74 +688,7 @@ static const snackBarStockError = SnackBar(
                               content: numDoc = seqDocument(),
                               label2: 'Date',
                             ),
-                            if (widget.id == 1 || widget.id == 2)
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      "Liste des fournisseurs",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w900,
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: DropdownButton(
-                                        hint:
-                                            Text("Sélectionner un Fournisseur"),
-                                        borderRadius: BorderRadius.circular(5),
 
-                                        underline: SizedBox(),
-                                        // Initial Value
-                                        value: dropdownvalue,
-
-                                        // Down Arrow Icon
-
-                                        //icon: const Icon(Icons.keyboard_arrow_down),
-
-                                        // Array list of items
-                                        items: raisonSocialeFournisseur.values
-                                            .toList()
-                                            .map((String
-                                                raisonSocialeFournisseur) {
-                                          return DropdownMenuItem(
-                                            value: raisonSocialeFournisseur,
-                                            child:
-                                                Text(raisonSocialeFournisseur),
-                                          );
-                                        }).toList(),
-                                        // After selecting the desired option,it will
-                                        // change button value to selected value
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            dropdownvalue = newValue!;
-                                            idFournisseur =
-                                                raisonSocialeFournisseur
-                                                    .keys
-                                                    .firstWhere((element) =>
-                                                        raisonSocialeFournisseur[
-                                                            element] ==
-                                                        newValue);
-                                            selectionFrs = true;
-                                            refProduits.clear();
-                                            widget.controllers.clear();
-                                            fetchProduits();
-                                            ligneDoc.clear();
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(flex: 2, child: Container()),
-                                ],
-                              ),
                             const Divider(
                               thickness: 3,
                             ),
@@ -868,15 +812,7 @@ static const snackBarStockError = SnackBar(
                                     height: 53,
                                     color: Colors.green,
                                     onPressed: () {
-                                      if (selectionFrs == true)
-                                        ajouterLigne();
-                                      else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: Text(
-                                              "Sélectionner un fournisseur"),
-                                        ));
-                                      }
+                                      ajouterLigne();
                                     },
                                     child: const Text(
                                       "Ajouter une ligne",
@@ -895,61 +831,67 @@ static const snackBarStockError = SnackBar(
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBarButtonError);
                                       }
-                                      print(idDoc);
-                                      if (confirmButton) {
-                                        dateDoc =
-                                            date.toString().substring(0, 10);
+                                      if (_formKey.currentState!.validate()) {
+                                        print("da5let");
+                                        if (confirmButton) {
+                                          dateDoc =
+                                              date.toString().substring(0, 10);
 
-                                        await {
-                                          ajoutDocument(
-                                              widget.id,
-                                              numSeqDocument,
-                                              dateDoc,
-                                              double.parse(totalDocument.text)),
-                                          updateSeqDocument()
-                                        };
+                                          await {
+                                            ajoutDocument(
+                                                widget.id,
+                                                numSeqDocument,
+                                                dateDoc,
+                                                double.parse(
+                                                    totalDocument.text)),
+                                            updateSeqDocument()
+                                          };
 
-                                        for (var i = 4;
-                                            i < widget.controllers.length;
-                                            i = i + 5) {
-                                          if (widget.controllers[i - 4].text
-                                                  .isNotEmpty ||
-                                              widget.controllers[i - 3].text
-                                                  .isNotEmpty ||
-                                              widget.controllers[i - 2].text
-                                                  .isNotEmpty ||
-                                              widget.controllers[i - 1].text
-                                                  .isNotEmpty) {
-                                            ajoutLigneDocument(
-                                                idDoc,
-                                                widget.controllers[i - 4].text,
-                                                widget.controllers[i - 3].text,
-                                                double.parse(widget
-                                                    .controllers[i - 2].text),
-                                                double.parse(widget
-                                                    .controllers[i - 1].text),
-                                                double.parse(widget
-                                                    .controllers[i].text));
-                                            if (widget.id == 2) {
-                                              modificationStock(
+                                          for (var i = 4;
+                                              i < widget.controllers.length;
+                                              i = i + 5) {
+                                            if (widget.controllers[i - 4].text
+                                                    .isNotEmpty ||
+                                                widget.controllers[i - 3].text
+                                                    .isNotEmpty ||
+                                                widget.controllers[i - 2].text
+                                                    .isNotEmpty ||
+                                                widget.controllers[i - 1].text
+                                                    .isNotEmpty) {
+                                              ajoutLigneDocument(
+                                                  idDoc,
                                                   widget
                                                       .controllers[i - 4].text,
+                                                  widget
+                                                      .controllers[i - 3].text,
                                                   double.parse(widget
-                                                      .controllers[i - 2]
-                                                      .text));
-                                            } else if (widget.id == 6) {
-                                              double stockToModify =
-                                                  (double.parse(widget
-                                                          .controllers[i - 2]
-                                                          .text) *
-                                                      -1);
-                                              modificationStock(
-                                                  widget
-                                                      .controllers[i - 4].text,
-                                                  stockToModify);
+                                                      .controllers[i - 2].text),
+                                                  double.parse(widget
+                                                      .controllers[i - 1].text),
+                                                  double.parse(widget
+                                                      .controllers[i].text));
+                                              if (widget.id == 2) {
+                                                modificationStock(
+                                                    widget.controllers[i - 4]
+                                                        .text,
+                                                    double.parse(widget
+                                                        .controllers[i - 2]
+                                                        .text));
+                                              } else if (widget.id == 6) {
+                                                double stockToModify =
+                                                    (double.parse(widget
+                                                            .controllers[i - 2]
+                                                            .text) *
+                                                        -1);
+                                                modificationStock(
+                                                    widget.controllers[i - 4]
+                                                        .text,
+                                                    stockToModify);
+                                              }
                                             }
                                           }
                                         }
+
                                         setState(() {
                                           confirmButton = false;
                                         });
