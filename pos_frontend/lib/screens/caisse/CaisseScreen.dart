@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/services.dart';
+import 'package:projetpfe/constants.dart';
 import 'package:projetpfe/screens/caisse/previewPDF.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -532,7 +533,7 @@ class _CaisseState extends State<Caisse> {
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: const Color(0xFF462c86),
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -653,7 +654,7 @@ class _CaisseState extends State<Caisse> {
                     padding: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                       color: const Color(0xFF462c86),
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
                       children: [
@@ -661,7 +662,7 @@ class _CaisseState extends State<Caisse> {
                           enabled: false,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             labelText: "0",
                             labelStyle: TextStyle(
@@ -792,15 +793,15 @@ class _CaisseState extends State<Caisse> {
           Padding(
             padding: const EdgeInsets.only(left: 25, bottom: 20),
             child: Container(
-              width: MediaQuery.of(context).size.width / 1.75,
+              width: MediaQuery.of(context).size.width / 2,
               decoration: BoxDecoration(
                 color: const Color(0xFF462c86),
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: GridView.count(
-                crossAxisCount: 4,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
+                crossAxisCount: 3,
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 8,
                 primary: false,
                 padding: const EdgeInsets.all(20),
                 children: <Widget>[
@@ -809,7 +810,7 @@ class _CaisseState extends State<Caisse> {
                       FlipCard(
                         direction: FlipDirection.HORIZONTAL,
                         front: Container(
-                          margin: const EdgeInsets.only(bottom: 25),
+                          margin: const EdgeInsets.only(bottom: 60),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -819,7 +820,7 @@ class _CaisseState extends State<Caisse> {
                               ),
                             ],
                             color: const Color(0xFF553b93),
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -830,8 +831,8 @@ class _CaisseState extends State<Caisse> {
                                 width: double.infinity,
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(25),
-                                      topRight: Radius.circular(25)),
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
                                   child: Image.asset(
                                     "${listeProduits[i].image}",
                                     //height: MediaQuery.of(context).size.height / 3,
@@ -871,7 +872,7 @@ class _CaisseState extends State<Caisse> {
                           ),
                         ),
                         back: Container(
-                          margin: const EdgeInsets.only(bottom: 25),
+                          margin: const EdgeInsets.only(bottom: 60),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -881,7 +882,7 @@ class _CaisseState extends State<Caisse> {
                               ),
                             ],
                             color: Colors.grey[800],
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -933,7 +934,7 @@ class _CaisseState extends State<Caisse> {
                                   primary: Colors.grey[800],
                                   fixedSize: const Size(200, 40),
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25)),
+                                      borderRadius: BorderRadius.circular(10)),
                                   side: const BorderSide(
                                     color: Colors.white,
                                   ),
@@ -974,11 +975,11 @@ class _CaisseState extends State<Caisse> {
                   padding: const EdgeInsets.only(left: 20, bottom: 20),
                   child: Container(
                     padding: const EdgeInsets.all(20.0),
-                    width: MediaQuery.of(context).size.width / 5,
+                    width: MediaQuery.of(context).size.width / 4,
                     height: MediaQuery.of(context).size.height / 1.5,
                     decoration: BoxDecoration(
                       color: const Color(0xFF462c86),
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
                       children: [
@@ -994,7 +995,7 @@ class _CaisseState extends State<Caisse> {
                           ),
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 20,
+                          height: MediaQuery.of(context).size.height / 35,
                         ),
                         const Align(
                           alignment: Alignment.topLeft,
@@ -1020,16 +1021,18 @@ class _CaisseState extends State<Caisse> {
                           ),
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 25,
+                          height: MediaQuery.of(context).size.height / 45,
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 3.75,
                           child: DataTable(
-                            columnSpacing: 40,
+dataRowHeight: 50,
+                            headingRowHeight: 50,
+                            columnSpacing: 30,
                             columns: const [
                               DataColumn(
                                 label: Text(
-                                  "Nom",
+                                  "Article",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.white,
@@ -1039,7 +1042,7 @@ class _CaisseState extends State<Caisse> {
                               DataColumn(
                                 numeric: true,
                                 label: Text(
-                                  "Quantité",
+                                  "Qté",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.white,
@@ -1048,9 +1051,18 @@ class _CaisseState extends State<Caisse> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  "Prix",
+                                  "Montant",
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  "Action",
+                                  style: TextStyle(
+                                    fontSize: 16,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -1089,6 +1101,14 @@ class _CaisseState extends State<Caisse> {
                                         ),
                                       ),
                                     ),
+                                    DataCell( IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {
+                                        setState(() {
+                                          listePanier[selectedTable]!.removeAt(i);
+                                        });
+                                      },
+                                    )),
                                   ],
                                 ),
                             ],
@@ -1098,13 +1118,13 @@ class _CaisseState extends State<Caisse> {
                           thickness: 2,
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 100,
+                          height: MediaQuery.of(context).size.height / 50,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Total",
+                              "Montant Total",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
@@ -1112,11 +1132,11 @@ class _CaisseState extends State<Caisse> {
                             ),
                             Text(getTotal().toString() + " DT",
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 20)),
+                                    color: Colors.white, fontSize: 25,fontFamily: 'Digital')),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 120,
+                          height: MediaQuery.of(context).size.height / 40,
                         ),
                         Align(
                           alignment: Alignment.center,
@@ -1124,18 +1144,43 @@ class _CaisseState extends State<Caisse> {
                             style: ElevatedButton.styleFrom(
                               elevation: 10,
                               primary: const Color(0xFF09c569),
-                              fixedSize: const Size(200, 35),
+                              fixedSize: const Size(200, 40),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () async {
-                              await imprimerCommande();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PreviewPDF()),
+                            onPressed: ()  {
+                              print(listePanier.values);
+                              //show scaffold snackbar
+                              if(listePanier[selectedTable]!.length == 0){
+                                Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Commande vide",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  backgroundColor: bgColor,
+                                ),
                               );
+
+                              }
+                              else
+                              {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Commande en cours de traitement ..",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  backgroundColor: bgColor,
+                                ),
+                              );
+                              }
+                            
                             },
                             child: const Text("Passer la commande",
                                 style: TextStyle(fontSize: 18)),
@@ -1150,12 +1195,28 @@ class _CaisseState extends State<Caisse> {
                             style: ElevatedButton.styleFrom(
                               elevation: 10,
                               primary: const Color(0xFF09c569),
-                              fixedSize: const Size(200, 35),
+                              fixedSize: const Size(200, 40),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: ()async  {
+                              await imprimerCommande();
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Ticket en cours d'impression ..",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  backgroundColor: bgColor,
+                                ),
+                              );
+                              setState(() {
+                                listePanier[selectedTable]=[];
+                              });
+                            },
                             child: const Text("Payer",
                                 style: TextStyle(fontSize: 18)),
                           ),
@@ -1171,11 +1232,11 @@ class _CaisseState extends State<Caisse> {
                   padding: const EdgeInsets.only(left: 20, bottom: 20),
                   child: Container(
                       padding: const EdgeInsets.all(20.0),
-                      width: MediaQuery.of(context).size.width / 5,
+                      width: MediaQuery.of(context).size.width / 4,
                       height: MediaQuery.of(context).size.height / 4.5,
                       decoration: BoxDecoration(
                         color: const Color(0xFF462c86),
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1189,12 +1250,19 @@ class _CaisseState extends State<Caisse> {
                                   primary: const Color(0xFF09c569),
                                   fixedSize: const Size(140, 50),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 onPressed: () {},
-                                child: const Text("Fonctionnalité 1",
-                                    style: TextStyle(fontSize: 15)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                     Text("Ouv. Tirroir",
+                                        style: TextStyle(fontSize: 16)),
+                                        Icon(Icons.lock_open,
+                                            size: 15, color: Colors.white),
+                                  ],
+                                ),
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -1202,12 +1270,19 @@ class _CaisseState extends State<Caisse> {
                                   primary: const Color(0xFF09c569),
                                   fixedSize: const Size(140, 50),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 onPressed: () {},
-                                child: const Text("Fonctionnalité 2",
-                                    style: TextStyle(fontSize: 15)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                     Text("Note Cmd",
+                                        style: TextStyle(fontSize: 16)),
+                                        Icon(Icons.note_add,
+                                            size: 15, color: Colors.white),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -1220,25 +1295,38 @@ class _CaisseState extends State<Caisse> {
                                   primary: const Color(0xFF09c569),
                                   fixedSize: const Size(140, 50),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 onPressed: () {},
-                                child: const Text("Fonctionnalité 3",
-                                    style: TextStyle(fontSize: 15)),
-                              ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                     Text("Chèques",
+                                        style: TextStyle(fontSize: 16)),
+                                        Icon(Icons.monetization_on,
+                                            size: 15, color: Colors.white),
+                                  ],
+                                ),),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 10,
                                   primary: const Color(0xFF09c569),
                                   fixedSize: const Size(140, 50),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 onPressed: () {},
-                                child: const Text("Fonctionnalité 4",
-                                    style: TextStyle(fontSize: 15)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                     Text("Tick. Resto",
+                                        style: TextStyle(fontSize: 16)),
+                                        Icon(Icons.paste_sharp,
+                                            size: 15, color: Colors.white),
+                                  ],
+                                ),
                               ),
                             ],
                           )
