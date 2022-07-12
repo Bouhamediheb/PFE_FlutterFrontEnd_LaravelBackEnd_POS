@@ -513,6 +513,15 @@ class _CaisseState extends State<Caisse> {
                                     color: Colors.red,
                                   ),
                                 )
+                              else
+                                Positioned(
+                                  right: 10,
+                                  top: 0,
+                                  child: Icon(
+                                    Icons.circle,
+                                    color: Colors.green,
+                                  ),
+                                )
                             ]),
                           );
                         }),
@@ -895,7 +904,7 @@ class _CaisseState extends State<Caisse> {
                                 children: [
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary:  Color(0xFF22577A),
+                                        primary: Color(0xFF22577A),
                                         fixedSize: const Size(40, 40),
                                         shape: const CircleBorder(),
                                         side: const BorderSide(
@@ -912,13 +921,15 @@ class _CaisseState extends State<Caisse> {
                                     child: const Icon(Icons.remove),
                                   ),
                                   Text(listeProduits[i].quantite.toString(),
-                                      style: const TextStyle(fontSize: 36,color: Color(0xFF22577A))),
+                                      style: const TextStyle(
+                                          fontSize: 36,
+                                          color: Color(0xFF22577A))),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary: Color(0xFF22577A),
                                         fixedSize: const Size(40, 40),
                                         shape: const CircleBorder(),
-                                        side:  BorderSide(
+                                        side: BorderSide(
                                           color: Color(0xFF22577A),
                                         )),
                                     onPressed: () {
@@ -980,7 +991,7 @@ class _CaisseState extends State<Caisse> {
                     width: MediaQuery.of(context).size.width / 4,
                     height: MediaQuery.of(context).size.height / 1.5,
                     decoration: BoxDecoration(
-                      color:  Color(0xFF22577A),
+                      color: Color(0xFF22577A),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
@@ -1028,7 +1039,7 @@ class _CaisseState extends State<Caisse> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 3.75,
                           child: DataTable(
-dataRowHeight: 50,
+                            dataRowHeight: 50,
                             headingRowHeight: 20,
                             columnSpacing: 40,
                             columns: const [
@@ -1088,37 +1099,41 @@ dataRowHeight: 50,
                                       Text(
                                         "${listePanier[selectedTable]!.elementAt(i).nomProd}",
                                         style: TextStyle(
-                                    fontSize: 15,
-                                    letterSpacing: 0.5,
-                                    color: Colors.white,
-                                  ),
+                                          fontSize: 15,
+                                          letterSpacing: 0.5,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                     DataCell(
                                       Text(
                                         "${listePanier[selectedTable]!.elementAt(i).quantiteProd}",
                                         style: TextStyle(
-                                    fontSize: 15,
-                                    letterSpacing: 0.5,
-                                    color: Colors.white,
-                                  ),
+                                          fontSize: 15,
+                                          letterSpacing: 0.5,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                     DataCell(
                                       Text(
                                         "${listePanier[selectedTable]!.elementAt(i).prixProd} DT",
                                         style: TextStyle(
-                                    fontSize: 15,
-                                    letterSpacing: 0.5,
-                                    color: Colors.white,
-                                  ),
+                                          fontSize: 15,
+                                          letterSpacing: 0.5,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
-                                    DataCell( IconButton(
-                                      icon: Icon(Icons.delete,color: Colors.red,),
+                                    DataCell(IconButton(
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Colors.red,
+                                      ),
                                       onPressed: () {
                                         setState(() {
-                                          listePanier[selectedTable]!.removeAt(i);
+                                          listePanier[selectedTable]!
+                                              .removeAt(i);
                                         });
                                       },
                                     )),
@@ -1145,7 +1160,9 @@ dataRowHeight: 50,
                             ),
                             Text(getTotal().toStringAsFixed(3) + " DT",
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 25,fontFamily: 'Digital')),
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontFamily: 'Digital')),
                           ],
                         ),
                         SizedBox(
@@ -1156,44 +1173,40 @@ dataRowHeight: 50,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               elevation: 2,
-                                  primary:  Color(0xFFD57E7E),
+                              primary: Color(0xFFD57E7E),
                               fixedSize: const Size(200, 40),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: ()  {
+                            onPressed: () {
                               print(listePanier.values);
                               //show scaffold snackbar
-                              if(listePanier[selectedTable]!.length == 0){
+                              if (listePanier[selectedTable]!.length == 0) {
                                 Scaffold.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    "Commande vide",
-                                    style: TextStyle(
-                                      color: Colors.white,
+                                  SnackBar(
+                                    content: Text(
+                                      "Commande vide",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
+                                    backgroundColor: bgColor,
                                   ),
-                                  backgroundColor: bgColor,
-                                ),
-                              );
-
-                              }
-                              else
-                              {
-                              Scaffold.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    "Commande en cours de traitement ..",
-                                    style: TextStyle(
-                                      color: Colors.white,
+                                );
+                              } else {
+                                Scaffold.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Commande en cours de traitement ..",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
+                                    backgroundColor: bgColor,
                                   ),
-                                  backgroundColor: bgColor,
-                                ),
-                              );
+                                );
                               }
-                            
                             },
                             child: const Text("Passer la commande",
                                 style: TextStyle(fontSize: 18)),
@@ -1213,7 +1226,7 @@ dataRowHeight: 50,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: ()async  {
+                            onPressed: () async {
                               await imprimerCommande();
                               Scaffold.of(context).showSnackBar(
                                 SnackBar(
@@ -1227,7 +1240,7 @@ dataRowHeight: 50,
                                 ),
                               );
                               setState(() {
-                                listePanier[selectedTable]=[];
+                                listePanier[selectedTable] = [];
                               });
                             },
                             child: const Text("Payer",
@@ -1248,7 +1261,7 @@ dataRowHeight: 50,
                       width: MediaQuery.of(context).size.width / 4,
                       height: MediaQuery.of(context).size.height / 4.5,
                       decoration: BoxDecoration(
-                      color:  Color(0xFF22577A),
+                        color: Color(0xFF22577A),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
@@ -1260,7 +1273,7 @@ dataRowHeight: 50,
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 2,
-                                  primary:  Color(0xFFFFFFFF),
+                                  primary: Color(0xFFFFFFFF),
                                   fixedSize: const Size(150, 60),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -1268,19 +1281,23 @@ dataRowHeight: 50,
                                 ),
                                 onPressed: () {},
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                     Text("Ouv. Tirroir",
-                                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
-                                        Icon(Icons.lock_open,
-                                            size: 22, color: Colors.black),
+                                    Text("Ouv. Tirroir",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16)),
+                                    Icon(Icons.lock_open,
+                                        size: 22, color: Colors.black),
                                   ],
                                 ),
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 2,
-                                  primary:  Color(0xFFFFFFFF),
+                                  primary: Color(0xFFFFFFFF),
                                   fixedSize: const Size(150, 60),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -1288,12 +1305,16 @@ dataRowHeight: 50,
                                 ),
                                 onPressed: () {},
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                     Text("Note Cmd",
-                                        style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),
-                                        Icon(Icons.note_add,
-                                            size: 22, color: Colors.black),
+                                    Text("Note Cmd",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold)),
+                                    Icon(Icons.note_add,
+                                        size: 22, color: Colors.black),
                                   ],
                                 ),
                               ),
@@ -1305,7 +1326,7 @@ dataRowHeight: 50,
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 2,
-                                  primary:  Color(0xFFFFFFFF),
+                                  primary: Color(0xFFFFFFFF),
                                   fixedSize: const Size(150, 60),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -1313,19 +1334,23 @@ dataRowHeight: 50,
                                 ),
                                 onPressed: () {},
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                     Text("Chéques",
-                                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
-                                        Icon(Icons.recent_actors,
-                                            size: 22, color: Colors.black),
+                                    Text("Chéques",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16)),
+                                    Icon(Icons.recent_actors,
+                                        size: 22, color: Colors.black),
                                   ],
                                 ),
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 2,
-                                  primary:  Color(0xFFFFFFFF),
+                                  primary: Color(0xFFFFFFFF),
                                   fixedSize: const Size(150, 60),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -1333,12 +1358,16 @@ dataRowHeight: 50,
                                 ),
                                 onPressed: () {},
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                     Text("Tick. Resto",
-                                        style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),
-                                        Icon(Icons.receipt,
-                                            size: 22, color: Colors.black),
+                                    Text("Tick. Resto",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold)),
+                                    Icon(Icons.receipt,
+                                        size: 22, color: Colors.black),
                                   ],
                                 ),
                               ),
@@ -1402,7 +1431,9 @@ class NumberButton extends StatelessWidget {
           child: Text(
             number.toString(),
             style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Color(0xFF22577A), fontSize: 30),
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF22577A),
+                fontSize: 30),
           ),
         ),
       ),
