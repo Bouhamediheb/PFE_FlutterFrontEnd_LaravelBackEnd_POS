@@ -1008,14 +1008,12 @@ static const snackBarStockError = SnackBar(
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           enabled: false,
+                                          suffixText: "DT",
                                           hintText: totalDoc,
                                           hintStyle: TextStyle(
                                             fontWeight: FontWeight.w400,
                                             color: Colors.grey.shade400,
                                           ),
-                                          prefixIcon: Icon(
-                                              Icons.attach_money_outlined,
-                                              color: Colors.grey.shade400),
                                           disabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 width: 1,

@@ -1047,7 +1047,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                                   ),
                                   MaterialButton(
                                     height: 53,
-                                    color: Color.fromARGB(255, 112, 112, 112),
+                                    color: Colors.green,
                                     onPressed: () {
                                       ajouterLigne();
                                     },
@@ -1113,7 +1113,6 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                                                           .text) -
                                                   double.parse(
                                                       stockInitial[j].text));
-
                                               modificationStock(
                                                   (widget.controllers[i - 4]
                                                           .text)
@@ -1223,9 +1222,7 @@ class _modifierUnDocumentState extends State<modifierUnDocument>
                                             fontWeight: FontWeight.w400,
                                             color: Colors.grey.shade400,
                                           ),
-                                          prefixIcon: Icon(
-                                              Icons.attach_money_outlined,
-                                              color: Colors.grey.shade400),
+                                          suffixText: 'DT',
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 width: 1,

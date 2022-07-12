@@ -942,9 +942,7 @@ static const snackBarStockError = SnackBar(
                                             fontWeight: FontWeight.w400,
                                             color: Colors.grey.shade400,
                                           ),
-                                          prefixIcon: Icon(
-                                              Icons.attach_money_outlined,
-                                              color: Colors.grey.shade400),
+                                          suffixText: 'DT',
                                           disabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 width: 1,
