@@ -30,10 +30,13 @@ class _SideMenuState extends State<SideMenu> {
       backgroundColor: bgColor,
       child: Column(
         children: [
-          DrawerHeader(
-            child: Image.asset(
-              "assets/images/logo2.png",
-              color: Colors.white,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DrawerHeader(
+              child: Image.asset(
+                "assets/images/logo.png",
+                color: Colors.white,
+              ),
             ),
           ),
           MaterialButton(

@@ -45,8 +45,8 @@ class _EtatStockState extends State<EtatStock> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(defaultPadding),
-      decoration:  BoxDecoration(
+      padding: EdgeInsets.all(defaultPadding),
+      decoration: BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
@@ -56,7 +56,7 @@ class _EtatStockState extends State<EtatStock> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Center(
+              Center(
                 child: Text(
                   'La liste des produits en stock :',
                   style: TextStyle(
@@ -65,36 +65,22 @@ class _EtatStockState extends State<EtatStock> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 7),
                 child: Divider(
                   thickness: 3,
                 ),
               ),
               DataTable(
-                columnSpacing: 100,
-                columns: const <DataColumn>[
+                columnSpacing: 80,
+                columns: <DataColumn>[
                   DataColumn(
                     label: Flexible(
-                      flex: 2,
+                      flex: 3,
                       child: Text(
                         "Produit",
                         maxLines: 5,
-                        style: TextStyle(
-                          fontSize: 15,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Flexible(
-                      flex: 2,
-                      child: Text(
-                        "Quantité",
-                        maxLines: 5,
-                        style: TextStyle(
-                          fontSize: 15,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                     ),
                   ),
@@ -102,10 +88,18 @@ class _EtatStockState extends State<EtatStock> {
                     label: Flexible(
                       flex: 1,
                       child: Text(
+                        "Quantité",
+                        maxLines: 5,
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Flexible(
+                      flex: 2,
+                      child: Text(
                         "Etat",
-                        style: TextStyle(
-                          fontSize: 15,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                     ),
                   ),
@@ -122,13 +116,13 @@ class _EtatStockState extends State<EtatStock> {
                         ),
                         // if produit stock is less than 5 then show red icon
                         produits![i]['stock'] <= 5
-                            ? const DataCell(
+                            ? DataCell(
                                 Icon(
                                   Icons.error,
                                   color: Colors.red,
                                 ),
                               )
-                            : const DataCell(
+                            : DataCell(
                                 Icon(
                                   Icons.check,
                                   color: Colors.green,

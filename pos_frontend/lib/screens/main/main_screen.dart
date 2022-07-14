@@ -19,14 +19,14 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       backgroundColor: bgColor,
       //key: context.read<MenuController>().scaffoldKey,
-      drawer: const SideMenu(),
+      drawer: SideMenu(),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // We want this side menu only for large screen
             if (Responsive.isDesktop(context))
-              const Expanded(
+              Expanded(
                 // default flex = 1
                 // and it takes 1/6 part of the screen
                 child: SideMenu(),

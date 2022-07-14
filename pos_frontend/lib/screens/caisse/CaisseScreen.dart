@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/services.dart';
@@ -241,9 +242,6 @@ class _CaisseState extends State<Caisse> {
     );
     final file = File("lib/Commande.pdf");
     file.writeAsBytesSync(await pdf.save());
-    PdfPreview(
-      build: (format) => pdf.save(),
-    );
   }
 
   Map<int, List<Panier>> listePanier = {};
@@ -820,7 +818,7 @@ class _CaisseState extends State<Caisse> {
                       FlipCard(
                         direction: FlipDirection.HORIZONTAL,
                         front: Container(
-                          margin: const EdgeInsets.only(bottom: 60),
+                          margin: const EdgeInsets.only(bottom: 40),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -883,7 +881,7 @@ class _CaisseState extends State<Caisse> {
                           ),
                         ),
                         back: Container(
-                          margin: const EdgeInsets.only(bottom: 60),
+                          margin: const EdgeInsets.only(bottom: 40),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -1038,12 +1036,13 @@ class _CaisseState extends State<Caisse> {
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 3.75,
-                          child: DataTable(
+                          child: DataTable2(
                             dataRowHeight: 50,
-                            headingRowHeight: 20,
-                            columnSpacing: 40,
+                            headingRowHeight: 40,
+                            columnSpacing: 13,
                             columns: const [
-                              DataColumn(
+                              DataColumn2(
+                                size: ColumnSize.L,
                                 label: Text(
                                   "Article",
                                   style: TextStyle(
@@ -1054,7 +1053,8 @@ class _CaisseState extends State<Caisse> {
                                   ),
                                 ),
                               ),
-                              DataColumn(
+                              DataColumn2(
+                                size: ColumnSize.S,
                                 numeric: true,
                                 label: Text(
                                   "Qté",
@@ -1066,7 +1066,9 @@ class _CaisseState extends State<Caisse> {
                                   ),
                                 ),
                               ),
-                              DataColumn(
+                              DataColumn2(
+                                size: ColumnSize.L,
+                                numeric: true,
                                 label: Text(
                                   "Montant",
                                   style: TextStyle(
@@ -1093,7 +1095,7 @@ class _CaisseState extends State<Caisse> {
                               for (var i = 0;
                                   i < listePanier[selectedTable]!.length;
                                   i++)
-                                DataRow(
+                                DataRow2(
                                   cells: [
                                     DataCell(
                                       Text(
@@ -1226,9 +1228,9 @@ class _CaisseState extends State<Caisse> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () async {
-                              await imprimerCommande();
-                              Scaffold.of(context).showSnackBar(
+                            onPressed: () {
+                              imprimerCommande();
+                              ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
                                     "Ticket en cours d'impression ..",

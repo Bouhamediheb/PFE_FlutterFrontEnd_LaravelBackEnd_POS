@@ -31,10 +31,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   flex: 5,
                   child: Column(
                     children: [
-                      const RecapMonetiques(),
-                      const SizedBox(height: defaultPadding),
+                      RecapMonetiques(),
+                      SizedBox(height: defaultPadding),
                       //HeaderRaccourcis(),
-                      const RecapEtat(),
+                      RecapEtat(),
                       SizedBox(
                         height: 10,
                       ),
@@ -51,9 +51,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                         ],
                       ),
-                      const SizedBox(height: defaultPadding),
-                      const LineChartSample2(),
-                      const SizedBox(height: defaultPadding),
+                      SizedBox(height: defaultPadding),
+                      LineChartSample2(),
+                      SizedBox(height: defaultPadding),
                       SizedBox(
                         height: 10,
                       ),
@@ -70,22 +70,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                         ],
                       ),
-                      const SizedBox(height: defaultPadding),
-                      const LineChartSample1(),
+                      SizedBox(height: defaultPadding),
+                      LineChartSample1(),
                       if (Responsive.isMobile(context))
-                        const SizedBox(height: defaultPadding),
-                      if (Responsive.isMobile(context)) const EtatStock(),
+                        SizedBox(height: defaultPadding),
+                      if (Responsive.isMobile(context)) EtatStock(),
                     ],
                   ),
                 ),
                 if (!Responsive.isMobile(context))
-                  const SizedBox(width: defaultPadding),
+                  SizedBox(width: defaultPadding),
                 // On Mobile means if the screen is less than 850 we dont want to show it
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
                     child: Column(
-                      children: const [
+                      children: [
                         EtatStock(),
                         SizedBox(height: 20),
                         ListeRaccourcis()

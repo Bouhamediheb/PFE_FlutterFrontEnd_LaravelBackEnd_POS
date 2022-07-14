@@ -155,7 +155,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                               "Tapez la référence du produit",
                                           fieldController: refProduit,
                                           whattoAllow:
-                                              RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
+                                              RegExp('[a-z A-Z á-ú Á-Ú 0-9 /]'),
                                           fieldValidator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
@@ -173,7 +173,7 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                           label: "Nom du produit",
                                           content: "Tapez le nom du produit",
                                           whattoAllow:
-                                              RegExp('[a-z A-Z á-ú Á-Ú 0-9]'),
+                                              RegExp('[a-z A-Z á-ú Á-Ú 0-9 /]'),
                                           fieldController: nomProduit,
                                           fieldValidator: (value) {
                                             if (value == null ||
@@ -376,13 +376,14 @@ class _ajouterUnProduitState extends State<ajouterUnProduit> {
                                           )),
                                     );
 
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              MainScreen(DashboardScreen())),
-                                    );
-                                    setState(() {});
+                                    setState(() {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MainScreen(DashboardScreen())),
+                                      );
+                                    });
                                   }
                                 },
                                 child: const Text(

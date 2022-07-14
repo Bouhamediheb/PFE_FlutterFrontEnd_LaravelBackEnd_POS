@@ -35,7 +35,7 @@ class _HeaderState extends State<Header> {
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
         if (!Responsive.isMobile(context)) Spacer(),
-        const ProfileCard()
+        ProfileCard()
       ],
     );
   }
